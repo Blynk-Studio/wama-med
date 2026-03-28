@@ -21,9 +21,9 @@ export default function ContactPage() {
         className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pb-36"
         style={{ background: "rgba(15,41,56,0.5)" }}
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+        <div className="section-shell relative z-10">
           {/* Availability badge */}
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-widest mb-6" style={{ background: "rgba(201,168,76,0.15)", color: "#C9A84C" }}>
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm tracking-[0.14em] mb-6" style={{ background: "rgba(212,180,131,0.15)", color: "var(--gold)" }}>
             <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#4ade80" }} />
             Disponible maintenant · Répond en &lt; 2h
           </div>
@@ -43,16 +43,16 @@ export default function ContactPage() {
             <span className="text-brass">d&apos;être entre de bonnes mains.</span>
           </h1>
           <p
-            className="mt-5 text-base leading-relaxed max-w-xl"
-            style={{ color: "rgba(245,240,232,0.6)" }}
+            className="mt-5 body-copy max-w-xl"
+            style={{ color: "var(--text-body)" }}
           >
             Partagez votre situation. Notre équipe vous répond sous 2 heures.
             Disponible 24h/24, 7j/7.
           </p>
           <a
             href={PHONE_HREF}
-            className="inline-flex items-center gap-2 text-base font-medium mt-4 transition-colors duration-200"
-            style={{ color: "rgba(245,240,232,0.7)" }}
+            className="inline-flex items-center gap-2 text-lg font-medium mt-4 transition-colors duration-200"
+            style={{ color: "var(--text-body)" }}
           >
             <span aria-hidden="true">&#128222;</span> {PHONE}
           </a>
@@ -65,7 +65,7 @@ export default function ContactPage() {
         style={{ background: "#0A0E1A" }}
         aria-label="Formulaire de contact et informations"
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="section-shell">
           <div className="grid lg:grid-cols-2 gap-12 sm:gap-16">
             {/* Left — Form */}
             <div data-animate>
@@ -78,8 +78,8 @@ export default function ContactPage() {
                 Soumettez votre dossier.
               </h2>
               <p
-                className="text-sm leading-relaxed mb-6"
-                style={{ color: "rgba(245,240,232,0.55)" }}
+                className="body-copy mb-6"
+                style={{ color: "var(--text-body)" }}
               >
                 Notre équipe vous répond sous 2 heures.
               </p>
@@ -88,8 +88,8 @@ export default function ContactPage() {
 
               {/* NAP Info Block */}
               <div
-                className="mt-8 rounded-xl p-6 border border-brass/15 space-y-3 text-sm"
-                style={{ background: "#0A1E2A", color: "rgba(245,240,232,0.5)" }}
+                className="panel-dark rounded-[1.5rem] mt-8 p-7 space-y-4 text-base"
+                style={{ color: "var(--text-body)" }}
               >
                 <p className="flex items-start gap-2.5">
                   <span className="text-brass mt-0.5">&#128205;</span>
@@ -132,8 +132,8 @@ export default function ContactPage() {
                 Démarrez maintenant.
               </h2>
               <p
-                className="text-sm leading-relaxed mb-6"
-                style={{ color: "rgba(245,240,232,0.55)" }}
+                className="body-copy mb-6"
+                style={{ color: "var(--text-body)" }}
               >
                 Posez vos questions sur nos services, le processus ou les tarifs — ou décrivez
                 directement votre situation pour une orientation immédiate.

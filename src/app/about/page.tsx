@@ -49,7 +49,7 @@ export default function AboutPage() {
           قصتنا
         </p>
 
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+        <div className="section-shell relative z-10">
           <p className="eyebrow text-brass mb-3">Notre histoire</p>
           <span className="brass-rule mb-6 block" />
           <h1
@@ -71,7 +71,7 @@ export default function AboutPage() {
         style={{ background: "#0F2938" }}
         data-animate
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="section-shell">
           <div className="grid lg:grid-cols-2 gap-12 sm:gap-20 items-start">
             {/* Portrait */}
             <div className="relative" data-animate>
@@ -95,7 +95,7 @@ export default function AboutPage() {
                 >
                   Driss Benwahoud
                 </p>
-                <p className="text-xs mt-0.5" style={{ color: "rgba(245,240,232,0.5)" }}>
+                <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>
                   Fondateur &amp; Directeur — Wama Med
                 </p>
               </div>
@@ -111,7 +111,7 @@ export default function AboutPage() {
                 cite="Driss Benwahoud, Fondateur"
               />
 
-              <div className="space-y-4 leading-relaxed text-[15px]" style={{ color: "rgba(245,240,232,0.6)" }}>
+              <div className="space-y-4 body-copy" style={{ color: "var(--text-body)" }}>
                 <p>
                   Driss Benwahoud n&apos;a pas fondé Wama Med pour saisir une opportunité de marché.
                   Il l&apos;a fondé après avoir vécu personnellement le chaos de la coordination
@@ -133,7 +133,7 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <p className="text-brass text-sm font-semibold mt-8">
+              <p className="text-brass text-base font-semibold mt-8">
                 10+ ans dans le secteur de la santé et de l&apos;assurance
               </p>
             </div>
@@ -147,7 +147,7 @@ export default function AboutPage() {
         style={{ background: "#0A0E1A" }}
         aria-label="Expertise"
       >
-        <div className="max-w-5xl mx-auto px-5 sm:px-8">
+        <div className="section-shell-tight">
           <div className="grid grid-cols-3 gap-6 sm:gap-8 text-center" data-animate-children>
             <div data-animate-child>
               <p
@@ -156,7 +156,7 @@ export default function AboutPage() {
               >
                 Secteur assurance &amp; santé
               </p>
-              <p className="text-xs sm:text-sm" style={{ color: "rgba(245,240,232,0.5)" }}>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
                 Plus de dix ans d&apos;expérience
               </p>
             </div>
@@ -167,7 +167,7 @@ export default function AboutPage() {
               >
                 Dossiers complexes
               </p>
-              <p className="text-xs sm:text-sm" style={{ color: "rgba(245,240,232,0.5)" }}>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
                 Traités avec méthode et rigueur
               </p>
             </div>
@@ -178,7 +178,7 @@ export default function AboutPage() {
               >
                 Portée internationale
               </p>
-              <p className="text-xs sm:text-sm" style={{ color: "rgba(245,240,232,0.5)" }}>
+              <p className="text-sm" style={{ color: "var(--text-muted)" }}>
                 France, Belgique, Afrique subsaharienne
               </p>
             </div>
@@ -192,7 +192,7 @@ export default function AboutPage() {
         style={{ background: "#0F2938" }}
         data-animate
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="section-shell">
           <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
             <div data-animate>
               <p className="eyebrow text-brass mb-4">Notre mission</p>
@@ -203,13 +203,13 @@ export default function AboutPage() {
               >
                 La coordination médicale comme service professionnel structuré — enfin.
               </h2>
-              <p className="leading-relaxed text-[15px]" style={{ color: "rgba(245,240,232,0.6)" }}>
+              <p className="body-copy" style={{ color: "var(--text-body)" }}>
                 Le système de santé marocain dispose d&apos;excellents spécialistes et
                 d&apos;établissements de qualité. Ce qui lui manque, c&apos;est l&apos;articulation entre ces
                 acteurs — quelqu&apos;un qui prend en charge la navigation opérationnelle pour que
                 le patient n&apos;ait plus à gérer la bureaucratie en même temps qu&apos;une maladie.
               </p>
-              <p className="leading-relaxed text-[15px] mt-4" style={{ color: "rgba(245,240,232,0.6)" }}>
+              <p className="body-copy mt-4" style={{ color: "var(--text-body)" }}>
                 Wama Med est cette articulation. Nous ne guérissons pas. Nous coordonnons —
                 et dans ce contexte, la coordination, c&apos;est la sécurité.
               </p>
@@ -235,7 +235,7 @@ export default function AboutPage() {
         data-animate
         aria-labelledby="values-heading"
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="section-shell">
           <div className="text-center mb-14">
             <p className="eyebrow text-brass mb-3">Nos valeurs</p>
             <span className="brass-rule mx-auto mb-5 block" />
@@ -252,25 +252,24 @@ export default function AboutPage() {
             {VALUES.map((v) => (
               <div
                 key={v.title}
-                className="rounded-2xl p-6 border border-brass/15 hover:border-brass/40 hover:shadow-2xl transition-all duration-300"
-                style={{ background: "#0A1E2A" }}
+                className="panel-dark rounded-[1.75rem] p-8 hover:border-brass/40 hover:shadow-2xl transition-all duration-300"
                 data-animate-child
               >
                 {/* Arabic micro-label */}
                 <p
-                  className="font-almarai text-xs tracking-widest mb-4"
-                  style={{ color: "rgba(201,168,76,0.6)", direction: "rtl", textAlign: "right" }}
+                  className="font-almarai text-sm tracking-[0.08em] mb-4"
+                  style={{ color: "var(--gold)", direction: "rtl", textAlign: "right" }}
                   aria-hidden="true"
                 >
                   {v.ar}
                 </p>
                 <h3
-                  className="font-bold text-lg mb-2"
-                  style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
+                  className="font-bold text-2xl mb-3"
+                  style={{ fontFamily: "var(--font-cormorant)", color: "var(--text-high)" }}
                 >
                   {v.title}
                 </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.55)" }}>
+                <p className="body-copy" style={{ color: "var(--text-body)" }}>
                   {v.desc}
                 </p>
               </div>

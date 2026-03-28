@@ -10,6 +10,8 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
     if (!el) return;
 
     let revealed = false;
+    let observer: IntersectionObserver | null = null;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
 
     const revealWords = async () => {
       if (revealed) return;
@@ -32,10 +34,10 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
     (async () => {
       const { default: gsap } = await import("gsap");
 
-      const observer = new IntersectionObserver(
+      observer = new IntersectionObserver(
         ([entry]) => {
           if (!entry.isIntersecting) return;
-          observer.disconnect();
+          observer?.disconnect();
           revealWords();
         },
         { threshold: 0.1, rootMargin: "0px 0px -20px 0px" }
@@ -44,13 +46,18 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
       observer.observe(el);
 
       // Safety timeout: force-reveal if still dimmed after 1.2s
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         if (revealed) return;
         revealed = true;
         const words = el.querySelectorAll<HTMLSpanElement>("[data-word]");
         gsap.to(words, { opacity: 1, stagger: 0.03, duration: 0.3, ease: "power2.out" });
       }, 1200);
     })();
+
+    return () => {
+      observer?.disconnect();
+      if (timeoutId) clearTimeout(timeoutId);
+    };
   }, []);
 
   const words = text.split(" ");
@@ -63,7 +70,7 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
     >
       <p
         className="text-xl sm:text-2xl italic leading-relaxed"
-        style={{ color: "rgba(245,240,232,0.85)" }}
+        style={{ color: "rgba(245,240,232,0.92)" }}
       >
         &ldquo;
         {words.map((word, i) => (
@@ -71,7 +78,7 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
             key={i}
             data-word
             className="inline-block"
-            style={{ opacity: 0.15 }}
+            style={{ opacity: 0.4 }}
           >
             {word}
             {i < words.length - 1 ? "\u00A0" : ""}
@@ -81,7 +88,7 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
       </p>
       <cite
         className="text-sm not-italic font-medium mt-3 block"
-        style={{ color: "rgba(201,168,76,0.7)" }}
+        style={{ color: "rgba(212,180,131,0.82)" }}
       >
         — {cite}
       </cite>

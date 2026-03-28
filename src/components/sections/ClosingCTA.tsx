@@ -19,7 +19,7 @@ export function ClosingCTA() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 text-center relative z-10">
+      <div className="section-shell text-center relative z-10">
         <p className="eyebrow text-brass mb-4">Première étape</p>
         <span className="brass-rule mx-auto mb-6 block" />
         <h2
@@ -31,9 +31,9 @@ export function ClosingCTA() {
           <br />
           <span style={{ color: "var(--color-brass)" }}>un expert à vos côtés.</span>
         </h2>
-        <p className="text-cream/60 max-w-lg mx-auto mb-10 leading-relaxed text-base body-copy text-left sm:text-center">
+        <p className="dark-copy max-w-xl mx-auto mb-10 body-copy text-left sm:text-center">
           Soumettez votre situation. Notre équipe vous répond sous 2 heures.
-          Disponible 24h/24, 7j/7, pour la France, la Belgique, l'Afrique subsaharienne,
+          Disponible 24h/24, 7j/7, pour la France, la Belgique, l&apos;Afrique subsaharienne,
           et partout dans le monde.
         </p>
 
@@ -55,7 +55,7 @@ export function ClosingCTA() {
           </a>
         </div>
 
-        <p className="text-cream/60 text-sm mt-8">
+        <p className="text-cream/72 text-base mt-8">
           <span aria-hidden="true">📞</span>{" "}
           <a href="tel:+212522000000" className="hover:text-cream/60 transition-colors duration-200">
             +212 522 000 000

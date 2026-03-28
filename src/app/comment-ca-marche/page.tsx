@@ -113,7 +113,7 @@ export default function CommentCaMarchePage() {
           كيف يعمل
         </p>
 
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+        <div className="section-shell relative z-10">
           <p className="eyebrow text-brass mb-3">Notre Approche</p>
           <span className="brass-rule mb-6 block" />
           <h1
@@ -129,8 +129,8 @@ export default function CommentCaMarchePage() {
             <span className="text-brass">en 4 étapes.</span>
           </h1>
           <p
-            className="max-w-2xl mt-6 leading-relaxed text-base"
-            style={{ color: "rgba(245,240,232,0.6)" }}
+            className="max-w-2xl mt-6 body-copy"
+            style={{ color: "var(--text-body)" }}
           >
             Le protocole Wama Med est conçu pour éliminer toute incertitude.
             Chaque étape a un objectif défini, un délai réaliste et un responsable identifié.
@@ -144,7 +144,7 @@ export default function CommentCaMarchePage() {
         style={{ background: "#0A0E1A" }}
         aria-label="Étapes du processus"
       >
-        <div className="max-w-5xl mx-auto px-5 sm:px-8">
+        <div className="section-shell-tight">
           <AnimatedTimeline steps={STEPS} />
         </div>
       </section>
@@ -155,7 +155,7 @@ export default function CommentCaMarchePage() {
         style={{ background: "#0F2938" }}
         aria-labelledby="faq-heading"
       >
-        <div className="max-w-4xl mx-auto px-5 sm:px-8">
+        <div className="section-shell-tight">
           <div className="text-center mb-12" data-animate>
             <p className="eyebrow text-brass mb-3">Questions fréquentes</p>
             <span className="brass-rule mx-auto mb-5 block" />
@@ -171,7 +171,7 @@ export default function CommentCaMarchePage() {
           <FaqAccordion items={FAQS} />
 
           <div className="text-center mt-10" data-animate>
-            <p className="text-sm mb-4" style={{ color: "rgba(245,240,232,0.4)" }}>
+            <p className="text-base mb-4" style={{ color: "var(--text-muted)" }}>
               Vous avez une question non listée ci-dessus ?
             </p>
             <Link

@@ -17,62 +17,63 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    let cleanup = () => {};
+
     (async () => {
       const { default: gsap } = await import("gsap");
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
 
-      // Set initial states via GSAP (not inline styles)
-      if (lineRef.current) {
-        gsap.set(lineRef.current, { scaleY: 0 });
-      }
-      cardsRef.current.forEach((el, i) => {
-        if (!el) return;
-        const fromX = i % 2 === 0 ? -40 : 40;
-        gsap.set(el, { opacity: 0, x: fromX });
+      const ctx = gsap.context(() => {
+        if (lineRef.current) {
+          gsap.set(lineRef.current, { scaleY: 0 });
+        }
+        cardsRef.current.forEach((el, i) => {
+          if (!el) return;
+          const fromX = i % 2 === 0 ? -40 : 40;
+          gsap.set(el, { opacity: 0, x: fromX });
+        });
+
+        if (lineRef.current) {
+          gsap.fromTo(
+            lineRef.current,
+            { scaleY: 0 },
+            {
+              scaleY: 1,
+              ease: "none",
+              scrollTrigger: {
+                trigger: lineRef.current.parentElement,
+                start: "top 72%",
+                end: "bottom 28%",
+                scrub: true,
+              },
+            }
+          );
+        }
+
+        cardsRef.current.forEach((el, i) => {
+          if (!el) return;
+          const fromX = i % 2 === 0 ? -40 : 40;
+          gsap.fromTo(
+            el,
+            { opacity: 0, x: fromX },
+            {
+              opacity: 1,
+              x: 0,
+              duration: 0.75,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 92%",
+                once: true,
+              },
+            }
+          );
+        });
       });
 
-      // Animate vertical line scaleY 0 → 1
-      if (lineRef.current) {
-        gsap.fromTo(
-          lineRef.current,
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: lineRef.current.parentElement,
-              start: "top 70%",
-              end: "bottom 30%",
-              scrub: true,
-            },
-          }
-        );
-      }
-
-      // Animate cards — odd from left, even from right
-      cardsRef.current.forEach((el, i) => {
-        if (!el) return;
-        const fromX = i % 2 === 0 ? -40 : 40;
-        gsap.fromTo(
-          el,
-          { opacity: 0, x: fromX },
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.7,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 95%",
-              once: true,
-            },
-          }
-        );
-      });
-
-      // Safety timeout: force-show any cards still hidden after 1.5s
-      setTimeout(() => {
+      timeoutId = setTimeout(() => {
         cardsRef.current.forEach((el) => {
           if (!el) return;
           const computed = window.getComputedStyle(el);
@@ -87,7 +88,16 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
           }
         }
       }, 1500);
+
+      cleanup = () => {
+        if (timeoutId) clearTimeout(timeoutId);
+        ctx.revert();
+      };
     })();
+
+    return () => {
+      cleanup();
+    };
   }, []);
 
   return (
@@ -126,10 +136,14 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
                 className={`${isEven ? "sm:col-start-1 sm:text-right sm:pr-12" : "sm:col-start-2 sm:pl-12"}`}
               >
                 <div
-                  className={`rounded-2xl p-6 sm:p-8 border border-brass/10 ${
-                    isEven ? "" : ""
-                  }`}
-                  style={{ background: idx % 2 === 0 ? "#0A1E2A" : "rgba(245,240,232,0.04)" }}
+                  className={`rounded-[1.75rem] p-8 sm:p-9 border border-brass/15`}
+                  style={{
+                    background:
+                      idx % 2 === 0
+                        ? "linear-gradient(180deg, rgba(20, 25, 40, 0.96) 0%, rgba(15, 20, 34, 0.98) 100%)"
+                        : "linear-gradient(180deg, rgba(18, 24, 39, 0.88) 0%, rgba(13, 18, 31, 0.95) 100%)",
+                    boxShadow: "0 24px 48px rgba(0,0,0,0.22)",
+                  }}
                 >
                   {/* Ghost number */}
                   <p
@@ -150,22 +164,22 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
 
                   {/* Duration badge */}
                   <span
-                    className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium mb-4"
-                    style={{ background: "rgba(201,168,76,0.15)", color: "#C9A84C" }}
+                    className="inline-flex items-center rounded-full px-3.5 py-1.5 text-sm font-medium mb-5"
+                    style={{ background: "rgba(212,180,131,0.15)", color: "var(--gold)" }}
                   >
                     {step.durationLabel}: {step.duration}
                   </span>
 
                   <h3
-                    className={`text-xl sm:text-2xl font-black mb-3 leading-tight ${isEven ? "sm:text-right" : ""}`}
-                    style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
+                    className={`text-2xl sm:text-[2rem] font-black mb-4 leading-tight ${isEven ? "sm:text-right" : ""}`}
+                    style={{ fontFamily: "var(--font-cormorant)", color: "var(--text-high)" }}
                   >
                     {step.title}
                   </h3>
 
                   <p
-                    className={`text-sm leading-relaxed mb-4 ${isEven ? "sm:text-right" : ""}`}
-                    style={{ color: "rgba(245,240,232,0.6)" }}
+                    className={`body-copy mb-5 ${isEven ? "sm:text-right" : ""}`}
+                    style={{ color: "var(--text-body)" }}
                   >
                     {step.desc}
                   </p>
@@ -174,8 +188,8 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
                     {step.details.map((d) => (
                       <li
                         key={d}
-                        className={`flex items-start gap-2.5 text-sm ${isEven ? "sm:flex-row-reverse sm:text-right" : ""}`}
-                        style={{ color: "rgba(245,240,232,0.55)" }}
+                        className={`flex items-start gap-2.5 text-base ${isEven ? "sm:flex-row-reverse sm:text-right" : ""}`}
+                        style={{ color: "var(--text-muted)" }}
                       >
                         <span className="text-brass mt-0.5 flex-shrink-0">&#10003;</span>
                         {d}
@@ -184,11 +198,11 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
                   </ul>
 
                   <blockquote
-                    className={`rounded-lg p-4 text-sm italic leading-relaxed border border-brass/10 ${isEven ? "sm:text-right" : ""}`}
+                    className={`rounded-2xl p-5 text-base italic leading-relaxed border border-brass/10 ${isEven ? "sm:text-right" : ""}`}
                     style={{
                       fontFamily: "var(--font-crimson)",
-                      color: "rgba(245,240,232,0.5)",
-                      background: "rgba(201,168,76,0.05)",
+                      color: "var(--text-muted)",
+                      background: "rgba(212,180,131,0.06)",
                     }}
                   >
                     {step.callout}

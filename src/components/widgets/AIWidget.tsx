@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { usePathname } from "next/navigation";
 
 type Tab = "chat" | "voice";
 type VoiceState = "idle" | "connecting" | "active" | "ending";
@@ -292,7 +293,7 @@ function AIWidgetPanel({
               {voiceState === "idle" &&
                 "Notre assistant répond en français 24h/24"}
               {voiceState === "active" &&
-                "Parlez normalement — l'assistant vous écoute"}
+                "Parlez normalement — l’assistant vous écoute"}
             </p>
           </div>
           {voiceState === "idle" && (
@@ -300,7 +301,7 @@ function AIWidgetPanel({
               onClick={startVoiceCall}
               className="w-full bg-teal hover:bg-teal-light text-cream font-semibold py-3 rounded-full transition-colors"
             >
-              Démarrer l'appel
+              D&eacute;marrer l&apos;appel
             </button>
           )}
           {voiceState === "active" && (
@@ -308,7 +309,7 @@ function AIWidgetPanel({
               onClick={endVoiceCall}
               className="w-full bg-red-500/80 hover:bg-red-500 text-white font-semibold py-3 rounded-full transition-colors"
             >
-              Terminer l'appel
+              Terminer l&apos;appel
             </button>
           )}
           {(voiceState === "connecting" || voiceState === "ending") && (
@@ -326,7 +327,12 @@ function AIWidgetPanel({
    Floating Widget Button + Panel (Placement 1)
    ────────────────────────────────────────────────────────── */
 export function AIWidget() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+
+  if (pathname === "/contact") {
+    return null;
+  }
 
   return (
     <>

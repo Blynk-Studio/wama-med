@@ -31,17 +31,24 @@ export function Header() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [menuOpen]);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-teal/95 shadow-lg shadow-black/20"
+            ? "bg-[rgba(10,14,26,0.82)] shadow-lg shadow-black/20"
             : "bg-transparent"
         }`}
         style={{ backdropFilter: scrolled ? "blur(12px)" : "none" }}
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
+        <div className="section-shell h-16 sm:h-20 flex items-center justify-between">
           {/* Logo */}
           <Link
             href="/"
@@ -64,7 +71,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 prefetch={false}
-                className="text-cream/80 hover:text-cream text-sm font-medium tracking-wide transition-colors duration-200 relative group"
+                className="text-cream/85 hover:text-cream text-base font-medium tracking-wide transition-colors duration-200 relative group"
               >
                 {link.label}
                 <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-brass group-hover:w-full transition-all duration-300" />
@@ -76,13 +83,13 @@ export function Header() {
           <div className="hidden md:flex items-center gap-5">
             <a
               href={PHONE_HREF}
-              className="text-cream/70 hover:text-cream text-sm font-medium transition-colors duration-200 hover:drop-shadow-[0_0_8px_rgba(184,144,58,0.6)]"
+              className="text-cream/75 hover:text-cream text-base font-medium transition-colors duration-200 hover:drop-shadow-[0_0_8px_rgba(212,180,131,0.4)]"
             >
               {PHONE}
             </a>
             <Link
               href="/contact"
-              className="bg-brass hover:bg-brass-light text-ink font-semibold text-sm px-5 py-2.5 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-brass/30 hover:scale-105"
+              className="bg-brass hover:bg-brass-light text-ink font-semibold text-sm px-6 py-3 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-brass/30 hover:scale-105"
             >
               Soumettre un dossier
             </Link>
@@ -114,7 +121,7 @@ export function Header() {
       {/* Mobile Drawer — OUTSIDE header to avoid backdrop-filter containing block trap */}
       <div
         id="mobile-menu"
-        className={`fixed inset-0 top-16 bg-teal z-40 transition-all duration-300 lg:hidden ${
+        className={`fixed inset-0 top-16 sm:top-20 bg-[rgba(10,14,26,0.98)] z-40 transition-all duration-300 lg:hidden ${
           menuOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-2 pointer-events-none"
@@ -127,9 +134,9 @@ export function Header() {
               href={link.href}
               prefetch={false}
               onClick={() => setMenuOpen(false)}
-              className="text-cream text-2xl font-medium border-b border-cream/10 pb-4 hover:text-brass transition-all duration-200"
+              className="text-cream text-[2rem] font-medium border-b border-[var(--gold-faint)] pb-4 hover:text-brass transition-all duration-200"
               style={{
-                fontFamily: "var(--font-fraunces)",
+                fontFamily: "var(--font-cormorant)",
                 opacity: menuOpen ? 1 : 0,
                 transform: menuOpen ? "translateY(0)" : "translateY(-6px)",
                 transitionDelay: menuOpen ? `${60 + i * 55}ms` : "0ms",
@@ -140,7 +147,7 @@ export function Header() {
           ))}
           <a
             href={PHONE_HREF}
-            className="text-cream/70 text-lg mt-4"
+            className="text-cream/75 text-lg mt-4"
           >
             <span aria-hidden="true">📞</span> {PHONE}
           </a>

@@ -30,7 +30,7 @@ export function ProcessPreview() {
       data-animate
       aria-labelledby="process-heading"
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+      <div className="section-shell">
         {/* Header */}
         <div className="text-center mb-14" data-animate>
           <p className="eyebrow text-brass mb-3">Notre Approche</p>
@@ -62,7 +62,7 @@ export function ProcessPreview() {
                 />
               )}
 
-              <div className="bg-stone rounded-2xl p-6 border border-stone-dark hover:border-brass/30 transition-all duration-300 hover:shadow-lg relative z-10">
+              <div className="bg-stone rounded-2xl p-7 border border-stone-dark hover:border-brass/30 transition-all duration-300 hover:shadow-lg relative z-10">
                 <p
                   className="font-fraunces text-5xl font-black text-brass/20 leading-none mb-3 select-none"
                   style={{ fontFamily: "var(--font-fraunces)" }}
@@ -71,12 +71,12 @@ export function ProcessPreview() {
                   {step.number}
                 </p>
                 <h3
-                  className="text-ink font-bold text-base mb-2"
-                  style={{ fontFamily: "var(--font-fraunces)" }}
+                  className="text-ink font-bold text-xl mb-3 leading-tight"
+                  style={{ fontFamily: "var(--font-cormorant)" }}
                 >
                   {step.title}
                 </h3>
-                <p className="text-ink/55 text-sm leading-relaxed body-copy text-left">
+                <p className="text-ink/70 body-copy text-left">
                   {step.desc}
                 </p>
               </div>
@@ -88,7 +88,7 @@ export function ProcessPreview() {
           <Link
               prefetch={false}
             href="/comment-ca-marche"
-            className="inline-flex items-center gap-2 text-teal hover:text-teal-light font-semibold group"
+            className="inline-flex items-center gap-2 text-teal hover:text-teal-light text-base font-semibold group"
           >
             Découvrir notre protocole complet
             <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>

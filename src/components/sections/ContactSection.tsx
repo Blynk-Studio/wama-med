@@ -38,24 +38,24 @@ export function ContactSection() {
   const fieldStyle = {
     background: 'transparent',
     border: 'none',
-    borderBottom: '1px solid rgba(201,168,76,0.35)',
-    color: '#F5F0E8',
-    fontFamily: "'Cormorant Garamond', Georgia, serif",
-    fontSize: '18px',
-    padding: '10px 0',
+    borderBottom: '1px solid rgba(212,180,131,0.35)',
+    color: 'var(--text-high)',
+    fontFamily: 'var(--font-sans)',
+    fontSize: '16px',
+    padding: '12px 0',
     width: '100%',
     outline: 'none',
     transition: 'border-bottom-color 0.2s ease',
   } as React.CSSProperties;
 
   const labelStyle = {
-    fontFamily: 'Inter, DM Sans, sans-serif',
-    fontSize: '12px',
-    letterSpacing: '0.18em',
+    fontFamily: 'var(--font-sans)',
+    fontSize: '14px',
+    letterSpacing: '0.14em',
     textTransform: 'uppercase' as const,
-    color: '#C9A84C',
+    color: 'var(--gold)',
     display: 'block',
-    marginBottom: '6px',
+    marginBottom: '8px',
   };
 
   return (
@@ -68,14 +68,14 @@ export function ContactSection() {
         padding: 'clamp(64px, 10vw, 100px) clamp(24px, 5vw, 64px)',
       }}
     >
-      <div style={{ maxWidth: '720px', margin: '0 auto' }} data-animate>
+      <div style={{ maxWidth: '760px', margin: '0 auto' }} data-animate>
         {/* Headings */}
         <div style={{ marginBottom: '48px' }}>
           <p style={{
-            fontFamily: 'Inter, DM Sans, sans-serif',
-            fontSize: '12px',
-            letterSpacing: '0.18em',
-            color: '#C9A84C',
+            fontFamily: 'var(--font-sans)',
+            fontSize: '14px',
+            letterSpacing: '0.16em',
+            color: 'var(--gold)',
             textTransform: 'uppercase',
             marginBottom: '16px',
           }}>
@@ -84,21 +84,21 @@ export function ContactSection() {
           <h2
             id="contact-heading"
             style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontFamily: "var(--font-cormorant)",
               fontSize: 'clamp(2.2rem, 5vw, 3.6rem)',
-              fontWeight: 300,
-              color: '#F5F0E8',
-              lineHeight: 1.1,
+              fontWeight: 600,
+              color: 'var(--text-high)',
+              lineHeight: 1,
               marginBottom: '8px',
             }}
           >
-            Votre dossier mérite d'être entre de bonnes mains.
+            Votre dossier m&eacute;rite d&apos;&ecirc;tre entre de bonnes mains.
           </h2>
           <p
             style={{
-              fontFamily: "'Almarai', sans-serif",
+              fontFamily: "var(--font-almarai)",
               fontSize: 'clamp(1rem, 2vw, 1.4rem)',
-              color: '#C9A84C',
+              color: 'var(--gold)',
               direction: 'rtl',
               textAlign: 'right',
               opacity: 0.85,
@@ -120,14 +120,14 @@ export function ContactSection() {
           >
             <div style={{ color: '#C9A84C', fontSize: '32px', marginBottom: '16px' }}>✓</div>
             <p style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: "var(--font-cormorant)",
               fontSize: '24px',
-              color: '#F5F0E8',
+              color: 'var(--text-high)',
               marginBottom: '8px',
             }}>
               Dossier reçu.
             </p>
-            <p style={{ fontFamily: 'Inter', fontSize: '14px', color: 'rgba(245,240,232,0.6)' }}>
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: '16px', color: 'var(--text-body)' }}>
               Notre équipe vous contactera dans les 2 heures.
             </p>
           </div>
@@ -141,8 +141,8 @@ export function ContactSection() {
                   value={form.name} onChange={handleChange} required
                   placeholder="Votre nom"
                   style={fieldStyle}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'var(--gold)'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(212,180,131,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
@@ -152,8 +152,8 @@ export function ContactSection() {
                   value={form.email} onChange={handleChange} required
                   placeholder="votre@email.com"
                   style={fieldStyle}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'var(--gold)'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(212,180,131,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
@@ -163,18 +163,18 @@ export function ContactSection() {
                   value={form.phone} onChange={handleChange}
                   placeholder="+33 6 XX XX XX XX"
                   style={fieldStyle}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'var(--gold)'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(212,180,131,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
-                <label htmlFor="c-country" style={labelStyle}>Pays de résidence</label>
+                <label htmlFor="c-country" style={labelStyle}>Pays de r&eacute;sidence</label>
                 <select
                   id="c-country" name="country"
                   value={form.country} onChange={handleChange}
-                  style={{ ...fieldStyle, color: form.country ? '#F5F0E8' : 'rgba(245,240,232,0.4)' }}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  style={{ ...fieldStyle, color: form.country ? 'var(--text-high)' : 'rgba(245,240,232,0.5)' }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'var(--gold)'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(212,180,131,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 >
                   <option value="" style={{ color: '#0A0E1A' }}>Sélectionner...</option>
                   {COUNTRIES.map(c => <option key={c} value={c} style={{ color: '#0A0E1A' }}>{c}</option>)}
@@ -189,13 +189,13 @@ export function ContactSection() {
                 value={form.message} onChange={handleChange} required
                 placeholder="Décrivez brièvement votre situation..."
                 style={{ ...fieldStyle, resize: 'none' }}
-                onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                onFocus={e => { e.currentTarget.style.borderBottomColor = 'var(--gold)'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(212,180,131,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
               />
             </div>
 
             {state === 'error' && (
-              <p style={{ fontFamily: 'Inter', fontSize: '13px', color: '#e57373', marginBottom: '20px' }}>
+              <p style={{ fontFamily: 'var(--font-sans)', fontSize: '15px', color: '#e57373', marginBottom: '20px' }}>
                 Une erreur est survenue. Écrivez-nous à contact@wamamed.com
               </p>
             )}
@@ -208,9 +208,9 @@ export function ContactSection() {
                 padding: '18px',
                 background: '#C9A84C',
                 color: '#0A0E1A',
-                fontFamily: 'Inter, DM Sans, sans-serif',
-                fontSize: '12px',
-                letterSpacing: '0.18em',
+                fontFamily: 'var(--font-sans)',
+                fontSize: '14px',
+                letterSpacing: '0.14em',
                 textTransform: 'uppercase',
                 fontWeight: 700,
                 border: 'none',
@@ -226,9 +226,9 @@ export function ContactSection() {
             </button>
 
             <p style={{
-              fontFamily: 'Inter',
-              fontSize: '12px',
-              color: 'rgba(245,240,232,0.35)',
+              fontFamily: 'var(--font-sans)',
+              fontSize: '14px',
+              color: 'var(--text-soft)',
               textAlign: 'center',
               marginTop: '16px',
             }}>

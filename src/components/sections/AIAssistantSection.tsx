@@ -7,7 +7,7 @@ export function AIAssistantSection() {
       data-animate
       aria-labelledby="ai-assistant-heading"
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+      <div className="section-shell">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Text */}
           <div data-animate>
@@ -22,12 +22,12 @@ export function AIAssistantSection() {
               <br />
               <span style={{ color: "var(--color-teal)" }}>Demandez maintenant.</span>
             </h2>
-            <p className="text-ink/55 leading-relaxed text-[15px] mb-6 body-copy text-left">
+            <p className="text-ink/70 mb-6 body-copy text-left">
               Notre assistant intelligent répond instantanément à vos questions sur nos
               services, le processus, les tarifs et les délais — en français, 24h/24.
               Pour une prise en charge immédiate, soumettez directement votre dossier.
             </p>
-            <p className="text-ink/35 text-sm">
+            <p className="text-ink/50 text-base">
               Ou appelez directement :{" "}
               <a
                 href="tel:+212522000000"

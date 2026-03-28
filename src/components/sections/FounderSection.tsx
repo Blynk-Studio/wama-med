@@ -20,7 +20,7 @@ export function FounderSection() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+      <div className="section-shell relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
           {/* Image */}
           <div className="relative" data-animate>
@@ -62,26 +62,26 @@ export function FounderSection() {
               <p
                 className="text-cream/85 text-xl sm:text-2xl italic leading-relaxed"
               >
-                "Votre dossier médical mérite mieux qu'un agenda et un stylo rouge."
+                &ldquo;Votre dossier m&eacute;dical m&eacute;rite mieux qu&apos;un agenda et un stylo rouge.&rdquo;
               </p>
-              <cite className="text-brass/70 text-sm not-italic font-medium mt-3 block">
+              <cite className="text-brass/80 text-base not-italic font-medium mt-3 block">
                 — Driss Benwahoud, Fondateur
               </cite>
             </blockquote>
 
-            <p className="text-cream/65 leading-relaxed text-[15px] body-copy text-left">
-              Driss Benwahoud n'a pas fondé Wama Med pour saisir une opportunité de marché.
-              Il l'a fondé après avoir vécu personnellement le chaos de la coordination médicale
-              fragmentée — un proche, plusieurs spécialistes qui ne se parlent pas, des mois
-              perdus dans des files d'attente administratives. Fort de dix ans d'expérience
-              dans le secteur de l'assurance, il avait les outils pour comprendre le problème.
-              Il a choisi de le résoudre.
+            <p className="dark-copy body-copy text-left">
+              Driss Benwahoud n&apos;a pas fond&eacute; Wama Med pour saisir une opportunit&eacute; de march&eacute;.
+              Il l&apos;a fond&eacute; apr&egrave;s avoir v&eacute;cu personnellement le chaos de la coordination m&eacute;dicale
+              fragment&eacute;e — un proche, plusieurs sp&eacute;cialistes qui ne se parlent pas, des mois
+              perdus dans des files d&apos;attente administratives. Fort de dix ans d&apos;exp&eacute;rience
+              dans le secteur de l&apos;assurance, il avait les outils pour comprendre le probl&egrave;me.
+              Il a choisi de le r&eacute;soudre.
             </p>
 
             <Link
               prefetch={false}
               href="/about"
-              className="inline-flex items-center gap-2 text-brass hover:text-brass-light text-sm font-semibold mt-8 group"
+              className="inline-flex items-center gap-2 text-brass hover:text-brass-light text-base font-semibold mt-8 group"
             >
               Découvrir notre histoire
               <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
