@@ -11,8 +11,6 @@ interface Message {
   content: string;
 }
 
-const retellClient = new RetellWebClient();
-
 function AIWidgetPanel({
   isOpen,
   onClose,
@@ -29,6 +27,11 @@ function AIWidgetPanel({
   const [chatId, setChatId] = useState<string | null>(null);
   const [voiceState, setVoiceState] = useState<VoiceState>("idle");
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const retellClientRef = useRef<RetellWebClient | null>(null);
+  const getRetellClient = () => {
+    if (!retellClientRef.current) retellClientRef.current = new RetellWebClient();
+    return retellClientRef.current;
+  };
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({
@@ -116,12 +119,13 @@ function AIWidgetPanel({
     try {
       const res = await fetch("/api/retell/create-call", { method: "POST" });
       const { access_token } = await res.json();
-      await retellClient.startCall({
+      const client = getRetellClient();
+      await client.startCall({
         accessToken: access_token,
         sampleRate: 24000,
       });
       setVoiceState("active");
-      retellClient.on("call_ended", () => setVoiceState("idle"));
+      client.on("call_ended", () => setVoiceState("idle"));
     } catch {
       setVoiceState("idle");
     }
@@ -129,7 +133,7 @@ function AIWidgetPanel({
 
   const endVoiceCall = useCallback(async () => {
     setVoiceState("ending");
-    retellClient.stopCall();
+    getRetellClient().stopCall();
     setTimeout(() => setVoiceState("idle"), 500);
   }, []);
 
@@ -165,10 +169,12 @@ function AIWidgetPanel({
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-stone-dark flex-shrink-0">
+      <div className="flex border-b border-stone-dark flex-shrink-0" role="tablist" aria-label="Mode de contact">
         {(["chat", "voice"] as Tab[]).map((tab) => (
           <button
             key={tab}
+            role="tab"
+            aria-selected={activeTab === tab}
             onClick={() => setActiveTab(tab)}
             className={`flex-1 py-2.5 text-sm font-medium transition-colors ${
               activeTab === tab
@@ -176,7 +182,8 @@ function AIWidgetPanel({
                 : "text-ink/40 hover:text-ink/60"
             }`}
           >
-            {tab === "chat" ? "💬 Chat" : "🎙 Voix"}
+            <span aria-hidden="true">{tab === "chat" ? "💬" : "🎙"}</span>{" "}
+            {tab === "chat" ? "Chat" : "Voix"}
           </button>
         ))}
       </div>
@@ -266,6 +273,7 @@ function AIWidgetPanel({
                 ? "bg-brass/20 border-2 border-brass animate-pulse"
                 : "bg-teal/10 border-2 border-teal/20"
             }`}
+            aria-hidden="true"
           >
             🎙
           </div>
@@ -345,7 +353,7 @@ export function AIWidget() {
         }`}
         aria-label={isOpen ? "Fermer l'assistant" : "Ouvrir l'assistant Wama Med"}
       >
-        {isOpen ? "×" : "💬"}
+        <span aria-hidden="true">{isOpen ? "×" : "💬"}</span>
       </button>
     </>
   );

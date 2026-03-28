@@ -17,6 +17,7 @@
   --color-ink: #1C1410;
   --color-ink-soft: #3A2E26;
   --color-cream: #FAFAF8;
+  --color-error: #c62828; /* WCAG-compliant error red on light backgrounds */
 
   /* Fonts */
   --font-fraunces: var(--font-fraunces-var), Georgia, serif;
@@ -80,6 +81,17 @@ body {
 @media (pointer: fine) {
   body { cursor: none; }
   a, button, [role="button"], input, textarea, select { cursor: none; }
+}
+
+/* ─────────────────────────────────────────────────────────
+   Focus Rings — WCAG 2.4.7 (keyboard focus visible)
+   Custom cursor hides the default cursor, so explicit focus
+   indicators are required for keyboard navigation.
+   ───────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 3px;
+  border-radius: 3px;
 }
 
 /* ─────────────────────────────────────────────────────────

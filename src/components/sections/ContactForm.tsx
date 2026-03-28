@@ -154,7 +154,7 @@ export function ContactForm() {
       </div>
 
       {state === "error" && (
-        <p className="text-red-500/80 text-xs">
+        <p className="text-error text-xs">
           Une erreur est survenue. Veuillez nous contacter directement au +212 522 000 000.
         </p>
       )}

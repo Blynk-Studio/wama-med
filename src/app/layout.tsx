@@ -91,10 +91,16 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col antialiased">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[200] focus:bg-brass focus:text-ink focus:font-semibold focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm"
+        >
+          Aller au contenu principal
+        </a>
         <AnimationProvider>
           <CustomCursor />
           <Header />
-          <main className="flex-1">{children}</main>
+          <main id="main-content" className="flex-1">{children}</main>
           <Footer />
           <AIWidget />
         </AnimationProvider>

@@ -23,6 +23,14 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && menuOpen) setMenuOpen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
+
   return (
     <>
       <header
@@ -82,8 +90,10 @@ export function Header() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden text-cream p-2 -mr-2"
+            className="lg:hidden text-cream p-3 -mr-3"
             aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
           >
             <div className="flex flex-col gap-[5px] w-6">
               <span
@@ -102,6 +112,7 @@ export function Header() {
 
       {/* Mobile Drawer — OUTSIDE header to avoid backdrop-filter containing block trap */}
       <div
+        id="mobile-menu"
         className={`fixed inset-0 top-16 bg-teal z-40 transition-all duration-300 lg:hidden ${
           menuOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
@@ -129,7 +140,7 @@ export function Header() {
             href={PHONE_HREF}
             className="text-cream/70 text-lg mt-4"
           >
-            📞 {PHONE}
+            <span aria-hidden="true">📞</span> {PHONE}
           </a>
           <Link
             href="/contact"

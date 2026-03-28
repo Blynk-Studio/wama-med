@@ -56,7 +56,7 @@ export function ClosingCTA() {
         </div>
 
         <p className="text-cream/35 text-sm mt-8">
-          📞{" "}
+          <span aria-hidden="true">📞</span>{" "}
           <a href="tel:+212522000000" className="hover:text-cream/60 transition-colors duration-200">
             +212 522 000 000
           </a>{" "}

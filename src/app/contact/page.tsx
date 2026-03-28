@@ -40,7 +40,7 @@ export default function ContactPage() {
             href={PHONE_HREF}
             className="inline-flex items-center gap-2 text-cream/70 hover:text-cream text-base font-medium mt-4 transition-colors duration-200 hover:drop-shadow-[0_0_8px_rgba(184,144,58,0.5)]"
           >
-            📞 {PHONE}
+            <span aria-hidden="true">📞</span> {PHONE}
           </a>
         </div>
       </section>
