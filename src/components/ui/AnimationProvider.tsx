@@ -209,7 +209,7 @@ function setupAnimations(
         ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 95%",
+          start: "top 90%",
           once: true,
         },
       }
@@ -220,6 +220,7 @@ function setupAnimations(
   const childGroups = document.querySelectorAll<HTMLElement>("[data-animate-children]");
   childGroups.forEach((parent) => {
     const children = parent.querySelectorAll<HTMLElement>("[data-animate-child]");
+    gsap.set(children, { opacity: 0, y: 24, scale: 0.98 });
     gsap.fromTo(
       children,
       { opacity: 0, y: 24, scale: 0.98 },
@@ -232,7 +233,7 @@ function setupAnimations(
         stagger: 0.1,
         scrollTrigger: {
           trigger: parent,
-          start: "top 95%",
+          start: "top 90%",
           once: true,
         },
       }
@@ -251,7 +252,7 @@ function setupAnimations(
         ease: "power2.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 95%",
+          start: "top 90%",
           once: true,
         },
       }

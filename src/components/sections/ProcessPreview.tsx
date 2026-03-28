@@ -33,14 +33,14 @@ export function ProcessPreview() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         {/* Header */}
         <div className="text-center mb-14" data-animate>
-          <p className="eyebrow text-brass mb-3">Comment ça marche</p>
+          <p className="eyebrow text-brass mb-3">Notre Approche</p>
           <span className="brass-rule mx-auto mb-5 block" />
           <h2
             className="text-ink text-4xl sm:text-5xl font-black leading-tight"
             id="process-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
-            De zéro à pris en charge
+            Un protocole structuré,
             <br />
             <span style={{ color: "var(--color-teal)" }}>en 4 étapes.</span>
           </h2>
@@ -90,7 +90,7 @@ export function ProcessPreview() {
             href="/comment-ca-marche"
             className="inline-flex items-center gap-2 text-teal hover:text-teal-light font-semibold group"
           >
-            Voir le processus complet
+            Découvrir notre protocole complet
             <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
           </Link>
         </div>

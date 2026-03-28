@@ -10,7 +10,7 @@ interface Act {
   headline: string;
   subtext?: string;
   steps?: string[];
-  testimonials?: { name: string; city: string; quote: string }[];
+  commitments?: { title: string; desc: string }[];
   textColor: string;
 }
 
@@ -41,24 +41,21 @@ const ACTS: Act[] = [
   },
   {
     id: 4,
-    label: 'La Preuve',
+    label: 'Les Engagements',
     bg: '#F5F0E8',
-    headline: 'Ce que nos patients disent',
-    testimonials: [
+    headline: 'Ce qui définit notre coordination',
+    commitments: [
       {
-        name: 'Marie-Claire D.',
-        city: 'Paris',
-        quote: "Un accompagnement exceptionnel. Je n'aurais pas pu naviguer seule dans ce système.",
+        title: 'Rigueur méthodologique',
+        desc: 'Chaque dossier suit un protocole structuré, sans improvisation.',
       },
       {
-        name: 'Ahmed B.',
-        city: 'Bruxelles',
-        quote: "Professionnalisme et humanité. Wama Med m'a vraiment soulagé dans un moment difficile.",
+        title: 'Réseau médical vérifié',
+        desc: 'Collaboration avec des spécialistes et établissements accrédités.',
       },
       {
-        name: 'Khalid R.',
-        city: 'Montréal',
-        quote: "De la première prise de contact jusqu'au retour, tout était parfait.",
+        title: 'Conformité internationale',
+        desc: 'Normes de confidentialité et de coordination transfrontalière.',
       },
     ],
     textColor: '#0A0E1A',
@@ -350,7 +347,7 @@ export function ScrollJourney() {
             </div>
           )}
 
-          {/* ACT 4 — La Preuve */}
+          {/* ACT 4 — Les Engagements */}
           {act.id === 4 && (
             <div>
               <p
@@ -369,18 +366,16 @@ export function ScrollJourney() {
               <div
                 style={{
                   display: 'grid',
-                  // On mobile: single column. On wider: 3 columns
                   gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
                   gap: '16px',
                 }}
               >
-                {act.testimonials?.map((t, i) => (
+                {act.commitments?.map((c, i) => (
                   <div
                     key={i}
                     style={{
                       background: 'rgba(255,255,255,0.7)',
                       border: '1px solid rgba(10,14,26,0.08)',
-                      // Rounded corners + depth
                       borderRadius: '16px',
                       padding: 'clamp(20px, 4vw, 28px) clamp(16px, 3vw, 24px)',
                       boxShadow: '0 8px 32px rgba(10,14,26,0.08), 0 2px 8px rgba(10,14,26,0.06)',
@@ -390,44 +385,25 @@ export function ScrollJourney() {
                     <p
                       style={{
                         fontFamily: "'Cormorant Garamond', Georgia, serif",
-                        fontSize: 'clamp(15px, 2.5vw, 18px)',
-                        fontStyle: 'italic',
+                        fontSize: 'clamp(1.1rem, 2.5vw, 1.35rem)',
+                        fontWeight: 600,
                         color: '#0A0E1A',
-                        lineHeight: 1.7,
-                        marginBottom: '16px',
+                        lineHeight: 1.3,
+                        marginBottom: '10px',
                       }}
                     >
-                      &ldquo;{t.quote}&rdquo;
+                      {c.title}
                     </p>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div
-                        style={{
-                          width: '32px',
-                          height: '32px',
-                          borderRadius: '50%',
-                          background: 'linear-gradient(135deg, #C9A84C 0%, #E8C06A 100%)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          color: '#0A0E1A',
-                          fontFamily: 'Inter',
-                          fontSize: '13px',
-                          fontWeight: 700,
-                          flexShrink: 0,
-                        }}
-                      >
-                        {t.name[0]}
-                      </div>
-                      <div>
-                        <p style={{ fontFamily: 'Inter', fontSize: '12px', color: '#0A0E1A', fontWeight: 600, lineHeight: 1.3 }}>
-                          {t.name}
-                        </p>
-                        <p style={{ fontFamily: 'Inter', fontSize: '12px', color: 'rgba(10,14,26,0.5)', lineHeight: 1.3 }}>
-                          {t.city}
-                        </p>
-                      </div>
-                      <div style={{ color: '#C9A84C', fontSize: '12px', marginLeft: 'auto' }}>★★★★★</div>
-                    </div>
+                    <p
+                      style={{
+                        fontFamily: 'Inter, DM Sans, sans-serif',
+                        fontSize: 'clamp(13px, 2vw, 14px)',
+                        color: 'rgba(10,14,26,0.6)',
+                        lineHeight: 1.7,
+                      }}
+                    >
+                      {c.desc}
+                    </p>
                   </div>
                 ))}
               </div>

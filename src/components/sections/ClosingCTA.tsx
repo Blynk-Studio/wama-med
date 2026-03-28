@@ -20,7 +20,7 @@ export function ClosingCTA() {
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8 text-center relative z-10">
-        <p className="eyebrow text-brass mb-4">Prêt à commencer ?</p>
+        <p className="eyebrow text-brass mb-4">Première étape</p>
         <span className="brass-rule mx-auto mb-6 block" />
         <h2
           className="text-cream text-4xl sm:text-5xl xl:text-6xl font-black leading-tight mb-6 max-w-3xl mx-auto"

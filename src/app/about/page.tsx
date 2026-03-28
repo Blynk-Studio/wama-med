@@ -141,51 +141,45 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Stats Bar ────────────────────────────────────────── */}
+      {/* ── Credentials Bar ──────────────────────────────────── */}
       <section
         className="py-16 sm:py-20"
         style={{ background: "#0A0E1A" }}
-        aria-label="Statistiques clés"
+        aria-label="Expertise"
       >
         <div className="max-w-5xl mx-auto px-5 sm:px-8">
           <div className="grid grid-cols-3 gap-6 sm:gap-8 text-center" data-animate-children>
             <div data-animate-child>
               <p
-                className="font-cormorant font-bold mb-1"
-                style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", color: "#C9A84C", lineHeight: 1 }}
-                data-count-to="10"
-                data-count-suffix="+"
+                className="font-cormorant font-bold mb-2"
+                style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", color: "#C9A84C", lineHeight: 1.3 }}
               >
-                0+
+                Secteur assurance &amp; santé
               </p>
               <p className="text-xs sm:text-sm" style={{ color: "rgba(245,240,232,0.5)" }}>
-                Ans d&apos;expérience
+                Plus de dix ans d&apos;expérience
               </p>
             </div>
             <div data-animate-child>
               <p
-                className="font-cormorant font-bold mb-1"
-                style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", color: "#C9A84C", lineHeight: 1 }}
-                data-count-to="340"
-                data-count-suffix="+"
+                className="font-cormorant font-bold mb-2"
+                style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", color: "#C9A84C", lineHeight: 1.3 }}
               >
-                0+
+                Dossiers complexes
               </p>
               <p className="text-xs sm:text-sm" style={{ color: "rgba(245,240,232,0.5)" }}>
-                Patients accompagnés
+                Traités avec méthode et rigueur
               </p>
             </div>
             <div data-animate-child>
               <p
-                className="font-cormorant font-bold mb-1"
-                style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", color: "#C9A84C", lineHeight: 1 }}
-                data-count-to="98"
-                data-count-suffix="%"
+                className="font-cormorant font-bold mb-2"
+                style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", color: "#C9A84C", lineHeight: 1.3 }}
               >
-                0%
+                Portée internationale
               </p>
               <p className="text-xs sm:text-sm" style={{ color: "rgba(245,240,232,0.5)" }}>
-                Taux de satisfaction
+                France, Belgique, Afrique subsaharienne
               </p>
             </div>
           </div>
@@ -222,8 +216,8 @@ export default function AboutPage() {
             </div>
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-brass/10" data-animate>
               <Image
-                src="/images/wama-casablanca-riad.jpg"
-                alt="Quartier Racine, Casablanca — siège de Wama Med"
+                src="/images/wama-accompagnement.jpg"
+                alt="Coordination médicale structurée — Wama Med, Casablanca"
                 fill
                 className="object-cover"
                 style={{ objectPosition: "center 40%" }}

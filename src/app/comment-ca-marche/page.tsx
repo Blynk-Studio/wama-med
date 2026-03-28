@@ -5,9 +5,9 @@ import { AnimatedTimeline } from "@/components/sections/AnimatedTimeline";
 import { FaqAccordion } from "@/components/sections/FaqAccordion";
 
 export const metadata: Metadata = {
-  title: "Comment ça marche — Processus de coordination | Wama Med",
+  title: "Notre Approche — Protocole de coordination | Wama Med",
   description:
-    "Découvrez le processus de coordination médicale Wama Med : de la soumission du dossier à l'accompagnement post-consultation en 4 étapes claires.",
+    "Le protocole de coordination médicale Wama Med : de la soumission du dossier à l'accompagnement post-consultation, structuré en 4 étapes.",
 };
 
 const STEPS = [
@@ -114,7 +114,7 @@ export default function CommentCaMarchePage() {
         </p>
 
         <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
-          <p className="eyebrow text-brass mb-3">Comment ça marche</p>
+          <p className="eyebrow text-brass mb-3">Notre Approche</p>
           <span className="brass-rule mb-6 block" />
           <h1
             className="font-black leading-tight max-w-3xl"
@@ -124,7 +124,7 @@ export default function CommentCaMarchePage() {
               color: "#F5F0E8",
             }}
           >
-            De zéro à pris en charge
+            Un protocole structuré,
             <br />
             <span className="text-brass">en 4 étapes.</span>
           </h1>
@@ -132,8 +132,8 @@ export default function CommentCaMarchePage() {
             className="max-w-2xl mt-6 leading-relaxed text-base"
             style={{ color: "rgba(245,240,232,0.6)" }}
           >
-            Le processus Wama Med est conçu pour éliminer toute incertitude.
-            Chaque étape a un objectif clair, un délai réaliste et un responsable identifié.
+            Le protocole Wama Med est conçu pour éliminer toute incertitude.
+            Chaque étape a un objectif défini, un délai réaliste et un responsable identifié.
           </p>
         </div>
       </section>

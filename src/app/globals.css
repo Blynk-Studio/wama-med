@@ -77,16 +77,9 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--color-teal); border-radius: 3px; }
 
 /* ─────────────────────────────────────────────────────────
-   Animation Defaults (pre-animate hidden state)
+   Animation Defaults — GSAP owns initial state via gsap.set()
+   No CSS opacity:0 here — prevents SSR flash-then-hide flicker.
    ───────────────────────────────────────────────────────── */
-[data-animate] {
-  opacity: 0;
-  transform: translateY(32px);
-}
-[data-animate-child] {
-  opacity: 0;
-  transform: translateY(24px) scale(0.98);
-}
 
 /* ─────────────────────────────────────────────────────────
    Custom Cursor (fine pointer devices only)

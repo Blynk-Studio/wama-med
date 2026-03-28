@@ -19,7 +19,7 @@ const SERVICES = [
   {
     ar: 'لوجستيك متكامل',
     fr: 'Logistique complète',
-    desc: 'Visa médical, hébergement premium, transport — tout organisé pour vous.',
+    desc: 'Visa médical, hébergement, transport — logistique complète pour votre séjour.',
     href: '/services',
   },
   {
@@ -31,7 +31,7 @@ const SERVICES = [
   {
     ar: 'شبكة شركاء',
     fr: 'Réseau de cliniques partenaires',
-    desc: 'Cliniques certifiées JCI répondant aux standards européens les plus exigeants.',
+    desc: 'Établissements accrédités sélectionnés selon des critères de qualité rigoureux.',
     href: '/services',
   },
   {

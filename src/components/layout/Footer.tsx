@@ -48,7 +48,7 @@ export function Footer() {
             <p className="eyebrow text-brass mb-4">Navigation</p>
             <ul className="space-y-2 text-sm">
               {[
-                ["Comment ça marche", "/comment-ca-marche"],
+                ["Notre Approche", "/comment-ca-marche"],
                 ["À Propos", "/about"],
                 ["Contact", "/contact"],
               ].map(([label, href]) => (
