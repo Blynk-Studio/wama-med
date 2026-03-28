@@ -143,6 +143,29 @@ export function ScrollJourney() {
 
     scheduleVfc();
 
+    // ── Mobile video decoder unlock ───────────────────────────────────────
+    // Android Chrome + iOS Safari block seeks on a video that has never played,
+    // even with autoPlay+muted — unless the page has had a user interaction.
+    // Solution: on first touch/scroll/click, call play().then(pause()) to
+    // unlock the decoder, then hand control back to the scrubber.
+    let unlocked = false;
+    const unlockVideo = () => {
+      if (unlocked) return;
+      unlocked = true;
+      const video = videoRef.current;
+      if (!video) return;
+      video.play().then(() => {
+        video.pause();
+        video.currentTime = 0;
+        // Reset lerp state so scrubber starts from frame 0
+        currentLerped.current = 0;
+        lastSeeked.current = -1;
+      }).catch(() => { /* autoplay blocked entirely — video stays static */ });
+    };
+    window.addEventListener('touchstart', unlockVideo, { once: true, passive: true });
+    window.addEventListener('scroll', unlockVideo, { once: true, passive: true });
+    window.addEventListener('pointerdown', unlockVideo, { once: true, passive: true });
+
     const init = async () => {
       const { default: gsap } = await import('gsap');
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
@@ -184,6 +207,9 @@ export function ScrollJourney() {
     return () => {
       trigger?.kill();
       cancelAnimationFrame(rafId.current);
+      window.removeEventListener('touchstart', unlockVideo);
+      window.removeEventListener('scroll', unlockVideo);
+      window.removeEventListener('pointerdown', unlockVideo);
       const video = videoRef.current;
       if (video && vfcHandle.current != null &&
           typeof (video as HTMLVideoElement & { cancelVideoFrameCallback?: (h: unknown) => void }).cancelVideoFrameCallback === 'function') {
@@ -244,7 +270,7 @@ export function ScrollJourney() {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            opacity: 0.45,
+            opacity: 0.50,
             pointerEvents: 'none',
             zIndex: 0,
           }}
@@ -254,7 +280,7 @@ export function ScrollJourney() {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to bottom, rgba(10,14,26,0.45) 0%, rgba(10,14,26,0.20) 50%, rgba(10,14,26,0.55) 100%)',
+            background: 'linear-gradient(to bottom, rgba(10,14,26,0.55) 0%, rgba(10,14,26,0.40) 40%, rgba(10,14,26,0.40) 60%, rgba(10,14,26,0.60) 100%)',
             zIndex: 1,
             pointerEvents: 'none',
             mixBlendMode: 'normal' as const,
@@ -356,6 +382,7 @@ export function ScrollJourney() {
                   lineHeight: 1.2,
                   maxWidth: '18ch',
                   margin: '0 auto 24px',
+                  textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.9)',
                 }}
               >
                 {act.headline}
@@ -365,10 +392,11 @@ export function ScrollJourney() {
                   fontFamily: 'Inter, DM Sans, sans-serif',
                   fontSize: 'clamp(1.05rem, 2.5vw, 1.35rem)',
                   color: '#F5F0E8',
-                  opacity: Math.min(1, Math.max(0.65, actProgress * 4 - 0.2)),
+                  opacity: 1,
                   lineHeight: 1.8,
                   maxWidth: '36ch',
                   margin: '0 auto',
+                  textShadow: '0 1px 12px rgba(0,0,0,0.9)',
                 }}
               >
                 {act.subtext}
@@ -387,6 +415,7 @@ export function ScrollJourney() {
                   color: act.textColor,
                   lineHeight: 1.2,
                   marginBottom: '20px',
+                  textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.9)',
                 }}
               >
                 {act.headline}
@@ -398,6 +427,7 @@ export function ScrollJourney() {
                   fontStyle: 'italic',
                   color: '#C9A84C',
                   opacity: Math.min(1, Math.max(0.7, actProgress * 3)),
+                  textShadow: '0 1px 12px rgba(0,0,0,0.9)',
                 }}
               >
                 {act.subtext}
@@ -416,6 +446,7 @@ export function ScrollJourney() {
                   color: act.textColor,
                   lineHeight: 1.2,
                   marginBottom: '40px',
+                  textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.9)',
                 }}
               >
                 {act.headline}
@@ -561,6 +592,7 @@ export function ScrollJourney() {
                   color: '#F5F0E8',
                   lineHeight: 1.15,
                   marginBottom: '12px',
+                  textShadow: '0 2px 20px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.9)',
                 }}
               >
                 {act.headline}
