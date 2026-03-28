@@ -72,13 +72,38 @@ const ACTS: Act[] = [
 ];
 
 export function ScrollJourney() {
-  const outerRef  = useRef<HTMLElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
-  const videoRef  = useRef<HTMLVideoElement>(null);
+  const outerRef       = useRef<HTMLElement>(null);
+  const stickyRef      = useRef<HTMLDivElement>(null);
+  const videoRef       = useRef<HTMLVideoElement>(null);
+  const targetProgress = useRef(0);   // raw scroll progress (0–1)
+  const currentLerped  = useRef(0);   // smoothed progress driving video scrub
+  const rafId          = useRef<number>(0);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     let trigger: ReturnType<typeof import('gsap/ScrollTrigger').ScrollTrigger.create> | undefined;
+
+    // ── Smooth video scrub via RAF lerp ─────────────────────────────────────
+    // We lerp currentLerped → targetProgress each frame instead of jumping
+    // currentTime directly, which causes decode stutters on compressed video.
+    const LERP_FACTOR = 0.08; // lower = smoother / more lag; 0.08 feels cinematic
+
+    const tick = () => {
+      const video = videoRef.current;
+      if (video && video.duration && video.readyState >= 2) {
+        const diff = targetProgress.current - currentLerped.current;
+        // Only update if there's a meaningful delta — avoids needless seeks
+        if (Math.abs(diff) > 0.0001) {
+          currentLerped.current += diff * LERP_FACTOR;
+          // Clamp to valid range
+          const t = Math.max(0, Math.min(1, currentLerped.current));
+          video.currentTime = t * video.duration;
+        }
+      }
+      rafId.current = requestAnimationFrame(tick);
+    };
+
+    rafId.current = requestAnimationFrame(tick);
 
     const init = async () => {
       const { default: gsap } = await import('gsap');
@@ -102,10 +127,9 @@ export function ScrollJourney() {
         end: 'bottom bottom',
         scrub: 1.2,
         onUpdate: self => {
+          // Only update the target — the RAF loop handles actual video scrubbing
+          targetProgress.current = self.progress;
           setProgress(self.progress);
-          if (videoRef.current && videoRef.current.duration) {
-            videoRef.current.currentTime = self.progress * videoRef.current.duration;
-          }
         },
         pin: stickyRef.current,
         pinSpacing: false,
@@ -121,6 +145,7 @@ export function ScrollJourney() {
 
     return () => {
       trigger?.kill();
+      cancelAnimationFrame(rafId.current);
     };
   }, []);
 
@@ -166,7 +191,7 @@ export function ScrollJourney() {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            opacity: 0.35,
+            opacity: 0.30,
             pointerEvents: 'none',
             zIndex: 0,
           }}
@@ -176,9 +201,10 @@ export function ScrollJourney() {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to bottom, rgba(10,14,26,0.55) 0%, rgba(10,14,26,0.35) 50%, rgba(10,14,26,0.65) 100%)',
+            background: 'linear-gradient(to bottom, rgba(10,14,26,0.60) 0%, rgba(10,14,26,0.45) 50%, rgba(10,14,26,0.70) 100%)',
             zIndex: 1,
             pointerEvents: 'none',
+            mixBlendMode: 'normal' as const,
           }}
         />
         {/* Act label — top center */}
