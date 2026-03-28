@@ -1,127 +1,250 @@
-import Link from "next/link";
+'use client';
+
+import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 
 const SERVICES = [
   {
-    icon: "🔬",
-    title: "Analyse de dossier médical",
-    desc: "Votre dossier est examiné par un médecin coordinateur qui établit un plan d'orientation précis — pas une hotline, un expert.",
-    href: "/services",
+    ar: 'تنسيق جراحي',
+    fr: 'Coordination chirurgicale',
+    desc: 'Orthopédie, cardiologie, oncologie et plus encore — avec les meilleurs spécialistes du Maroc.',
+    href: '/services',
   },
   {
-    icon: "🗺️",
-    title: "Orientation spécialisée",
-    desc: "Identification du ou des spécialistes les plus adaptés à votre situation, dans les meilleurs établissements du Maroc.",
-    href: "/services",
+    ar: 'مرافقة لغوية',
+    fr: 'Accompagnement linguistique',
+    desc: 'Un interlocuteur francophone dédié à chaque étape de votre parcours médical.',
+    href: '/services',
   },
   {
-    icon: "📅",
-    title: "Coordination des rendez-vous",
-    desc: "Prise de rendez-vous, communication entre spécialistes, suivi des résultats. Vous n'avez qu'à vous présenter.",
-    href: "/services",
+    ar: 'لوجستيك متكامل',
+    fr: 'Logistique complète',
+    desc: 'Visa médical, hébergement premium, transport — tout organisé pour vous.',
+    href: '/services',
   },
   {
-    icon: "🛫",
-    title: "Logistique internationale",
-    desc: "Pour les patients venant de l'étranger : transfert aéroport, hébergement, assistance linguistique, documentation médicale.",
-    href: "/services",
+    ar: 'متابعة ما بعد العملية',
+    fr: 'Suivi post-opératoire',
+    desc: 'Continuité des soins et communication avec vos médecins après votre retour.',
+    href: '/services',
   },
   {
-    icon: "🤝",
-    title: "Accompagnement continu",
-    desc: "De la première consultation à la sortie d'hospitalisation, votre coordinateur est présent à chaque étape.",
-    href: "/services",
+    ar: 'شبكة شركاء',
+    fr: 'Réseau de cliniques partenaires',
+    desc: 'Cliniques certifiées JCI répondant aux standards européens les plus exigeants.',
+    href: '/services',
   },
   {
-    icon: "🚁",
-    title: "Évacuation sanitaire",
-    desc: "Organisation complète des évacuations médicales d'urgence nationales et internationales, 24h/24.",
-    href: "/services",
+    ar: 'استشارات عن بُعد',
+    fr: 'Consultations à distance',
+    desc: 'Obtenez un avis médical expert avant même de quitter votre pays.',
+    href: '/services',
   },
 ];
 
 export function ServicesOverview() {
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { default: gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      cardRefs.current.forEach((el, i) => {
+        if (!el) return;
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power2.out',
+            delay: (i % 2) * 0.1,
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              once: true,
+            },
+          }
+        );
+      });
+    })();
+  }, []);
+
   return (
     <section
-      className="bg-stone py-24 sm:py-32"
-      data-animate
       aria-labelledby="services-heading"
+      style={{
+        background: '#0A0E1A',
+        padding: 'clamp(64px, 10vw, 100px) clamp(24px, 5vw, 64px)',
+      }}
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        {/* Header — editorial left/right split.
-            Heading anchors left; descriptor floats right.
-            Breaks the centered-header monotony that repeats 4× on this page. */}
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        {/* Header */}
         <div
-          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '8px',
+            marginBottom: '56px',
+          }}
           data-animate
         >
-          <div>
-            <p className="eyebrow text-brass mb-3">Nos Services</p>
-            <span className="brass-rule mb-5 block" />
-            <h2
-              className="text-ink text-4xl sm:text-5xl font-black leading-tight"
-              id="services-heading"
-              style={{ fontFamily: "var(--font-fraunces)" }}
-            >
-              Un seul interlocuteur.
-              <br />
-              <span style={{ color: "var(--color-teal)" }}>Tout pris en charge.</span>
-            </h2>
-          </div>
-          <p className="text-ink/55 max-w-xs leading-relaxed text-base body-copy text-left lg:text-right lg:pb-1 shrink-0">
-            Wama Med n'est pas une plateforme de mise en relation.
-            C'est un service de coordination active — nous gérons, vous vivez.
+          <p
+            style={{
+              fontFamily: 'Inter, DM Sans, sans-serif',
+              fontSize: '11px',
+              letterSpacing: '0.3em',
+              color: '#C9A84C',
+              textTransform: 'uppercase',
+            }}
+          >
+            Ce que nous faisons
           </p>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+            <h2
+              id="services-heading"
+              style={{
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+                fontWeight: 300,
+                color: '#F5F0E8',
+                lineHeight: 1.1,
+              }}
+            >
+              Nos Services
+            </h2>
+            <p
+              style={{
+                fontFamily: "'Almarai', sans-serif",
+                fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
+                color: '#C9A84C',
+                direction: 'rtl',
+                opacity: 0.85,
+              }}
+            >
+              خدماتنا
+            </p>
+          </div>
+          <div style={{ width: '40px', height: '1px', background: 'rgba(201,168,76,0.5)', marginTop: '8px' }} />
         </div>
 
-        {/* Service Cards — first card spans 2 cols on lg to signal primary service */}
+        {/* Cards grid */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
-          data-animate-children
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
+            gap: '16px',
+          }}
         >
-          {SERVICES.map((s, i) => (
-            <Link
-              prefetch={false}
-              key={s.title}
-              href={s.href}
-              className={`group bg-cream rounded-2xl p-7 border border-stone-dark hover:border-brass/40 hover:shadow-xl hover:shadow-teal/5 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5${
-                i === 0 ? " lg:col-span-2 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center" : ""
-              }`}
-              data-animate-child
-            >
-              <div className={i === 0 ? "lg:border-r lg:border-stone-dark lg:pr-8" : ""}>
-                <span className="text-3xl mb-4 block" aria-hidden="true">
-                  {s.icon}
-                </span>
-                <h3
-                  className="text-ink text-lg font-bold mb-2.5 group-hover:text-teal transition-colors duration-200"
-                  style={{ fontFamily: "var(--font-fraunces)" }}
-                >
-                  {s.title}
-                </h3>
-              </div>
-              <div>
-                <p className="text-ink/55 text-sm leading-relaxed body-copy text-left">
-                  {s.desc}
-                </p>
-                <span className="inline-block mt-4 text-brass text-xs font-semibold tracking-wide group-hover:translate-x-1 transition-transform duration-200">
-                  En savoir plus →
-                </span>
-              </div>
-            </Link>
+          {SERVICES.map((svc, i) => (
+            <ServiceCard
+              key={svc.fr}
+              svc={svc}
+              ref={el => { cardRefs.current[i] = el; }}
+            />
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="text-center mt-12" data-animate>
+        {/* Footer CTA */}
+        <div style={{ marginTop: '48px', textAlign: 'center' }} data-animate>
           <Link
-              prefetch={false}
             href="/services"
-            className="inline-flex items-center gap-2 bg-teal hover:bg-teal-light text-cream font-semibold px-8 py-4 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-teal/20 hover:scale-105"
+            style={{
+              fontFamily: 'Inter, DM Sans, sans-serif',
+              fontSize: '12px',
+              letterSpacing: '0.2em',
+              color: '#C9A84C',
+              textDecoration: 'none',
+              textTransform: 'uppercase',
+              borderBottom: '1px solid rgba(201,168,76,0.4)',
+              paddingBottom: '3px',
+            }}
           >
-            Voir tous nos services
+            Voir tous nos services →
           </Link>
         </div>
       </div>
     </section>
   );
 }
+
+// Extracted to allow ref forwarding
+import { forwardRef } from 'react';
+
+const ServiceCard = forwardRef<HTMLDivElement, { svc: typeof SERVICES[0] }>(
+  ({ svc }, ref) => {
+    return (
+      <div
+        ref={ref}
+        style={{
+          background: '#0F1A2A',
+          border: '1px solid rgba(201,168,76,0.1)',
+          padding: 'clamp(24px, 3vw, 36px) clamp(20px, 2.5vw, 28px)',
+          transition: 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+          cursor: 'default',
+          opacity: 0, // will be animated in by GSAP
+        }}
+        onMouseEnter={e => {
+          const el = e.currentTarget;
+          el.style.transform = 'translateY(-5px)';
+          el.style.borderColor = 'rgba(201,168,76,0.32)';
+          el.style.boxShadow = '0 20px 48px rgba(0,0,0,0.4)';
+        }}
+        onMouseLeave={e => {
+          const el = e.currentTarget;
+          el.style.transform = 'translateY(0)';
+          el.style.borderColor = 'rgba(201,168,76,0.1)';
+          el.style.boxShadow = 'none';
+        }}
+      >
+        {/* Arabic micro-label */}
+        <p
+          style={{
+            fontFamily: "'Almarai', sans-serif",
+            fontSize: '13px',
+            color: '#C9A84C',
+            opacity: 0.8,
+            direction: 'rtl',
+            textAlign: 'right',
+            marginBottom: '6px',
+          }}
+        >
+          {svc.ar}
+        </p>
+
+        {/* French heading */}
+        <h3
+          style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: 'clamp(1.2rem, 2vw, 1.55rem)',
+            fontWeight: 400,
+            color: '#F5F0E8',
+            lineHeight: 1.3,
+            marginBottom: '12px',
+          }}
+        >
+          {svc.fr}
+        </h3>
+
+        {/* Divider */}
+        <div style={{ width: '28px', height: '1px', background: 'rgba(201,168,76,0.3)', marginBottom: '14px' }} />
+
+        {/* Description */}
+        <p
+          style={{
+            fontFamily: 'Inter, DM Sans, sans-serif',
+            fontSize: '14px',
+            color: 'rgba(245,240,232,0.65)',
+            lineHeight: 1.75,
+          }}
+        >
+          {svc.desc}
+        </p>
+      </div>
+    );
+  }
+);
+ServiceCard.displayName = 'ServiceCard';

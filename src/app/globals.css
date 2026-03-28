@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Almarai:wght@400;700&display=swap');
 
 /* ─────────────────────────────────────────────────────────
    Wama Med Design System — Tailwind v4 Theme
@@ -218,4 +219,45 @@ html.lenis, html.lenis body { height: auto; }
 [data-connector-line] {
   transform: scaleX(0);
   transform-origin: left center;
+}
+
+/* ─────────────────────────────────────────────────────────
+   WOW REBUILD — Dark Prestige Design System (2026-03-28)
+   Overlay on top of existing tokens. #0A0E1A night-sky palette.
+   ───────────────────────────────────────────────────────── */
+
+:root {
+  --bg-deep: #0A0E1A;
+  --gold: #C9A84C;
+  --sand: #F5F0E8;
+  --teal-deep: #1A4A52;
+  --medical: #FFFFFF;
+}
+
+/* New section backgrounds use dark base */
+.section-dark {
+  background-color: var(--bg-deep);
+  color: var(--sand);
+}
+.section-sand {
+  background-color: var(--sand);
+  color: var(--bg-deep);
+}
+
+/* Cormorant display utility */
+.font-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+}
+.font-almarai {
+  font-family: 'Almarai', sans-serif;
+}
+
+/* ─── Keyframes ── */
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.65); transform-origin: top; }
+  50%       { opacity: 1;   transform: scaleY(1);    transform-origin: top; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

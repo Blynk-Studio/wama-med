@@ -32,7 +32,10 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
       if (initialized) return;
       initialized = true;
       removeListeners();
-      fallbackIO.disconnect();
+      // NOTE: fallbackIO.disconnect() moved to AFTER await Promise.all —
+      // disconnecting here (before imports) was the root cause of blank sections:
+      // elements with data-animate (opacity:0) would enter the viewport during
+      // the async import gap with NO handler active → they stayed invisible.
 
       // MUST be first — resets browser-stored scroll before Lenis init
       if (typeof history !== "undefined") history.scrollRestoration = "manual";
@@ -44,6 +47,19 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
           import("gsap/ScrollTrigger"),
           import("lenis"),
         ]);
+
+      // Safe to disconnect fallback now — GSAP is loaded and will take over
+      fallbackIO.disconnect();
+
+      // Fix: any elements already in/near viewport must be animated immediately
+      // (they passed through viewport during the async gap above)
+      document.querySelectorAll<HTMLElement>("[data-animate]").forEach((el) => {
+        if (el.style.opacity === "1") return; // already handled by fallback
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.9) {
+          gsap.fromTo(el, { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
+        }
+      });
 
       gsap.registerPlugin(ScrollTrigger);
 

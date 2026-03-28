@@ -1,67 +1,111 @@
-"use client";
+'use client';
 
-const TRUST_ITEMS = [
-  {
-    icon: "🏥",
-    value: "24h/7j",
-    label: "Disponibilité totale",
-    countTo: null,
-  },
-  {
-    icon: "👨‍⚕️",
-    value: "1",
-    label: "Interlocuteur unique",
-    countTo: null,
-  },
-  {
-    icon: "🌍",
-    value: "5+",
-    label: "Pays desservis",
-    countTo: "5",
-    suffix: "+",
-  },
-  {
-    icon: "📋",
-    value: "100%",
-    label: "Prise en charge complète",
-    countTo: "100",
-    suffix: "%",
-  },
+import { useEffect, useRef } from 'react';
+
+const STATS = [
+  { value: 12,  suffix: '+', label: "ans d'expertise" },
+  { value: 340, suffix: '+', label: 'patients coordonnés' },
+  { value: 8,   suffix: '',  label: "pays d'origine" },
+  { value: 98,  suffix: '%', label: 'satisfaction' },
 ];
 
 export function TrustStrip() {
+  const numRefs = useRef<(HTMLSpanElement | null)[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { default: gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      numRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const stat = STATS[i];
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 88%',
+          once: true,
+          onEnter: () => {
+            const obj = { n: 0 };
+            gsap.to(obj, {
+              n: stat.value,
+              duration: 2,
+              ease: 'power2.out',
+              onUpdate() {
+                if (el) el.textContent = Math.round(obj.n) + stat.suffix;
+              },
+            });
+          },
+        });
+      });
+    })();
+  }, []);
+
   return (
     <section
-      className="bg-cream border-b border-stone-dark"
-      data-animate
-      aria-label="Signaux de confiance"
+      aria-label="Chiffres clés"
+      style={{
+        background: '#0A0E1A',
+        borderTop: '1px solid rgba(201,168,76,0.12)',
+        padding: 'clamp(48px, 8vw, 80px) clamp(24px, 5vw, 64px)',
+      }}
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-10">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8">
-          {TRUST_ITEMS.map((item) => (
+      <div
+        style={{
+          maxWidth: '1100px',
+          margin: '0 auto',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+        }}
+      >
+        {STATS.map((stat, i) => (
+          <div
+            key={stat.label}
+            style={{
+              textAlign: 'center',
+              padding: '0 clamp(12px, 2.5vw, 28px)',
+              borderRight: i < STATS.length - 1
+                ? '1px solid rgba(201,168,76,0.12)'
+                : 'none',
+            }}
+          >
             <div
-              key={item.label}
-              className="flex flex-col items-center text-center gap-1.5"
-              data-animate-child
+              style={{
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontSize: 'clamp(2.6rem, 5vw, 4.2rem)',
+                fontWeight: 300,
+                color: '#C9A84C',
+                lineHeight: 1,
+                marginBottom: '10px',
+              }}
             >
-              <span className="text-2xl" aria-hidden="true">
-                {item.icon}
+              <span ref={el => { numRefs.current[i] = el; }}>
+                {stat.value}{stat.suffix}
               </span>
-              <p
-                className="font-fraunces text-3xl sm:text-4xl font-black text-teal leading-none"
-                style={{ fontFamily: "var(--font-fraunces)" }}
-                data-count-to={item.countTo ?? undefined}
-                data-count-suffix={item.suffix ?? undefined}
-              >
-                {item.value}
-              </p>
-              <p className="eyebrow text-ink/70">
-                {item.label}
-              </p>
             </div>
-          ))}
-        </div>
+            <p
+              style={{
+                fontFamily: 'Inter, DM Sans, sans-serif',
+                fontSize: '12px',
+                color: '#F5F0E8',
+                opacity: 0.62,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+              }}
+            >
+              {stat.label}
+            </p>
+          </div>
+        ))}
       </div>
+      {/* Responsive: 2-col on mobile */}
+      <style>{`
+        @media (max-width: 600px) {
+          .trust-grid { grid-template-columns: repeat(2, 1fr) !important; row-gap: 32px; }
+          .trust-grid > div:nth-child(2) { border-right: none !important; }
+          .trust-grid > div:nth-child(3) { border-right: 1px solid rgba(201,168,76,0.12) !important; }
+        }
+      `}</style>
     </section>
   );
 }
