@@ -76,34 +76,72 @@ export function ScrollJourney() {
   const stickyRef      = useRef<HTMLDivElement>(null);
   const videoRef       = useRef<HTMLVideoElement>(null);
   const targetProgress = useRef(0);   // raw scroll progress (0–1)
-  const currentLerped  = useRef(0);   // smoothed progress driving video scrub
+  const currentLerped  = useRef(0);   // smoothed value chasing target
+  const lastSeeked     = useRef(-1);  // last currentTime we actually wrote
   const rafId          = useRef<number>(0);
+  const vfcHandle      = useRef<unknown>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     let trigger: ReturnType<typeof import('gsap/ScrollTrigger').ScrollTrigger.create> | undefined;
 
-    // ── Smooth video scrub via RAF lerp ─────────────────────────────────────
-    // We lerp currentLerped → targetProgress each frame instead of jumping
-    // currentTime directly, which causes decode stutters on compressed video.
-    const LERP_FACTOR = 0.08; // lower = smoother / more lag; 0.08 feels cinematic
+    // ── Smooth video scrub — three-layer approach ─────────────────────────
+    // 1. Lerp: smooth the raw scroll progress so seeks feel cinematic not mechanical
+    // 2. Frame gate: only seek when delta >= 1 video frame — stops decoder hammering
+    // 3. requestVideoFrameCallback (vfc): fires when GPU is ready for next frame,
+    //    not blindly every 16ms. On browsers that don't support it, fall back to rAF.
+    // 4. fastSeek(): hint to browser for approximate seek — much cheaper than
+    //    precise seek, imperceptible at scroll speed.
+    const LERP   = 0.10;  // how fast lerped chases target (higher = snappier)
+    const FPS    = 30;    // assumed video fps for frame-gate threshold
+    const FRAME  = 1 / FPS;
 
-    const tick = () => {
+    const doSeek = () => {
       const video = videoRef.current;
-      if (video && video.duration && video.readyState >= 2) {
-        const diff = targetProgress.current - currentLerped.current;
-        // Only update if there's a meaningful delta — avoids needless seeks
-        if (Math.abs(diff) > 0.0001) {
-          currentLerped.current += diff * LERP_FACTOR;
-          // Clamp to valid range
-          const t = Math.max(0, Math.min(1, currentLerped.current));
-          video.currentTime = t * video.duration;
-        }
+      if (!video || !video.duration || video.readyState < 2) return;
+
+      // Lerp currentLerped toward targetProgress
+      const diff = targetProgress.current - currentLerped.current;
+      if (Math.abs(diff) > 0.00005) {
+        currentLerped.current += diff * LERP;
       }
-      rafId.current = requestAnimationFrame(tick);
+
+      const targetTime = Math.max(0, Math.min(1, currentLerped.current)) * video.duration;
+
+      // Frame gate: skip seek if we haven't moved >= 1 frame
+      if (Math.abs(targetTime - lastSeeked.current) < FRAME * 0.5) return;
+
+      lastSeeked.current = targetTime;
+
+      // fastSeek = approx seek (cheap); fall back to currentTime if unavailable
+      if (typeof (video as HTMLVideoElement & { fastSeek?: (t: number) => void }).fastSeek === 'function') {
+        (video as HTMLVideoElement & { fastSeek: (t: number) => void }).fastSeek(targetTime);
+      } else {
+        video.currentTime = targetTime;
+      }
     };
 
-    rafId.current = requestAnimationFrame(tick);
+    // Use requestVideoFrameCallback when available (Chrome/Edge 83+, Safari 15.4+)
+    // It fires right before the browser paints a new video frame — zero wasted seeks.
+    const scheduleVfc = () => {
+      const video = videoRef.current;
+      if (!video) return;
+      if (typeof (video as HTMLVideoElement & { requestVideoFrameCallback?: (cb: () => void) => unknown }).requestVideoFrameCallback === 'function') {
+        vfcHandle.current = (video as HTMLVideoElement & { requestVideoFrameCallback: (cb: () => void) => unknown })
+          .requestVideoFrameCallback(() => {
+            doSeek();
+            scheduleVfc();
+          });
+      } else {
+        // rAF fallback for Firefox / older Safari
+        rafId.current = requestAnimationFrame(() => {
+          doSeek();
+          scheduleVfc();
+        });
+      }
+    };
+
+    scheduleVfc();
 
     const init = async () => {
       const { default: gsap } = await import('gsap');
@@ -146,6 +184,12 @@ export function ScrollJourney() {
     return () => {
       trigger?.kill();
       cancelAnimationFrame(rafId.current);
+      const video = videoRef.current;
+      if (video && vfcHandle.current != null &&
+          typeof (video as HTMLVideoElement & { cancelVideoFrameCallback?: (h: unknown) => void }).cancelVideoFrameCallback === 'function') {
+        (video as HTMLVideoElement & { cancelVideoFrameCallback: (h: unknown) => void })
+          .cancelVideoFrameCallback(vfcHandle.current);
+      }
     };
   }, []);
 
