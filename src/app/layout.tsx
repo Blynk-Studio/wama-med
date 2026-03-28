@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, DM_Sans, Crimson_Pro } from "next/font/google";
+import { Fraunces, DM_Sans, Crimson_Pro, Cormorant_Garamond, Almarai } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -26,6 +26,20 @@ const crimsonPro = Crimson_Pro({
   display: "swap",
   style: ["normal", "italic"],
   weight: ["400", "600"],
+});
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant-var",
+  display: "swap",
+  style: ["normal", "italic"],
+  weight: ["300", "400", "600", "700"],
+});
+
+const almarai = Almarai({
+  subsets: ["arabic"],
+  variable: "--font-almarai-var",
+  display: "swap",
+  weight: ["400", "700"],
 });
 
 export const viewport: Viewport = {
@@ -58,7 +72,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${fraunces.variable} ${dmSans.variable} ${crimsonPro.variable} h-full`}
+      className={`${fraunces.variable} ${dmSans.variable} ${crimsonPro.variable} ${cormorant.variable} ${almarai.variable} h-full`}
     >
       <head>
         <script
