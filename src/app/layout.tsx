@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, DM_Sans, Crimson_Pro } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -27,6 +27,12 @@ const crimsonPro = Crimson_Pro({
   style: ["normal", "italic"],
   weight: ["400", "600"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // No maximum-scale — WCAG 1.4.4 requires user-scalable content
+};
 
 export const metadata: Metadata = {
   title: "Wama Med — Coordination Médicale Nationale et Internationale",

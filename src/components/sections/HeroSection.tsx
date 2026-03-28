@@ -376,13 +376,13 @@ export function HeroSection() {
       >
         <div className="max-w-4xl">
           {/* Eyebrow */}
-          <p className="hero-eyebrow eyebrow text-brass mb-5 opacity-0">
+          <p className="hero-eyebrow eyebrow text-brass mb-5">
             Coordination Médicale Nationale &amp; Internationale
           </p>
 
           {/* Main headline — Fraunces 900, the locked copy */}
           <h1
-            className="hero-headline opacity-0"
+            className="hero-headline"
             style={{
               fontFamily: "var(--font-fraunces)",
               fontSize: "clamp(3rem, 8vw, 6.5rem)",
@@ -399,7 +399,7 @@ export function HeroSection() {
 
           {/* Subhead */}
           <p
-            className="hero-subhead opacity-0 mt-6 text-cream/75 leading-relaxed max-w-xl"
+            className="hero-subhead mt-6 text-cream/75 leading-relaxed max-w-xl"
             style={{ fontSize: "clamp(1rem, 2.2vw, 1.2rem)" }}
           >
             Coordination médicale nationale et internationale — de Casablanca, pour le monde.
@@ -410,13 +410,13 @@ export function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4 mt-10">
             <Link
               href="/contact"
-              className="hero-cta opacity-0 inline-flex items-center justify-center w-full sm:w-auto bg-brass hover:bg-brass-light text-ink font-bold px-8 py-4 rounded-full text-base transition-all duration-200 hover:shadow-xl hover:shadow-brass/30 hover:scale-105"
+              className="hero-cta inline-flex items-center justify-center w-full sm:w-auto bg-brass hover:bg-brass-light text-ink font-bold px-8 py-4 rounded-full text-base transition-all duration-200 hover:shadow-xl hover:shadow-brass/30 hover:scale-105"
             >
               Soumettre votre dossier
             </Link>
             <Link
               href="/comment-ca-marche"
-              className="hero-cta opacity-0 inline-flex items-center justify-center w-full sm:w-auto border border-cream/30 hover:border-cream/60 text-cream font-medium px-8 py-4 rounded-full text-base transition-all duration-200 hover:bg-cream/5"
+              className="hero-cta inline-flex items-center justify-center w-full sm:w-auto border border-cream/30 hover:border-cream/60 text-cream font-medium px-8 py-4 rounded-full text-base transition-all duration-200 hover:bg-cream/5"
             >
               Comment ça marche →
             </Link>
@@ -432,7 +432,7 @@ export function HeroSection() {
             ].map((badge) => (
               <span
                 key={badge}
-                className="hero-badge opacity-0 text-cream/60 text-xs font-medium"
+                className="hero-badge text-cream/60 text-xs font-medium"
               >
                 {badge}
               </span>
