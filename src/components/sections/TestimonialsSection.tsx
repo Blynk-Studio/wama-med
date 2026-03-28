@@ -22,7 +22,7 @@ const PRINCIPLES = [
 export function TestimonialsSection() {
   return (
     <section
-      className="bg-teal py-20 sm:py-28"
+      className="bg-teal py-24 sm:py-32"
       data-animate
       aria-labelledby="trust-heading"
     >
@@ -31,7 +31,7 @@ export function TestimonialsSection() {
           <p className="eyebrow text-brass mb-3">Nos engagements</p>
           <span className="brass-rule mx-auto mb-5 block" />
           <h2
-            className="text-cream text-4xl sm:text-5xl font-black leading-tight"
+            className="text-cream text-4xl sm:text-5xl lg:text-6xl font-black leading-tight"
             id="trust-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
@@ -40,25 +40,28 @@ export function TestimonialsSection() {
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-5 sm:gap-6" data-animate-children>
+        <div className="grid sm:grid-cols-3 gap-6 sm:gap-8" data-animate-children>
           {PRINCIPLES.map((p) => (
             <div
               key={p.title}
-              className="bg-teal-light/30 border border-cream/10 hover:border-brass/30 rounded-2xl p-7 transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
+              className="rounded-[1.75rem] p-8 md:p-10 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_rgba(0,0,0,0.35)]"
+              style={{
+                background: "rgba(255,255,255,0.07)",
+                border: "1px solid rgba(184,144,58,0.28)",
+              }}
               data-animate-child
             >
-              {/* Number + Arabic */}
-              <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center justify-between mb-6">
                 <p
-                  className="font-cormorant text-3xl font-bold"
-                  style={{ color: "rgba(201,168,76,0.3)" }}
+                  className="font-cormorant text-4xl font-bold"
+                  style={{ color: "rgba(184,144,58,0.45)" }}
                   aria-hidden="true"
                 >
                   {p.icon}
                 </p>
                 <p
-                  className="font-almarai text-xs"
-                  style={{ color: "rgba(201,168,76,0.5)", direction: "rtl" }}
+                  className="font-almarai text-sm"
+                  style={{ color: "rgba(184,144,58,0.7)", direction: "rtl" }}
                   aria-hidden="true"
                 >
                   {p.ar}
@@ -66,14 +69,14 @@ export function TestimonialsSection() {
               </div>
 
               <h3
-                className="text-cream text-lg font-bold mb-3"
-                style={{ fontFamily: "var(--font-fraunces)" }}
+                className="text-cream text-xl font-bold mb-3"
+                style={{ fontFamily: "var(--font-fraunces)", lineHeight: 1.2 }}
               >
                 {p.title}
               </h3>
 
               <p
-                className="text-cream/70 text-[15px] leading-relaxed"
+                className="text-cream/75 text-[15px] leading-relaxed"
                 style={{ fontFamily: "var(--font-crimson)" }}
               >
                 {p.desc}
