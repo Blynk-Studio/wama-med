@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { waitForGsap } from '@/lib/gsap-ready';
+// ScrollJourney manages its own GSAP init — independent of AnimationProvider
 import Link from 'next/link';
 
 interface Act {
@@ -77,14 +77,25 @@ export function ScrollJourney() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Wait for AnimationProvider's full init cycle (including refresh()) before
-    // creating the pin trigger. This is critical: if we create the pin before
-    // refresh(), the 500vh outer height hasn't been measured yet and the pin
-    // geometry is wrong — causing the scroll-right-past-it bug.
-    waitForGsap().then(({ gsap, ScrollTrigger }) => {
+    let trigger: ReturnType<typeof import('gsap/ScrollTrigger').ScrollTrigger.create> | undefined;
+
+    const init = async () => {
+      const { default: gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
       ScrollTrigger.config({ ignoreMobileResize: true });
 
-      ScrollTrigger.create({
+      // Wait two animation frames + a tick so React has fully painted
+      // the 500vh outer container before we measure pin geometry.
+      await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
+      await new Promise<void>(r => setTimeout(r, 250));
+
+      if (!outerRef.current || !stickyRef.current) return;
+
+      ScrollTrigger.refresh();
+
+      trigger = ScrollTrigger.create({
         trigger: outerRef.current,
         start: 'top top',
         end: 'bottom bottom',
@@ -96,10 +107,15 @@ export function ScrollJourney() {
         anticipatePin: 1,
       });
 
-      // One final refresh after the pin is registered, to let pinSpacing
-      // recalculate with the correct outer container height.
+      // One final refresh so pinSpacing is correct
       requestAnimationFrame(() => ScrollTrigger.refresh());
-    });
+    };
+
+    init();
+
+    return () => {
+      trigger?.kill();
+    };
   }, []);
 
   const actIdx      = Math.min(4, Math.floor(progress * 5));

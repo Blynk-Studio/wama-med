@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface FaqItem {
   q: string;
@@ -9,17 +9,38 @@ interface FaqItem {
 
 export function FaqAccordion({ items }: { items: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    // Trigger the CSS staggered fade-up when the FAQ section enters viewport.
+    // Works on both mobile and desktop — no GSAP dependency.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        el.classList.add("faq-section-visible");
+      },
+      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="space-y-3" data-animate-children>
+    <div className="space-y-3" ref={containerRef}>
       {items.map((faq, i) => {
         const isOpen = openIndex === i;
         return (
           <div
             key={faq.q}
-            className="rounded-xl border border-brass/10 overflow-hidden transition-all duration-200"
-            style={{ background: "#0A1E2A" }}
-            data-animate-child
+            className="rounded-xl border border-brass/10 overflow-hidden transition-all duration-200 faq-item"
+            style={{
+              background: "#0A1E2A",
+              animationDelay: `${i * 80}ms`,
+            }}
           >
             <button
               onClick={() => setOpenIndex(isOpen ? null : i)}

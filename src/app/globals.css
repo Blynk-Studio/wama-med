@@ -291,3 +291,37 @@ html.lenis, html.lenis body { height: auto; }
     opacity: 1 !important;
   }
 }
+
+/* ─────────────────────────────────────────────────────────
+   FAQ accordion entrance — CSS-only, works on all devices.
+   Uses IntersectionObserver class added by JS, or fires
+   immediately on mobile (animation-fill-mode: backwards
+   holds opacity:0 until animation starts).
+   ───────────────────────────────────────────────────────── */
+@keyframes faq-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.faq-item {
+  opacity: 0;
+  animation: faq-fade-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-play-state: paused;
+}
+
+.faq-section-visible .faq-item {
+  animation-play-state: running;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-item {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}

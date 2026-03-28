@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { waitForGsap } from "@/lib/gsap-ready";
 
 interface TimelineStep {
   number: string;
@@ -18,21 +17,15 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    // Mobile: no scroll-reveal — content visible immediately, no pop-in jank.
     const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-    if (isMobile) return;
 
-    // Desktop: wait for AnimationProvider to finish before creating triggers.
-    waitForGsap().then(({ gsap, ScrollTrigger }) => {
+    const initDesktop = async () => {
+      const { default: gsap } = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      gsap.registerPlugin(ScrollTrigger);
+
       if (lineRef.current) {
         gsap.set(lineRef.current, { scaleY: 0 });
-      }
-      cardsRef.current.forEach((el, i) => {
-        if (!el) return;
-        gsap.set(el, { opacity: 0, x: i % 2 === 0 ? -40 : 40 });
-      });
-
-      if (lineRef.current) {
         gsap.fromTo(
           lineRef.current,
           { scaleY: 0 },
@@ -52,12 +45,12 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
       cardsRef.current.forEach((el, i) => {
         if (!el) return;
         const fromX = i % 2 === 0 ? -40 : 40;
+        gsap.set(el, { opacity: 0, x: fromX });
         gsap.fromTo(
           el,
           { opacity: 0, x: fromX },
           {
-            opacity: 1,
-            x: 0,
+            opacity: 1, x: 0,
             duration: 0.7,
             ease: "power2.out",
             scrollTrigger: {
@@ -68,7 +61,36 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
           }
         );
       });
-    });
+    };
+
+    const initMobile = async () => {
+      // On mobile: line animates via CSS scaleY driven by IntersectionObserver
+      // (simple, no GSAP dependency). Cards are visible immediately per global CSS.
+      // The line draw is a nice-to-have — animate it with a CSS transition
+      // once the section enters the viewport.
+      const line = lineRef.current;
+      if (!line) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          observer.disconnect();
+          line.style.transition = "transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)";
+          line.style.transform = "scaleY(1)";
+        },
+        { threshold: 0.1 }
+      );
+      line.style.transformOrigin = "top center";
+      line.style.transform = "scaleY(0)";
+      observer.observe(line.parentElement ?? line);
+      return () => observer.disconnect();
+    };
+
+    if (isMobile) {
+      initMobile();
+    } else {
+      initDesktop();
+    }
   }, []);
 
   return (

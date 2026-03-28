@@ -93,10 +93,9 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         lenisRef.current = null;
       }
 
-      // Step 3: Reset scroll position before re-init
-      // This prevents stale positions from miscalculating ScrollTrigger start/end
-      if (typeof history !== "undefined") history.scrollRestoration = "manual";
-      window.scrollTo(0, 0);
+      // Step 3: (scroll reset removed — Next.js App Router handles scroll-to-top
+      // on navigation natively. Forcing window.scrollTo(0,0) here was causing
+      // a visible jump/snap on route changes, especially on Services page.)
 
       // Step 4: Import GSAP (may be cached from previous init — that's fine)
       const [{ default: gsapFresh }, { ScrollTrigger }, { default: LenisCtor }] =
@@ -136,6 +135,9 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
       // Step 6: ScrollTrigger.refresh() after a tick to let React finish
       // painting the new page DOM before calculating trigger positions
       requestAnimationFrame(() => {
+        // Two rAFs to ensure the new page DOM has fully painted before we
+        // measure element positions in ScrollTrigger.refresh().
+        requestAnimationFrame(() => {
         setTimeout(() => {
           ScrollTrigger.refresh();
           // On mobile (touch devices), skip scroll-reveal animations entirely.
@@ -163,7 +165,8 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
           }
           // Signal component-level triggers that GSAP is ready.
           signalGsapReady({ gsap: gsapFresh, ScrollTrigger });
-        }, 100);
+        }, 200);
+        }); // second rAF
       });
 
       // Also refresh once everything (fonts, images) is fully loaded
