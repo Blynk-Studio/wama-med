@@ -222,10 +222,16 @@ export function ScrollJourney() {
           preload="auto"
           style={{
             position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
+            // Center and size to cover without distorting the 16:9 source.
+            // Instead of objectFit:cover (which can squish on tall viewports),
+            // we explicitly compute the covering dimension and let the container
+            // clip the overflow. This guarantees natural proportions always.
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 'max(100%, calc(100svh * (16/9)))',
+            height: 'max(100svh, calc(100% * (9/16)))',
+            objectFit: 'none',
             opacity: 0.50,
             pointerEvents: 'none',
             zIndex: 0,
