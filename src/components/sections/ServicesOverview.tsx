@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 const SERVICES = [
@@ -40,6 +43,36 @@ const SERVICES = [
 ];
 
 export function ServicesOverview() {
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { default: gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      cardRefs.current.forEach((el, i) => {
+        if (!el) return;
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power2.out',
+            delay: (i % 2) * 0.1,
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              once: true,
+            },
+          }
+        );
+      });
+    })();
+  }, []);
+
   return (
     <section
       aria-labelledby="services-heading"
@@ -61,10 +94,10 @@ export function ServicesOverview() {
         >
           <p
             style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '14px',
-              letterSpacing: '0.16em',
-              color: 'var(--gold)',
+              fontFamily: 'Inter, DM Sans, sans-serif',
+              fontSize: '12px',
+              letterSpacing: '0.18em',
+              color: '#C9A84C',
               textTransform: 'uppercase',
             }}
           >
@@ -74,43 +107,43 @@ export function ServicesOverview() {
             <h2
               id="services-heading"
               style={{
-                fontFamily: 'var(--font-cormorant)',
-                fontSize: 'clamp(2.8rem, 5vw, 4.2rem)',
-                fontWeight: 600,
-                color: 'var(--text-high)',
-                lineHeight: 1,
+                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+                fontWeight: 300,
+                color: '#F5F0E8',
+                lineHeight: 1.1,
               }}
             >
               Nos Services
             </h2>
             <p
               style={{
-                fontFamily: 'var(--font-almarai)',
-                fontSize: 'clamp(1.15rem, 2.2vw, 1.55rem)',
-                color: 'var(--gold)',
+                fontFamily: "'Almarai', sans-serif",
+                fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
+                color: '#C9A84C',
                 direction: 'rtl',
+                opacity: 0.85,
               }}
             >
               خدماتنا
             </p>
           </div>
-          <div style={{ width: '56px', height: '1px', background: 'var(--gold-soft)', marginTop: '10px' }} />
+          <div style={{ width: '40px', height: '1px', background: 'rgba(201,168,76,0.5)', marginTop: '8px' }} />
         </div>
 
         {/* Cards grid */}
         <div
-          data-animate-children
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
-            gap: '20px',
+            gap: '16px',
           }}
         >
           {SERVICES.map((svc, i) => (
             <ServiceCard
               key={svc.fr}
               svc={svc}
-              priorityDelay={i % 2 === 0 ? '0ms' : '70ms'}
+              ref={el => { cardRefs.current[i] = el; }}
             />
           ))}
         </div>
@@ -120,13 +153,13 @@ export function ServicesOverview() {
           <Link
             href="/services"
             style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '14px',
-              letterSpacing: '0.16em',
-              color: 'var(--gold)',
+              fontFamily: 'Inter, DM Sans, sans-serif',
+              fontSize: '12px',
+              letterSpacing: '0.2em',
+              color: '#C9A84C',
               textDecoration: 'none',
               textTransform: 'uppercase',
-              borderBottom: '1px solid var(--gold-soft)',
+              borderBottom: '1px solid rgba(201,168,76,0.4)',
               paddingBottom: '3px',
             }}
           >
@@ -138,59 +171,80 @@ export function ServicesOverview() {
   );
 }
 
-function ServiceCard({
-  svc,
-  priorityDelay,
-}: {
-  svc: typeof SERVICES[0];
-  priorityDelay: string;
-}) {
-  return (
-    <div
-      className="panel-dark rounded-[1.75rem] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_56px_rgba(0,0,0,0.32)]"
-      data-animate-child
-      style={{
-        padding: 'clamp(28px, 3vw, 38px) clamp(22px, 2.5vw, 30px)',
-        transitionDelay: priorityDelay,
-      }}
-    >
-      <p
+// Extracted to allow ref forwarding
+import { forwardRef } from 'react';
+
+const ServiceCard = forwardRef<HTMLDivElement, { svc: typeof SERVICES[0] }>(
+  ({ svc }, ref) => {
+    return (
+      <div
+        ref={ref}
         style={{
-          fontFamily: 'var(--font-almarai)',
-          fontSize: '0.95rem',
-          color: 'var(--gold)',
-          direction: 'rtl',
-          textAlign: 'right',
-          marginBottom: '8px',
+          background: '#0F1A2A',
+          border: '1px solid rgba(201,168,76,0.1)',
+          padding: 'clamp(24px, 3vw, 36px) clamp(20px, 2.5vw, 28px)',
+          transition: 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+          cursor: 'default',
+          opacity: 0, // will be animated in by GSAP
+        }}
+        onMouseEnter={e => {
+          const el = e.currentTarget;
+          el.style.transform = 'translateY(-5px)';
+          el.style.borderColor = 'rgba(201,168,76,0.32)';
+          el.style.boxShadow = '0 20px 48px rgba(0,0,0,0.4)';
+        }}
+        onMouseLeave={e => {
+          const el = e.currentTarget;
+          el.style.transform = 'translateY(0)';
+          el.style.borderColor = 'rgba(201,168,76,0.1)';
+          el.style.boxShadow = 'none';
         }}
       >
-        {svc.ar}
-      </p>
+        {/* Arabic micro-label */}
+        <p
+          style={{
+            fontFamily: "'Almarai', sans-serif",
+            fontSize: '13px',
+            color: '#C9A84C',
+            opacity: 0.8,
+            direction: 'rtl',
+            textAlign: 'right',
+            marginBottom: '6px',
+          }}
+        >
+          {svc.ar}
+        </p>
 
-      <h3
-        style={{
-          fontFamily: 'var(--font-cormorant)',
-          fontSize: 'clamp(1.55rem, 2.2vw, 1.9rem)',
-          fontWeight: 600,
-          color: 'var(--text-high)',
-          lineHeight: 1.15,
-          marginBottom: '14px',
-        }}
-      >
-        {svc.fr}
-      </h3>
+        {/* French heading */}
+        <h3
+          style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: 'clamp(1.2rem, 2vw, 1.55rem)',
+            fontWeight: 400,
+            color: '#F5F0E8',
+            lineHeight: 1.3,
+            marginBottom: '12px',
+          }}
+        >
+          {svc.fr}
+        </h3>
 
-      <div style={{ width: '36px', height: '1px', background: 'var(--gold-soft)', marginBottom: '16px' }} />
+        {/* Divider */}
+        <div style={{ width: '28px', height: '1px', background: 'rgba(201,168,76,0.3)', marginBottom: '14px' }} />
 
-      <p
-        className="body-copy"
-        style={{
-          fontFamily: 'var(--font-sans)',
-          color: 'var(--text-body)',
-        }}
-      >
-        {svc.desc}
-      </p>
-    </div>
-  );
-}
+        {/* Description */}
+        <p
+          style={{
+            fontFamily: 'Inter, DM Sans, sans-serif',
+            fontSize: '14px',
+            color: 'rgba(245,240,232,0.65)',
+            lineHeight: 1.75,
+          }}
+        >
+          {svc.desc}
+        </p>
+      </div>
+    );
+  }
+);
+ServiceCard.displayName = 'ServiceCard';

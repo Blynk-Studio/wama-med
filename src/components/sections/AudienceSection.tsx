@@ -31,7 +31,7 @@ export function AudienceSection() {
       data-animate
       aria-labelledby="audience-heading"
     >
-      <div className="section-shell">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
         {/* Left-aligned header — subordinate section, no centering */}
         <div className="mb-12" data-animate>
           <p className="eyebrow text-brass mb-3">Qui nous accompagnons</p>
@@ -41,7 +41,7 @@ export function AudienceSection() {
             id="audience-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
-            Vous n&apos;&ecirc;tes pas seuls
+            Vous n'êtes pas seuls
             <br />
             <span style={{ color: "var(--color-teal)" }}>face au système.</span>
           </h2>
@@ -74,10 +74,10 @@ export function AudienceSection() {
                 >
                   {a.title}
                 </h3>
-                <p className="text-ink/70 body-copy mb-4 text-left">
+                <p className="text-ink/55 text-sm leading-relaxed mb-4 body-copy text-left">
                   {a.desc}
                 </p>
-                <span className="text-brass text-sm font-semibold tracking-[0.08em] group-hover:translate-x-1 inline-block transition-transform duration-200">
+                <span className="text-brass text-xs font-semibold tracking-wide group-hover:translate-x-1 inline-block transition-transform duration-200">
                   {a.cta} →
                 </span>
               </div>

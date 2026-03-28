@@ -19,6 +19,7 @@ export function CustomCursor() {
     let ringX = 0;
     let ringY = 0;
     let rafId: number;
+    let isHoveringInteractive = false;
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX = e.clientX;
@@ -26,6 +27,7 @@ export function CustomCursor() {
     };
 
     const onMouseEnterInteractive = () => {
+      isHoveringInteractive = true;
       ring.style.transform = `translate(-50%, -50%) scale(1.8)`;
       ring.style.borderColor = "#B8903A";
       ring.style.backgroundColor = "rgba(184,144,58,0.1)";
@@ -34,6 +36,7 @@ export function CustomCursor() {
     };
 
     const onMouseLeaveInteractive = () => {
+      isHoveringInteractive = false;
       ring.style.transform = `translate(-50%, -50%) scale(1)`;
       ring.style.borderColor = "#B8903A";
       ring.style.backgroundColor = "transparent";

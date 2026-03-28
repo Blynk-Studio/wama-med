@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import localFont from "next/font/local";
+import { Fraunces, DM_Sans, Crimson_Pro, Cormorant_Garamond, Almarai } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -7,49 +7,39 @@ import { AnimationProvider } from "@/components/ui/AnimationProvider";
 import { LazyCustomCursor, LazyAIWidget } from "@/components/ui/ClientWidgets";
 import { ZelligeCanvas } from "@/components/ui/ZelligeCanvas";
 
-const fraunces = localFont({
-  src: "../../node_modules/@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2",
+const fraunces = Fraunces({
+  subsets: ["latin"],
   variable: "--font-fraunces-var",
-  display: "swap",
-  preload: true,
-  fallback: ["Georgia", "Times New Roman", "serif"],
+  weight: "900",
+  display: "optional",
 });
 
-const dmSans = localFont({
-  src: "../../node_modules/@fontsource-variable/dm-sans/files/dm-sans-latin-wght-normal.woff2",
+const dmSans = DM_Sans({
+  subsets: ["latin"],
   variable: "--font-dm-sans-var",
   display: "swap",
-  preload: true,
-  fallback: ["system-ui", "sans-serif"],
 });
 
-const crimsonPro = localFont({
-  src: [
-    {
-      path: "../../node_modules/@fontsource/crimson-pro/files/crimson-pro-latin-400-normal.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../node_modules/@fontsource/crimson-pro/files/crimson-pro-latin-400-italic.woff2",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../../node_modules/@fontsource/crimson-pro/files/crimson-pro-latin-600-normal.woff2",
-      weight: "600",
-      style: "normal",
-    },
-    {
-      path: "../../node_modules/@fontsource/crimson-pro/files/crimson-pro-latin-600-italic.woff2",
-      weight: "600",
-      style: "italic",
-    },
-  ],
+const crimsonPro = Crimson_Pro({
+  subsets: ["latin"],
   variable: "--font-crimson-var",
   display: "swap",
-  preload: true,
-  fallback: ["Georgia", "Times New Roman", "serif"],
+  style: ["normal", "italic"],
+  weight: ["400", "600"],
+});
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-cormorant-var",
+  display: "swap",
+  style: ["normal", "italic"],
+  weight: ["300", "400", "600", "700"],
+});
+
+const almarai = Almarai({
+  subsets: ["arabic"],
+  variable: "--font-almarai-var",
+  display: "swap",
+  weight: ["400", "700"],
 });
 
 export const viewport: Viewport = {
@@ -82,7 +72,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${fraunces.variable} ${dmSans.variable} ${crimsonPro.variable} h-full`}
+      className={`${fraunces.variable} ${dmSans.variable} ${crimsonPro.variable} ${cormorant.variable} ${almarai.variable} h-full`}
     >
       <head>
         <script
@@ -120,7 +110,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col antialiased bg-[var(--bg-deep)] text-[var(--sand)]">
+      <body className="min-h-full flex flex-col antialiased" style={{ background: "#0A0E1A" }}>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[200] focus:bg-brass focus:text-ink focus:font-semibold focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm"

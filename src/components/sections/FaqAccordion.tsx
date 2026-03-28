@@ -17,7 +17,8 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
         return (
           <div
             key={faq.q}
-            className="panel-dark rounded-2xl overflow-hidden transition-all duration-200"
+            className="rounded-xl border border-brass/10 overflow-hidden transition-all duration-200"
+            style={{ background: "#0A1E2A" }}
             data-animate-child
           >
             <button
@@ -26,8 +27,8 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
               aria-expanded={isOpen}
             >
               <span
-                className="font-bold text-xl pr-4"
-                style={{ fontFamily: "var(--font-cormorant)", color: "var(--text-high)", lineHeight: 1.2 }}
+                className="font-bold text-base pr-4"
+                style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
               >
                 {faq.q}
               </span>
@@ -44,8 +45,8 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
               style={{ transition: "max-height 0.35s ease-in-out", maxHeight: isOpen ? "400px" : "0" }}
             >
               <p
-                className="px-6 pb-6 body-copy"
-                style={{ color: "var(--text-body)" }}
+                className="px-6 pb-5 text-sm leading-relaxed"
+                style={{ color: "rgba(245,240,232,0.6)" }}
               >
                 {faq.a}
               </p>

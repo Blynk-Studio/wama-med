@@ -1,4 +1,78 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+
 export function HeroSection() {
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const arabicRef   = useRef<HTMLParagraphElement>(null);
+  const eyebrowRef  = useRef<HTMLParagraphElement>(null);
+  const ctaRef      = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let safetyTimer: ReturnType<typeof setTimeout>;
+
+    (async () => {
+      const { default: gsap } = await import('gsap');
+      if (!headlineRef.current) return;
+
+      // Word-level split — preserves natural word-wrapping (char-level breaks word-break logic)
+      const headline = headlineRef.current;
+      const raw = headline.textContent || '';
+      headline.innerHTML = raw
+        .split(' ')
+        .map(word =>
+          `<span style="display:inline-block;will-change:transform;white-space:nowrap;opacity:0">${word}</span>`
+        )
+        .join(' ');
+
+      const words = Array.from(headline.querySelectorAll('span'));
+
+      const tl = gsap.timeline({
+        delay: 0.3,
+        onComplete: () => {
+          // Ensure everything is fully visible after timeline completes
+          if (headline) headline.style.opacity = '1';
+          words.forEach(w => { w.style.opacity = '1'; });
+          if (eyebrowRef.current) eyebrowRef.current.style.opacity = '1';
+          if (arabicRef.current) arabicRef.current.style.opacity = '1';
+          if (ctaRef.current) ctaRef.current.style.opacity = '1';
+        },
+      });
+      tl.fromTo(eyebrowRef.current,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }
+      )
+      .fromTo(words,
+        { opacity: 0, y: 28, filter: 'blur(3px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.08, duration: 0.65, ease: 'power2.out' },
+        '-=0.3'
+      )
+      .fromTo(arabicRef.current,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
+        '-=0.2'
+      )
+      .fromTo(ctaRef.current,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+        '-=0.4'
+      );
+
+      // Safety fallback: force everything visible after 3s if GSAP stalls
+      safetyTimer = setTimeout(() => {
+        if (headline) headline.style.opacity = '1';
+        words.forEach(w => { w.style.opacity = '1'; w.style.filter = 'none'; w.style.transform = 'none'; });
+        if (eyebrowRef.current) { eyebrowRef.current.style.opacity = '1'; eyebrowRef.current.style.transform = 'none'; }
+        if (arabicRef.current) { arabicRef.current.style.opacity = '1'; arabicRef.current.style.transform = 'none'; }
+        if (ctaRef.current) { ctaRef.current.style.opacity = '1'; ctaRef.current.style.transform = 'none'; }
+      }, 3000);
+    })();
+
+    return () => {
+      if (safetyTimer) clearTimeout(safetyTimer);
+    };
+  }, []);
+
   return (
     <section
       style={{
@@ -35,15 +109,15 @@ export function HeroSection() {
       >
         {/* Eyebrow */}
         <p
-          className="hero-anim"
+          ref={eyebrowRef}
           style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '14px',
-            letterSpacing: '0.16em',
-            color: 'var(--gold)',
+            fontFamily: 'Inter, DM Sans, sans-serif',
+            fontSize: '12px',
+            letterSpacing: '0.18em',
+            color: '#C9A84C',
             textTransform: 'uppercase',
             marginBottom: '24px',
-            animationDelay: '0.08s',
+            opacity: 0,
           }}
         >
           Coordination Médicale · Maroc
@@ -51,17 +125,16 @@ export function HeroSection() {
 
         {/* Main headline — GSAP splits this into words */}
         <h1
+          ref={headlineRef}
           style={{
-            fontFamily: 'var(--font-cormorant)',
-            fontSize: 'clamp(3rem, 7.8vw, 5.8rem)',
-            fontWeight: 600,
-            color: 'var(--text-high)',
-            lineHeight: 1,
-            maxWidth: '15ch',
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: 'clamp(2.8rem, 7.5vw, 5.5rem)',
+            fontWeight: 300,
+            color: '#F5F0E8',
+            lineHeight: 1.08,
+            maxWidth: '16ch',
             marginBottom: '24px',
-            letterSpacing: '-0.02em',
-            textWrap: 'balance',
-            textShadow: '0 8px 30px rgba(0, 0, 0, 0.28)',
+            letterSpacing: '-0.01em',
           }}
         >
           Votre santé mérite une expertise sans frontières
@@ -69,40 +142,47 @@ export function HeroSection() {
 
         {/* Arabic subtitle */}
         <p
-          className="hero-anim"
+          ref={arabicRef}
           style={{
-            fontFamily: 'var(--font-almarai)',
-            fontSize: 'clamp(1.05rem, 2vw, 1.55rem)',
-            color: 'var(--gold)',
+            fontFamily: "'Almarai', sans-serif",
+            fontSize: 'clamp(1rem, 2vw, 1.6rem)',
+            color: '#C9A84C',
             direction: 'rtl',
             textAlign: 'right',
             maxWidth: '480px',
             marginLeft: 'auto',
             lineHeight: 1.7,
-            animationDelay: '0.16s',
+            opacity: 0,
           }}
         >
           واما ميد — شريككم الطبي في المغرب
         </p>
 
         {/* CTA */}
-        <div className="hero-anim" style={{ marginTop: '48px', animationDelay: '0.24s' }}>
+        <div ref={ctaRef} style={{ marginTop: '48px', opacity: 0 }}>
           <a
             href="#contact"
-            className="inline-block rounded-full hover:scale-[1.01] hover:shadow-[0_24px_50px_rgba(212,180,131,0.24)]"
             style={{
+              display: 'inline-block',
               padding: '16px 48px',
-              background: 'var(--gold)',
+              background: '#C9A84C',
               color: '#0A0E1A',
-              fontFamily: 'var(--font-sans)',
-              fontSize: '14px',
-              letterSpacing: '0.14em',
+              fontFamily: 'Inter, DM Sans, sans-serif',
+              fontSize: '12px',
+              letterSpacing: '0.18em',
               textDecoration: 'none',
               fontWeight: 700,
               textTransform: 'uppercase',
               borderRadius: '9999px',
-              transition: 'background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease',
-              boxShadow: '0 20px 40px rgba(212, 180, 131, 0.18)',
+              transition: 'background 0.25s ease, transform 0.2s ease',
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.background = '#E8C06A';
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.background = '#C9A84C';
+              (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
             }}
           >
             Soumettre votre dossier
@@ -124,7 +204,7 @@ export function HeroSection() {
           style={{
             width: '1px',
             height: '56px',
-            background: 'var(--gold)',
+            background: '#C9A84C',
             animation: 'scrollPulse 2.2s ease-in-out infinite',
           }}
         />

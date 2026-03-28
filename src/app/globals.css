@@ -17,15 +17,15 @@ html, body {
 
 @theme {
   /* Colors */
-  --color-teal: #101A2D;
-  --color-teal-dark: #0A1020;
-  --color-teal-light: #18243A;
-  --color-teal-muted: #24344E;
+  --color-teal: #0B4042;
+  --color-teal-dark: #072B2D;
+  --color-teal-light: #155558;
+  --color-teal-muted: #1A5558;
   --color-stone: #F5F0E4;
   --color-stone-dark: #EDE6D3;
-  --color-brass: #D4B483;
-  --color-brass-light: #E4C89E;
-  --color-brass-dim: #A98657;
+  --color-brass: #B8903A;
+  --color-brass-light: #D4A84A;
+  --color-brass-dim: #8A6C2C;
   --color-ink: #1C1410;
   --color-ink-soft: #3A2E26;
   --color-cream: #FAFAF8;
@@ -35,11 +35,9 @@ html, body {
   --font-fraunces: var(--font-fraunces-var), Georgia, serif;
   --font-sans: var(--font-dm-sans-var), system-ui, sans-serif;
   --font-crimson: var(--font-crimson-var), Georgia, serif;
-  --font-cormorant: var(--font-crimson-var), Georgia, serif;
-  --font-almarai: "Noto Naskh Arabic", "Geeza Pro", "Tahoma", sans-serif;
 
   /* Letter-spacing */
-  --letter-spacing-eyebrow: 0.16em;
+  --letter-spacing-eyebrow: 0.2em;
   --letter-spacing-ultra: 0.35em;
 }
 
@@ -54,11 +52,11 @@ html {
 }
 
 body {
-  background-color: var(--bg-deep);
-  color: var(--sand);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 1rem;   /* 16px base — never scale below this */
-  line-height: 1.7;
+  line-height: 1.65; /* DM Sans needs slightly open leading */
 }
 
 /* Fraunces optical sizing — maps opsz axis to computed font-size.
@@ -113,9 +111,9 @@ html.lenis, html.lenis body { height: auto; }
    ───────────────────────────────────────────────────────── */
 .eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;   /* raised from 0.6875rem (11px) → 12px */
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -234,18 +232,10 @@ html.lenis, html.lenis body { height: auto; }
 
 :root {
   --bg-deep: #0A0E1A;
-  --bg-elevated: #0F1422;
-  --bg-elevated-2: #141928;
-  --gold: #D4B483;
-  --gold-soft: rgba(212, 180, 131, 0.18);
-  --gold-faint: rgba(212, 180, 131, 0.1);
+  --gold: #C9A84C;
   --sand: #F5F0E8;
   --teal-deep: #1A4A52;
   --medical: #FFFFFF;
-  --text-high: #F6F1E8;
-  --text-body: rgba(246, 241, 232, 0.82);
-  --text-muted: rgba(246, 241, 232, 0.68);
-  --text-soft: rgba(246, 241, 232, 0.56);
 }
 
 /* New section backgrounds use dark base */
@@ -260,69 +250,10 @@ html.lenis, html.lenis body { height: auto; }
 
 /* Cormorant display utility */
 .font-cormorant {
-  font-family: var(--font-cormorant);
+  font-family: var(--font-cormorant-var), Georgia, serif;
 }
 .font-almarai {
-  font-family: var(--font-almarai);
-}
-
-.section-shell {
-  width: 100%;
-  max-width: 80rem;
-  margin-inline: auto;
-  padding-inline: clamp(1.5rem, 4vw, 3rem);
-}
-
-.section-shell-tight {
-  width: 100%;
-  max-width: 64rem;
-  margin-inline: auto;
-  padding-inline: clamp(1.5rem, 4vw, 3rem);
-}
-
-.body-copy {
-  font-size: clamp(1rem, 0.97rem + 0.18vw, 1.125rem);
-  line-height: 1.75;
-}
-
-.dark-copy {
-  color: var(--text-body);
-}
-
-.dark-copy-muted {
-  color: var(--text-muted);
-}
-
-.dark-copy-soft {
-  color: var(--text-soft);
-}
-
-.panel-dark {
-  background: linear-gradient(180deg, rgba(20, 25, 40, 0.96) 0%, rgba(15, 20, 34, 0.98) 100%);
-  border: 1px solid var(--gold-soft);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.24);
-}
-
-.panel-dark-soft {
-  background: linear-gradient(180deg, rgba(17, 22, 36, 0.88) 0%, rgba(13, 18, 31, 0.94) 100%);
-  border: 1px solid var(--gold-faint);
-}
-
-.section-divider {
-  border-color: var(--gold-faint);
-}
-
-[data-animate],
-[data-animate-child],
-[data-word],
-[data-connector-line],
-.brass-rule {
-  will-change: transform, opacity;
-}
-
-::selection {
-  background: rgba(212, 180, 131, 0.28);
-  color: var(--text-high);
+  font-family: var(--font-almarai-var), sans-serif;
 }
 
 /* ─── Keyframes ── */

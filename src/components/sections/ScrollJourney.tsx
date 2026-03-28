@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 interface Act {
   id: number;
@@ -140,10 +141,10 @@ export function ScrollJourney() {
         >
           <p
             style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '14px',
-              letterSpacing: '0.16em',
-              color: 'var(--gold)',
+              fontFamily: 'Inter, DM Sans, sans-serif',
+              fontSize: '12px',
+              letterSpacing: '0.18em',
+              color: '#C9A84C',
               textTransform: 'uppercase',
             }}
           >
@@ -215,8 +216,8 @@ export function ScrollJourney() {
             <div style={{ textAlign: 'center' }}>
               <h2
                 style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: 'clamp(1.9rem, 6vw, 4.2rem)',
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: 'clamp(1.7rem, 6vw, 4rem)',
                   fontWeight: Math.min(700, Math.max(200, Math.round(200 + actProgress * 500))),
                   color: act.textColor,
                   lineHeight: 1.2,
@@ -228,8 +229,8 @@ export function ScrollJourney() {
               </h2>
               <p
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 'clamp(1rem, 2vw, 1.15rem)',
+                  fontFamily: 'Inter, DM Sans, sans-serif',
+                  fontSize: 'clamp(0.9rem, 2vw, 1.15rem)',
                   color: '#F5F0E8',
                   opacity: Math.min(1, Math.max(0, actProgress * 4 - 0.5)),
                   lineHeight: 1.8,
@@ -247,9 +248,9 @@ export function ScrollJourney() {
             <div style={{ textAlign: 'center' }}>
               <h2
                 style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: 'clamp(1.9rem, 6vw, 4.2rem)',
-                  fontWeight: 600,
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: 'clamp(1.7rem, 6vw, 4rem)',
+                  fontWeight: 300,
                   color: act.textColor,
                   lineHeight: 1.2,
                   marginBottom: '20px',
@@ -259,10 +260,10 @@ export function ScrollJourney() {
               </h2>
               <p
                 style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: 'clamp(1.3rem, 3vw, 2rem)',
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: 'clamp(1.2rem, 3vw, 2rem)',
                   fontStyle: 'italic',
-                  color: 'var(--gold)',
+                  color: '#C9A84C',
                   opacity: Math.min(1, actProgress * 3),
                 }}
               >
@@ -276,9 +277,9 @@ export function ScrollJourney() {
             <div style={{ textAlign: 'center' }}>
               <h2
                 style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: 'clamp(1.9rem, 6vw, 4.2rem)',
-                  fontWeight: 600,
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: 'clamp(1.7rem, 6vw, 4rem)',
+                  fontWeight: 300,
                   color: act.textColor,
                   lineHeight: 1.2,
                   marginBottom: '40px',
@@ -319,9 +320,9 @@ export function ScrollJourney() {
                         justifyContent: 'center',
                         margin: '0 auto 10px',
                         color: '#C9A84C',
-                        fontFamily: "var(--font-cormorant)",
+                        fontFamily: "'Cormorant Garamond', serif",
                         fontSize: 'clamp(16px, 4vw, 22px)',
-                        fontWeight: 600,
+                        fontWeight: 300,
                         boxShadow: '0 0 12px rgba(201,168,76,0.12)',
                         background: 'rgba(201,168,76,0.04)',
                       }}
@@ -330,9 +331,9 @@ export function ScrollJourney() {
                     </div>
                     <p
                       style={{
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: 'clamp(12px, 1.8vw, 14px)',
-                        color: 'var(--text-body)',
+                        fontFamily: 'Inter, DM Sans, sans-serif',
+                        fontSize: 'clamp(10px, 1.8vw, 12px)',
+                        color: '#F5F0E8',
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase',
                         whiteSpace: 'nowrap',
@@ -351,10 +352,10 @@ export function ScrollJourney() {
             <div>
               <p
                 style={{
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '14px',
-                  letterSpacing: '0.16em',
-                  color: 'var(--gold)',
+                  fontFamily: 'Inter, DM Sans, sans-serif',
+                  fontSize: '12px',
+                  letterSpacing: '0.18em',
+                  color: '#C9A84C',
                   textTransform: 'uppercase',
                   textAlign: 'center',
                   marginBottom: '24px',
@@ -383,8 +384,8 @@ export function ScrollJourney() {
                   >
                     <p
                       style={{
-                        fontFamily: "var(--font-cormorant)",
-                        fontSize: 'clamp(1.35rem, 2.5vw, 1.6rem)',
+                        fontFamily: "'Cormorant Garamond', Georgia, serif",
+                        fontSize: 'clamp(1.1rem, 2.5vw, 1.35rem)',
                         fontWeight: 600,
                         color: '#0A0E1A',
                         lineHeight: 1.3,
@@ -395,10 +396,10 @@ export function ScrollJourney() {
                     </p>
                     <p
                       style={{
-                        fontFamily: 'var(--font-sans)',
-                        fontSize: 'clamp(14px, 2vw, 16px)',
-                        color: 'rgba(10,14,26,0.72)',
-                        lineHeight: 1.75,
+                        fontFamily: 'Inter, DM Sans, sans-serif',
+                        fontSize: 'clamp(13px, 2vw, 14px)',
+                        color: 'rgba(10,14,26,0.6)',
+                        lineHeight: 1.7,
                       }}
                     >
                       {c.desc}
@@ -414,9 +415,9 @@ export function ScrollJourney() {
             <div style={{ textAlign: 'center' }}>
               <h2
                 style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: 'clamp(1.9rem, 6vw, 4.2rem)',
-                  fontWeight: 600,
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: 'clamp(1.7rem, 6vw, 4rem)',
+                  fontWeight: 300,
                   color: '#F5F0E8',
                   lineHeight: 1.15,
                   marginBottom: '12px',
@@ -426,10 +427,10 @@ export function ScrollJourney() {
               </h2>
               <p
                 style={{
-                  fontFamily: "var(--font-cormorant)",
-                  fontSize: 'clamp(1.3rem, 3vw, 2rem)',
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: 'clamp(1.2rem, 3vw, 2rem)',
                   fontStyle: 'italic',
-                  color: 'var(--gold)',
+                  color: '#C9A84C',
                   marginBottom: '40px',
                   opacity: Math.min(1, actProgress * 4),
                 }}
@@ -443,9 +444,9 @@ export function ScrollJourney() {
                   padding: 'clamp(14px, 3vw, 16px) clamp(28px, 6vw, 44px)',
                   background: '#C9A84C',
                   color: '#0A0E1A',
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: '14px',
-                  letterSpacing: '0.14em',
+                  fontFamily: 'Inter, DM Sans, sans-serif',
+                  fontSize: '12px',
+                  letterSpacing: '0.18em',
                   textDecoration: 'none',
                   fontWeight: 700,
                   textTransform: 'uppercase',

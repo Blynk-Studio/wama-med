@@ -139,7 +139,7 @@ export default function ServicesPage() {
           خدمات
         </p>
 
-        <div className="section-shell relative z-10">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
           <p className="eyebrow text-brass mb-3">Nos Services</p>
           <span className="brass-rule mb-6 block" />
           <h1
@@ -155,8 +155,8 @@ export default function ServicesPage() {
             <span className="text-brass">Un seul interlocuteur.</span>
           </h1>
           <p
-            className="max-w-2xl mt-6 body-copy"
-            style={{ color: "var(--text-body)" }}
+            className="max-w-2xl mt-6 leading-relaxed text-base"
+            style={{ color: "rgba(245,240,232,0.6)" }}
           >
             De l&apos;analyse de votre dossier jusqu&apos;au suivi post-opératoire — Wama Med
             gère chaque dimension de votre parcours médical au Maroc.
@@ -170,7 +170,7 @@ export default function ServicesPage() {
         style={{ background: "#0A0E1A" }}
         aria-label="Aperçu des services"
       >
-        <div className="section-shell">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
             data-animate-children
@@ -178,7 +178,8 @@ export default function ServicesPage() {
             {SERVICES.map((svc) => (
               <div
                 key={svc.number}
-                className="panel-dark relative rounded-[1.75rem] p-8 sm:p-9 hover:border-brass/40 hover:shadow-2xl transition-all duration-300"
+                className="relative rounded-2xl p-6 sm:p-8 border border-brass/15 hover:border-brass/40 hover:shadow-2xl transition-all duration-300"
+                style={{ background: "#0A1E2A" }}
                 data-animate-child
               >
                 {/* Ghost number */}
@@ -192,22 +193,22 @@ export default function ServicesPage() {
 
                 {/* Arabic micro-label */}
                 <p
-                  className="font-almarai text-sm tracking-[0.08em] mb-3"
-                  style={{ color: "var(--gold)", direction: "rtl", textAlign: "right" }}
+                  className="font-almarai text-xs tracking-widest mb-3"
+                  style={{ color: "rgba(201,168,76,0.6)", direction: "rtl", textAlign: "right" }}
                 >
                   {svc.ar}
                 </p>
 
                 <h3
-                  className="text-[1.85rem] font-black mb-3 leading-tight"
-                  style={{ fontFamily: "var(--font-cormorant)", color: "var(--text-high)" }}
+                  className="text-xl font-black mb-3 leading-tight"
+                  style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
                 >
                   {svc.title}
                 </h3>
 
                 <p
-                  className="body-copy mb-5"
-                  style={{ color: "var(--text-body)" }}
+                  className="text-sm leading-relaxed mb-5"
+                  style={{ color: "rgba(245,240,232,0.65)" }}
                 >
                   {svc.desc}
                 </p>
@@ -216,8 +217,8 @@ export default function ServicesPage() {
                   {svc.details.map((d) => (
                     <li
                       key={d}
-                      className="flex items-start gap-2.5 text-base"
-                      style={{ color: "var(--text-muted)" }}
+                      className="flex items-start gap-2.5 text-sm"
+                      style={{ color: "rgba(245,240,232,0.55)" }}
                     >
                       <span className="text-brass mt-0.5 flex-shrink-0">&#10003;</span>
                       {d}
@@ -236,7 +237,7 @@ export default function ServicesPage() {
         style={{ background: "#0F2938" }}
         aria-label="Services en détail"
       >
-        <div className="section-shell space-y-24 sm:space-y-32">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-24 sm:space-y-32">
           {FEATURED.map((svc, idx) => (
             <div
               key={svc.title}
@@ -266,8 +267,8 @@ export default function ServicesPage() {
                   {svc.title}
                 </h2>
                 <p
-                  className="body-copy mb-5"
-                  style={{ color: "var(--text-body)" }}
+                  className="leading-relaxed text-[15px] mb-5"
+                  style={{ color: "rgba(245,240,232,0.65)" }}
                 >
                   {svc.desc}
                 </p>
@@ -275,8 +276,8 @@ export default function ServicesPage() {
                   {svc.details.map((d) => (
                     <li
                       key={d}
-                      className="flex items-start gap-2.5 text-base"
-                      style={{ color: "var(--text-muted)" }}
+                      className="flex items-start gap-2.5 text-sm"
+                      style={{ color: "rgba(245,240,232,0.55)" }}
                     >
                       <span className="text-brass mt-0.5 flex-shrink-0">&#10003;</span>
                       {d}
