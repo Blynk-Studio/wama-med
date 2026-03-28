@@ -49,8 +49,12 @@ export function ContactForm() {
 
   if (state === "success") {
     return (
-      <div className="bg-teal/5 border border-teal/20 rounded-2xl p-8 text-center">
-        <p className="text-3xl mb-3">✅</p>
+      <div className="bg-teal/5 border border-teal/20 rounded-2xl p-8 text-center form-success-enter">
+        <div className="w-12 h-12 rounded-full bg-teal/10 border border-teal/20 flex items-center justify-center mx-auto mb-4">
+          <svg className="w-6 h-6 text-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
         <p
           className="text-ink text-xl font-bold mb-2"
           style={{ fontFamily: "var(--font-fraunces)" }}
@@ -158,8 +162,9 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={state === "sending"}
-        className="w-full bg-teal hover:bg-teal-light disabled:opacity-60 text-cream font-bold py-4 rounded-full text-base transition-all duration-200 hover:shadow-lg hover:shadow-teal/20"
+        className="w-full bg-teal hover:bg-teal-light disabled:opacity-70 text-cream font-bold py-4 rounded-full text-base transition-all duration-200 hover:shadow-lg hover:shadow-teal/20 flex items-center justify-center gap-2.5"
       >
+        {state === "sending" && <span className="btn-spinner" aria-hidden="true" />}
         {state === "sending" ? "Envoi en cours..." : "Soumettre mon dossier"}
       </button>
 

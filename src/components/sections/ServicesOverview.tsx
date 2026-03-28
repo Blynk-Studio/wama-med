@@ -42,57 +42,70 @@ const SERVICES = [
 export function ServicesOverview() {
   return (
     <section
-      className="bg-stone py-20 sm:py-28"
+      className="bg-stone py-24 sm:py-32"
       data-animate
       aria-labelledby="services-heading"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        {/* Header */}
-        <div className="text-center mb-14" data-animate>
-          <p className="eyebrow text-brass mb-3">Nos Services</p>
-          <span className="brass-rule mx-auto mb-5 block" />
-          <h2
-            className="text-ink text-4xl sm:text-5xl font-black leading-tight mb-5"
-            id="services-heading"
-            style={{ fontFamily: "var(--font-fraunces)" }}
-          >
-            Un seul interlocuteur.
-            <br />
-            <span style={{ color: "var(--color-teal)" }}>Tout pris en charge.</span>
-          </h2>
-          <p className="text-ink/60 max-w-xl mx-auto leading-relaxed text-base body-copy text-left sm:text-center">
-            Wama Med n'est pas une plateforme de mise en relation. C'est un service de coordination
-            active — nous gérons, vous vivez.
+        {/* Header — editorial left/right split.
+            Heading anchors left; descriptor floats right.
+            Breaks the centered-header monotony that repeats 4× on this page. */}
+        <div
+          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14"
+          data-animate
+        >
+          <div>
+            <p className="eyebrow text-brass mb-3">Nos Services</p>
+            <span className="brass-rule mb-5 block" />
+            <h2
+              className="text-ink text-4xl sm:text-5xl font-black leading-tight"
+              id="services-heading"
+              style={{ fontFamily: "var(--font-fraunces)" }}
+            >
+              Un seul interlocuteur.
+              <br />
+              <span style={{ color: "var(--color-teal)" }}>Tout pris en charge.</span>
+            </h2>
+          </div>
+          <p className="text-ink/55 max-w-xs leading-relaxed text-base body-copy text-left lg:text-right lg:pb-1 shrink-0">
+            Wama Med n'est pas une plateforme de mise en relation.
+            C'est un service de coordination active — nous gérons, vous vivez.
           </p>
         </div>
 
-        {/* Service Cards */}
+        {/* Service Cards — first card spans 2 cols on lg to signal primary service */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
           data-animate-children
         >
-          {SERVICES.map((s) => (
+          {SERVICES.map((s, i) => (
             <Link
               key={s.title}
               href={s.href}
-              className="group bg-cream rounded-2xl p-7 border border-stone-dark hover:border-brass/40 hover:shadow-xl hover:shadow-teal/5 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5"
+              className={`group bg-cream rounded-2xl p-7 border border-stone-dark hover:border-brass/40 hover:shadow-xl hover:shadow-teal/5 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5${
+                i === 0 ? " lg:col-span-2 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center" : ""
+              }`}
               data-animate-child
             >
-              <span className="text-3xl mb-4 block" aria-hidden="true">
-                {s.icon}
-              </span>
-              <h3
-                className="text-ink text-lg font-bold mb-2.5 group-hover:text-teal transition-colors duration-200"
-                style={{ fontFamily: "var(--font-fraunces)" }}
-              >
-                {s.title}
-              </h3>
-              <p className="text-ink/55 text-sm leading-relaxed body-copy text-left">
-                {s.desc}
-              </p>
-              <span className="inline-block mt-4 text-brass text-xs font-semibold tracking-wide group-hover:translate-x-1 transition-transform duration-200">
-                En savoir plus →
-              </span>
+              <div className={i === 0 ? "lg:border-r lg:border-stone-dark lg:pr-8" : ""}>
+                <span className="text-3xl mb-4 block" aria-hidden="true">
+                  {s.icon}
+                </span>
+                <h3
+                  className="text-ink text-lg font-bold mb-2.5 group-hover:text-teal transition-colors duration-200"
+                  style={{ fontFamily: "var(--font-fraunces)" }}
+                >
+                  {s.title}
+                </h3>
+              </div>
+              <div>
+                <p className="text-ink/55 text-sm leading-relaxed body-copy text-left">
+                  {s.desc}
+                </p>
+                <span className="inline-block mt-4 text-brass text-xs font-semibold tracking-wide group-hover:translate-x-1 transition-transform duration-200">
+                  En savoir plus →
+                </span>
+              </div>
             </Link>
           ))}
         </div>

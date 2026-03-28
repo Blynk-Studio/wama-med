@@ -54,9 +54,12 @@ export function ProcessPreview() {
               className="relative"
               data-animate-child
             >
-              {/* Connector line (desktop) */}
+              {/* Connector line (desktop) — animated scaleX by AnimationProvider */}
               {idx < STEPS.length - 1 && (
-                <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-brass/40 to-transparent -ml-4 z-0" />
+                <div
+                  className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-brass/40 to-transparent -ml-4 z-0"
+                  data-connector-line
+                />
               )}
 
               <div className="bg-stone rounded-2xl p-6 border border-stone-dark hover:border-brass/30 transition-all duration-300 hover:shadow-lg relative z-10">

@@ -3,7 +3,7 @@ import Link from "next/link";
 export function ClosingCTA() {
   return (
     <section
-      className="bg-teal py-20 sm:py-28 relative overflow-hidden"
+      className="bg-teal py-28 sm:py-36 relative overflow-hidden"
       data-animate
       aria-labelledby="cta-heading"
     >

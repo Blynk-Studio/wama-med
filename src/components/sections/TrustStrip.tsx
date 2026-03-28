@@ -55,7 +55,7 @@ export function TrustStrip() {
               >
                 {item.value}
               </p>
-              <p className="eyebrow text-ink/50 text-[0.6rem] sm:text-[0.7rem]">
+              <p className="eyebrow text-ink/50">
                 {item.label}
               </p>
             </div>

@@ -29,18 +29,30 @@
 }
 
 /* ─────────────────────────────────────────────────────────
-   Base Styles
+   Base — typography first
    ───────────────────────────────────────────────────────── */
 html {
   scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 100%; /* Respect OS font-size preference */
 }
 
 body {
   background-color: var(--color-cream);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-size: 1rem;   /* 16px base — never scale below this */
+  line-height: 1.65; /* DM Sans needs slightly open leading */
+}
+
+/* Fraunces optical sizing — maps opsz axis to computed font-size.
+   Large headings get aged, handcrafted letterforms; small sizes
+   get more legible proportions. This is the key design direction
+   difference that no template can replicate. */
+[class~="font-fraunces"],
+[style*="font-fraunces"] {
+  font-optical-sizing: auto;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -78,13 +90,13 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: hidden; }
 
 /* ─────────────────────────────────────────────────────────
-   Eyebrow Labels
+   Eyebrow Labels — 0.75rem (12px) minimum for WCAG legibility
    ───────────────────────────────────────────────────────── */
 .eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
+  font-size: 0.75rem;   /* raised from 0.6875rem (11px) → 12px */
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -93,6 +105,7 @@ html.lenis, html.lenis body { height: auto; }
    ───────────────────────────────────────────────────────── */
 .type-texture {
   font-family: var(--font-fraunces);
+  font-optical-sizing: auto;
   font-size: clamp(80px, 15vw, 200px);
   font-weight: 900;
   line-height: 0.85;
@@ -101,15 +114,76 @@ html.lenis, html.lenis body { height: auto; }
   pointer-events: none;
 }
 
-/* Brass Rule Divider */
+/* ─────────────────────────────────────────────────────────
+   Brass Rule — starts at 0 width, animated to 48px
+   by AnimationProvider on scroll intersection.
+   ───────────────────────────────────────────────────────── */
 .brass-rule {
-  width: 48px;
+  width: 0;
   height: 2px;
   background: var(--color-brass);
   display: block;
+  overflow: hidden;
 }
 
 /* Mobile body text (DESIGN_STANDARDS.md: left-aligned on mobile) */
 @media (max-width: 640px) {
   p.body-copy { text-align: left; }
+}
+
+/* ─────────────────────────────────────────────────────────
+   Reduced Motion — accessibility override (WCAG 2.3)
+   ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   Form Success — scale + fade entrance
+   ───────────────────────────────────────────────────────── */
+.form-success-enter {
+  animation: formSuccessIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes formSuccessIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   Submit Button — loading spinner
+   ───────────────────────────────────────────────────────── */
+.btn-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(250, 250, 248, 0.3);
+  border-top-color: rgba(250, 250, 248, 0.9);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─────────────────────────────────────────────────────────
+   Process Connector Lines — animated scaleX by AnimationProvider
+   ───────────────────────────────────────────────────────── */
+[data-connector-line] {
+  transform: scaleX(0);
+  transform-origin: left center;
 }

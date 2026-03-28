@@ -27,16 +27,17 @@ const AUDIENCES = [
 export function AudienceSection() {
   return (
     <section
-      className="bg-stone py-20 sm:py-28"
+      className="bg-stone py-16 sm:py-24"
       data-animate
       aria-labelledby="audience-heading"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="text-center mb-14" data-animate>
+        {/* Left-aligned header — subordinate section, no centering */}
+        <div className="mb-12" data-animate>
           <p className="eyebrow text-brass mb-3">Qui nous accompagnons</p>
-          <span className="brass-rule mx-auto mb-5 block" />
+          <span className="brass-rule mb-5 block" />
           <h2
-            className="text-ink text-4xl sm:text-5xl font-black leading-tight"
+            className="text-ink text-4xl sm:text-5xl font-black leading-tight max-w-lg"
             id="audience-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >

@@ -11,7 +11,7 @@ const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces-var",
   display: "swap",
-  axes: ["SOFT", "WONK"],
+  axes: ["opsz", "SOFT", "WONK"], // opsz axis = aged/handcrafted quality at large display sizes
 });
 
 const dmSans = DM_Sans({

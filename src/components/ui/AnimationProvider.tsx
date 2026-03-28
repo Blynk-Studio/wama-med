@@ -77,6 +77,44 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         );
       });
 
+      // Brass rules — animate width 0 → 48px on scroll
+      const brassRules = document.querySelectorAll<HTMLElement>(".brass-rule");
+      brassRules.forEach((el) => {
+        gsap.fromTo(
+          el,
+          { width: 0 },
+          {
+            width: 48,
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 92%",
+              once: true,
+            },
+          }
+        );
+      });
+
+      // Process connector lines — animate scaleX 0 → 1
+      const connectorLines = document.querySelectorAll<HTMLElement>("[data-connector-line]");
+      connectorLines.forEach((el) => {
+        gsap.fromTo(
+          el,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            duration: 0.9,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
+      });
+
       // CountUp animations via IntersectionObserver (not ScrollTrigger)
       initCountUps(gsap);
 

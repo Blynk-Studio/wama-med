@@ -103,17 +103,24 @@ export function Header() {
       {/* Mobile Drawer — OUTSIDE header to avoid backdrop-filter containing block trap */}
       <div
         className={`fixed inset-0 top-16 bg-teal z-40 transition-all duration-300 lg:hidden ${
-          menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          menuOpen
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-2 pointer-events-none"
         }`}
       >
         <nav className="flex flex-col p-8 gap-6" aria-label="Navigation mobile">
-          {NAV_LINKS.map((link) => (
+          {NAV_LINKS.map((link, i) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-cream text-2xl font-medium border-b border-cream/10 pb-4 hover:text-brass transition-colors duration-200"
-              style={{ fontFamily: "var(--font-fraunces)" }}
+              className="text-cream text-2xl font-medium border-b border-cream/10 pb-4 hover:text-brass transition-all duration-200"
+              style={{
+                fontFamily: "var(--font-fraunces)",
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "translateY(0)" : "translateY(-6px)",
+                transitionDelay: menuOpen ? `${60 + i * 55}ms` : "0ms",
+              }}
             >
               {link.label}
             </Link>
