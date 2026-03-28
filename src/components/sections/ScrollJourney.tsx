@@ -144,24 +144,37 @@ export function ScrollJourney() {
     scheduleVfc();
 
     // ── Mobile video decoder unlock ───────────────────────────────────────
-    // Android Chrome + iOS Safari block seeks on a video that has never played,
-    // even with autoPlay+muted — unless the page has had a user interaction.
-    // Solution: on first touch/scroll/click, call play().then(pause()) to
-    // unlock the decoder, then hand control back to the scrubber.
+    // Browsers block seeks on a video that hasn't been "played" at least once.
+    // Strategy: try immediately (works when muted autoplay is permitted),
+    // and also on first user gesture (touchstart/scroll/pointer) as fallback.
     let unlocked = false;
-    const unlockVideo = () => {
+    const doUnlock = (video: HTMLVideoElement) => {
       if (unlocked) return;
       unlocked = true;
+      const p = video.play();
+      if (p) {
+        p.then(() => {
+          video.pause();
+          video.currentTime = 0;
+          currentLerped.current = 0;
+          lastSeeked.current = -1;
+        }).catch(() => {
+          // Autoplay blocked — will retry on user gesture
+          unlocked = false;
+        });
+      }
+    };
+    const unlockVideo = () => {
       const video = videoRef.current;
       if (!video) return;
-      video.play().then(() => {
-        video.pause();
-        video.currentTime = 0;
-        // Reset lerp state so scrubber starts from frame 0
-        currentLerped.current = 0;
-        lastSeeked.current = -1;
-      }).catch(() => { /* autoplay blocked entirely — video stays static */ });
+      doUnlock(video);
     };
+    // Try immediately (works on most desktop + many mobile browsers with muted)
+    setTimeout(() => {
+      const video = videoRef.current;
+      if (video) doUnlock(video);
+    }, 100);
+    // Fallback: first gesture
     window.addEventListener('touchstart', unlockVideo, { once: true, passive: true });
     window.addEventListener('scroll', unlockVideo, { once: true, passive: true });
     window.addEventListener('pointerdown', unlockVideo, { once: true, passive: true });
@@ -474,22 +487,34 @@ export function ScrollJourney() {
                   >
                     {/* Circle */}
                     <div
-                      style={{
-                        width: 'clamp(48px, 11vw, 60px)',
-                        height: 'clamp(48px, 11vw, 60px)',
-                        border: '1px solid rgba(201,168,76,0.6)',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        margin: '0 auto 10px',
-                        color: '#C9A84C',
-                        fontFamily: "'Cormorant Garamond', serif",
-                        fontSize: 'clamp(18px, 4.5vw, 26px)',
-                        fontWeight: 300,
-                        boxShadow: '0 0 12px rgba(201,168,76,0.12)',
-                        background: 'rgba(201,168,76,0.04)',
-                      }}
+                      style={(() => {
+                        const stepT = i / 5;
+                        const isActiveStep = actProgress >= stepT && actProgress < stepT + 0.20;
+                        const isPastStep   = actProgress >= stepT + 0.20;
+                        return {
+                          width: 'clamp(48px, 11vw, 60px)',
+                          height: 'clamp(48px, 11vw, 60px)',
+                          border: isActiveStep
+                            ? '2px solid rgba(201,168,76,1)'
+                            : isPastStep
+                            ? '1px solid rgba(201,168,76,0.5)'
+                            : '1px solid rgba(201,168,76,0.25)',
+                          borderRadius: '50%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          margin: '0 auto 10px',
+                          color: isActiveStep ? '#F5F0E8' : '#C9A84C',
+                          fontFamily: "'Cormorant Garamond', serif",
+                          fontSize: 'clamp(18px, 4.5vw, 26px)',
+                          fontWeight: isActiveStep ? 600 : 300,
+                          boxShadow: isActiveStep
+                            ? '0 0 0 4px rgba(201,168,76,0.15), 0 0 24px rgba(201,168,76,0.4)'
+                            : '0 0 12px rgba(201,168,76,0.08)',
+                          background: isActiveStep ? 'rgba(201,168,76,0.12)' : 'rgba(201,168,76,0.04)',
+                          transition: 'all 0.35s ease',
+                        };
+                      })()}
                     >
                       {i + 1}
                     </div>
@@ -541,16 +566,39 @@ export function ScrollJourney() {
                   gap: '16px',
                 }}
               >
-                {act.commitments?.map((c, i) => (
+                {act.commitments?.map((c, i) => {
+                  // Each card activates at equal thirds of actProgress (0→1 across the act)
+                  // Active card: bright border + glow + elevated bg
+                  // Past card: dimmed but still visible
+                  // Future card: very dim
+                  const cardThreshold = i / 3;         // 0, 0.33, 0.66
+                  const nextThreshold = (i + 1) / 3;   // 0.33, 0.66, 1.0
+                  const isActive  = actProgress >= cardThreshold && actProgress < nextThreshold;
+                  const isPast    = actProgress >= nextThreshold;
+                  const cardOpacity = isActive ? 1 : isPast ? 0.75 : 0.40;
+                  const borderColor = isActive
+                    ? 'rgba(201,168,76,0.95)'
+                    : isPast
+                    ? 'rgba(201,168,76,0.35)'
+                    : 'rgba(201,168,76,0.15)';
+                  const cardBg = isActive
+                    ? 'rgba(20,16,8,0.85)'
+                    : 'rgba(10,14,26,0.72)';
+                  const cardGlow = isActive
+                    ? '0 0 0 1px rgba(201,168,76,0.4), 0 8px 48px rgba(201,168,76,0.18), 0 8px 40px rgba(0,0,0,0.65)'
+                    : '0 8px 40px rgba(0,0,0,0.65)';
+                  return (
                   <div
                     key={i}
                     style={{
-                      background: 'rgba(10,14,26,0.72)',
-                      border: '1px solid rgba(201,168,76,0.45)',
+                      background: cardBg,
+                      border: `1px solid ${borderColor}`,
                       borderRadius: '16px',
                       padding: 'clamp(20px, 4vw, 28px) clamp(16px, 3vw, 24px)',
-                      boxShadow: '0 8px 40px rgba(0,0,0,0.65)',
+                      boxShadow: cardGlow,
                       backdropFilter: 'blur(8px)',
+                      opacity: cardOpacity,
+                      transition: 'border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease, background 0.4s ease',
                     }}
                   >
                     <p
@@ -558,9 +606,10 @@ export function ScrollJourney() {
                         fontFamily: "'Cormorant Garamond', Georgia, serif",
                         fontSize: 'clamp(1.15rem, 2.8vw, 1.45rem)',
                         fontWeight: 700,
-                        color: '#F5F0E8',
+                        color: isActive ? '#F5F0E8' : 'rgba(245,240,232,0.85)',
                         lineHeight: 1.3,
                         marginBottom: '10px',
+                        transition: 'color 0.4s ease',
                       }}
                     >
                       {c.title}
@@ -569,14 +618,16 @@ export function ScrollJourney() {
                       style={{
                         fontFamily: 'Inter, DM Sans, sans-serif',
                         fontSize: 'clamp(13px, 2vw, 14px)',
-                        color: 'rgba(245,240,232,0.90)',
+                        color: isActive ? 'rgba(245,240,232,0.95)' : 'rgba(245,240,232,0.70)',
                         lineHeight: 1.7,
+                        transition: 'color 0.4s ease',
                       }}
                     >
                       {c.desc}
                     </p>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
