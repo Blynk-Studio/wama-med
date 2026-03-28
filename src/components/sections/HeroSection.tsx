@@ -148,6 +148,7 @@ export function HeroSection() {
               textDecoration: 'none',
               fontWeight: 700,
               textTransform: 'uppercase',
+              borderRadius: '6px',
               transition: 'background 0.25s ease, transform 0.2s ease',
             }}
             onMouseEnter={e => {

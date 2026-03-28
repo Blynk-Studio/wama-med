@@ -133,8 +133,8 @@ export function ZelligeCanvas() {
       style={{
         position: 'fixed',
         inset: 0,
-        width: '100vw',
-        height: '100vh',
+        width: '100%',
+        height: '100%',
         zIndex: -1,
         display: 'block',
         background: '#0A0E1A', // CSS fallback if WebGL fails

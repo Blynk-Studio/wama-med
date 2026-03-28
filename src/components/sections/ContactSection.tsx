@@ -114,7 +114,7 @@ export function ContactSection() {
               border: '1px solid rgba(201,168,76,0.3)',
             borderRadius: '16px',
             boxShadow: '0 8px 32px rgba(201,168,76,0.08)',
-              padding: '48px',
+              padding: 'clamp(28px, 6vw, 48px)',
               textAlign: 'center',
             }}
           >
@@ -133,7 +133,7 @@ export function ContactSection() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} noValidate>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 32px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))', gap: '0 32px' }}>
               <div style={{ marginBottom: '32px' }}>
                 <label htmlFor="c-name" style={labelStyle}>Nom complet *</label>
                 <input
@@ -214,6 +214,7 @@ export function ContactSection() {
                 textTransform: 'uppercase',
                 fontWeight: 700,
                 border: 'none',
+                borderRadius: '8px',
                 cursor: state === 'sending' ? 'wait' : 'pointer',
                 opacity: state === 'sending' ? 0.7 : 1,
                 transition: 'background 0.2s ease',

@@ -4,6 +4,18 @@
 /* ─────────────────────────────────────────────────────────
    Wama Med Design System — Tailwind v4 Theme
    ───────────────────────────────────────────────────────── */
+
+/* ─────────────────────────────────────────────────────────
+   Mobile overflow containment — prevents horizontal scroll
+   ───────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
 @theme {
   /* Colors */
   --color-teal: #0B4042;

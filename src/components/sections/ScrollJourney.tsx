@@ -84,6 +84,9 @@ export function ScrollJourney() {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       gsap.registerPlugin(ScrollTrigger);
 
+      // Refresh on resize so mobile address-bar collapse doesn't break pin geometry
+      ScrollTrigger.config({ ignoreMobileResize: true });
+
       ScrollTrigger.create({
         trigger: outerRef.current,
         start: 'top top',
@@ -92,7 +95,12 @@ export function ScrollJourney() {
         onUpdate: self => setProgress(self.progress),
         pin: stickyRef.current,
         pinSpacing: false,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
       });
+
+      // Force recalc after fonts/images settle
+      setTimeout(() => ScrollTrigger.refresh(), 300);
     })();
   }, []);
 
@@ -111,8 +119,9 @@ export function ScrollJourney() {
         ref={stickyRef}
         style={{
           // Force true 100dvh so it fills the mobile viewport correctly
-          height: '100dvh',
-          minHeight: '100svh',
+          // 100svh = small viewport height (excludes mobile browser chrome)
+          // This prevents the "empty bar at bottom" on iOS Safari / Android Chrome
+          height: '100svh',
           position: 'relative',
           background: act.bg,
           transition: 'background 0.9s ease',
@@ -465,7 +474,7 @@ export function ScrollJourney() {
                   textDecoration: 'none',
                   fontWeight: 700,
                   textTransform: 'uppercase',
-                  borderRadius: '2px',
+                  borderRadius: '8px',
                   opacity: Math.min(1, actProgress * 5),
                   boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
                 }}
