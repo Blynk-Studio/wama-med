@@ -43,7 +43,7 @@ const ACTS: Act[] = [
   {
     id: 4,
     label: 'Les Engagements',
-    bg: '#F5F0E8',
+    bg: '#0A0E1A',
     headline: 'Ce qui définit notre coordination',
     commitments: [
       {
@@ -59,7 +59,7 @@ const ACTS: Act[] = [
         desc: 'Normes de confidentialité et de coordination transfrontalière.',
       },
     ],
-    textColor: '#0A0E1A',
+    textColor: '#F5F0E8',
   },
   {
     id: 5,
@@ -454,11 +454,11 @@ export function ScrollJourney() {
                   <div
                     key={i}
                     style={{
-                      background: 'rgba(255,255,255,0.7)',
-                      border: '1px solid rgba(10,14,26,0.08)',
+                      background: 'rgba(255,255,255,0.07)',
+                      border: '1px solid rgba(201,168,76,0.2)',
                       borderRadius: '16px',
                       padding: 'clamp(20px, 4vw, 28px) clamp(16px, 3vw, 24px)',
-                      boxShadow: '0 8px 32px rgba(10,14,26,0.08), 0 2px 8px rgba(10,14,26,0.06)',
+                      boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
                       backdropFilter: 'blur(8px)',
                     }}
                   >
