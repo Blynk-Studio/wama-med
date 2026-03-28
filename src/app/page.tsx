@@ -7,6 +7,7 @@ import { ProcessPreview } from "@/components/sections/ProcessPreview";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { ClosingCTA } from "@/components/sections/ClosingCTA";
+import { AISection } from "@/components/sections/AISection";
 
 export default function HomePage() {
   return (
@@ -18,6 +19,7 @@ export default function HomePage() {
       <FounderSection />
       <ProcessPreview />
       <TestimonialsSection />
+      <AISection />
       <ContactSection />
       <ClosingCTA />
     </>

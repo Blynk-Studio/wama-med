@@ -327,6 +327,22 @@ function AIWidgetPanel({
    ────────────────────────────────────────────────────────── */
 export function AIWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showLabel, setShowLabel] = useState(false);
+  const [labelDismissed, setLabelDismissed] = useState(false);
+
+  useEffect(() => {
+    if (isOpen || labelDismissed) return;
+    const timer = setTimeout(() => setShowLabel(true), 2000);
+    return () => clearTimeout(timer);
+  }, [isOpen, labelDismissed]);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+    if (!isOpen) {
+      setShowLabel(false);
+      setLabelDismissed(true);
+    }
+  };
 
   return (
     <>
@@ -344,9 +360,31 @@ export function AIWidget() {
         </div>
       )}
 
+      {/* "Discutez maintenant" pill label */}
+      {showLabel && !isOpen && (
+        <div
+          className="fixed bottom-7 right-[5.25rem] z-50 animate-[fadeSlideIn_0.4s_ease-out_forwards]"
+        >
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold shadow-lg whitespace-nowrap"
+            style={{
+              background: "#0F2938",
+              color: "#F5F0E8",
+              border: "1px solid rgba(201,168,76,0.3)",
+            }}
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full animate-pulse"
+              style={{ background: "#4ade80" }}
+            />
+            Discutez maintenant
+          </span>
+        </div>
+      )}
+
       {/* Floating Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleClick}
         className={`fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full shadow-xl transition-all duration-300 flex items-center justify-center text-xl hover:scale-110 ${
           isOpen
             ? "bg-ink/80 text-cream"
@@ -355,7 +393,27 @@ export function AIWidget() {
         aria-label={isOpen ? "Fermer l'assistant" : "Ouvrir l'assistant Wama Med"}
       >
         <span aria-hidden="true">{isOpen ? "×" : "💬"}</span>
+        {/* Pulsing green live indicator */}
+        {!isOpen && (
+          <span
+            className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-teal"
+            style={{ background: "#4ade80" }}
+          >
+            <span
+              className="absolute inset-0 rounded-full animate-ping"
+              style={{ background: "#4ade80", opacity: 0.6 }}
+            />
+          </span>
+        )}
       </button>
+
+      {/* Keyframe for label fade-slide-in */}
+      <style jsx global>{`
+        @keyframes fadeSlideIn {
+          from { opacity: 0; transform: translateX(12px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+      `}</style>
     </>
   );
 }
