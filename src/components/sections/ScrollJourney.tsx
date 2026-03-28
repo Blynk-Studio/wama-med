@@ -429,7 +429,13 @@ export function ScrollJourney() {
 
           {/* ACT 4 — Les Engagements */}
           {act.id === 4 && (
-            <div>
+            <div style={{
+              background: 'rgba(8,12,22,0.55)',
+              backdropFilter: 'blur(12px)',
+              borderRadius: '24px',
+              padding: 'clamp(24px, 5vw, 40px)',
+              border: '1px solid rgba(201,168,76,0.12)',
+            }}>
               <p
                 style={{
                   fontFamily: 'Inter, DM Sans, sans-serif',
@@ -454,11 +460,11 @@ export function ScrollJourney() {
                   <div
                     key={i}
                     style={{
-                      background: 'rgba(255,255,255,0.07)',
-                      border: '1px solid rgba(201,168,76,0.2)',
+                      background: 'rgba(10,14,26,0.72)',
+                      border: '1px solid rgba(201,168,76,0.45)',
                       borderRadius: '16px',
                       padding: 'clamp(20px, 4vw, 28px) clamp(16px, 3vw, 24px)',
-                      boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                      boxShadow: '0 8px 40px rgba(0,0,0,0.65)',
                       backdropFilter: 'blur(8px)',
                     }}
                   >
@@ -467,7 +473,7 @@ export function ScrollJourney() {
                         fontFamily: "'Cormorant Garamond', Georgia, serif",
                         fontSize: 'clamp(1.1rem, 2.5vw, 1.35rem)',
                         fontWeight: 600,
-                        color: '#0A0E1A',
+                        color: '#F5F0E8',
                         lineHeight: 1.3,
                         marginBottom: '10px',
                       }}
@@ -478,7 +484,7 @@ export function ScrollJourney() {
                       style={{
                         fontFamily: 'Inter, DM Sans, sans-serif',
                         fontSize: 'clamp(13px, 2vw, 14px)',
-                        color: 'rgba(10,14,26,0.6)',
+                        color: 'rgba(245,240,232,0.75)',
                         lineHeight: 1.7,
                       }}
                     >
