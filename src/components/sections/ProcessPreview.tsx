@@ -27,12 +27,12 @@ export function ProcessPreview() {
   return (
     <section
       className="bg-cream py-20 sm:py-28"
-      data-animate
+     
       aria-labelledby="process-heading"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         {/* Header */}
-        <div className="text-center mb-14" data-animate>
+        <div className="text-center mb-14">
           <p className="eyebrow text-brass mb-3">Notre Approche</p>
           <span className="brass-rule mx-auto mb-5 block" />
           <h2
@@ -47,12 +47,12 @@ export function ProcessPreview() {
         </div>
 
         {/* Steps */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8" data-animate-children>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {STEPS.map((step, idx) => (
             <div
               key={step.number}
               className="relative"
-              data-animate-child
+             
             >
               {/* Connector line (desktop) — animated scaleX by AnimationProvider */}
               {idx < STEPS.length - 1 && (
@@ -84,7 +84,7 @@ export function ProcessPreview() {
           ))}
         </div>
 
-        <div className="text-center mt-12" data-animate>
+        <div className="text-center mt-12">
           <Link
               prefetch={false}
             href="/comment-ca-marche"

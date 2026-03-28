@@ -4,13 +4,13 @@ export function AIAssistantSection() {
   return (
     <section
       className="bg-cream py-20 sm:py-28"
-      data-animate
+     
       aria-labelledby="ai-assistant-heading"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Text */}
-          <div data-animate>
+          <div>
             <p className="eyebrow text-brass mb-3">Assistant IA — Disponible 24h/24</p>
             <span className="brass-rule mb-6 block" />
             <h2
@@ -39,7 +39,7 @@ export function AIAssistantSection() {
           </div>
 
           {/* Widget */}
-          <div data-animate>
+          <div>
             <AIWidgetInline />
           </div>
         </div>

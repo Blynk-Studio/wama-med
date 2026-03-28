@@ -68,7 +68,7 @@ export function ContactSection() {
         padding: 'clamp(64px, 10vw, 100px) clamp(24px, 5vw, 64px)',
       }}
     >
-      <div style={{ maxWidth: '720px', margin: '0 auto' }} data-animate>
+      <div style={{ maxWidth: '720px', margin: '0 auto' }}>
         {/* Headings */}
         <div style={{ marginBottom: '48px' }}>
           <p style={{

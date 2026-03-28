@@ -28,12 +28,12 @@ export function AudienceSection() {
   return (
     <section
       className="bg-stone py-16 sm:py-24"
-      data-animate
+     
       aria-labelledby="audience-heading"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         {/* Left-aligned header — subordinate section, no centering */}
-        <div className="mb-12" data-animate>
+        <div className="mb-12">
           <p className="eyebrow text-brass mb-3">Qui nous accompagnons</p>
           <span className="brass-rule mb-5 block" />
           <h2
@@ -47,12 +47,12 @@ export function AudienceSection() {
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-6 sm:gap-8" data-animate-children>
+        <div className="grid sm:grid-cols-3 gap-6 sm:gap-8">
           {AUDIENCES.map((a) => (
             <div
               key={a.title}
               className="group bg-cream rounded-2xl overflow-hidden border border-stone-dark hover:border-brass/30 hover:shadow-xl hover:shadow-teal/5 transition-all duration-300 hover:scale-[1.01]"
-              data-animate-child
+             
             >
               {/* Image */}
               <div className="relative w-full aspect-video overflow-hidden">

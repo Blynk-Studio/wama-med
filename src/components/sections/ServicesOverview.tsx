@@ -97,7 +97,7 @@ export function ServicesOverview() {
             gap: '8px',
             marginBottom: '48px',
           }}
-          data-animate
+         
         >
           <p
             style={{
@@ -156,7 +156,7 @@ export function ServicesOverview() {
         </div>
 
         {/* Footer CTA */}
-        <div style={{ marginTop: '48px', textAlign: 'center' }} data-animate>
+        <div style={{ marginTop: '48px', textAlign: 'center' }}>
           <Link
             href="/services"
             style={{

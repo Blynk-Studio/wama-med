@@ -23,11 +23,11 @@ export function TestimonialsSection() {
   return (
     <section
       className="bg-teal py-24 sm:py-32"
-      data-animate
+     
       aria-labelledby="trust-heading"
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-        <div className="text-center mb-14" data-animate>
+        <div className="text-center mb-14">
           <p className="eyebrow text-brass mb-3">Nos engagements</p>
           <span className="brass-rule mx-auto mb-5 block" />
           <h2
@@ -40,7 +40,7 @@ export function TestimonialsSection() {
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-3 gap-6 sm:gap-8" data-animate-children>
+        <div className="grid sm:grid-cols-3 gap-6 sm:gap-8">
           {PRINCIPLES.map((p) => (
             <div
               key={p.title}
@@ -49,7 +49,7 @@ export function TestimonialsSection() {
                 background: "rgba(255,255,255,0.07)",
                 border: "1px solid rgba(184,144,58,0.28)",
               }}
-              data-animate-child
+             
             >
               <div className="flex items-center justify-between mb-6">
                 <p

@@ -4,7 +4,7 @@ export function ClosingCTA() {
   return (
     <section
       className="bg-teal py-28 sm:py-36 relative overflow-hidden"
-      data-animate
+     
       aria-labelledby="cta-heading"
     >
       {/* Oversized background type */}

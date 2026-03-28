@@ -5,7 +5,7 @@ export function FounderSection() {
   return (
     <section
       className="bg-teal py-20 sm:py-28 overflow-hidden relative"
-      data-animate
+     
       aria-labelledby="founder-heading"
     >
       {/* Oversized background text texture */}
@@ -23,7 +23,7 @@ export function FounderSection() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
           {/* Image */}
-          <div className="relative" data-animate>
+          <div className="relative">
             <div className="relative w-full aspect-square max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden">
               <Image
                 src="/images/wama-driss-portrait.jpg"
@@ -43,7 +43,7 @@ export function FounderSection() {
           </div>
 
           {/* Text */}
-          <div data-animate>
+          <div>
             <p className="eyebrow text-brass mb-4">La promesse</p>
             <span className="brass-rule mb-6 block" />
             <h2
