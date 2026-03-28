@@ -36,8 +36,9 @@ export function FounderSection() {
               {/* Brass border accent */}
               <div className="absolute inset-0 rounded-2xl border border-brass/20" />
             </div>
-            {/* Badge */}
-            <div className="absolute -bottom-4 -right-2 sm:-right-6 bg-brass text-ink text-xs font-bold px-4 py-2 rounded-full shadow-lg">
+            {/* Badge — anchored to bottom-left of image, overlapping the edge */}
+            <div className="absolute bottom-4 left-4 bg-brass text-ink text-xs font-bold px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-ink/40 inline-block" />
               Fondateur & Directeur
             </div>
           </div>
