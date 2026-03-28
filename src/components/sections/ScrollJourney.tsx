@@ -235,7 +235,7 @@ export function ScrollJourney() {
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
                   fontSize: 'clamp(1.7rem, 6vw, 4rem)',
-                  fontWeight: Math.min(700, Math.max(200, Math.round(200 + actProgress * 500))),
+                  fontWeight: 300,
                   color: act.textColor,
                   lineHeight: 1.2,
                   maxWidth: '18ch',
