@@ -50,8 +50,8 @@ export function ContactSection() {
 
   const labelStyle = {
     fontFamily: 'Inter, DM Sans, sans-serif',
-    fontSize: '10px',
-    letterSpacing: '0.28em',
+    fontSize: '12px',
+    letterSpacing: '0.18em',
     textTransform: 'uppercase' as const,
     color: '#C9A84C',
     display: 'block',
@@ -70,11 +70,11 @@ export function ContactSection() {
     >
       <div style={{ maxWidth: '720px', margin: '0 auto' }} data-animate>
         {/* Headings */}
-        <div style={{ marginBottom: '52px' }}>
+        <div style={{ marginBottom: '48px' }}>
           <p style={{
             fontFamily: 'Inter, DM Sans, sans-serif',
-            fontSize: '11px',
-            letterSpacing: '0.3em',
+            fontSize: '12px',
+            letterSpacing: '0.18em',
             color: '#C9A84C',
             textTransform: 'uppercase',
             marginBottom: '16px',
@@ -210,11 +210,11 @@ export function ContactSection() {
                 color: '#0A0E1A',
                 fontFamily: 'Inter, DM Sans, sans-serif',
                 fontSize: '12px',
-                letterSpacing: '0.22em',
+                letterSpacing: '0.18em',
                 textTransform: 'uppercase',
                 fontWeight: 700,
                 border: 'none',
-                borderRadius: '8px',
+                borderRadius: '9999px',
                 cursor: state === 'sending' ? 'wait' : 'pointer',
                 opacity: state === 'sending' ? 0.7 : 1,
                 transition: 'background 0.2s ease',
@@ -227,7 +227,7 @@ export function ContactSection() {
 
             <p style={{
               fontFamily: 'Inter',
-              fontSize: '11px',
+              fontSize: '12px',
               color: 'rgba(245,240,232,0.35)',
               textAlign: 'center',
               marginTop: '16px',

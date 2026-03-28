@@ -87,11 +87,11 @@ export function HeroSection() {
           ref={eyebrowRef}
           style={{
             fontFamily: 'Inter, DM Sans, sans-serif',
-            fontSize: '11px',
+            fontSize: '12px',
             letterSpacing: '0.18em',
             color: '#C9A84C',
             textTransform: 'uppercase',
-            marginBottom: '28px',
+            marginBottom: '24px',
             opacity: 0,
           }}
         >
@@ -108,7 +108,7 @@ export function HeroSection() {
             color: '#F5F0E8',
             lineHeight: 1.08,
             maxWidth: '16ch',
-            marginBottom: '28px',
+            marginBottom: '24px',
             letterSpacing: '-0.01em',
           }}
         >
@@ -134,21 +134,21 @@ export function HeroSection() {
         </p>
 
         {/* CTA */}
-        <div ref={ctaRef} style={{ marginTop: '52px', opacity: 0 }}>
+        <div ref={ctaRef} style={{ marginTop: '48px', opacity: 0 }}>
           <a
             href="#contact"
             style={{
               display: 'inline-block',
-              padding: '15px 44px',
+              padding: '16px 48px',
               background: '#C9A84C',
               color: '#0A0E1A',
               fontFamily: 'Inter, DM Sans, sans-serif',
               fontSize: '12px',
-              letterSpacing: '0.22em',
+              letterSpacing: '0.18em',
               textDecoration: 'none',
               fontWeight: 700,
               textTransform: 'uppercase',
-              borderRadius: '6px',
+              borderRadius: '9999px',
               transition: 'background 0.25s ease, transform 0.2s ease',
             }}
             onMouseEnter={e => {

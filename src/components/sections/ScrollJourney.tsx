@@ -145,8 +145,8 @@ export function ScrollJourney() {
           <p
             style={{
               fontFamily: 'Inter, DM Sans, sans-serif',
-              fontSize: '10px',
-              letterSpacing: '0.35em',
+              fontSize: '12px',
+              letterSpacing: '0.18em',
               color: '#C9A84C',
               textTransform: 'uppercase',
             }}
@@ -335,7 +335,7 @@ export function ScrollJourney() {
                     <p
                       style={{
                         fontFamily: 'Inter, DM Sans, sans-serif',
-                        fontSize: 'clamp(8px, 1.8vw, 10px)',
+                        fontSize: 'clamp(10px, 1.8vw, 12px)',
                         color: '#F5F0E8',
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase',
@@ -356,12 +356,12 @@ export function ScrollJourney() {
               <p
                 style={{
                   fontFamily: 'Inter, DM Sans, sans-serif',
-                  fontSize: '10px',
-                  letterSpacing: '0.32em',
+                  fontSize: '12px',
+                  letterSpacing: '0.18em',
                   color: '#C9A84C',
                   textTransform: 'uppercase',
                   textAlign: 'center',
-                  marginBottom: '28px',
+                  marginBottom: '24px',
                 }}
               >
                 {act.headline}
@@ -422,7 +422,7 @@ export function ScrollJourney() {
                         <p style={{ fontFamily: 'Inter', fontSize: '12px', color: '#0A0E1A', fontWeight: 600, lineHeight: 1.3 }}>
                           {t.name}
                         </p>
-                        <p style={{ fontFamily: 'Inter', fontSize: '11px', color: 'rgba(10,14,26,0.5)', lineHeight: 1.3 }}>
+                        <p style={{ fontFamily: 'Inter', fontSize: '12px', color: 'rgba(10,14,26,0.5)', lineHeight: 1.3 }}>
                           {t.city}
                         </p>
                       </div>
@@ -470,11 +470,11 @@ export function ScrollJourney() {
                   color: '#0A0E1A',
                   fontFamily: 'Inter, DM Sans, sans-serif',
                   fontSize: '12px',
-                  letterSpacing: '0.22em',
+                  letterSpacing: '0.18em',
                   textDecoration: 'none',
                   fontWeight: 700,
                   textTransform: 'uppercase',
-                  borderRadius: '8px',
+                  borderRadius: '9999px',
                   opacity: Math.min(1, actProgress * 5),
                   boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
                 }}

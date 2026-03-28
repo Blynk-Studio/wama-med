@@ -98,7 +98,7 @@ export function TrustStrip() {
             <p
               style={{
                 fontFamily: 'Inter, DM Sans, sans-serif',
-                fontSize: 'clamp(10px, 2vw, 12px)',
+                fontSize: 'clamp(11px, 2vw, 12px)',
                 color: '#F5F0E8',
                 opacity: 0.62,
                 letterSpacing: '0.06em',

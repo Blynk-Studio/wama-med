@@ -88,15 +88,15 @@ export function ServicesOverview() {
             display: 'flex',
             flexDirection: 'column',
             gap: '8px',
-            marginBottom: '56px',
+            marginBottom: '48px',
           }}
           data-animate
         >
           <p
             style={{
               fontFamily: 'Inter, DM Sans, sans-serif',
-              fontSize: '11px',
-              letterSpacing: '0.3em',
+              fontSize: '12px',
+              letterSpacing: '0.18em',
               color: '#C9A84C',
               textTransform: 'uppercase',
             }}
