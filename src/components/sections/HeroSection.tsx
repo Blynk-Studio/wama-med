@@ -13,26 +13,26 @@ export function HeroSection() {
       const { default: gsap } = await import('gsap');
       if (!headlineRef.current) return;
 
-      // Manual char split — no SplitText dependency
+      // Word-level split — preserves natural word-wrapping (char-level breaks word-break logic)
       const headline = headlineRef.current;
       const raw = headline.textContent || '';
       headline.innerHTML = raw
-        .split('')
-        .map(c =>
-          `<span style="display:inline-block;will-change:transform">${c === ' ' ? '&nbsp;' : c}</span>`
+        .split(' ')
+        .map(word =>
+          `<span style="display:inline-block;will-change:transform;white-space:nowrap">${word}</span>`
         )
-        .join('');
+        .join(' ');
 
-      const chars = Array.from(headline.querySelectorAll('span'));
+      const words = Array.from(headline.querySelectorAll('span'));
 
       const tl = gsap.timeline({ delay: 0.3 });
       tl.fromTo(eyebrowRef.current,
         { opacity: 0, y: 12 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }
       )
-      .fromTo(chars,
-        { opacity: 0, y: 36, filter: 'blur(4px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.022, duration: 0.75, ease: 'power2.out' },
+      .fromTo(words,
+        { opacity: 0, y: 28, filter: 'blur(3px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.08, duration: 0.65, ease: 'power2.out' },
         '-=0.3'
       )
       .fromTo(arabicRef.current,
@@ -88,7 +88,7 @@ export function HeroSection() {
           style={{
             fontFamily: 'Inter, DM Sans, sans-serif',
             fontSize: '11px',
-            letterSpacing: '0.32em',
+            letterSpacing: '0.18em',
             color: '#C9A84C',
             textTransform: 'uppercase',
             marginBottom: '28px',
@@ -107,7 +107,7 @@ export function HeroSection() {
             fontWeight: 300,
             color: '#F5F0E8',
             lineHeight: 1.08,
-            maxWidth: '13ch',
+            maxWidth: '16ch',
             marginBottom: '28px',
             letterSpacing: '-0.01em',
           }}
