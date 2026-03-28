@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────
+   Wama Med Design System — Tailwind v4 Theme
+   ───────────────────────────────────────────────────────── */
+@theme {
+  /* Colors */
+  --color-teal: #0B4042;
+  --color-teal-dark: #072B2D;
+  --color-teal-light: #155558;
+  --color-teal-muted: #1A5558;
+  --color-stone: #F5F0E4;
+  --color-stone-dark: #EDE6D3;
+  --color-brass: #B8903A;
+  --color-brass-light: #D4A84A;
+  --color-brass-dim: #8A6C2C;
+  --color-ink: #1C1410;
+  --color-ink-soft: #3A2E26;
+  --color-cream: #FAFAF8;
+
+  /* Fonts */
+  --font-fraunces: var(--font-fraunces-var), Georgia, serif;
+  --font-sans: var(--font-dm-sans-var), system-ui, sans-serif;
+  --font-crimson: var(--font-crimson-var), Georgia, serif;
+
+  /* Letter-spacing */
+  --letter-spacing-eyebrow: 0.2em;
+  --letter-spacing-ultra: 0.35em;
+}
+
+/* ─────────────────────────────────────────────────────────
+   Base Styles
+   ───────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* ─────────────────────────────────────────────────────────
+   Custom Scrollbar
+   ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--color-stone); }
+::-webkit-scrollbar-thumb { background: var(--color-teal); border-radius: 3px; }
+
+/* ─────────────────────────────────────────────────────────
+   Animation Defaults (pre-animate hidden state)
+   ───────────────────────────────────────────────────────── */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(32px);
+}
+[data-animate-child] {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+}
+
+/* ─────────────────────────────────────────────────────────
+   Custom Cursor (fine pointer devices only)
+   ───────────────────────────────────────────────────────── */
+@media (pointer: fine) {
+  body { cursor: none; }
+  a, button, [role="button"], input, textarea, select { cursor: none; }
+}
+
+/* ─────────────────────────────────────────────────────────
+   Lenis Smooth Scroll
+   ───────────────────────────────────────────────────────── */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+/* ─────────────────────────────────────────────────────────
+   Eyebrow Labels
+   ───────────────────────────────────────────────────────── */
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────────────────
+   Oversized Background Type (DESIGN_STANDARDS.md)
+   ───────────────────────────────────────────────────────── */
+.type-texture {
+  font-family: var(--font-fraunces);
+  font-size: clamp(80px, 15vw, 200px);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Brass Rule Divider */
+.brass-rule {
+  width: 48px;
+  height: 2px;
+  background: var(--color-brass);
+  display: block;
+}
+
+/* Mobile body text (DESIGN_STANDARDS.md: left-aligned on mobile) */
+@media (max-width: 640px) {
+  p.body-copy { text-align: left; }
+}
