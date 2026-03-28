@@ -4,19 +4,18 @@ import { useEffect, useRef } from 'react';
 
 export function HeroSection() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
-  const arabicRef   = useRef<HTMLParagraphElement>(null);
-  const eyebrowRef  = useRef<HTMLParagraphElement>(null);
-  const ctaRef      = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Only split + animate the headline — word-level for natural wrapping.
+    // Eyebrow / Arabic / CTA use CSS heroReveal keyframes (no JS dependency,
+    // no flash, no race with AnimationProvider).
     let safetyTimer: ReturnType<typeof setTimeout>;
 
     (async () => {
       const { default: gsap } = await import('gsap');
-      if (!headlineRef.current) return;
-
-      // Word-level split — preserves natural word-wrapping (char-level breaks word-break logic)
       const headline = headlineRef.current;
+      if (!headline) return;
+
       const raw = headline.textContent || '';
       headline.innerHTML = raw
         .split(' ')
@@ -27,50 +26,39 @@ export function HeroSection() {
 
       const words = Array.from(headline.querySelectorAll('span'));
 
-      const tl = gsap.timeline({
-        delay: 0.3,
-        onComplete: () => {
-          // Ensure everything is fully visible after timeline completes
-          if (headline) headline.style.opacity = '1';
-          words.forEach(w => { w.style.opacity = '1'; });
-          if (eyebrowRef.current) eyebrowRef.current.style.opacity = '1';
-          if (arabicRef.current) arabicRef.current.style.opacity = '1';
-          if (ctaRef.current) ctaRef.current.style.opacity = '1';
-        },
-      });
-      tl.fromTo(eyebrowRef.current,
-        { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }
-      )
-      .fromTo(words,
+      gsap.fromTo(
+        words,
         { opacity: 0, y: 28, filter: 'blur(3px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.08, duration: 0.65, ease: 'power2.out' },
-        '-=0.3'
-      )
-      .fromTo(arabicRef.current,
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-        '-=0.2'
-      )
-      .fromTo(ctaRef.current,
-        { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
-        '-=0.4'
+        {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          stagger: 0.07,
+          duration: 0.65,
+          ease: 'power2.out',
+          delay: 0.15,
+          onComplete: () => {
+            // Guarantee fully visible after timeline — belt + suspenders
+            words.forEach(w => {
+              w.style.opacity = '1';
+              w.style.filter = 'none';
+              w.style.transform = 'none';
+            });
+          },
+        }
       );
 
-      // Safety fallback: force everything visible after 3s if GSAP stalls
+      // Belt-and-suspenders: force visible after 3s if GSAP stalls for any reason
       safetyTimer = setTimeout(() => {
-        if (headline) headline.style.opacity = '1';
-        words.forEach(w => { w.style.opacity = '1'; w.style.filter = 'none'; w.style.transform = 'none'; });
-        if (eyebrowRef.current) { eyebrowRef.current.style.opacity = '1'; eyebrowRef.current.style.transform = 'none'; }
-        if (arabicRef.current) { arabicRef.current.style.opacity = '1'; arabicRef.current.style.transform = 'none'; }
-        if (ctaRef.current) { ctaRef.current.style.opacity = '1'; ctaRef.current.style.transform = 'none'; }
+        words.forEach(w => {
+          w.style.opacity = '1';
+          w.style.filter = 'none';
+          w.style.transform = 'none';
+        });
       }, 3000);
     })();
 
-    return () => {
-      if (safetyTimer) clearTimeout(safetyTimer);
-    };
+    return () => { if (safetyTimer) clearTimeout(safetyTimer); };
   }, []);
 
   return (
@@ -84,7 +72,7 @@ export function HeroSection() {
       }}
       aria-label="Wama Med — Coordination médicale au Maroc"
     >
-      {/* Dark gradient overlay — over the WebGL canvas */}
+      {/* Dark gradient overlay — sits over the WebGL ZelligeCanvas */}
       <div
         aria-hidden="true"
         style={{
@@ -107,9 +95,9 @@ export function HeroSection() {
           padding: 'clamp(100px, 15vh, 140px) clamp(24px, 5vw, 64px) 80px',
         }}
       >
-        {/* Eyebrow */}
+        {/* Eyebrow — CSS animation, no JS dependency */}
         <p
-          ref={eyebrowRef}
+          className="hero-anim"
           style={{
             fontFamily: 'Inter, DM Sans, sans-serif',
             fontSize: '12px',
@@ -117,13 +105,13 @@ export function HeroSection() {
             color: '#C9A84C',
             textTransform: 'uppercase',
             marginBottom: '24px',
-            opacity: 0,
-          }}
+            '--hero-delay': '0.1s',
+          } as React.CSSProperties}
         >
           Coordination Médicale · Maroc
         </p>
 
-        {/* Main headline — GSAP splits this into words */}
+        {/* Headline — GSAP word-split. Starts invisible, JS reveals it. */}
         <h1
           ref={headlineRef}
           style={{
@@ -140,9 +128,9 @@ export function HeroSection() {
           Votre santé mérite une expertise sans frontières
         </h1>
 
-        {/* Arabic subtitle */}
+        {/* Arabic subtitle — CSS animation */}
         <p
-          ref={arabicRef}
+          className="hero-anim"
           style={{
             fontFamily: "'Almarai', sans-serif",
             fontSize: 'clamp(1rem, 2vw, 1.6rem)',
@@ -152,14 +140,20 @@ export function HeroSection() {
             maxWidth: '480px',
             marginLeft: 'auto',
             lineHeight: 1.7,
-            opacity: 0,
-          }}
+            '--hero-delay': '0.55s',
+          } as React.CSSProperties}
         >
           واما ميد — شريككم الطبي في المغرب
         </p>
 
-        {/* CTA */}
-        <div ref={ctaRef} style={{ marginTop: '48px', opacity: 0 }}>
+        {/* CTA — CSS animation */}
+        <div
+          className="hero-anim"
+          style={{
+            marginTop: '48px',
+            '--hero-delay': '0.7s',
+          } as React.CSSProperties}
+        >
           <a
             href="#contact"
             style={{

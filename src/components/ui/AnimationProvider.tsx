@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { signalGsapReady } from "@/lib/gsap-ready";
 import { usePathname } from "next/navigation";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -138,6 +139,10 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         setTimeout(() => {
           ScrollTrigger.refresh();
           setupAnimations(gsapFresh, ScrollTrigger);
+          // Signal all component-level ScrollTriggers that GSAP is ready.
+          // Components await waitForGsap() before creating their own triggers,
+          // ensuring they never race against refresh().
+          signalGsapReady({ gsap: gsapFresh, ScrollTrigger });
         }, 100);
       });
 

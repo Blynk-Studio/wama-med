@@ -17,20 +17,20 @@ const fraunces = Fraunces({
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans-var",
-  display: "swap",
+  display: "optional",
 });
 
 const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
   variable: "--font-crimson-var",
-  display: "swap",
+  display: "optional",
   style: ["normal", "italic"],
   weight: ["400", "600"],
 });
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   variable: "--font-cormorant-var",
-  display: "swap",
+  display: "optional",
   style: ["normal", "italic"],
   weight: ["300", "400", "600", "700"],
 });
@@ -38,7 +38,7 @@ const cormorant = Cormorant_Garamond({
 const almarai = Almarai({
   subsets: ["arabic"],
   variable: "--font-almarai-var",
-  display: "swap",
+  display: "optional",
   weight: ["400", "700"],
 });
 

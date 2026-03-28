@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { waitForGsap } from '@/lib/gsap-ready';
 import Link from 'next/link';
 
 interface Act {
@@ -76,12 +77,11 @@ export function ScrollJourney() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    (async () => {
-      const { default: gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Refresh on resize so mobile address-bar collapse doesn't break pin geometry
+    // Wait for AnimationProvider's full init cycle (including refresh()) before
+    // creating the pin trigger. This is critical: if we create the pin before
+    // refresh(), the 500vh outer height hasn't been measured yet and the pin
+    // geometry is wrong — causing the scroll-right-past-it bug.
+    waitForGsap().then(({ gsap, ScrollTrigger }) => {
       ScrollTrigger.config({ ignoreMobileResize: true });
 
       ScrollTrigger.create({
@@ -96,9 +96,10 @@ export function ScrollJourney() {
         anticipatePin: 1,
       });
 
-      // Force recalc after fonts/images settle
-      setTimeout(() => ScrollTrigger.refresh(), 300);
-    })();
+      // One final refresh after the pin is registered, to let pinSpacing
+      // recalculate with the correct outer container height.
+      requestAnimationFrame(() => ScrollTrigger.refresh());
+    });
   }, []);
 
   const actIdx      = Math.min(4, Math.floor(progress * 5));

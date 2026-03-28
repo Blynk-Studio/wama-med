@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { waitForGsap } from '@/lib/gsap-ready';
 import Link from 'next/link';
 
 const SERVICES = [
@@ -46,11 +47,9 @@ export function ServicesOverview() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    (async () => {
-      const { default: gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
-
+    // Wait for AnimationProvider to finish init + refresh() before creating
+    // component-level ScrollTriggers — eliminates position-calculation race.
+    waitForGsap().then(({ gsap, ScrollTrigger }) => {
       cardRefs.current.forEach((el, i) => {
         if (!el) return;
         gsap.fromTo(
@@ -70,7 +69,7 @@ export function ServicesOverview() {
           }
         );
       });
-    })();
+    });
   }, []);
 
   return (
