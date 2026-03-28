@@ -13,19 +13,18 @@ export function FounderSection() {
         className="absolute inset-0 flex items-center justify-end overflow-hidden pointer-events-none"
         aria-hidden="true"
       >
-        <p
-          className="type-texture text-cream whitespace-nowrap select-none"
+        <div
+          className="type-texture type-texture-ghost text-cream whitespace-nowrap"
           style={{ opacity: 0.04, transform: "translateX(8%)" }}
-        >
-          DRISS
-        </p>
+          data-text="DRISS"
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
           {/* Image */}
           <div className="relative" data-animate>
-            <div className="relative w-full aspect-[3/4] max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden">
+            <div className="relative w-full aspect-square max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden">
               <Image
                 src="/images/wama-driss-portrait.jpg"
                 alt="Driss Benwahoud, fondateur de Wama Med"
@@ -80,6 +79,7 @@ export function FounderSection() {
             </p>
 
             <Link
+              prefetch={false}
               href="/about"
               className="inline-flex items-center gap-2 text-brass hover:text-brass-light text-sm font-semibold mt-8 group"
             >

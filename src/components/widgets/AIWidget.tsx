@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { RetellWebClient } from "retell-client-js-sdk";
 
 type Tab = "chat" | "voice";
 type VoiceState = "idle" | "connecting" | "active" | "ending";
@@ -27,11 +26,8 @@ function AIWidgetPanel({
   const [chatId, setChatId] = useState<string | null>(null);
   const [voiceState, setVoiceState] = useState<VoiceState>("idle");
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const retellClientRef = useRef<RetellWebClient | null>(null);
-  const getRetellClient = () => {
-    if (!retellClientRef.current) retellClientRef.current = new RetellWebClient();
-    return retellClientRef.current;
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const retellClientRef = useRef<any>(null);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({
@@ -119,7 +115,12 @@ function AIWidgetPanel({
     try {
       const res = await fetch("/api/retell/create-call", { method: "POST" });
       const { access_token } = await res.json();
-      const client = getRetellClient();
+      // Dynamic import — keeps the 110KB Retell SDK off the critical path
+      if (!retellClientRef.current) {
+        const { RetellWebClient } = await import("retell-client-js-sdk");
+        retellClientRef.current = new RetellWebClient();
+      }
+      const client = retellClientRef.current;
       await client.startCall({
         accessToken: access_token,
         sampleRate: 24000,
@@ -133,7 +134,7 @@ function AIWidgetPanel({
 
   const endVoiceCall = useCallback(async () => {
     setVoiceState("ending");
-    getRetellClient().stopCall();
+    retellClientRef.current?.stopCall();
     setTimeout(() => setVoiceState("idle"), 500);
   }, []);
 

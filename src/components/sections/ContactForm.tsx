@@ -72,7 +72,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-4" noValidate>
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="name" className="block text-xs font-medium text-ink/50 mb-1.5 uppercase tracking-wide">
+          <label htmlFor="name" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
             Nom complet <span className="text-brass">*</span>
           </label>
           <input
@@ -87,7 +87,7 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-xs font-medium text-ink/50 mb-1.5 uppercase tracking-wide">
+          <label htmlFor="email" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
             Email <span className="text-brass">*</span>
           </label>
           <input
@@ -105,7 +105,7 @@ export function ContactForm() {
 
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="phone" className="block text-xs font-medium text-ink/50 mb-1.5 uppercase tracking-wide">
+          <label htmlFor="phone" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
             Téléphone
           </label>
           <input
@@ -119,7 +119,7 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="country" className="block text-xs font-medium text-ink/50 mb-1.5 uppercase tracking-wide">
+          <label htmlFor="country" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
             Pays de résidence
           </label>
           <select
@@ -138,7 +138,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-xs font-medium text-ink/50 mb-1.5 uppercase tracking-wide">
+        <label htmlFor="message" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
           Votre situation médicale <span className="text-brass">*</span>
         </label>
         <textarea

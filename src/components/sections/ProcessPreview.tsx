@@ -86,6 +86,7 @@ export function ProcessPreview() {
 
         <div className="text-center mt-12" data-animate>
           <Link
+              prefetch={false}
             href="/comment-ca-marche"
             className="inline-flex items-center gap-2 text-teal hover:text-teal-light font-semibold group"
           >

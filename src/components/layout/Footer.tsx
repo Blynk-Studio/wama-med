@@ -34,7 +34,8 @@ export function Footer() {
                 ["Évacuation sanitaire", "/services"],
               ].map(([label, href]) => (
                 <li key={label}>
-                  <Link href={href} className="hover:text-cream transition-colors duration-200">
+                  <Link
+              prefetch={false} href={href} className="block py-2 hover:text-cream transition-colors duration-200">
                     {label}
                   </Link>
                 </li>
@@ -52,7 +53,8 @@ export function Footer() {
                 ["Contact", "/contact"],
               ].map(([label, href]) => (
                 <li key={label}>
-                  <Link href={href} className="hover:text-cream transition-colors duration-200">
+                  <Link
+              prefetch={false} href={href} className="block py-2 hover:text-cream transition-colors duration-200">
                     {label}
                   </Link>
                 </li>
@@ -90,7 +92,7 @@ export function Footer() {
                   href={WHATSAPP_HREF}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-brass/20 hover:bg-brass/30 text-brass text-xs font-semibold px-3 py-1.5 rounded-full transition-colors duration-200"
+                  className="inline-flex items-center gap-2 bg-brass/20 hover:bg-brass/30 text-brass-light text-xs font-semibold px-3 py-1.5 rounded-full transition-colors duration-200"
                 >
                   <span>WhatsApp</span>
                 </a>
@@ -100,7 +102,7 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/40">
+        <div className="border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/60">
           <p>© {new Date().getFullYear()} Wama Med. Tous droits réservés.</p>
           <p className="text-center">
             Disponible 24h/24, 7j/7 —{" "}

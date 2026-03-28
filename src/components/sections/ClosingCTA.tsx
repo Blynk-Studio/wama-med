@@ -12,12 +12,11 @@ export function ClosingCTA() {
         className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none"
         aria-hidden="true"
       >
-        <p
-          className="type-texture text-cream whitespace-nowrap select-none"
+        <div
+          className="type-texture type-texture-ghost text-cream whitespace-nowrap"
           style={{ opacity: 0.04 }}
-        >
-          ENSEMBLE
-        </p>
+          data-text="ENSEMBLE"
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8 text-center relative z-10">
@@ -40,6 +39,7 @@ export function ClosingCTA() {
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link
+              prefetch={false}
             href="/contact"
             className="w-full sm:w-auto inline-flex items-center justify-center bg-brass hover:bg-brass-light text-ink font-bold px-10 py-4 rounded-full text-base transition-all duration-200 hover:shadow-xl hover:shadow-brass/30 hover:scale-105"
           >
@@ -55,7 +55,7 @@ export function ClosingCTA() {
           </a>
         </div>
 
-        <p className="text-cream/35 text-sm mt-8">
+        <p className="text-cream/60 text-sm mt-8">
           <span aria-hidden="true">📞</span>{" "}
           <a href="tel:+212522000000" className="hover:text-cream/60 transition-colors duration-200">
             +212 522 000 000

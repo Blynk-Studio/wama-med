@@ -3,15 +3,14 @@ import { Fraunces, DM_Sans, Crimson_Pro } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 import { AnimationProvider } from "@/components/ui/AnimationProvider";
-import { AIWidget } from "@/components/widgets/AIWidget";
+import { LazyCustomCursor, LazyAIWidget } from "@/components/ui/ClientWidgets";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces-var",
-  display: "swap",
-  axes: ["opsz", "SOFT", "WONK"], // opsz axis = aged/handcrafted quality at large display sizes
+  weight: "900",
+  display: "optional",
 });
 
 const dmSans = DM_Sans({
@@ -104,11 +103,11 @@ export default function RootLayout({
           Aller au contenu principal
         </a>
         <AnimationProvider>
-          <CustomCursor />
+          <LazyCustomCursor />
           <Header />
           <main id="main-content" className="flex-1">{children}</main>
           <Footer />
-          <AIWidget />
+          <LazyAIWidget />
         </AnimationProvider>
       </body>
     </html>

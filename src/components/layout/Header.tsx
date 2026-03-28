@@ -52,7 +52,7 @@ export function Header() {
               className="text-cream font-fraunces text-xl sm:text-2xl font-black tracking-tight leading-none"
               style={{ fontFamily: "var(--font-fraunces)" }}
             >
-              Wama
+              Wama{" "}
               <span style={{ color: "var(--color-brass)" }}>Med</span>
             </span>
           </Link>
@@ -63,6 +63,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={false}
                 className="text-cream/80 hover:text-cream text-sm font-medium tracking-wide transition-colors duration-200 relative group"
               >
                 {link.label}
@@ -124,6 +125,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
+              prefetch={false}
               onClick={() => setMenuOpen(false)}
               className="text-cream text-2xl font-medium border-b border-cream/10 pb-4 hover:text-brass transition-all duration-200"
               style={{

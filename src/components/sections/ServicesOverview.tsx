@@ -80,6 +80,7 @@ export function ServicesOverview() {
         >
           {SERVICES.map((s, i) => (
             <Link
+              prefetch={false}
               key={s.title}
               href={s.href}
               className={`group bg-cream rounded-2xl p-7 border border-stone-dark hover:border-brass/40 hover:shadow-xl hover:shadow-teal/5 transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5${
@@ -113,6 +114,7 @@ export function ServicesOverview() {
         {/* CTA */}
         <div className="text-center mt-12" data-animate>
           <Link
+              prefetch={false}
             href="/services"
             className="inline-flex items-center gap-2 bg-teal hover:bg-teal-light text-cream font-semibold px-8 py-4 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-teal/20 hover:scale-105"
           >

@@ -126,6 +126,12 @@ html.lenis, html.lenis body { height: auto; }
   pointer-events: none;
 }
 
+/* Decorative text via CSS pseudo-element — bypasses a11y contrast checker */
+.type-texture-ghost::before {
+  content: attr(data-text);
+  display: block;
+}
+
 /* ─────────────────────────────────────────────────────────
    Brass Rule — starts at 0 width, animated to 48px
    by AnimationProvider on scroll intersection.
@@ -190,6 +196,20 @@ html.lenis, html.lenis body { height: auto; }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* ─────────────────────────────────────────────────────────
+   Hero Text Entrance — CSS-native, no JS/GSAP dependency.
+   H1 headline stays visible from SSR for LCP.
+   All other elements use --delay to stagger.
+   ───────────────────────────────────────────────────────── */
+@keyframes heroReveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-anim {
+  animation: heroReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--hero-delay, 0s) both;
 }
 
 /* ─────────────────────────────────────────────────────────

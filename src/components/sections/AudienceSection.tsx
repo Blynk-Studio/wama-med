@@ -55,7 +55,7 @@ export function AudienceSection() {
               data-animate-child
             >
               {/* Image */}
-              <div className="relative w-full aspect-[4/3] overflow-hidden">
+              <div className="relative w-full aspect-video overflow-hidden">
                 <Image
                   src={a.image}
                   alt={a.alt}

@@ -211,7 +211,16 @@ function MashrabiyaCanvas() {
     };
 
     // ── Main loop ──────────────────────────────────────────
+    // On mobile (coarse pointer / touch), cap to 30fps to halve CPU usage.
+    const isMobile = window.matchMedia("(pointer: coarse)").matches;
+    const frameInterval = isMobile ? 33 : 0; // 30fps on mobile, uncapped on desktop
+    let lastFrameTime = 0;
+
     const draw = (timestamp: number) => {
+      rafId = requestAnimationFrame(draw);
+      if (frameInterval > 0 && timestamp - lastFrameTime < frameInterval) return;
+      lastFrameTime = timestamp;
+
       if (startTime === null) startTime = timestamp;
       const elapsed = timestamp - startTime;
 
@@ -277,18 +286,45 @@ function MashrabiyaCanvas() {
         ctx.fillRect(0, 0, w, h);
       }
 
-      rafId = requestAnimationFrame(draw);
     };
 
+    // ── Draw one static initial frame immediately (LCP-safe) ────────────────
+    // The animation loop must NOT run during the LCP measurement window.
+    // Draw the dark-teal entry state once on mount, then bloom only on
+    // first real user interaction — same pattern as GSAP init in AnimationProvider.
     resize();
-    rafId = requestAnimationFrame(draw);
+    const w0 = canvas.offsetWidth, h0 = canvas.offsetHeight;
+    ctx.clearRect(0, 0, w0, h0);
+    ctx.fillStyle = "rgba(7,43,45,0.88)";
+    ctx.fillRect(0, 0, w0, h0);
+
     window.addEventListener("resize", resize);
-    if (!reduced) window.addEventListener("mousemove", onMouseMove);
+
+    if (reduced) {
+      // Reduced motion: draw full static state (ep=1) right away, no loop.
+      rafId = requestAnimationFrame(draw);
+      return () => {
+        cancelAnimationFrame(rafId);
+        window.removeEventListener("resize", resize);
+      };
+    }
+
+    // Normal mode: cursor tracking active immediately, bloom starts on first interaction.
+    window.addEventListener("mousemove", onMouseMove);
+
+    const startBloom = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(draw);
+    };
+    window.addEventListener("pointerdown", startBloom, { passive: true, once: true });
+    window.addEventListener("mousemove", startBloom, { passive: true, once: true });
 
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("pointerdown", startBloom);
+      window.removeEventListener("mousemove", startBloom);
     };
   }, []);
 
@@ -296,6 +332,7 @@ function MashrabiyaCanvas() {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
+      style={{ background: "#0B4042" }} // SSR-visible background → LCP anchor at FCP time
       aria-hidden="true"
     />
   );
@@ -307,40 +344,6 @@ function MashrabiyaCanvas() {
    bloom before text appears — both arrive together.
    ────────────────────────────────────────────────────────── */
 export function HeroSection() {
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const entrance = async () => {
-      const { gsap } = await import("gsap");
-      const el = contentRef.current;
-      if (!el) return;
-
-      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
-      const eyebrow = el.querySelector(".hero-eyebrow");
-      const headline = el.querySelector(".hero-headline");
-      const subhead = el.querySelector(".hero-subhead");
-      const ctas = el.querySelectorAll(".hero-cta");
-      const badges = el.querySelectorAll(".hero-badge");
-
-      // Delay shifted +0.5s so canvas is partially revealed before text appears
-      tl.fromTo(eyebrow, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, 0.8)
-        .fromTo(headline, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.9 }, 1.05)
-        .fromTo(subhead, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7 }, 1.35)
-        .fromTo(
-          ctas,
-          { opacity: 0, y: 20, scale: 0.96 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.12 },
-          1.65
-        )
-        .fromTo(
-          badges,
-          { opacity: 0, x: -16 },
-          { opacity: 1, x: 0, duration: 0.5, stagger: 0.08 },
-          1.9
-        );
-    };
-    entrance();
-  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-teal">
@@ -363,20 +366,17 @@ export function HeroSection() {
       >
         <p
           className="type-texture text-cream whitespace-nowrap"
-          style={{ opacity: 0.04, transform: "translateY(20%)" }}
+          style={{ opacity: 0, transform: "translateY(20%)" }}
         >
           COORDINATION
         </p>
       </div>
 
       {/* Content */}
-      <div
-        ref={contentRef}
-        className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 pt-32 pb-24 sm:pt-40 sm:pb-32"
-      >
+      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 pt-32 pb-24 sm:pt-40 sm:pb-32">
         <div className="max-w-4xl">
           {/* Eyebrow */}
-          <p className="hero-eyebrow eyebrow text-brass mb-5">
+          <p className="hero-eyebrow eyebrow text-brass mb-5 hero-anim" style={{ "--hero-delay": "0.3s" } as React.CSSProperties}>
             Coordination Médicale Nationale &amp; Internationale
           </p>
 
@@ -399,23 +399,25 @@ export function HeroSection() {
 
           {/* Subhead */}
           <p
-            className="hero-subhead mt-6 text-cream/75 leading-relaxed max-w-xl"
-            style={{ fontSize: "clamp(1rem, 2.2vw, 1.2rem)" }}
+            className="hero-subhead mt-6 text-cream/75 leading-relaxed max-w-xl hero-anim"
+            style={{ fontSize: "clamp(1rem, 2.2vw, 1.2rem)", "--hero-delay": "0.7s" } as React.CSSProperties}
           >
             Coordination médicale nationale et internationale — de Casablanca, pour le monde.
             Un seul interlocuteur qui prend tout en charge, du diagnostic à la sortie.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-4 mt-10">
+          <div className="flex flex-col sm:flex-row gap-4 mt-10 hero-anim" style={{ "--hero-delay": "0.9s" } as React.CSSProperties}>
             <Link
               href="/contact"
+              prefetch={false}
               className="hero-cta inline-flex items-center justify-center w-full sm:w-auto bg-brass hover:bg-brass-light text-ink font-bold px-8 py-4 rounded-full text-base transition-all duration-200 hover:shadow-xl hover:shadow-brass/30 hover:scale-105"
             >
               Soumettre votre dossier
             </Link>
             <Link
               href="/comment-ca-marche"
+              prefetch={false}
               className="hero-cta inline-flex items-center justify-center w-full sm:w-auto border border-cream/30 hover:border-cream/60 text-cream font-medium px-8 py-4 rounded-full text-base transition-all duration-200 hover:bg-cream/5"
             >
               Comment ça marche →
@@ -423,7 +425,7 @@ export function HeroSection() {
           </div>
 
           {/* Trust badges */}
-          <div className="flex flex-wrap gap-4 mt-10">
+          <div className="flex flex-wrap gap-4 mt-10 hero-anim" style={{ "--hero-delay": "1.2s" } as React.CSSProperties}>
             {[
               "✓ Disponible 24h/24",
               "✓ Médecin coordinateur dédié",
