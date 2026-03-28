@@ -74,6 +74,7 @@ const ACTS: Act[] = [
 export function ScrollJourney() {
   const outerRef  = useRef<HTMLElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
+  const videoRef  = useRef<HTMLVideoElement>(null);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -100,7 +101,12 @@ export function ScrollJourney() {
         start: 'top top',
         end: 'bottom bottom',
         scrub: 1.2,
-        onUpdate: self => setProgress(self.progress),
+        onUpdate: self => {
+          setProgress(self.progress);
+          if (videoRef.current && videoRef.current.duration) {
+            videoRef.current.currentTime = self.progress * videoRef.current.duration;
+          }
+        },
         pin: stickyRef.current,
         pinSpacing: false,
         invalidateOnRefresh: true,
@@ -146,6 +152,35 @@ export function ScrollJourney() {
           overflow: 'hidden',
         }}
       >
+
+        {/* ── Scroll-scrubbed video background ───────────────────────────────── */}
+        <video
+          ref={videoRef}
+          src="/scroll_bg.mp4"
+          muted
+          playsInline
+          preload="auto"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            opacity: 0.35,
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        />
+        {/* Dark overlay so text stays legible */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, rgba(10,14,26,0.55) 0%, rgba(10,14,26,0.35) 50%, rgba(10,14,26,0.65) 100%)',
+            zIndex: 1,
+            pointerEvents: 'none',
+          }}
+        />
         {/* Act label — top center */}
         <div
           style={{
@@ -154,6 +189,7 @@ export function ScrollJourney() {
             left: '50%',
             transform: 'translateX(-50%)',
             whiteSpace: 'nowrap',
+            zIndex: 10,
           }}
         >
           <p
@@ -176,6 +212,7 @@ export function ScrollJourney() {
             position: 'absolute',
             // Fixed distance from bottom: progress bar (3px) + gap (16px)
             bottom: 'calc(3px + 20px)',
+            zIndex: 10,
             left: '50%',
             transform: 'translateX(-50%)',
             display: 'flex',
