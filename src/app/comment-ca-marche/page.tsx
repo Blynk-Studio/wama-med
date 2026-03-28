@@ -156,7 +156,7 @@ export default function CommentCaMarchePage() {
         aria-labelledby="faq-heading"
       >
         <div className="max-w-4xl mx-auto px-5 sm:px-8">
-          <div className="text-center mb-12" data-animate>
+          <div className="text-center mb-12">
             <p className="eyebrow text-brass mb-3">Questions fréquentes</p>
             <span className="brass-rule mx-auto mb-5 block" />
             <h2
@@ -170,7 +170,7 @@ export default function CommentCaMarchePage() {
 
           <FaqAccordion items={FAQS} />
 
-          <div className="text-center mt-10" data-animate>
+          <div className="text-center mt-10">
             <p className="text-sm mb-4" style={{ color: "rgba(245,240,232,0.4)" }}>
               Vous avez une question non listée ci-dessus ?
             </p>

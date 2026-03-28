@@ -173,14 +173,14 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-            data-animate-children
+           
           >
             {SERVICES.map((svc) => (
               <div
                 key={svc.number}
                 className="relative rounded-2xl p-6 sm:p-8 border border-brass/15 hover:border-brass/40 hover:shadow-2xl transition-all duration-300"
                 style={{ background: "#0A1E2A" }}
-                data-animate-child
+               
               >
                 {/* Ghost number */}
                 <p
@@ -245,7 +245,7 @@ export default function ServicesPage() {
                 idx % 2 === 1 ? "lg:[&>*:first-child]:order-last" : ""
               }`}
             >
-              {/* Image — no data-animate, always full opacity */}
+              {/* Image — no, always full opacity */}
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-brass/10">
                 <Image
                   src={svc.image}
@@ -258,7 +258,7 @@ export default function ServicesPage() {
               </div>
 
               {/* Text */}
-              <div data-animate>
+              <div>
                 <h2
                   className="text-2xl sm:text-3xl font-black mb-4 leading-tight"
                   style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}

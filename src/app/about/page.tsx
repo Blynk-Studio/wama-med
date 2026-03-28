@@ -72,7 +72,7 @@ export default function AboutPage() {
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 sm:gap-20 items-start">
-            {/* Portrait — no data-animate, contains Image */}
+            {/* Portrait — no, contains Image */}
             <div className="relative">
               <div className="relative w-full aspect-[3/4] max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden ring-2 ring-brass/20">
                 <Image
@@ -101,7 +101,7 @@ export default function AboutPage() {
             </div>
 
             {/* Story */}
-            <div className="pt-8 lg:pt-0" data-animate>
+            <div className="pt-8 lg:pt-0">
               <p className="eyebrow text-brass mb-4">Le fondateur</p>
               <span className="brass-rule mb-6 block" />
 
@@ -147,8 +147,8 @@ export default function AboutPage() {
         aria-label="Expertise"
       >
         <div className="max-w-5xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-3 gap-6 sm:gap-8 text-center" data-animate-children>
-            <div data-animate-child>
+          <div className="grid grid-cols-3 gap-6 sm:gap-8 text-center">
+            <div>
               <p
                 className="font-cormorant font-bold mb-2"
                 style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", color: "#C9A84C", lineHeight: 1.3 }}
@@ -159,7 +159,7 @@ export default function AboutPage() {
                 Plus de dix ans d&apos;expérience
               </p>
             </div>
-            <div data-animate-child>
+            <div>
               <p
                 className="font-cormorant font-bold mb-2"
                 style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", color: "#C9A84C", lineHeight: 1.3 }}
@@ -170,7 +170,7 @@ export default function AboutPage() {
                 Traités avec méthode et rigueur
               </p>
             </div>
-            <div data-animate-child>
+            <div>
               <p
                 className="font-cormorant font-bold mb-2"
                 style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", color: "#C9A84C", lineHeight: 1.3 }}
@@ -192,7 +192,7 @@ export default function AboutPage() {
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
-            <div data-animate>
+            <div>
               <p className="eyebrow text-brass mb-4">Notre mission</p>
               <span className="brass-rule mb-6 block" />
               <h2
@@ -245,13 +245,13 @@ export default function AboutPage() {
             </h2>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6" data-animate-children>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {VALUES.map((v) => (
               <div
                 key={v.title}
                 className="rounded-2xl p-6 border border-brass/15 hover:border-brass/40 hover:shadow-2xl transition-all duration-300"
                 style={{ background: "#0A1E2A" }}
-                data-animate-child
+               
               >
                 {/* Arabic micro-label */}
                 <p
