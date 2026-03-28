@@ -112,6 +112,8 @@ export function ContactSection() {
           <div
             style={{
               border: '1px solid rgba(201,168,76,0.3)',
+            borderRadius: '16px',
+            boxShadow: '0 8px 32px rgba(201,168,76,0.08)',
               padding: '48px',
               textAlign: 'center',
             }}

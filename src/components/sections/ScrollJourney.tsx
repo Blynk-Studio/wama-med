@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 
 interface Act {
   id: number;
@@ -95,7 +96,7 @@ export function ScrollJourney() {
     })();
   }, []);
 
-  const actIdx     = Math.min(4, Math.floor(progress * 5));
+  const actIdx      = Math.min(4, Math.floor(progress * 5));
   const actProgress = (progress * 5) - actIdx; // 0–1 within current act
   const act = ACTS[actIdx];
 
@@ -105,25 +106,31 @@ export function ScrollJourney() {
       style={{ height: '500vh', position: 'relative' }}
       aria-label="Notre approche"
     >
+      {/* ── Sticky viewport ─────────────────────────────────────────────── */}
       <div
         ref={stickyRef}
         style={{
-          height: '100vh',
+          // Force true 100dvh so it fills the mobile viewport correctly
+          height: '100dvh',
+          minHeight: '100svh',
+          position: 'relative',
           background: act.bg,
           transition: 'background 0.9s ease',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           overflow: 'hidden',
         }}
       >
-        {/* Act label */}
+        {/* Act label — top center */}
         <div
           style={{
             position: 'absolute',
-            top: '48px',
+            top: 'clamp(20px, 5vw, 48px)',
             left: '50%',
             transform: 'translateX(-50%)',
+            whiteSpace: 'nowrap',
           }}
         >
           <p
@@ -139,22 +146,64 @@ export function ScrollJourney() {
           </p>
         </div>
 
-        {/* Progress bar */}
+        {/* ── Step indicators (dots) — bottom above progress bar ──────── */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            // Fixed distance from bottom: progress bar (3px) + gap (16px)
+            bottom: 'calc(3px + 20px)',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            display: 'flex',
+            gap: '8px',
+            alignItems: 'center',
+          }}
+        >
+          {ACTS.map((a, i) => (
+            <div
+              key={a.id}
+              style={{
+                width: i === actIdx ? '20px' : '6px',
+                height: '6px',
+                borderRadius: '3px',
+                background: i <= actIdx ? '#C9A84C' : 'rgba(201,168,76,0.25)',
+                transition: 'width 0.3s ease, background 0.3s ease',
+              }}
+            />
+          ))}
+        </div>
+
+        {/* ── Progress bar — pinned to very bottom of sticky div ──────── */}
         <div
           aria-hidden="true"
           style={{
             position: 'absolute',
             bottom: 0,
             left: 0,
-            height: '2px',
-            width: `${progress * 100}%`,
-            background: '#C9A84C',
-            transition: 'width 0.1s linear',
-            opacity: 0.5,
+            right: 0,
+            height: '3px',
+            background: 'rgba(201,168,76,0.15)',
           }}
-        />
+        >
+          <div
+            style={{
+              height: '100%',
+              width: `${progress * 100}%`,
+              background: '#C9A84C',
+              transition: 'width 0.1s linear',
+            }}
+          />
+        </div>
 
-        <div style={{ maxWidth: '900px', padding: '0 clamp(24px, 5vw, 64px)', width: '100%' }}>
+        {/* ── Content area ────────────────────────────────────────────── */}
+        <div
+          style={{
+            maxWidth: '860px',
+            padding: '0 clamp(20px, 5vw, 60px)',
+            width: '100%',
+          }}
+        >
 
           {/* ACT 1 — Le Problème */}
           {act.id === 1 && (
@@ -162,13 +211,12 @@ export function ScrollJourney() {
               <h2
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontSize: 'clamp(1.9rem, 5vw, 4rem)',
+                  fontSize: 'clamp(1.7rem, 6vw, 4rem)',
                   fontWeight: Math.min(700, Math.max(200, Math.round(200 + actProgress * 500))),
                   color: act.textColor,
                   lineHeight: 1.2,
                   maxWidth: '18ch',
-                  margin: '0 auto 28px',
-                  transition: 'font-weight 0.05s linear',
+                  margin: '0 auto 24px',
                 }}
               >
                 {act.headline}
@@ -176,7 +224,7 @@ export function ScrollJourney() {
               <p
                 style={{
                   fontFamily: 'Inter, DM Sans, sans-serif',
-                  fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+                  fontSize: 'clamp(0.9rem, 2vw, 1.15rem)',
                   color: '#F5F0E8',
                   opacity: Math.min(1, Math.max(0, actProgress * 4 - 0.5)),
                   lineHeight: 1.8,
@@ -195,7 +243,7 @@ export function ScrollJourney() {
               <h2
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontSize: 'clamp(1.9rem, 5vw, 4rem)',
+                  fontSize: 'clamp(1.7rem, 6vw, 4rem)',
                   fontWeight: 300,
                   color: act.textColor,
                   lineHeight: 1.2,
@@ -207,7 +255,7 @@ export function ScrollJourney() {
               <p
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontSize: 'clamp(1.3rem, 2.5vw, 2rem)',
+                  fontSize: 'clamp(1.2rem, 3vw, 2rem)',
                   fontStyle: 'italic',
                   color: '#C9A84C',
                   opacity: Math.min(1, actProgress * 3),
@@ -224,21 +272,24 @@ export function ScrollJourney() {
               <h2
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontSize: 'clamp(1.9rem, 5vw, 4rem)',
+                  fontSize: 'clamp(1.7rem, 6vw, 4rem)',
                   fontWeight: 300,
                   color: act.textColor,
                   lineHeight: 1.2,
-                  marginBottom: '48px',
+                  marginBottom: '40px',
                 }}
               >
                 {act.headline}
               </h2>
+
+              {/* Step circles — nowrap on mobile, scale to fit */}
               <div
                 style={{
                   display: 'flex',
                   justifyContent: 'center',
-                  gap: 'clamp(16px, 3vw, 32px)',
-                  flexWrap: 'wrap',
+                  alignItems: 'flex-start',
+                  gap: 'clamp(8px, 3vw, 28px)',
+                  flexWrap: 'nowrap', // NEVER wrap — prevent "5" dropping to new line
                 }}
               >
                 {act.steps?.map((step, i) => (
@@ -246,13 +297,16 @@ export function ScrollJourney() {
                     key={i}
                     style={{
                       textAlign: 'center',
+                      flex: '1 1 0',
+                      maxWidth: '72px',
                       opacity: Math.min(1, Math.max(0, (actProgress - i * 0.14) * 6)),
                     }}
                   >
+                    {/* Circle */}
                     <div
                       style={{
-                        width: '52px',
-                        height: '52px',
+                        width: 'clamp(40px, 10vw, 52px)',
+                        height: 'clamp(40px, 10vw, 52px)',
                         border: '1px solid rgba(201,168,76,0.6)',
                         borderRadius: '50%',
                         display: 'flex',
@@ -261,8 +315,10 @@ export function ScrollJourney() {
                         margin: '0 auto 10px',
                         color: '#C9A84C',
                         fontFamily: "'Cormorant Garamond', serif",
-                        fontSize: '22px',
+                        fontSize: 'clamp(16px, 4vw, 22px)',
                         fontWeight: 300,
+                        boxShadow: '0 0 12px rgba(201,168,76,0.12)',
+                        background: 'rgba(201,168,76,0.04)',
                       }}
                     >
                       {i + 1}
@@ -270,10 +326,11 @@ export function ScrollJourney() {
                     <p
                       style={{
                         fontFamily: 'Inter, DM Sans, sans-serif',
-                        fontSize: '10px',
+                        fontSize: 'clamp(8px, 1.8vw, 10px)',
                         color: '#F5F0E8',
-                        letterSpacing: '0.12em',
+                        letterSpacing: '0.1em',
                         textTransform: 'uppercase',
+                        whiteSpace: 'nowrap',
                       }}
                     >
                       {step}
@@ -295,7 +352,7 @@ export function ScrollJourney() {
                   color: '#C9A84C',
                   textTransform: 'uppercase',
                   textAlign: 'center',
-                  marginBottom: '36px',
+                  marginBottom: '28px',
                 }}
               >
                 {act.headline}
@@ -303,38 +360,65 @@ export function ScrollJourney() {
               <div
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                  gap: '20px',
+                  // On mobile: single column. On wider: 3 columns
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
+                  gap: '16px',
                 }}
               >
                 {act.testimonials?.map((t, i) => (
                   <div
                     key={i}
                     style={{
-                      background: 'rgba(10,14,26,0.07)',
-                      border: '1px solid rgba(10,14,26,0.12)',
-                      padding: '28px 24px',
+                      background: 'rgba(255,255,255,0.7)',
+                      border: '1px solid rgba(10,14,26,0.08)',
+                      // Rounded corners + depth
+                      borderRadius: '16px',
+                      padding: 'clamp(20px, 4vw, 28px) clamp(16px, 3vw, 24px)',
+                      boxShadow: '0 8px 32px rgba(10,14,26,0.08), 0 2px 8px rgba(10,14,26,0.06)',
+                      backdropFilter: 'blur(8px)',
                     }}
                   >
                     <p
                       style={{
                         fontFamily: "'Cormorant Garamond', Georgia, serif",
-                        fontSize: '18px',
+                        fontSize: 'clamp(15px, 2.5vw, 18px)',
                         fontStyle: 'italic',
                         color: '#0A0E1A',
-                        lineHeight: 1.75,
-                        marginBottom: '20px',
+                        lineHeight: 1.7,
+                        marginBottom: '16px',
                       }}
                     >
-                      "{t.quote}"
+                      &ldquo;{t.quote}&rdquo;
                     </p>
-                    <p style={{ fontFamily: 'Inter', fontSize: '12px', color: '#0A0E1A', fontWeight: 600 }}>
-                      {t.name}
-                    </p>
-                    <p style={{ fontFamily: 'Inter', fontSize: '11px', color: '#0A0E1A', opacity: 0.55 }}>
-                      {t.city}
-                    </p>
-                    <div style={{ color: '#C9A84C', fontSize: '14px', marginTop: '10px' }}>★★★★★</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <div
+                        style={{
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '50%',
+                          background: 'linear-gradient(135deg, #C9A84C 0%, #E8C06A 100%)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          color: '#0A0E1A',
+                          fontFamily: 'Inter',
+                          fontSize: '13px',
+                          fontWeight: 700,
+                          flexShrink: 0,
+                        }}
+                      >
+                        {t.name[0]}
+                      </div>
+                      <div>
+                        <p style={{ fontFamily: 'Inter', fontSize: '12px', color: '#0A0E1A', fontWeight: 600, lineHeight: 1.3 }}>
+                          {t.name}
+                        </p>
+                        <p style={{ fontFamily: 'Inter', fontSize: '11px', color: 'rgba(10,14,26,0.5)', lineHeight: 1.3 }}>
+                          {t.city}
+                        </p>
+                      </div>
+                      <div style={{ color: '#C9A84C', fontSize: '12px', marginLeft: 'auto' }}>★★★★★</div>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -347,7 +431,7 @@ export function ScrollJourney() {
               <h2
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontSize: 'clamp(1.9rem, 5vw, 4rem)',
+                  fontSize: 'clamp(1.7rem, 6vw, 4rem)',
                   fontWeight: 300,
                   color: '#F5F0E8',
                   lineHeight: 1.15,
@@ -359,10 +443,10 @@ export function ScrollJourney() {
               <p
                 style={{
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontSize: 'clamp(1.3rem, 2.5vw, 2rem)',
+                  fontSize: 'clamp(1.2rem, 3vw, 2rem)',
                   fontStyle: 'italic',
                   color: '#C9A84C',
-                  marginBottom: '48px',
+                  marginBottom: '40px',
                   opacity: Math.min(1, actProgress * 4),
                 }}
               >
@@ -372,7 +456,7 @@ export function ScrollJourney() {
                 href="#contact"
                 style={{
                   display: 'inline-block',
-                  padding: '15px 44px',
+                  padding: 'clamp(14px, 3vw, 16px) clamp(28px, 6vw, 44px)',
                   background: '#C9A84C',
                   color: '#0A0E1A',
                   fontFamily: 'Inter, DM Sans, sans-serif',
@@ -381,7 +465,9 @@ export function ScrollJourney() {
                   textDecoration: 'none',
                   fontWeight: 700,
                   textTransform: 'uppercase',
+                  borderRadius: '2px',
                   opacity: Math.min(1, actProgress * 5),
+                  boxShadow: '0 4px 24px rgba(201,168,76,0.25)',
                 }}
               >
                 Soumettre votre dossier →
