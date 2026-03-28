@@ -20,7 +20,7 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
           fallbackIO.unobserve(el);
         });
       },
-      { rootMargin: "0px 0px 80px 0px", threshold: 0.05 }
+      { rootMargin: "0px 0px 200px 0px", threshold: 0.01 }
     );
 
     document
@@ -162,6 +162,14 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
       });
 
       initCountUps(gsap);
+
+      // Recalculate ScrollTrigger positions after hydration settles
+      setTimeout(() => ScrollTrigger.refresh(), 100);
+
+      // Also refresh on full page load (images, fonts, layout shifts)
+      window.addEventListener("load", () => {
+        setTimeout(() => ScrollTrigger.refresh(), 200);
+      });
 
       return () => {
         lenis.destroy();

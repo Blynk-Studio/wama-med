@@ -22,6 +22,16 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
       const { ScrollTrigger } = await import("gsap/ScrollTrigger");
       gsap.registerPlugin(ScrollTrigger);
 
+      // Set initial states via GSAP (not inline styles)
+      if (lineRef.current) {
+        gsap.set(lineRef.current, { scaleY: 0 });
+      }
+      cardsRef.current.forEach((el, i) => {
+        if (!el) return;
+        const fromX = i % 2 === 0 ? -40 : 40;
+        gsap.set(el, { opacity: 0, x: fromX });
+      });
+
       // Animate vertical line scaleY 0 → 1
       if (lineRef.current) {
         gsap.fromTo(
@@ -54,12 +64,29 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
             ease: "power2.out",
             scrollTrigger: {
               trigger: el,
-              start: "top 88%",
+              start: "top 95%",
               once: true,
             },
           }
         );
       });
+
+      // Safety timeout: force-show any cards still hidden after 1.5s
+      setTimeout(() => {
+        cardsRef.current.forEach((el) => {
+          if (!el) return;
+          const computed = window.getComputedStyle(el);
+          if (parseFloat(computed.opacity) < 0.5) {
+            gsap.set(el, { opacity: 1, x: 0 });
+          }
+        });
+        if (lineRef.current) {
+          const computed = window.getComputedStyle(lineRef.current);
+          if (computed.transform.includes("0, 0, 0, 0")) {
+            gsap.set(lineRef.current, { scaleY: 1 });
+          }
+        }
+      }, 1500);
     })();
   }, []);
 
@@ -72,7 +99,6 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
         style={{
           background: "rgba(201,168,76,0.3)",
           transformOrigin: "top center",
-          transform: "scaleY(0)",
         }}
         aria-hidden="true"
       />
@@ -85,7 +111,6 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
               key={step.number}
               ref={(el) => { cardsRef.current[idx] = el; }}
               className={`relative pl-20 sm:pl-0 sm:grid sm:grid-cols-2 sm:gap-12 items-start`}
-              style={{ opacity: 0 }}
             >
               {/* Dot on the line */}
               <div

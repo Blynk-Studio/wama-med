@@ -9,6 +9,26 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
     const el = containerRef.current;
     if (!el) return;
 
+    let revealed = false;
+
+    const revealWords = async () => {
+      if (revealed) return;
+      revealed = true;
+
+      const { default: gsap } = await import("gsap");
+      const words = el.querySelectorAll<HTMLSpanElement>("[data-word]");
+      gsap.fromTo(
+        words,
+        { opacity: 0.15 },
+        {
+          opacity: 1,
+          stagger: 0.06,
+          duration: 0.5,
+          ease: "power2.out",
+        }
+      );
+    };
+
     (async () => {
       const { default: gsap } = await import("gsap");
 
@@ -16,23 +36,20 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
         ([entry]) => {
           if (!entry.isIntersecting) return;
           observer.disconnect();
-
-          const words = el.querySelectorAll<HTMLSpanElement>("[data-word]");
-          gsap.fromTo(
-            words,
-            { opacity: 0.15 },
-            {
-              opacity: 1,
-              stagger: 0.06,
-              duration: 0.5,
-              ease: "power2.out",
-            }
-          );
+          revealWords();
         },
-        { threshold: 0.3 }
+        { threshold: 0.1, rootMargin: "0px 0px -20px 0px" }
       );
 
       observer.observe(el);
+
+      // Safety timeout: force-reveal if still dimmed after 1.2s
+      setTimeout(() => {
+        if (revealed) return;
+        revealed = true;
+        const words = el.querySelectorAll<HTMLSpanElement>("[data-word]");
+        gsap.to(words, { opacity: 1, stagger: 0.03, duration: 0.3, ease: "power2.out" });
+      }, 1200);
     })();
   }, []);
 

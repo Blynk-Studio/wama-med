@@ -9,6 +9,8 @@ export function HeroSection() {
   const ctaRef      = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let safetyTimer: ReturnType<typeof setTimeout>;
+
     (async () => {
       const { default: gsap } = await import('gsap');
       if (!headlineRef.current) return;
@@ -19,13 +21,23 @@ export function HeroSection() {
       headline.innerHTML = raw
         .split(' ')
         .map(word =>
-          `<span style="display:inline-block;will-change:transform;white-space:nowrap">${word}</span>`
+          `<span style="display:inline-block;will-change:transform;white-space:nowrap;opacity:0">${word}</span>`
         )
         .join(' ');
 
       const words = Array.from(headline.querySelectorAll('span'));
 
-      const tl = gsap.timeline({ delay: 0.3 });
+      const tl = gsap.timeline({
+        delay: 0.3,
+        onComplete: () => {
+          // Ensure everything is fully visible after timeline completes
+          if (headline) headline.style.opacity = '1';
+          words.forEach(w => { w.style.opacity = '1'; });
+          if (eyebrowRef.current) eyebrowRef.current.style.opacity = '1';
+          if (arabicRef.current) arabicRef.current.style.opacity = '1';
+          if (ctaRef.current) ctaRef.current.style.opacity = '1';
+        },
+      });
       tl.fromTo(eyebrowRef.current,
         { opacity: 0, y: 12 },
         { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }
@@ -45,7 +57,20 @@ export function HeroSection() {
         { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' },
         '-=0.4'
       );
+
+      // Safety fallback: force everything visible after 3s if GSAP stalls
+      safetyTimer = setTimeout(() => {
+        if (headline) headline.style.opacity = '1';
+        words.forEach(w => { w.style.opacity = '1'; w.style.filter = 'none'; w.style.transform = 'none'; });
+        if (eyebrowRef.current) { eyebrowRef.current.style.opacity = '1'; eyebrowRef.current.style.transform = 'none'; }
+        if (arabicRef.current) { arabicRef.current.style.opacity = '1'; arabicRef.current.style.transform = 'none'; }
+        if (ctaRef.current) { ctaRef.current.style.opacity = '1'; ctaRef.current.style.transform = 'none'; }
+      }, 3000);
     })();
+
+    return () => {
+      if (safetyTimer) clearTimeout(safetyTimer);
+    };
   }, []);
 
   return (
@@ -98,7 +123,7 @@ export function HeroSection() {
           Coordination Médicale · Maroc
         </p>
 
-        {/* Main headline — GSAP splits this into chars */}
+        {/* Main headline — GSAP splits this into words */}
         <h1
           ref={headlineRef}
           style={{
