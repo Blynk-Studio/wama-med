@@ -9,29 +9,32 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
     const el = containerRef.current;
     if (!el) return;
 
+    // Mobile: skip the dim-then-reveal effect entirely — render words fully visible.
+    const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    if (isMobile) {
+      el.querySelectorAll<HTMLSpanElement>("[data-word]").forEach(w => {
+        w.style.opacity = "1";
+      });
+      return;
+    }
+
+    // Desktop: word-by-word opacity reveal on scroll intersection.
     let revealed = false;
 
     const revealWords = async () => {
       if (revealed) return;
       revealed = true;
-
       const { default: gsap } = await import("gsap");
       const words = el.querySelectorAll<HTMLSpanElement>("[data-word]");
       gsap.fromTo(
         words,
         { opacity: 0.15 },
-        {
-          opacity: 1,
-          stagger: 0.06,
-          duration: 0.5,
-          ease: "power2.out",
-        }
+        { opacity: 1, stagger: 0.06, duration: 0.5, ease: "power2.out" }
       );
     };
 
     (async () => {
       const { default: gsap } = await import("gsap");
-
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (!entry.isIntersecting) return;
@@ -40,10 +43,8 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
         },
         { threshold: 0.1, rootMargin: "0px 0px -20px 0px" }
       );
-
       observer.observe(el);
 
-      // Safety timeout: force-reveal if still dimmed after 1.2s
       setTimeout(() => {
         if (revealed) return;
         revealed = true;

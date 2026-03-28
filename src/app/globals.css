@@ -265,3 +265,29 @@ html.lenis, html.lenis body { height: auto; }
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ─────────────────────────────────────────────────────────
+   Mobile animation override — CRITICAL
+   On touch devices, GSAP scroll-reveals are disabled.
+   Ensure no [data-animate] element is ever invisible on mobile
+   due to GSAP's gsap.set(opacity:0) or inline styles.
+   The AnimationProvider mobile path forces opacity:1 on all
+   [data-animate] elements, but this CSS is the final safety net.
+   ───────────────────────────────────────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+  [data-animate],
+  [data-animate-child],
+  [data-animate-children] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  /* Brass rules — always show full width on mobile */
+  .brass-rule {
+    width: 48px !important;
+  }
+  /* Word reveal quotes — always fully visible on mobile */
+  [data-word] {
+    opacity: 1 !important;
+  }
+}

@@ -60,9 +60,9 @@ export function AudienceSection() {
                   src={a.image}
                   alt={a.alt}
                   fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   style={{ objectPosition: "center 40%" }}
-                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
 

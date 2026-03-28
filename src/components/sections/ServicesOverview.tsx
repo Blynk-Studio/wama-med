@@ -47,8 +47,16 @@ export function ServicesOverview() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    // Wait for AnimationProvider to finish init + refresh() before creating
-    // component-level ScrollTriggers — eliminates position-calculation race.
+    const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    if (isMobile) {
+      // Mobile: render cards immediately visible — no pop-in jank
+      cardRefs.current.forEach(el => {
+        if (!el) return;
+        el.style.opacity = '1';
+      });
+      return;
+    }
+    // Desktop only: wait for AnimationProvider init before creating ScrollTriggers.
     waitForGsap().then(({ gsap, ScrollTrigger }) => {
       cardRefs.current.forEach((el, i) => {
         if (!el) return;
@@ -184,7 +192,7 @@ const ServiceCard = forwardRef<HTMLDivElement, { svc: typeof SERVICES[0] }>(
           padding: 'clamp(24px, 3vw, 36px) clamp(20px, 2.5vw, 28px)',
           transition: 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
           cursor: 'default',
-          opacity: 0, // will be animated in by GSAP
+          // opacity starts at default (1); GSAP sets 0 on desktop before animating
         }}
         onMouseEnter={e => {
           const el = e.currentTarget;

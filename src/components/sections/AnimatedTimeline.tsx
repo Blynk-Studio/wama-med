@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { waitForGsap } from "@/lib/gsap-ready";
 
 interface TimelineStep {
   number: string;
@@ -17,22 +18,20 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    (async () => {
-      const { default: gsap } = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
-      gsap.registerPlugin(ScrollTrigger);
+    // Mobile: no scroll-reveal — content visible immediately, no pop-in jank.
+    const isMobile = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+    if (isMobile) return;
 
-      // Set initial states via GSAP (not inline styles)
+    // Desktop: wait for AnimationProvider to finish before creating triggers.
+    waitForGsap().then(({ gsap, ScrollTrigger }) => {
       if (lineRef.current) {
         gsap.set(lineRef.current, { scaleY: 0 });
       }
       cardsRef.current.forEach((el, i) => {
         if (!el) return;
-        const fromX = i % 2 === 0 ? -40 : 40;
-        gsap.set(el, { opacity: 0, x: fromX });
+        gsap.set(el, { opacity: 0, x: i % 2 === 0 ? -40 : 40 });
       });
 
-      // Animate vertical line scaleY 0 → 1
       if (lineRef.current) {
         gsap.fromTo(
           lineRef.current,
@@ -50,7 +49,6 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
         );
       }
 
-      // Animate cards — odd from left, even from right
       cardsRef.current.forEach((el, i) => {
         if (!el) return;
         const fromX = i % 2 === 0 ? -40 : 40;
@@ -64,30 +62,13 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
             ease: "power2.out",
             scrollTrigger: {
               trigger: el,
-              start: "top 95%",
+              start: "top 88%",
               once: true,
             },
           }
         );
       });
-
-      // Safety timeout: force-show any cards still hidden after 1.5s
-      setTimeout(() => {
-        cardsRef.current.forEach((el) => {
-          if (!el) return;
-          const computed = window.getComputedStyle(el);
-          if (parseFloat(computed.opacity) < 0.5) {
-            gsap.set(el, { opacity: 1, x: 0 });
-          }
-        });
-        if (lineRef.current) {
-          const computed = window.getComputedStyle(lineRef.current);
-          if (computed.transform.includes("0, 0, 0, 0")) {
-            gsap.set(lineRef.current, { scaleY: 1 });
-          }
-        }
-      }, 1500);
-    })();
+    });
   }, []);
 
   return (

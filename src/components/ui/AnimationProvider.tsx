@@ -138,10 +138,30 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
       requestAnimationFrame(() => {
         setTimeout(() => {
           ScrollTrigger.refresh();
-          setupAnimations(gsapFresh, ScrollTrigger);
-          // Signal all component-level ScrollTriggers that GSAP is ready.
-          // Components await waitForGsap() before creating their own triggers,
-          // ensuring they never race against refresh().
+          // On mobile (touch devices), skip scroll-reveal animations entirely.
+          // GSAP scroll-reveals on mobile cause the flash-in jank: elements are
+          // set to opacity:0 by gsap.set(), then pop in when ScrollTrigger fires.
+          // Mobile users scroll fast and expectations are different — content
+          // should be visible immediately. Animations are a desktop enhancement.
+          const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+          if (!isMobile) {
+            setupAnimations(gsapFresh, ScrollTrigger);
+          } else {
+            // On mobile: force all [data-animate] elements to full visibility immediately.
+            // No pop-in, no opacity:0, no jank.
+            document.querySelectorAll<HTMLElement>(
+              '[data-animate], [data-animate-child], [data-animate-children]'
+            ).forEach(el => {
+              el.style.opacity = '1';
+              el.style.transform = 'none';
+              el.dataset.gsapDone = 'true';
+            });
+            // Also force brass rules visible
+            document.querySelectorAll<HTMLElement>('.brass-rule').forEach(el => {
+              el.style.width = '48px';
+            });
+          }
+          // Signal component-level triggers that GSAP is ready.
           signalGsapReady({ gsap: gsapFresh, ScrollTrigger });
         }, 100);
       });
@@ -198,6 +218,7 @@ function setupAnimations(
   gsap: GSAPType,
   ScrollTrigger: STType
 ) {
+  // This function is only called on non-touch/desktop devices (see call site).
   // Section fade-up entrances
   const sections = document.querySelectorAll<HTMLElement>("[data-animate]");
   sections.forEach((el) => {
