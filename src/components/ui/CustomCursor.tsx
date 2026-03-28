@@ -40,7 +40,7 @@ export function CustomCursor() {
       ring.style.transform = `translate(-50%, -50%) scale(1)`;
       ring.style.borderColor = "#B8903A";
       ring.style.backgroundColor = "transparent";
-      dot.style.backgroundColor = "#0B4042";
+      dot.style.backgroundColor = "#B8903A";
       dot.style.transform = "translate(-50%, -50%) scale(1)";
     };
 
@@ -96,7 +96,7 @@ export function CustomCursor() {
         style={{
           width: "6px",
           height: "6px",
-          backgroundColor: "#0B4042",
+          backgroundColor: "#B8903A",
           borderRadius: "50%",
           transform: "translate(-50%, -50%)",
           opacity: 0,
