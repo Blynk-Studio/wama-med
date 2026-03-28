@@ -101,7 +101,7 @@ export default function CommentCaMarchePage() {
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pb-36"
+        className="relative overflow-hidden min-h-dvh flex items-end pb-20 sm:pb-28 lg:pb-36"
         style={{ background: "#0F2938" }}
       >
         {/* Ghost Arabic */}

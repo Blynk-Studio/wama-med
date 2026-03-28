@@ -127,7 +127,7 @@ export default function ServicesPage() {
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pb-36"
+        className="relative overflow-hidden min-h-dvh flex items-end pb-20 sm:pb-28 lg:pb-36"
         style={{ background: "#0A0E1A" }}
       >
         {/* Ghost Arabic */}
@@ -244,9 +244,8 @@ export default function ServicesPage() {
               className={`grid lg:grid-cols-2 gap-10 sm:gap-16 items-center ${
                 idx % 2 === 1 ? "lg:[&>*:first-child]:order-last" : ""
               }`}
-              data-animate
             >
-              {/* Image */}
+              {/* Image — no data-animate, always full opacity */}
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-brass/10">
                 <Image
                   src={svc.image}
@@ -259,7 +258,7 @@ export default function ServicesPage() {
               </div>
 
               {/* Text */}
-              <div>
+              <div data-animate>
                 <h2
                   className="text-2xl sm:text-3xl font-black mb-4 leading-tight"
                   style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}

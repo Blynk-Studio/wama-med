@@ -18,7 +18,7 @@ export default function ContactPage() {
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pb-36"
+        className="relative overflow-hidden min-h-dvh flex items-end pb-20 sm:pb-28 lg:pb-36"
         style={{ background: "rgba(15,41,56,0.5)" }}
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">

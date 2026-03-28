@@ -226,6 +226,7 @@ function setupAnimations(
   const sections = document.querySelectorAll<HTMLElement>("[data-animate]");
   sections.forEach((el) => {
     if (el.dataset.gsapDone === "true") return; // fallback already showed it
+    if (el.querySelector("img")) return; // never animate wrappers containing images
     gsap.set(el, { opacity: 0, y: 32 });
     el.dataset.gsapDone = "true";
     gsap.fromTo(

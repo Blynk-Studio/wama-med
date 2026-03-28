@@ -37,7 +37,7 @@ export default function AboutPage() {
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section
-        className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pb-36"
+        className="relative overflow-hidden min-h-dvh flex items-end pb-20 sm:pb-28 lg:pb-36"
         style={{ background: "#0F2938" }}
       >
         {/* Ghost Arabic */}
@@ -69,12 +69,11 @@ export default function AboutPage() {
       <section
         className="py-20 sm:py-28 lg:py-36"
         style={{ background: "#0F2938" }}
-        data-animate
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 sm:gap-20 items-start">
-            {/* Portrait */}
-            <div className="relative" data-animate>
+            {/* Portrait — no data-animate, contains Image */}
+            <div className="relative">
               <div className="relative w-full aspect-[3/4] max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden ring-2 ring-brass/20">
                 <Image
                   src="/images/wama-driss-portrait.jpg"
@@ -190,7 +189,6 @@ export default function AboutPage() {
       <section
         className="py-20 sm:py-28 lg:py-36"
         style={{ background: "#0F2938" }}
-        data-animate
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
@@ -214,7 +212,7 @@ export default function AboutPage() {
                 et dans ce contexte, la coordination, c&apos;est la sécurité.
               </p>
             </div>
-            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-brass/10" data-animate>
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] border border-brass/10">
               <Image
                 src="/images/wama-accompagnement.jpg"
                 alt="Coordination médicale structurée — Wama Med, Casablanca"
@@ -232,7 +230,6 @@ export default function AboutPage() {
       <section
         className="py-20 sm:py-28 lg:py-36"
         style={{ background: "#0A0E1A" }}
-        data-animate
         aria-labelledby="values-heading"
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
