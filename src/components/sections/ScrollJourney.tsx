@@ -180,10 +180,10 @@ export function ScrollJourney() {
         {/* ── Video background ─────────────────────────────────── */}
         <video
           ref={videoRef}
-          src="/scroll_bg.mp4"
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
+          poster="/scroll_bg_poster.jpg"
           style={{
             position: 'absolute',
             inset: 0,
@@ -195,7 +195,10 @@ export function ScrollJourney() {
             pointerEvents: 'none',
             zIndex: 0,
           }}
-        />
+        >
+          <source src="/scroll_bg.mp4" type="video/mp4" />
+          <source src="/scroll_bg.webm" type="video/webm" />
+        </video>
 
         {/* ── Dark overlay ─────────────────────────────────────── */}
         <div style={{

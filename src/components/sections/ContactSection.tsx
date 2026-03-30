@@ -104,15 +104,14 @@ export function ContactSection() {
           </h2>
           <p
             style={{
-              fontFamily: "'Almarai', sans-serif",
-              fontSize: 'clamp(1rem, 2vw, 1.4rem)',
-              color: '#B8903A',
-              direction: 'rtl',
-              textAlign: 'right',
-              opacity: 0.75,
+              fontFamily: 'Inter, DM Sans, sans-serif',
+              fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
+              color: 'rgba(11,64,66,0.72)',
+              lineHeight: 1.7,
+              maxWidth: '32rem',
             }}
           >
-            {content.arabic}
+            {content.supportingLine}
           </p>
         </div>
 

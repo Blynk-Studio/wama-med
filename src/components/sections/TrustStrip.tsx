@@ -43,23 +43,10 @@ export function TrustStrip({
                 fontWeight: 600,
                 color: '#0B4042',
                 lineHeight: 1.3,
-                marginBottom: '10px',
+                marginBottom: '0',
               }}
             >
               {pillar.label}
-            </p>
-            <p
-              style={{
-                fontFamily: "'Almarai', sans-serif",
-                fontSize: 'clamp(10px, 1.8vw, 11px)',
-                color: '#1C1410',
-                opacity: 0.35,
-                letterSpacing: '0.04em',
-                direction: 'rtl',
-              }}
-              aria-hidden="true"
-            >
-              {pillar.ar}
             </p>
           </div>
         ))}

@@ -95,17 +95,6 @@ export function ServicesOverview() {
             >
               {dictionary.home.servicesOverview.title}
             </h2>
-            <p
-              style={{
-                fontFamily: "'Almarai', sans-serif",
-                fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
-                color: '#B8903A',
-                direction: 'rtl',
-                opacity: 0.7,
-              }}
-            >
-              {dictionary.home.servicesOverview.arabic}
-            </p>
           </div>
           <div style={{ width: '40px', height: '1px', background: 'rgba(11,64,66,0.3)', marginTop: '8px' }} />
         </div>
@@ -153,7 +142,7 @@ export function ServicesOverview() {
 // Extracted to allow ref forwarding
 import { forwardRef } from 'react';
 
-const ServiceCard = forwardRef<HTMLDivElement, { svc: { ar: string; title: string; desc: string } }>(
+const ServiceCard = forwardRef<HTMLDivElement, { svc: { title: string; desc: string } }>(
   ({ svc }, ref) => {
     return (
       <div
@@ -180,22 +169,6 @@ const ServiceCard = forwardRef<HTMLDivElement, { svc: { ar: string; title: strin
           el.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04)';
         }}
       >
-        {/* Arabic micro-label */}
-        <p
-          style={{
-            fontFamily: "'Almarai', sans-serif",
-            fontSize: '13px',
-            color: '#B8903A',
-            opacity: 0.7,
-            direction: 'rtl',
-            textAlign: 'right',
-            marginBottom: '6px',
-          }}
-        >
-          {svc.ar}
-        </p>
-
-        {/* Localized heading */}
         <h3
           style={{
             fontFamily: "'Cormorant Garamond', Georgia, serif",

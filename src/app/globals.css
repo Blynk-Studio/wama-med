@@ -253,10 +253,6 @@ html.lenis, html.lenis body { height: auto; }
 .font-cormorant {
   font-family: var(--font-cormorant-var), Georgia, serif;
 }
-.font-almarai {
-  font-family: var(--font-almarai-var), sans-serif;
-}
-
 /* ─── Keyframes ── */
 @keyframes scrollPulse {
   0%, 100% { opacity: 0.3; transform: scaleY(0.65); transform-origin: top; }

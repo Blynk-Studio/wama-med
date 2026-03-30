@@ -44,13 +44,6 @@ export function TestimonialsSection({
                 >
                   {p.icon}
                 </p>
-                <p
-                  className="font-almarai text-sm"
-                  style={{ color: "rgba(184,144,58,0.7)", direction: "rtl" }}
-                  aria-hidden="true"
-                >
-                  {p.ar}
-                </p>
               </div>
 
               <h3

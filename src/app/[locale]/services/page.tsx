@@ -34,6 +34,7 @@ export default async function ServicesPage({
   const locale = normalizeLocale(rawLocale);
   const dictionary = getDictionary(locale);
   const content = dictionary.servicesPage;
+  const backgroundWord = locale === "fr" ? "SERVICES" : "SERVICES";
 
   return (
     <>
@@ -46,7 +47,7 @@ export default async function ServicesPage({
           style={{ fontSize: "18vw", opacity: 0.04, color: "#1C1410", lineHeight: 1 }}
           aria-hidden="true"
         >
-          خدمات
+          {backgroundWord}
         </p>
 
         <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
@@ -92,12 +93,6 @@ export default async function ServicesPage({
                   aria-hidden="true"
                 >
                   {service.number}
-                </p>
-                <p
-                  className="font-almarai text-xs tracking-widest mb-3"
-                  style={{ color: "rgba(11,64,66,0.6)", direction: "rtl", textAlign: "right" }}
-                >
-                  {service.ar}
                 </p>
                 <h3
                   className="text-xl font-black mb-3 leading-tight"

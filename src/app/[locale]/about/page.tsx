@@ -35,6 +35,7 @@ export default async function AboutPage({
   const locale = normalizeLocale(rawLocale);
   const dictionary = getDictionary(locale);
   const content = dictionary.about;
+  const backgroundWord = locale === "fr" ? "HISTOIRE" : "STORY";
 
   return (
     <>
@@ -47,7 +48,7 @@ export default async function AboutPage({
           style={{ fontSize: "18vw", opacity: 0.04, color: "#1C1410", lineHeight: 1 }}
           aria-hidden="true"
         >
-          قصتنا
+          {backgroundWord}
         </p>
 
         <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
@@ -210,13 +211,6 @@ export default async function AboutPage({
                 className="rounded-2xl p-6 border border-brass/15 hover:border-brass/40 hover:shadow-2xl transition-all duration-300"
                 style={{ background: "#FFFFFF" }}
               >
-                <p
-                  className="font-almarai text-xs tracking-widest mb-4"
-                  style={{ color: "rgba(11,64,66,0.6)", direction: "rtl", textAlign: "right" }}
-                  aria-hidden="true"
-                >
-                  {value.ar}
-                </p>
                 <h3
                   className="text-xl font-black mb-3 leading-tight"
                   style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}

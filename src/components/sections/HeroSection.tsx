@@ -12,7 +12,7 @@ export function HeroSection() {
 
   useEffect(() => {
     // Only split + animate the headline — word-level for natural wrapping.
-    // Eyebrow / Arabic / CTA use CSS heroReveal keyframes (no JS dependency,
+    // Eyebrow / supporting line / CTA use CSS heroReveal keyframes (no JS dependency,
     // no flash, no race with AnimationProvider).
     let safetyTimer: ReturnType<typeof setTimeout>;
 
@@ -77,14 +77,14 @@ export function HeroSection() {
       }}
       aria-label={content.ariaLabel}
     >
-      {/* Dark gradient overlay — sits over the WebGL ZelligeCanvas */}
+      {/* Soft atmospheric overlay for depth without region-coded ornament */}
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
           background:
-            'linear-gradient(135deg, rgba(249,244,239,0.60) 0%, rgba(249,244,239,0.20) 55%, rgba(249,244,239,0.50) 100%)',
+            'radial-gradient(circle at 18% 30%, rgba(11,64,66,0.06) 0%, rgba(11,64,66,0.00) 32%), radial-gradient(circle at 82% 34%, rgba(184,144,58,0.10) 0%, rgba(184,144,58,0.00) 34%), linear-gradient(135deg, rgba(250,250,248,0.94) 0%, rgba(245,240,232,0.92) 55%, rgba(250,250,248,0.96) 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -133,22 +133,20 @@ export function HeroSection() {
           {content.headline}
         </h1>
 
-        {/* Arabic subtitle — CSS animation */}
+        {/* Supporting line — CSS animation */}
         <p
           className="hero-anim"
           style={{
-            fontFamily: "'Almarai', sans-serif",
-            fontSize: 'clamp(1rem, 2vw, 1.6rem)',
-            color: '#B8903A',
-            direction: 'rtl',
-            textAlign: 'right',
-            maxWidth: '480px',
-            marginLeft: 'auto',
+            fontFamily: 'Inter, DM Sans, sans-serif',
+            fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
+            color: 'rgba(11,64,66,0.8)',
+            maxWidth: '34rem',
             lineHeight: 1.7,
+            marginTop: '4px',
             '--hero-delay': '0.55s',
           } as React.CSSProperties}
         >
-          {content.arabic}
+          {content.supportingLine}
         </p>
 
         {/* CTA — CSS animation */}

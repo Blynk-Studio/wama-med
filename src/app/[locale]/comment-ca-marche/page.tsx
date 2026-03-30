@@ -36,6 +36,7 @@ export default async function ProcessPage({
   const locale = normalizeLocale(rawLocale);
   const dictionary = getDictionary(locale);
   const content = dictionary.approach;
+  const backgroundWord = locale === "fr" ? "PARCOURS" : "CARE";
 
   return (
     <>
@@ -48,7 +49,7 @@ export default async function ProcessPage({
           style={{ fontSize: "18vw", opacity: 0.04, color: "#1C1410", lineHeight: 1 }}
           aria-hidden="true"
         >
-          كيف يعمل
+          {backgroundWord}
         </p>
 
         <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">

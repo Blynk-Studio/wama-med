@@ -5,7 +5,6 @@ import { AnimationProvider } from "@/components/ui/AnimationProvider";
 import { LazyCustomCursor, LazyAIWidget } from "@/components/ui/ClientWidgets";
 import { LocaleProvider } from "@/components/ui/LocaleProvider";
 import { HtmlLangSync } from "@/components/ui/HtmlLangSync";
-import { ZelligeCanvas } from "@/components/ui/ZelligeCanvas";
 import { getDictionary } from "@/lib/dictionaries";
 import { notFound } from "next/navigation";
 import { isLocale, localeOpenGraph, locales } from "@/lib/i18n";
@@ -73,7 +72,7 @@ export default async function LocaleLayout({
               "Senegal",
               "Ivory Coast",
             ],
-            availableLanguage: ["fr", "ar", "en"],
+            availableLanguage: ["fr", "en"],
             openingHours: "Mo-Su 00:00-23:59",
             medicalSpecialty: "GeneralPractice",
           }),
@@ -81,7 +80,6 @@ export default async function LocaleLayout({
       />
       <LocaleProvider locale={locale} dictionary={dictionary}>
         <AnimationProvider>
-          <ZelligeCanvas />
           <LazyCustomCursor />
           <a
             href="#main-content"

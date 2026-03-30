@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
-import { Fraunces, DM_Sans, Crimson_Pro, Cormorant_Garamond, Almarai } from "next/font/google";
+import { Fraunces, DM_Sans, Crimson_Pro, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { normalizeLocale } from "@/lib/i18n";
 
@@ -32,13 +32,6 @@ const cormorant = Cormorant_Garamond({
   weight: ["300", "400", "600", "700"],
 });
 
-const almarai = Almarai({
-  subsets: ["arabic"],
-  variable: "--font-almarai-var",
-  display: "optional",
-  weight: ["400", "700"],
-});
-
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -48,14 +41,14 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Wama Med",
   description:
-    "Medical coordination in Morocco for families, diaspora communities, and international patients.",
+    "International medical coordination based in Casablanca for patients, families, and cross-border care journeys.",
   keywords:
-    "coordination médicale Maroc, accompagnement médical Casablanca, tourisme médical Maroc, médecin coordinateur, prise en charge médicale internationale",
+    "medical coordination, care navigation, international patients, specialist coordination, cross-border care, Casablanca medical coordination",
   authors: [{ name: "Wama Med" }],
   openGraph: {
     title: "Wama Med",
     description:
-      "Medical coordination in Morocco.",
+      "International medical coordination with a clear, human-centered care journey.",
     type: "website",
   },
 };
@@ -71,7 +64,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
-      className={`${fraunces.variable} ${dmSans.variable} ${crimsonPro.variable} ${cormorant.variable} ${almarai.variable} h-full`}
+      className={`${fraunces.variable} ${dmSans.variable} ${crimsonPro.variable} ${cormorant.variable} h-full`}
     >
       <body className="min-h-full flex flex-col antialiased" style={{ background: "#FAFAF8" }}>{children}</body>
     </html>
