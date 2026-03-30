@@ -64,7 +64,7 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
     >
       <p
         className="text-xl sm:text-2xl italic leading-relaxed"
-        style={{ color: "rgba(245,240,232,0.85)" }}
+        style={{ color: "rgba(28,20,16,0.8)" }}
       >
         &ldquo;
         {words.map((word, i) => (
@@ -82,7 +82,7 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
       </p>
       <cite
         className="text-sm not-italic font-medium mt-3 block"
-        style={{ color: "rgba(201,168,76,0.7)" }}
+        style={{ color: "rgba(11,64,66,0.6)" }}
       >
         — {cite}
       </cite>

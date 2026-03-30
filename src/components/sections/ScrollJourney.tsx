@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { waitForGsap } from '@/lib/gsap-ready';
 
 interface Act {
   id: number;
@@ -144,21 +145,20 @@ export function ScrollJourney() {
     window.addEventListener('pointerdown', onGesture, { once: true, passive: true });
     window.addEventListener('scroll',      onGesture, { once: true, passive: true });
 
-    // ── 3. ScrollTrigger setup ───────────────────────────────────────────────
+    // ── 3. ScrollTrigger setup — waits for AnimationProvider to finish ──────
     let trigger: ReturnType<typeof import('gsap/ScrollTrigger').ScrollTrigger.create> | undefined;
 
     const initGSAP = async () => {
-      const { default: gsap } = await import('gsap');
-      const { ScrollTrigger }  = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
-      ScrollTrigger.config({ ignoreMobileResize: true });
+      // Wait for AnimationProvider to fully init GSAP + ScrollTrigger.
+      // This prevents race conditions where AnimationProvider kills all
+      // ScrollTriggers after we've already created ours.
+      const { gsap, ScrollTrigger } = await waitForGsap();
 
       // Let React finish painting the 500vh container
       await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
-      await new Promise<void>(r => setTimeout(r, 150));
+      await new Promise<void>(r => setTimeout(r, 100));
 
       if (!outerRef.current || !stickyRef.current) return;
-      ScrollTrigger.refresh();
 
       trigger = ScrollTrigger.create({
         trigger: outerRef.current,
@@ -498,7 +498,7 @@ export function ScrollJourney() {
                 display: 'inline-block',
                 padding: 'clamp(14px,3vw,16px) clamp(28px,6vw,44px)',
                 background: '#C9A84C',
-                color: '#0A0E1A',
+                color: '#1C1410',
                 fontFamily: 'Inter,DM Sans,sans-serif',
                 fontSize: '12px',
                 letterSpacing: '.18em',

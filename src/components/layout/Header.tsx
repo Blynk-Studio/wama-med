@@ -38,9 +38,9 @@ export function Header() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
             ? "bg-teal/95 shadow-lg shadow-black/20"
-            : "bg-transparent"
+            : "bg-white/80 shadow-sm shadow-black/5"
         }`}
-        style={{ backdropFilter: scrolled ? "blur(12px)" : "none" }}
+        style={{ backdropFilter: "blur(12px)" }}
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
           {/* Logo */}
@@ -54,7 +54,7 @@ export function Header() {
               alt="Wama Med"
               width={1540}
               height={1120}
-              className="h-8 sm:h-10 w-auto"
+              className={`h-8 sm:h-10 w-auto transition-all duration-300 ${scrolled ? "" : "brightness-0"}`}
               priority
             />
           </Link>
@@ -66,10 +66,10 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 prefetch={false}
-                className="text-cream/80 hover:text-cream text-sm font-medium tracking-wide transition-colors duration-200 relative group"
+                className={`${scrolled ? "text-cream/80 hover:text-cream" : "text-ink/70 hover:text-ink"} text-sm font-medium tracking-wide transition-colors duration-200 relative group`}
               >
                 {link.label}
-                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-brass group-hover:w-full transition-all duration-300" />
+                <span className={`absolute -bottom-0.5 left-0 w-0 h-px ${scrolled ? "bg-brass" : "bg-teal"} group-hover:w-full transition-all duration-300`} />
               </Link>
             ))}
           </nav>
@@ -78,7 +78,7 @@ export function Header() {
           <div className="hidden md:flex items-center gap-5">
             <a
               href={PHONE_HREF}
-              className="text-cream/70 hover:text-cream text-sm font-medium transition-colors duration-200 hover:drop-shadow-[0_0_8px_rgba(184,144,58,0.6)]"
+              className={`${scrolled ? "text-cream/70 hover:text-cream" : "text-ink/60 hover:text-ink"} text-sm font-medium transition-colors duration-200`}
             >
               {PHONE}
             </a>
@@ -93,20 +93,20 @@ export function Header() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden text-cream p-3 -mr-3"
+            className={`lg:hidden ${scrolled ? "text-cream" : "text-ink"} p-3 -mr-3`}
             aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
           >
             <div className="flex flex-col gap-[5px] w-6">
               <span
-                className={`block h-[1.5px] bg-cream transition-all duration-300 origin-left ${menuOpen ? "rotate-45 translate-x-[3px]" : ""}`}
+                className={`block h-[1.5px] ${scrolled ? "bg-cream" : "bg-ink"} transition-all duration-300 origin-left ${menuOpen ? "rotate-45 translate-x-[3px]" : ""}`}
               />
               <span
-                className={`block h-[1.5px] bg-cream transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
+                className={`block h-[1.5px] ${scrolled ? "bg-cream" : "bg-ink"} transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
               />
               <span
-                className={`block h-[1.5px] bg-cream transition-all duration-300 origin-left ${menuOpen ? "-rotate-45 translate-x-[3px]" : ""}`}
+                className={`block h-[1.5px] ${scrolled ? "bg-cream" : "bg-ink"} transition-all duration-300 origin-left ${menuOpen ? "-rotate-45 translate-x-[3px]" : ""}`}
               />
             </div>
           </button>

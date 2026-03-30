@@ -25,13 +25,13 @@ export function TrustStrip() {
             className={[
               'text-center py-4 sm:py-0',
               i === 0 || i === 2
-                ? 'border-r border-r-[rgba(201,168,76,0.12)]'
+                ? 'border-r border-r-[rgba(11,64,66,0.1)]'
                 : '',
               i < 2
-                ? 'border-b border-b-[rgba(201,168,76,0.12)] sm:border-b-0'
+                ? 'border-b border-b-[rgba(11,64,66,0.1)] sm:border-b-0'
                 : '',
               i < 3
-                ? 'sm:border-r sm:border-r-[rgba(201,168,76,0.12)]'
+                ? 'sm:border-r sm:border-r-[rgba(11,64,66,0.1)]'
                 : 'sm:border-r-0',
             ].filter(Boolean).join(' ')}
             style={{ padding: '0 clamp(10px, 2.5vw, 28px)' }}
