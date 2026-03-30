@@ -23,6 +23,7 @@ export function ScrollJourney() {
   const outerRef    = useRef<HTMLElement>(null);
   const stickyRef   = useRef<HTMLDivElement>(null);
   const videoRef    = useRef<HTMLVideoElement>(null);
+  const progressFillRef = useRef<HTMLDivElement>(null);
 
   // All mutable state in refs — no re-renders in the hot loop
   const scrollProg  = useRef(0);   // 0–1 from ScrollTrigger
@@ -30,8 +31,9 @@ export function ScrollJourney() {
   const lastTime    = useRef(-1);  // last video.currentTime we wrote
   const rafHandle   = useRef(0);
   const ready       = useRef(false); // true once video decoder is unlocked
+  const activeActRef = useRef(0);
 
-  const [progress, setProgress] = useState(0); // drives React re-renders
+  const [actIdx, setActIdx] = useState(0);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -57,12 +59,9 @@ export function ScrollJourney() {
       if (Math.abs(target - lastTime.current) < FRAME * 0.5) return;
       lastTime.current = target;
 
-      // Use fastSeek (approx) when available — much cheaper than currentTime
-      if ('fastSeek' in video) {
-        (video as HTMLVideoElement & { fastSeek: (t: number) => void }).fastSeek(target);
-      } else {
-        (video as HTMLVideoElement).currentTime = target;
-      }
+      // `fastSeek()` is approximate and tends to snap to nearby keyframes.
+      // For scroll scrubbing we want exact frame-addressable seeks.
+      video.currentTime = target;
     };
 
     rafHandle.current = requestAnimationFrame(tick);
@@ -129,7 +128,15 @@ export function ScrollJourney() {
         scrub: 1.0,
         onUpdate: self => {
           scrollProg.current = self.progress;
-          setProgress(self.progress);
+          if (progressFillRef.current) {
+            progressFillRef.current.style.transform = `scaleX(${self.progress})`;
+          }
+
+          const nextActIdx = Math.min(4, Math.floor(self.progress * acts.length));
+          if (nextActIdx !== activeActRef.current) {
+            activeActRef.current = nextActIdx;
+            setActIdx(nextActIdx);
+          }
         },
         pin: stickyRef.current,
         pinSpacing: false,
@@ -153,8 +160,6 @@ export function ScrollJourney() {
     };
   }, []);
 
-  const actIdx      = Math.min(4, Math.floor(progress * 5));
-  const actProgress = (progress * 5) - actIdx;
   const act         = acts[actIdx];
 
   return (
@@ -182,7 +187,7 @@ export function ScrollJourney() {
           ref={videoRef}
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           poster="/scroll_bg_poster.jpg"
           style={{
             position: 'absolute',
@@ -197,7 +202,6 @@ export function ScrollJourney() {
           }}
         >
           <source src="/scroll_bg.mp4" type="video/mp4" />
-          <source src="/scroll_bg.webm" type="video/webm" />
         </video>
 
         {/* ── Dark overlay ─────────────────────────────────────── */}
@@ -254,11 +258,12 @@ export function ScrollJourney() {
           position: 'absolute', bottom: 0, left: 0, right: 0,
           height: '3px', background: 'rgba(201,168,76,.15)',
         }}>
-          <div style={{
+          <div ref={progressFillRef} style={{
             height: '100%',
-            width: `${progress * 100}%`,
+            width: '100%',
             background: '#C9A84C',
-            transition: 'width .1s linear',
+            transform: 'scaleX(0)',
+            transformOrigin: 'left center',
           }} />
         </div>
 
@@ -338,31 +343,28 @@ export function ScrollJourney() {
                 flexWrap: 'nowrap',
               }}>
                 {act.steps?.map((step, i) => {
-                  const stepT        = i / 5;
-                  const isActiveStep = actProgress >= stepT && actProgress < stepT + 0.20;
-                  const isPastStep   = actProgress >= stepT + 0.20;
                   return (
                     <div key={i} style={{
                       textAlign: 'center',
                       flex: '1 1 0',
                       maxWidth: '72px',
-                      opacity: Math.min(1, Math.max(i === 0 ? .8 : .1, (actProgress - i * .14) * 6)),
+                      opacity: 1,
                     }}>
                       <div style={{
                         width: 'clamp(48px,11vw,60px)',
                         height: 'clamp(48px,11vw,60px)',
-                        border: isActiveStep ? '2px solid rgba(201,168,76,1)' : isPastStep ? '1px solid rgba(201,168,76,.6)' : '1px solid rgba(201,168,76,.25)',
+                        border: '1px solid rgba(201,168,76,.55)',
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         margin: '0 auto 10px',
-                        color: isActiveStep ? '#F5F0E8' : '#C9A84C',
+                        color: '#F5F0E8',
                         fontFamily: "'Cormorant Garamond',serif",
                         fontSize: 'clamp(18px,4.5vw,26px)',
-                        fontWeight: isActiveStep ? 600 : 300,
-                        boxShadow: isActiveStep ? '0 0 0 4px rgba(201,168,76,.15),0 0 24px rgba(201,168,76,.4)' : '0 0 12px rgba(201,168,76,.08)',
-                        background: isActiveStep ? 'rgba(201,168,76,.12)' : 'rgba(201,168,76,.04)',
+                        fontWeight: 600,
+                        boxShadow: '0 0 0 4px rgba(201,168,76,.08),0 0 18px rgba(201,168,76,.22)',
+                        background: 'rgba(201,168,76,.10)',
                         transition: 'all .35s ease',
                       }}>{i + 1}</div>
                       <p style={{
@@ -406,17 +408,15 @@ export function ScrollJourney() {
                 gap: '16px',
               }}>
                 {act.commitments?.map((c, i) => {
-                  const on   = actProgress >= i / 3 && actProgress < (i + 1) / 3;
-                  const past = actProgress >= (i + 1) / 3;
                   return (
                     <div key={i} style={{
-                      background: on ? 'rgba(20,16,8,.88)' : 'rgba(10,14,26,.75)',
-                      border: `1px solid ${on ? 'rgba(201,168,76,.95)' : past ? 'rgba(201,168,76,.40)' : 'rgba(201,168,76,.18)'}`,
+                      background: 'rgba(20,16,8,.82)',
+                      border: '1px solid rgba(201,168,76,.36)',
                       borderRadius: '16px',
                       padding: 'clamp(20px,4vw,28px) clamp(16px,3vw,24px)',
-                      boxShadow: on ? '0 0 0 1px rgba(201,168,76,.4),0 8px 48px rgba(201,168,76,.18),0 8px 40px rgba(0,0,0,.65)' : '0 8px 40px rgba(0,0,0,.65)',
+                      boxShadow: '0 8px 40px rgba(0,0,0,.65)',
                       backdropFilter: 'blur(8px)',
-                      opacity: on ? 1 : past ? .80 : .45,
+                      opacity: 1,
                       transition: 'border-color .4s ease,box-shadow .4s ease,opacity .4s ease,background .4s ease',
                     }}>
                       <p style={{
@@ -458,7 +458,7 @@ export function ScrollJourney() {
                 fontStyle: 'italic',
                 color: '#D4AE5A',
                 marginBottom: '40px',
-                opacity: Math.min(1, Math.max(.1, actProgress * 4)),
+                opacity: 1,
                 textShadow: '0 1px 16px rgba(0,0,0,.95)',
               }}>{act.subtext}</p>
               <Link href={localizePath(locale, '/contact')} style={{
@@ -473,7 +473,7 @@ export function ScrollJourney() {
                 fontWeight: 700,
                 textTransform: 'uppercase',
                 borderRadius: '9999px',
-                opacity: Math.min(1, Math.max(.1, actProgress * 5)),
+                opacity: 1,
                 boxShadow: '0 4px 24px rgba(201,168,76,.25)',
               }}>{dictionary.home.scrollJourney.cta}</Link>
             </div>
