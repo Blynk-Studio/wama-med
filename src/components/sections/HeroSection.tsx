@@ -9,6 +9,14 @@ export function HeroSection() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const { locale, dictionary } = useLocaleDictionary();
   const content = dictionary.home.hero;
+  const meridianScales = [1, 0.8, 0.6, 0.4];
+  const latitudeBands = [
+    { offset: -30, height: 18, opacity: 0.12 },
+    { offset: -15, height: 30, opacity: 0.15 },
+    { offset: 0, height: 42, opacity: 0.18 },
+    { offset: 15, height: 30, opacity: 0.15 },
+    { offset: 30, height: 18, opacity: 0.12 },
+  ];
 
   useEffect(() => {
     // Only split + animate the headline — word-level for natural wrapping.
@@ -88,6 +96,67 @@ export function HeroSection() {
           pointerEvents: 'none',
         }}
       />
+
+      {/* Embossed partial globe — subtle but explicit international cue */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          width: 'min(82vw, 920px)',
+          aspectRatio: '1 / 1',
+          right: 'clamp(-280px, -18vw, -120px)',
+          top: '50%',
+          transform: 'translateY(-50%) rotate(-12deg)',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          overflow: 'hidden',
+          opacity: 0.92,
+          background:
+            'radial-gradient(circle at 34% 30%, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0) 24%), radial-gradient(circle at 64% 62%, rgba(11,64,66,0.05) 0%, rgba(11,64,66,0) 28%), linear-gradient(140deg, rgba(255,255,255,0.12) 0%, rgba(11,64,66,0.05) 55%, rgba(184,144,58,0.06) 100%)',
+          boxShadow:
+            'inset 0 0 0 1px rgba(11,64,66,0.08), inset 30px 0 70px rgba(255,255,255,0.52), inset -44px 0 86px rgba(11,64,66,0.06), 0 34px 70px rgba(11,64,66,0.04)',
+          filter: 'blur(0.1px)',
+        }}
+      >
+        {meridianScales.map((scale, i) => (
+          <div
+            key={`meridian-${scale}`}
+            style={{
+              position: 'absolute',
+              inset: '4%',
+              borderRadius: '50%',
+              border: `1px solid rgba(11,64,66,${i === 0 ? 0.14 : 0.08})`,
+              transform: `scaleX(${scale})`,
+            }}
+          />
+        ))}
+
+        {latitudeBands.map((band) => (
+          <div
+            key={`latitude-${band.offset}`}
+            style={{
+              position: 'absolute',
+              left: '8%',
+              width: '84%',
+              height: `${band.height}%`,
+              top: `calc(50% + ${band.offset}% - ${band.height / 2}%)`,
+              borderRadius: '50%',
+              border: `1px solid rgba(11,64,66,${band.opacity})`,
+            }}
+          />
+        ))}
+
+        <div
+          style={{
+            position: 'absolute',
+            inset: '12%',
+            borderRadius: '50%',
+            background:
+              'radial-gradient(circle at 46% 44%, rgba(184,144,58,0.09) 0%, rgba(184,144,58,0) 34%), radial-gradient(circle at 56% 58%, rgba(11,64,66,0.06) 0%, rgba(11,64,66,0) 24%)',
+            mixBlendMode: 'multiply',
+          }}
+        />
+      </div>
 
       {/* Content */}
       <div
