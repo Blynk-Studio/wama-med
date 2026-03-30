@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { useLocaleDictionary } from "@/components/ui/LocaleProvider";
 
 type Tab = "chat" | "voice";
 type VoiceState = "idle" | "connecting" | "active" | "ending";
@@ -28,6 +29,8 @@ function AIWidgetPanel({
   const messagesEndRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const retellClientRef = useRef<any>(null);
+  const { locale, dictionary } = useLocaleDictionary();
+  const assistant = dictionary.assistant;
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({
@@ -50,8 +53,7 @@ function AIWidgetPanel({
         setMessages([
           {
             role: "agent",
-            content:
-              "Bonjour ! Je suis l'assistant Wama Med. Comment puis-je vous aider avec votre coordination médicale aujourd'hui ?",
+            content: assistant.greeting,
           },
         ]);
         return data.chat_id;
@@ -76,8 +78,7 @@ function AIWidgetPanel({
         ...prev,
         {
           role: "agent",
-          content:
-            "Je ne peux pas me connecter pour le moment. Appelez-nous au +212 522 000 000.",
+          content: assistant.unavailable,
         },
       ]);
       setIsSending(false);
@@ -88,14 +89,14 @@ function AIWidgetPanel({
       const res = await fetch("/api/chat/message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ chat_id: id, content: userMsg }),
+        body: JSON.stringify({ chat_id: id, content: userMsg, locale }),
       });
       const data = await res.json();
       setMessages((prev) => [
         ...prev,
         {
           role: "agent",
-          content: data.content || "Je n'ai pas pu répondre. Veuillez réessayer.",
+          content: data.content || assistant.responseError,
         },
       ]);
     } catch {
@@ -103,12 +104,12 @@ function AIWidgetPanel({
         ...prev,
         {
           role: "agent",
-          content: "Une erreur est survenue. Contactez-nous au +212 522 000 000.",
+          content: assistant.sendError,
         },
       ]);
     }
     setIsSending(false);
-  }, [input, isSending, ensureChatSession]);
+  }, [assistant.responseError, assistant.sendError, ensureChatSession, input, isSending, locale]);
 
   const startVoiceCall = useCallback(async () => {
     setVoiceState("connecting");
@@ -152,16 +153,16 @@ function AIWidgetPanel({
             className="text-cream text-sm font-bold"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
-            Assistant Wama Med
+            {assistant.headerTitle}
           </p>
-          <p className="text-brass text-xs">Disponible 24h/24</p>
+          <p className="text-brass text-xs">{assistant.availability}</p>
         </div>
         <div className="flex items-center gap-2">
           {onClose && (
             <button
               onClick={onClose}
               className="text-cream/50 hover:text-cream text-lg leading-none transition-colors"
-              aria-label="Fermer l'assistant"
+              aria-label={assistant.closeAria}
             >
               ×
             </button>
@@ -170,7 +171,7 @@ function AIWidgetPanel({
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-stone-dark flex-shrink-0" role="tablist" aria-label="Mode de contact">
+      <div className="flex border-b border-stone-dark flex-shrink-0" role="tablist" aria-label={assistant.tabAria}>
         {(["voice", "chat"] as Tab[]).map((tab) => (
           <button
             key={tab}
@@ -184,7 +185,7 @@ function AIWidgetPanel({
             }`}
           >
             <span aria-hidden="true">{tab === "chat" ? "💬" : "🎙"}</span>{" "}
-            {tab === "chat" ? "Chat" : "Voix"}
+            {tab === "chat" ? assistant.tabs.chat : assistant.tabs.voice}
           </button>
         ))}
       </div>
@@ -195,7 +196,7 @@ function AIWidgetPanel({
           <div className="flex-1 overflow-y-auto p-4 space-y-3 min-h-0">
             {messages.length === 0 && (
               <p className="text-ink/40 text-sm text-center py-4">
-                Posez votre question sur la coordination médicale.
+                {assistant.emptyChat}
               </p>
             )}
             {messages.map((msg, i) => (
@@ -220,7 +221,7 @@ function AIWidgetPanel({
                         rel="noopener noreferrer"
                         className="underline opacity-80 hover:opacity-100"
                       >
-                        Voir le lien →
+                        {assistant.linkLabel}
                       </a>
                     ) : (
                       part
@@ -249,14 +250,14 @@ function AIWidgetPanel({
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
-                placeholder="Votre question..."
+                placeholder={assistant.inputPlaceholder}
                 className="flex-1 bg-stone rounded-full px-4 py-2 text-sm text-ink placeholder-ink/30 outline-none focus:ring-1 focus:ring-teal/40 border border-stone-dark"
               />
               <button
                 onClick={sendMessage}
                 disabled={!input.trim() || isSending}
                 className="bg-teal disabled:opacity-40 hover:bg-teal-light text-cream text-sm font-medium px-4 py-2 rounded-full transition-colors"
-                aria-label="Envoyer"
+                aria-label={assistant.sendAria}
               >
                 →
               </button>
@@ -283,16 +284,14 @@ function AIWidgetPanel({
               className="text-ink font-bold mb-1"
               style={{ fontFamily: "var(--font-fraunces)" }}
             >
-              {voiceState === "idle" && "Parlez à notre assistant"}
-              {voiceState === "connecting" && "Connexion en cours..."}
-              {voiceState === "active" && "En communication"}
-              {voiceState === "ending" && "Fin d'appel..."}
+              {voiceState === "idle" && assistant.voice.idleTitle}
+              {voiceState === "connecting" && assistant.voice.connectingTitle}
+              {voiceState === "active" && assistant.voice.activeTitle}
+              {voiceState === "ending" && assistant.voice.endingTitle}
             </p>
             <p className="text-ink/50 text-sm">
-              {voiceState === "idle" &&
-                "Notre assistant répond en français 24h/24"}
-              {voiceState === "active" &&
-                "Parlez normalement — l'assistant vous écoute"}
+              {voiceState === "idle" && assistant.voice.idleDescription}
+              {voiceState === "active" && assistant.voice.activeDescription}
             </p>
           </div>
           {voiceState === "idle" && (
@@ -300,7 +299,7 @@ function AIWidgetPanel({
               onClick={startVoiceCall}
               className="w-full bg-teal hover:bg-teal-light text-cream font-semibold py-3 rounded-full transition-colors"
             >
-              Démarrer l'appel
+              {assistant.voice.startCall}
             </button>
           )}
           {voiceState === "active" && (
@@ -308,12 +307,12 @@ function AIWidgetPanel({
               onClick={endVoiceCall}
               className="w-full bg-red-500/80 hover:bg-red-500 text-white font-semibold py-3 rounded-full transition-colors"
             >
-              Terminer l'appel
+              {assistant.voice.endCall}
             </button>
           )}
           {(voiceState === "connecting" || voiceState === "ending") && (
             <div className="w-full bg-ink/10 py-3 rounded-full text-center text-ink/40 text-sm">
-              Veuillez patienter...
+              {assistant.voice.waiting}
             </div>
           )}
         </div>
@@ -326,6 +325,7 @@ function AIWidgetPanel({
    Floating Widget Button + Panel (Placement 1)
    ────────────────────────────────────────────────────────── */
 export function AIWidget() {
+  const { dictionary } = useLocaleDictionary();
   const [isOpen, setIsOpen] = useState(false);
   const [showLabel, setShowLabel] = useState(false);
   const [labelDismissed, setLabelDismissed] = useState(false);
@@ -378,7 +378,7 @@ export function AIWidget() {
               className="w-1.5 h-1.5 rounded-full animate-pulse"
               style={{ background: "#4ade80" }}
             />
-            Discutez maintenant
+            {dictionary.assistant.label}
           </span>
         </div>
       )}
@@ -391,7 +391,7 @@ export function AIWidget() {
             ? "bg-ink/80 text-cream"
             : "bg-teal hover:bg-teal-light text-cream"
         }`}
-        aria-label={isOpen ? "Fermer l'assistant" : "Ouvrir l'assistant Wama Med"}
+        aria-label={isOpen ? dictionary.assistant.closeAria : dictionary.assistant.openAria}
       >
         <span aria-hidden="true">{isOpen ? "×" : "💬"}</span>
         {/* Pulsing green live indicator */}

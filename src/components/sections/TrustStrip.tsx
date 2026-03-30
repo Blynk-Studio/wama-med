@@ -1,11 +1,10 @@
-const PILLARS = [
-  { label: 'Coordination rigoureuse', ar: 'تنسيق دقيق' },
-  { label: 'Normes internationales', ar: 'معايير دولية' },
-  { label: 'Confidentialité absolue', ar: 'سرية مطلقة' },
-  { label: 'Disponibilité 24h/24', ar: 'متاح على مدار الساعة' },
-];
+import type { Dictionary } from "@/lib/dictionaries";
 
-export function TrustStrip() {
+export function TrustStrip({
+  pillars,
+}: {
+  pillars: Dictionary["home"]["trustStrip"]["pillars"];
+}) {
   return (
     <section
       aria-label="Engagements"
@@ -19,7 +18,7 @@ export function TrustStrip() {
       <div
         className="grid grid-cols-2 sm:grid-cols-4 w-full max-w-[1100px] mx-auto"
       >
-        {PILLARS.map((pillar, i) => (
+        {pillars.map((pillar, i) => (
           <div
             key={pillar.label}
             className={[

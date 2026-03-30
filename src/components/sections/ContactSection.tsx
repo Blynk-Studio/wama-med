@@ -1,15 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-
-const COUNTRIES = [
-  "Maroc", "France", "Belgique", "Pays-Bas", "Sénégal", "Côte d'Ivoire",
-  "Mali", "Cameroun", "Gabon", "Congo", "Autre pays africain", "Autre pays européen", "Autre",
-];
+import { useLocaleDictionary } from '@/components/ui/LocaleProvider';
 
 type FormState = 'idle' | 'sending' | 'success' | 'error';
 
 export function ContactSection() {
+  const { dictionary } = useLocaleDictionary();
+  const content = dictionary.home.contactSection;
   const [state, setState] = useState<FormState>('idle');
   const [form, setForm] = useState({ name: '', email: '', phone: '', country: '', message: '' });
   const [files, setFiles] = useState<File[]>([]);
@@ -64,6 +62,10 @@ export function ContactSection() {
     marginBottom: '6px',
   };
 
+  const selectedFilesLabel = files.length === 1
+    ? content.filesSelectedSingle.replace('{count}', String(files.length))
+    : content.filesSelectedPlural.replace('{count}', String(files.length));
+
   return (
     <section
       id="contact"
@@ -85,7 +87,7 @@ export function ContactSection() {
             textTransform: 'uppercase',
             marginBottom: '16px',
           }}>
-            Prenons contact
+            {content.eyebrow}
           </p>
           <h2
             id="contact-heading"
@@ -98,7 +100,7 @@ export function ContactSection() {
               marginBottom: '8px',
             }}
           >
-            Votre dossier mérite d'être entre de bonnes mains.
+            {content.heading}
           </h2>
           <p
             style={{
@@ -110,7 +112,7 @@ export function ContactSection() {
               opacity: 0.75,
             }}
           >
-            تواصلوا معنا
+            {content.arabic}
           </p>
         </div>
 
@@ -131,50 +133,50 @@ export function ContactSection() {
               color: '#1C1410',
               marginBottom: '8px',
             }}>
-              Dossier reçu.
+              {content.successTitle}
             </p>
             <p style={{ fontFamily: 'Inter', fontSize: '14px', color: 'rgba(28,20,16,0.6)' }}>
-              Notre équipe vous contactera dans les 2 heures.
+              {content.successDescription}
             </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} noValidate>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 240px), 1fr))', gap: '0 32px' }}>
               <div style={{ marginBottom: '32px' }}>
-                <label htmlFor="c-name" style={labelStyle}>Nom complet *</label>
+                <label htmlFor="c-name" style={labelStyle}>{content.fields.name} *</label>
                 <input
                   id="c-name" name="name" type="text"
                   value={form.name} onChange={handleChange} required
-                  placeholder="Votre nom"
+                  placeholder={content.placeholders.name}
                   style={fieldStyle}
                   onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
                   onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
-                <label htmlFor="c-email" style={labelStyle}>Email *</label>
+                <label htmlFor="c-email" style={labelStyle}>{content.fields.email} *</label>
                 <input
                   id="c-email" name="email" type="email"
                   value={form.email} onChange={handleChange} required
-                  placeholder="votre@email.com"
+                  placeholder={content.placeholders.email}
                   style={fieldStyle}
                   onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
                   onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
-                <label htmlFor="c-phone" style={labelStyle}>Téléphone</label>
+                <label htmlFor="c-phone" style={labelStyle}>{content.fields.phone}</label>
                 <input
                   id="c-phone" name="phone" type="tel"
                   value={form.phone} onChange={handleChange}
-                  placeholder="+33 6 XX XX XX XX"
+                  placeholder={content.placeholders.phone}
                   style={fieldStyle}
                   onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
                   onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
-                <label htmlFor="c-country" style={labelStyle}>Pays de résidence</label>
+                <label htmlFor="c-country" style={labelStyle}>{content.fields.country}</label>
                 <select
                   id="c-country" name="country"
                   value={form.country} onChange={handleChange}
@@ -182,18 +184,18 @@ export function ContactSection() {
                   onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
                   onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 >
-                  <option value="" style={{ color: '#1C1410' }}>Sélectionner...</option>
-                  {COUNTRIES.map(c => <option key={c} value={c} style={{ color: '#1C1410' }}>{c}</option>)}
+                  <option value="" style={{ color: '#1C1410' }}>{content.placeholders.country}</option>
+                  {dictionary.shared.countries.map(c => <option key={c} value={c} style={{ color: '#1C1410' }}>{c}</option>)}
                 </select>
               </div>
             </div>
 
             <div style={{ marginBottom: '40px', gridColumn: '1/-1' }}>
-              <label htmlFor="c-message" style={labelStyle}>Votre situation médicale *</label>
+              <label htmlFor="c-message" style={labelStyle}>{content.fields.message} *</label>
               <textarea
                 id="c-message" name="message" rows={4}
                 value={form.message} onChange={handleChange} required
-                placeholder="Décrivez brièvement votre situation..."
+                placeholder={content.placeholders.message}
                 style={{ ...fieldStyle, resize: 'none' }}
                 onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
                 onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
@@ -201,7 +203,7 @@ export function ContactSection() {
             </div>
 
             <div style={{ marginBottom: '32px', gridColumn: '1/-1' }}>
-              <label htmlFor="c-files" style={labelStyle}>Joindre des documents <span style={{ opacity: 0.5, fontWeight: 400 }}>(optionnel)</span></label>
+              <label htmlFor="c-files" style={labelStyle}>{content.fields.files} <span style={{ opacity: 0.5, fontWeight: 400 }}>{content.fields.optional}</span></label>
               <label
                 htmlFor="c-files"
                 style={{
@@ -223,7 +225,7 @@ export function ContactSection() {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
                 </svg>
-                {files.length > 0 ? `${files.length} fichier${files.length > 1 ? 's' : ''} sélectionné${files.length > 1 ? 's' : ''}` : 'PDF, JPG, PNG, DOC — max. 10 Mo'}
+                {files.length > 0 ? selectedFilesLabel : content.filesEmpty}
               </label>
               <input
                 id="c-files"
@@ -247,7 +249,7 @@ export function ContactSection() {
 
             {state === 'error' && (
               <p style={{ fontFamily: 'Inter', fontSize: '13px', color: '#e57373', marginBottom: '20px' }}>
-                Une erreur est survenue. Écrivez-nous à contact@wamamed.com
+                {content.error}
               </p>
             )}
 
@@ -273,7 +275,7 @@ export function ContactSection() {
               onMouseEnter={e => { if (state !== 'sending') (e.currentTarget as HTMLButtonElement).style.background = '#155558'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#0B4042'; }}
             >
-              {state === 'sending' ? 'Envoi en cours...' : 'Soumettre mon dossier'}
+              {state === 'sending' ? content.sending : content.submit}
             </button>
 
             <p style={{
@@ -283,7 +285,7 @@ export function ContactSection() {
               textAlign: 'center',
               marginTop: '16px',
             }}>
-              Réponse garantie sous 2 heures · Disponible 24h/24 · Données confidentielles
+              {content.footer}
             </p>
           </form>
         )}

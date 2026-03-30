@@ -1,11 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { Dictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
+import { localizePath } from "@/lib/i18n";
 
 const PHONE = "+212 522 000 000";
 const PHONE_HREF = "tel:+212522000000";
 const WHATSAPP_HREF = "https://wa.me/212522000000";
 
-export function Footer() {
+export function Footer({
+  locale,
+  content,
+}: {
+  locale: Locale;
+  content: Dictionary["footer"];
+}) {
   return (
     <footer className="bg-teal-dark text-cream/70">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-16 pb-10">
@@ -21,23 +30,18 @@ export function Footer() {
               className="h-8 w-auto mb-3"
             />
             <p className="text-sm leading-relaxed text-cream/60 max-w-[220px]">
-              Coordination médicale nationale et internationale — de Casablanca, pour le monde.
+              {content.brandDescription}
             </p>
           </div>
 
           {/* Services */}
           <div>
-            <p className="eyebrow text-brass mb-4">Services</p>
+            <p className="eyebrow text-brass mb-4">{content.servicesTitle}</p>
             <ul className="space-y-2 text-sm">
-              {[
-                ["Coordination nationale", "/services"],
-                ["Patients internationaux", "/services"],
-                ["Diaspora marocaine", "/services"],
-                ["Évacuation sanitaire", "/services"],
-              ].map(([label, href]) => (
+              {content.serviceLinks.map(({ label, href }) => (
                 <li key={label}>
                   <Link
-              prefetch={false} href={href} className="block py-2 hover:text-cream transition-colors duration-200">
+              prefetch={false} href={localizePath(locale, href)} className="block py-2 hover:text-cream transition-colors duration-200">
                     {label}
                   </Link>
                 </li>
@@ -47,16 +51,12 @@ export function Footer() {
 
           {/* Navigation */}
           <div>
-            <p className="eyebrow text-brass mb-4">Navigation</p>
+            <p className="eyebrow text-brass mb-4">{content.navigationTitle}</p>
             <ul className="space-y-2 text-sm">
-              {[
-                ["Notre Approche", "/comment-ca-marche"],
-                ["À Propos", "/about"],
-                ["Contact", "/contact"],
-              ].map(([label, href]) => (
+              {content.navLinks.map(({ label, href }) => (
                 <li key={label}>
                   <Link
-              prefetch={false} href={href} className="block py-2 hover:text-cream transition-colors duration-200">
+              prefetch={false} href={localizePath(locale, href)} className="block py-2 hover:text-cream transition-colors duration-200">
                     {label}
                   </Link>
                 </li>
@@ -66,7 +66,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="eyebrow text-brass mb-4">Contact</p>
+            <p className="eyebrow text-brass mb-4">{content.contactTitle}</p>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
@@ -85,9 +85,12 @@ export function Footer() {
                 </a>
               </li>
               <li className="text-cream/50 leading-relaxed">
-                5 Rue Molière<br />
-                Quartier Racine<br />
-                Casablanca, Maroc
+                {content.addressLines.map((line) => (
+                  <span key={line}>
+                    {line}
+                    <br />
+                  </span>
+                ))}
               </li>
               <li className="pt-2">
                 <a
@@ -96,7 +99,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-brass/20 hover:bg-brass/30 text-brass-light text-xs font-semibold px-3 py-1.5 rounded-full transition-colors duration-200"
                 >
-                  <span>WhatsApp</span>
+                  <span>{content.whatsapp}</span>
                 </a>
               </li>
             </ul>
@@ -105,9 +108,9 @@ export function Footer() {
 
         {/* Divider */}
         <div className="border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/60">
-          <p>© {new Date().getFullYear()} Wama Med. Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} Wama Med. {content.copyright}</p>
           <p className="text-center">
-            Disponible 24h/24, 7j/7 —{" "}
+            {content.availability} —{" "}
             <a href={PHONE_HREF} className="hover:text-cream/70 transition-colors">
               {PHONE}
             </a>

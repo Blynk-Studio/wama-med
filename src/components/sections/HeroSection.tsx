@@ -1,9 +1,12 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useLocaleDictionary } from '@/components/ui/LocaleProvider';
 
 export function HeroSection() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  const { dictionary } = useLocaleDictionary();
+  const content = dictionary.home.hero;
 
   useEffect(() => {
     // Only split + animate the headline — word-level for natural wrapping.
@@ -70,7 +73,7 @@ export function HeroSection() {
         alignItems: 'center',
         overflow: 'hidden',
       }}
-      aria-label="Wama Med — Coordination médicale au Maroc"
+      aria-label={content.ariaLabel}
     >
       {/* Dark gradient overlay — sits over the WebGL ZelligeCanvas */}
       <div
@@ -108,7 +111,7 @@ export function HeroSection() {
             '--hero-delay': '0.1s',
           } as React.CSSProperties}
         >
-          Coordination Médicale · Maroc
+          {content.eyebrow}
         </p>
 
         {/* Headline — GSAP word-split. Starts invisible, JS reveals it. */}
@@ -125,7 +128,7 @@ export function HeroSection() {
             letterSpacing: '-0.01em',
           }}
         >
-          Votre santé mérite une expertise sans frontières
+          {content.headline}
         </h1>
 
         {/* Arabic subtitle — CSS animation */}
@@ -143,7 +146,7 @@ export function HeroSection() {
             '--hero-delay': '0.55s',
           } as React.CSSProperties}
         >
-          واما ميد — شريككم الطبي في المغرب
+          {content.arabic}
         </p>
 
         {/* CTA — CSS animation */}
@@ -179,7 +182,7 @@ export function HeroSection() {
               (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
             }}
           >
-            Soumettre votre dossier
+            {content.cta}
           </a>
         </div>
       </div>

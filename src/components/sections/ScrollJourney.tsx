@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useLocaleDictionary } from '@/components/ui/LocaleProvider';
 import { waitForGsap } from '@/lib/gsap-ready';
 
 interface Act {
@@ -9,59 +10,14 @@ interface Act {
   bg: string;
   headline: string;
   subtext?: string;
-  steps?: string[];
-  commitments?: { title: string; desc: string }[];
+  steps?: readonly string[];
+  commitments?: readonly { title: string; desc: string }[];
   textColor: string;
 }
 
-const ACTS: Act[] = [
-  {
-    id: 1,
-    label: 'Le Problème',
-    bg: '#1A2E40',
-    headline: "Naviguer seul dans un système médical étranger est épuisant.",
-    subtext: "Des rendez-vous manqués. Des barrières linguistiques. De l'incertitude.",
-    textColor: '#F5F0E8',
-  },
-  {
-    id: 2,
-    label: 'Le Maroc',
-    bg: '#1A3E48',
-    headline: "Le Maroc possède une médecine d'excellence.",
-    subtext: "L'accès, c'est ce qui manquait.",
-    textColor: '#F5F0E8',
-  },
-  {
-    id: 3,
-    label: 'La Solution',
-    bg: '#1A3440',
-    headline: "Un seul interlocuteur. Tout pris en charge.",
-    steps: ['Appel', 'Dossier', 'Clinique', 'Suivi', 'Retour'],
-    textColor: '#F5F0E8',
-  },
-  {
-    id: 4,
-    label: 'Les Engagements',
-    bg: '#1A2E40',
-    headline: 'Ce qui définit notre coordination',
-    commitments: [
-      { title: 'Rigueur méthodologique',   desc: 'Chaque dossier suit un protocole structuré, sans improvisation.' },
-      { title: 'Réseau médical vérifié',    desc: 'Collaboration avec des spécialistes et établissements accrédités.' },
-      { title: 'Conformité internationale', desc: 'Normes de confidentialité et de coordination transfrontalière.' },
-    ],
-    textColor: '#F5F0E8',
-  },
-  {
-    id: 5,
-    label: "L'Invitation",
-    bg: '#1A2E40',
-    headline: "Votre santé mérite mieux.",
-    subtext: "Nous sommes prêts.",
-    textColor: '#C9A84C',
-  },
-];
-
 export function ScrollJourney() {
+  const { dictionary } = useLocaleDictionary();
+  const acts = dictionary.home.scrollJourney.acts as readonly Act[];
   const outerRef    = useRef<HTMLElement>(null);
   const stickyRef   = useRef<HTMLDivElement>(null);
   const videoRef    = useRef<HTMLVideoElement>(null);
@@ -197,13 +153,13 @@ export function ScrollJourney() {
 
   const actIdx      = Math.min(4, Math.floor(progress * 5));
   const actProgress = (progress * 5) - actIdx;
-  const act         = ACTS[actIdx];
+  const act         = acts[actIdx];
 
   return (
     <section
       ref={outerRef}
       style={{ height: '500vh', position: 'relative' }}
-      aria-label="Notre approche"
+      aria-label={dictionary.home.scrollJourney.ariaLabel}
     >
       <div
         ref={stickyRef}
@@ -277,7 +233,7 @@ export function ScrollJourney() {
           gap: '8px',
           alignItems: 'center',
         }}>
-          {ACTS.map((a, i) => (
+          {acts.map((a, i) => (
             <div key={a.id} style={{
               width: i === actIdx ? '20px' : '6px',
               height: '6px',
@@ -514,7 +470,7 @@ export function ScrollJourney() {
                 borderRadius: '9999px',
                 opacity: Math.min(1, Math.max(.1, actProgress * 5)),
                 boxShadow: '0 4px 24px rgba(201,168,76,.25)',
-              }}>Soumettre votre dossier →</a>
+              }}>{dictionary.home.scrollJourney.cta}</a>
             </div>
           )}
         </div>

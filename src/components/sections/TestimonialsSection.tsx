@@ -1,25 +1,10 @@
-const PRINCIPLES = [
-  {
-    ar: "المنهجية",
-    title: "Méthodologie structurée",
-    desc: "Chaque dossier suit un protocole de coordination précis — analyse, orientation, suivi — sans improvisation, sans intermédiaire non qualifié.",
-    icon: "01",
-  },
-  {
-    ar: "الشراكات",
-    title: "Réseau médical établi",
-    desc: "Collaboration directe avec des médecins référents et des établissements accrédités à Casablanca et à l'échelle nationale.",
-    icon: "02",
-  },
-  {
-    ar: "الامتثال",
-    title: "Conformité internationale",
-    desc: "Traitement des dossiers conforme aux normes internationales de confidentialité et de coordination médicale transfrontalière.",
-    icon: "03",
-  },
-];
+import type { Dictionary } from "@/lib/dictionaries";
 
-export function TestimonialsSection() {
+export function TestimonialsSection({
+  content,
+}: {
+  content: Dictionary["home"]["testimonials"];
+}) {
   return (
     <section
       className="bg-teal py-24 sm:py-32"
@@ -28,20 +13,20 @@ export function TestimonialsSection() {
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="text-center mb-14">
-          <p className="eyebrow text-brass mb-3">Nos engagements</p>
+          <p className="eyebrow text-brass mb-3">{content.eyebrow}</p>
           <span className="brass-rule mx-auto mb-5 block" />
           <h2
             className="text-cream text-4xl sm:text-5xl lg:text-6xl font-black leading-tight"
             id="trust-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
-            Un cadre de coordination
-            <span style={{ color: "var(--color-brass)" }}> rigoureux.</span>
+            {content.title}
+            <span style={{ color: "var(--color-brass)" }}>{content.titleHighlight}</span>
           </h2>
         </div>
 
         <div className="grid sm:grid-cols-3 gap-6 sm:gap-8">
-          {PRINCIPLES.map((p) => (
+          {content.principles.map((p) => (
             <div
               key={p.title}
               className="rounded-[1.75rem] p-8 md:p-10 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_rgba(0,0,0,0.35)]"

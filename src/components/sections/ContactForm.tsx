@@ -1,15 +1,13 @@
 "use client";
 
 import { useState } from "react";
-
-const COUNTRIES = [
-  "Maroc", "France", "Belgique", "Pays-Bas", "Sénégal", "Côte d'Ivoire",
-  "Mali", "Cameroun", "Gabon", "Congo", "Autre pays africain", "Autre pays européen", "Autre",
-];
+import { useLocaleDictionary } from "@/components/ui/LocaleProvider";
 
 type FormState = "idle" | "sending" | "success" | "error";
 
 export function ContactForm() {
+  const { dictionary } = useLocaleDictionary();
+  const content = dictionary.shared.contactForm;
   const [state, setState] = useState<FormState>("idle");
   const [form, setForm] = useState({
     name: "",
@@ -53,6 +51,11 @@ export function ContactForm() {
     }
   };
 
+  const selectedFilesLabel =
+    files.length === 1
+      ? content.filesSelectedSingle.replace("{count}", String(files.length))
+      : content.filesSelectedPlural.replace("{count}", String(files.length));
+
   if (state === "success") {
     return (
       <div className="bg-teal/5 border border-teal/20 rounded-2xl p-8 text-center form-success-enter">
@@ -65,10 +68,10 @@ export function ContactForm() {
           className="text-ink text-xl font-bold mb-2"
           style={{ fontFamily: "var(--font-fraunces)" }}
         >
-          Dossier reçu.
+          {content.successTitle}
         </p>
         <p className="text-ink/60 text-sm">
-          Notre équipe vous contactera dans les 2 heures. Disponible 24h/24.
+          {content.successDescription}
         </p>
       </div>
     );
@@ -79,7 +82,7 @@ export function ContactForm() {
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="name" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
-            Nom complet <span className="text-brass">*</span>
+            {content.fields.name} <span className="text-brass">*</span>
           </label>
           <input
             id="name"
@@ -88,13 +91,13 @@ export function ContactForm() {
             value={form.name}
             onChange={handleChange}
             required
-            placeholder="Votre nom"
+            placeholder={content.placeholders.name}
             className="w-full bg-stone border border-stone-dark rounded-xl px-4 py-3 text-sm text-ink placeholder-ink/30 focus:outline-none focus:border-teal/40 focus:ring-1 focus:ring-teal/30 transition-colors"
           />
         </div>
         <div>
           <label htmlFor="email" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
-            Email <span className="text-brass">*</span>
+            {content.fields.email} <span className="text-brass">*</span>
           </label>
           <input
             id="email"
@@ -103,7 +106,7 @@ export function ContactForm() {
             value={form.email}
             onChange={handleChange}
             required
-            placeholder="votre@email.com"
+            placeholder={content.placeholders.email}
             className="w-full bg-stone border border-stone-dark rounded-xl px-4 py-3 text-sm text-ink placeholder-ink/30 focus:outline-none focus:border-teal/40 focus:ring-1 focus:ring-teal/30 transition-colors"
           />
         </div>
@@ -112,7 +115,7 @@ export function ContactForm() {
       <div className="grid sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="phone" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
-            Téléphone
+            {content.fields.phone}
           </label>
           <input
             id="phone"
@@ -120,13 +123,13 @@ export function ContactForm() {
             type="tel"
             value={form.phone}
             onChange={handleChange}
-            placeholder="+33 6 XX XX XX XX"
+            placeholder={content.placeholders.phone}
             className="w-full bg-stone border border-stone-dark rounded-xl px-4 py-3 text-sm text-ink placeholder-ink/30 focus:outline-none focus:border-teal/40 focus:ring-1 focus:ring-teal/30 transition-colors"
           />
         </div>
         <div>
           <label htmlFor="country" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
-            Pays de résidence
+            {content.fields.country}
           </label>
           <select
             id="country"
@@ -135,8 +138,8 @@ export function ContactForm() {
             onChange={handleChange}
             className="w-full bg-stone border border-stone-dark rounded-xl px-4 py-3 text-sm text-ink focus:outline-none focus:border-teal/40 focus:ring-1 focus:ring-teal/30 transition-colors"
           >
-            <option value="">Sélectionner...</option>
-            {COUNTRIES.map((c) => (
+            <option value="">{content.placeholders.country}</option>
+            {dictionary.shared.countries.map((c) => (
               <option key={c} value={c}>{c}</option>
             ))}
           </select>
@@ -145,7 +148,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="message" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
-          Votre situation médicale <span className="text-brass">*</span>
+          {content.fields.message} <span className="text-brass">*</span>
         </label>
         <textarea
           id="message"
@@ -154,14 +157,14 @@ export function ContactForm() {
           onChange={handleChange}
           required
           rows={5}
-          placeholder="Décrivez brièvement votre situation médicale, la ou les pathologies concernées, et ce dont vous avez besoin..."
+          placeholder={content.placeholders.message}
           className="w-full bg-stone border border-stone-dark rounded-xl px-4 py-3 text-sm text-ink placeholder-ink/30 focus:outline-none focus:border-teal/40 focus:ring-1 focus:ring-teal/30 transition-colors resize-none"
         />
       </div>
 
       <div>
         <label htmlFor="files" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
-          Joindre des documents <span className="text-ink/40">(optionnel)</span>
+          {content.fields.files} <span className="text-ink/40">{content.fields.optional}</span>
         </label>
         <label
           htmlFor="files"
@@ -170,7 +173,7 @@ export function ContactForm() {
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
           </svg>
-          {files.length > 0 ? `${files.length} fichier${files.length > 1 ? 's' : ''} sélectionné${files.length > 1 ? 's' : ''}` : 'PDF, JPG, PNG, DOC — max. 10 Mo'}
+          {files.length > 0 ? selectedFilesLabel : content.filesEmpty}
         </label>
         <input
           id="files"
@@ -194,7 +197,7 @@ export function ContactForm() {
 
       {state === "error" && (
         <p className="text-error text-xs">
-          Une erreur est survenue. Veuillez nous contacter directement au +212 522 000 000.
+          {content.error}
         </p>
       )}
 
@@ -204,11 +207,11 @@ export function ContactForm() {
         className="w-full bg-teal hover:bg-teal-light disabled:opacity-70 text-cream font-bold py-4 rounded-full text-base transition-all duration-200 hover:shadow-lg hover:shadow-teal/20 flex items-center justify-center gap-2.5"
       >
         {state === "sending" && <span className="btn-spinner" aria-hidden="true" />}
-        {state === "sending" ? "Envoi en cours..." : "Soumettre mon dossier"}
+        {state === "sending" ? content.sending : content.submit}
       </button>
 
       <p className="text-ink/35 text-xs text-center">
-        Réponse garantie sous 2 heures · Disponible 24h/24 · Données confidentielles
+        {content.footer}
       </p>
     </form>
   );

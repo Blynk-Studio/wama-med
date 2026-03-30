@@ -8,11 +8,11 @@ interface TimelineStep {
   duration: string;
   durationLabel: string;
   desc: string;
-  details: string[];
+  details: readonly string[];
   callout: string;
 }
 
-export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
+export function AnimatedTimeline({ steps }: { steps: readonly TimelineStep[] }) {
   const lineRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 

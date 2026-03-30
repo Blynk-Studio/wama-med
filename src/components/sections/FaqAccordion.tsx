@@ -7,7 +7,7 @@ interface FaqItem {
   a: string;
 }
 
-export function FaqAccordion({ items }: { items: FaqItem[] }) {
+export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 

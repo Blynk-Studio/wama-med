@@ -1,11 +1,8 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Fraunces, DM_Sans, Crimson_Pro, Cormorant_Garamond, Almarai } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { AnimationProvider } from "@/components/ui/AnimationProvider";
-import { LazyCustomCursor, LazyAIWidget } from "@/components/ui/ClientWidgets";
-import { ZelligeCanvas } from "@/components/ui/ZelligeCanvas";
+import { normalizeLocale } from "@/lib/i18n";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -49,83 +46,34 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Wama Med — Coordination Médicale Nationale et Internationale",
+  title: "Wama Med",
   description:
-    "Wama Med coordonne votre parcours médical au Maroc, de la consultation spécialisée à la prise en charge complète. Un interlocuteur unique pour les familles, la diaspora, et les patients internationaux.",
+    "Medical coordination in Morocco for families, diaspora communities, and international patients.",
   keywords:
     "coordination médicale Maroc, accompagnement médical Casablanca, tourisme médical Maroc, médecin coordinateur, prise en charge médicale internationale",
   authors: [{ name: "Wama Med" }],
   openGraph: {
-    title: "Wama Med — Coordination Médicale Nationale et Internationale",
+    title: "Wama Med",
     description:
-      "Un seul interlocuteur. Tout pris en charge. Navigation médicale experte au Maroc.",
-    locale: "fr_MA",
+      "Medical coordination in Morocco.",
     type: "website",
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const locale = normalizeLocale(requestHeaders.get("x-locale") ?? undefined);
+
   return (
     <html
-      lang="fr"
+      lang={locale}
       className={`${fraunces.variable} ${dmSans.variable} ${crimsonPro.variable} ${cormorant.variable} ${almarai.variable} h-full`}
     >
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "MedicalOrganization",
-              "@id": "https://wamamed.com",
-              name: "Wama Med",
-              description:
-                "Coordination médicale nationale et internationale — Casablanca, Maroc",
-              url: "https://wamamed.com",
-              telephone: "+212-522-000-000",
-              email: "contact@wamamed.com",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "5 Rue Molière",
-                addressLocality: "Casablanca",
-                addressRegion: "Grand Casablanca",
-                addressCountry: "MA",
-              },
-              areaServed: [
-                "Morocco",
-                "France",
-                "Belgium",
-                "Netherlands",
-                "Senegal",
-                "Ivory Coast",
-              ],
-              availableLanguage: ["fr", "ar", "en"],
-              openingHours: "Mo-Su 00:00-23:59",
-              medicalSpecialty: "GeneralPractice",
-            }),
-          }}
-        />
-      </head>
-      <body className="min-h-full flex flex-col antialiased" style={{ background: "#FAFAF8" }}>
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[200] focus:bg-brass focus:text-ink focus:font-semibold focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm"
-        >
-          Aller au contenu principal
-        </a>
-        <AnimationProvider>
-          <ZelligeCanvas />
-          <LazyCustomCursor />
-          <Header />
-          <main id="main-content" className="flex-1">{children}</main>
-          <Footer />
-          <LazyAIWidget />
-        </AnimationProvider>
-      </body>
+      <body className="min-h-full flex flex-col antialiased" style={{ background: "#FAFAF8" }}>{children}</body>
     </html>
   );
 }

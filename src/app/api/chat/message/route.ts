@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
+import { normalizeLocale } from "@/lib/i18n";
 
 export async function POST(request: NextRequest) {
-  const { chat_id, content } = await request.json();
+  const { chat_id, content, locale: rawLocale } = await request.json();
   const apiKey = process.env.RETELL_API_KEY;
+  const locale = normalizeLocale(rawLocale);
+  const missingParams =
+    locale === "fr" ? "Paramètres manquants" : "Missing parameters";
+  const fallbackMessage =
+    locale === "fr"
+      ? "Je n'ai pas pu répondre. Veuillez réessayer."
+      : "I couldn't respond. Please try again.";
 
   if (!chat_id || !content || !apiKey) {
-    return NextResponse.json({ error: "Paramètres manquants" }, { status: 400 });
+    return NextResponse.json({ error: missingParams }, { status: 400 });
   }
 
   const res = await fetch("https://api.retellai.com/create-chat-completion", {
@@ -29,6 +37,6 @@ export async function POST(request: NextRequest) {
     content:
       agentMsg?.content ??
       data.messages?.[0]?.content ??
-      "Je n'ai pas pu répondre. Veuillez réessayer.",
+      fallbackMessage,
   });
 }

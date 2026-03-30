@@ -1,7 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Dictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
+import { localizePath } from "@/lib/i18n";
 
-export function FounderSection() {
+export function FounderSection({
+  locale,
+  content,
+}: {
+  locale: Locale;
+  content: Dictionary["home"]["founderSection"];
+}) {
   return (
     <section
       className="bg-stone py-20 sm:py-28 overflow-hidden relative"
@@ -27,7 +36,7 @@ export function FounderSection() {
             <div className="relative w-full aspect-square max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden">
               <Image
                 src="/images/wama-driss-portrait.jpg"
-                alt="Driss Benwahoud, fondateur de Wama Med"
+                alt={content.alt}
                 fill
                 className="object-cover"
                 style={{ objectPosition: "center 20%" }}
@@ -39,20 +48,20 @@ export function FounderSection() {
             {/* Badge — anchored to bottom-left of image, overlapping the edge */}
             <div className="absolute bottom-4 left-4 bg-brass text-ink text-xs font-bold px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-ink/40 inline-block" />
-              Fondateur & Directeur
+              {content.badge}
             </div>
           </div>
 
           {/* Text */}
           <div>
-            <p className="eyebrow text-teal mb-4">La promesse</p>
+            <p className="eyebrow text-teal mb-4">{content.eyebrow}</p>
             <span className="brass-rule mb-6 block" />
             <h2
               className="text-ink text-3xl sm:text-4xl xl:text-5xl font-black leading-tight mb-6"
               id="founder-heading"
               style={{ fontFamily: "var(--font-fraunces)" }}
             >
-              Construit pour ne plus jamais laisser une famille seule face au système.
+              {content.heading}
             </h2>
 
             {/* Pull quote */}
@@ -63,28 +72,23 @@ export function FounderSection() {
               <p
                 className="text-ink/85 text-xl sm:text-2xl italic leading-relaxed"
               >
-                "Votre dossier médical mérite mieux qu'un agenda et un stylo rouge."
+                {content.quote}
               </p>
               <cite className="text-brass/70 text-sm not-italic font-medium mt-3 block">
-                — Driss Benwahoud, Fondateur
+                {content.cite}
               </cite>
             </blockquote>
 
             <p className="text-ink/65 leading-relaxed text-[15px] body-copy text-left">
-              Driss Benwahoud n'a pas fondé Wama Med pour saisir une opportunité de marché.
-              Il l'a fondé après avoir vécu personnellement le chaos de la coordination médicale
-              fragmentée — un proche, plusieurs spécialistes qui ne se parlent pas, des mois
-              perdus dans des files d'attente administratives. Fort de dix ans d'expérience
-              dans le secteur de l'assurance, il avait les outils pour comprendre le problème.
-              Il a choisi de le résoudre.
+              {content.body}
             </p>
 
             <Link
               prefetch={false}
-              href="/about"
+              href={localizePath(locale, "/about")}
               className="inline-flex items-center gap-2 text-teal hover:text-teal-light text-sm font-semibold mt-8 group"
             >
-              Découvrir notre histoire
+              {content.cta}
               <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
             </Link>
           </div>

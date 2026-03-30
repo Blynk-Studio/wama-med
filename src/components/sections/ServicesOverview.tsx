@@ -2,48 +2,13 @@
 
 import { useEffect, useRef } from 'react';
 import { waitForGsap } from '@/lib/gsap-ready';
+import { useLocaleDictionary } from '@/components/ui/LocaleProvider';
+import { localizePath } from '@/lib/i18n';
 import Link from 'next/link';
 
-const SERVICES = [
-  {
-    ar: 'تنسيق جراحي',
-    fr: 'Coordination chirurgicale',
-    desc: 'Orthopédie, cardiologie, oncologie et plus encore — avec les meilleurs spécialistes du Maroc.',
-    href: '/services',
-  },
-  {
-    ar: 'مرافقة لغوية',
-    fr: 'Accompagnement linguistique',
-    desc: 'Un interlocuteur francophone dédié à chaque étape de votre parcours médical.',
-    href: '/services',
-  },
-  {
-    ar: 'لوجستيك متكامل',
-    fr: 'Logistique complète',
-    desc: 'Visa médical, hébergement, transport — logistique complète pour votre séjour.',
-    href: '/services',
-  },
-  {
-    ar: 'متابعة ما بعد العملية',
-    fr: 'Suivi post-opératoire',
-    desc: 'Continuité des soins et communication avec vos médecins après votre retour.',
-    href: '/services',
-  },
-  {
-    ar: 'شبكة شركاء',
-    fr: 'Réseau de cliniques partenaires',
-    desc: 'Établissements accrédités sélectionnés selon des critères de qualité rigoureux.',
-    href: '/services',
-  },
-  {
-    ar: 'استشارات عن بُعد',
-    fr: 'Consultations à distance',
-    desc: 'Obtenez un avis médical expert avant même de quitter votre pays.',
-    href: '/services',
-  },
-];
-
 export function ServicesOverview() {
+  const { locale, dictionary } = useLocaleDictionary();
+  const services = dictionary.home.servicesOverview.services;
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -115,7 +80,7 @@ export function ServicesOverview() {
               textTransform: 'uppercase',
             }}
           >
-            Ce que nous faisons
+            {dictionary.home.servicesOverview.eyebrow}
           </p>
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
             <h2
@@ -128,7 +93,7 @@ export function ServicesOverview() {
                 lineHeight: 1.1,
               }}
             >
-              Nos Services
+              {dictionary.home.servicesOverview.title}
             </h2>
             <p
               style={{
@@ -139,7 +104,7 @@ export function ServicesOverview() {
                 opacity: 0.7,
               }}
             >
-              خدماتنا
+              {dictionary.home.servicesOverview.arabic}
             </p>
           </div>
           <div style={{ width: '40px', height: '1px', background: 'rgba(11,64,66,0.3)', marginTop: '8px' }} />
@@ -153,9 +118,9 @@ export function ServicesOverview() {
             gap: '16px',
           }}
         >
-          {SERVICES.map((svc, i) => (
+          {services.map((svc, i) => (
             <ServiceCard
-              key={svc.fr}
+              key={svc.title}
               svc={svc}
               ref={el => { cardRefs.current[i] = el; }}
             />
@@ -165,7 +130,7 @@ export function ServicesOverview() {
         {/* Footer CTA */}
         <div style={{ marginTop: '48px', textAlign: 'center' }}>
           <Link
-            href="/services"
+            href={localizePath(locale, "/services")}
             style={{
               fontFamily: 'Inter, DM Sans, sans-serif',
               fontSize: '12px',
@@ -177,7 +142,7 @@ export function ServicesOverview() {
               paddingBottom: '3px',
             }}
           >
-            Voir tous nos services →
+            {dictionary.home.servicesOverview.cta}
           </Link>
         </div>
       </div>
@@ -188,7 +153,7 @@ export function ServicesOverview() {
 // Extracted to allow ref forwarding
 import { forwardRef } from 'react';
 
-const ServiceCard = forwardRef<HTMLDivElement, { svc: typeof SERVICES[0] }>(
+const ServiceCard = forwardRef<HTMLDivElement, { svc: { ar: string; title: string; desc: string } }>(
   ({ svc }, ref) => {
     return (
       <div
@@ -230,7 +195,7 @@ const ServiceCard = forwardRef<HTMLDivElement, { svc: typeof SERVICES[0] }>(
           {svc.ar}
         </p>
 
-        {/* French heading */}
+        {/* Localized heading */}
         <h3
           style={{
             fontFamily: "'Cormorant Garamond', Georgia, serif",
@@ -241,7 +206,7 @@ const ServiceCard = forwardRef<HTMLDivElement, { svc: typeof SERVICES[0] }>(
             marginBottom: '12px',
           }}
         >
-          {svc.fr}
+          {svc.title}
         </h3>
 
         {/* Divider */}
