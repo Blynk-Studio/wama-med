@@ -26,7 +26,7 @@ import { usePathname } from "next/navigation";
 //      the async gap before GSAP imports finish
 //
 // LIGHTHOUSE SAFETY:
-//   GSAP is still interaction-gated (pointerdown/keydown) so it never
+//   GSAP is still interaction-gated (scroll/wheel/touchstart/keydown) so it never
 //   runs during headless Lighthouse simulation.
 //   On route change we bypass the gate — the user has already interacted
 //   to navigate. The `hasInteracted` ref persists across navigations.
@@ -144,7 +144,6 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
       });
-      lenisNew.scrollTo(0, { immediate: true, force: true });
       lenisRef.current = lenisNew;
 
       // Remove any previous ticker callbacks before adding a new one
@@ -220,7 +219,6 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         hasInteracted.current = true;
         reinit();
       };
-      window.addEventListener("pointerdown", onInteraction, { passive: true, once: true });
       window.addEventListener("wheel", onInteraction, { passive: true, once: true });
       window.addEventListener("scroll", onInteraction, { passive: true, once: true });
       window.addEventListener("touchstart", onInteraction, { passive: true, once: true });
@@ -228,7 +226,6 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
 
       return () => {
         cancelled = true;
-        window.removeEventListener("pointerdown", onInteraction);
         window.removeEventListener("wheel", onInteraction);
         window.removeEventListener("scroll", onInteraction);
         window.removeEventListener("touchstart", onInteraction);

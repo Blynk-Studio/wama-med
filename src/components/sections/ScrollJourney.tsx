@@ -98,10 +98,11 @@ export function ScrollJourney() {
     // Try unlock immediately (works on desktop + Android Chrome with muted)
     setTimeout(unlock, 50);
 
-    // Also try on first user gesture (iOS / strict autoplay policy fallback)
+    // Also try on first non-click gesture. Desktop pointerdown inside the pinned
+    // section was destabilizing the ScrollTrigger pin state, so leave desktop
+    // clicks out of the video-unlock flow and rely on autoplay/scroll instead.
     const onGesture = () => { unlock(); };
     window.addEventListener('touchstart',  onGesture, { once: true, passive: true });
-    window.addEventListener('pointerdown', onGesture, { once: true, passive: true });
     window.addEventListener('scroll',      onGesture, { once: true, passive: true });
 
     // ── 3. ScrollTrigger setup — waits for AnimationProvider to finish ──────
@@ -148,7 +149,6 @@ export function ScrollJourney() {
       cancelAnimationFrame(rafHandle.current);
       trigger?.kill();
       window.removeEventListener('touchstart',  onGesture);
-      window.removeEventListener('pointerdown', onGesture);
       window.removeEventListener('scroll',      onGesture);
     };
   }, []);
