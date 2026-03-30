@@ -17,13 +17,14 @@ export function TrustStrip() {
       }}
     >
       <div
-        className="grid grid-cols-2 sm:grid-cols-4 max-w-[1100px] mx-auto"
+        className="grid grid-cols-2 sm:grid-cols-4 w-full max-w-[1100px] mx-auto"
       >
         {PILLARS.map((pillar, i) => (
           <div
             key={pillar.label}
             className={[
-              'text-center py-4 sm:py-0',
+              'flex min-h-[92px] flex-col items-center justify-center text-center sm:min-h-0',
+              'px-3 py-5 sm:px-0 sm:py-0',
               i === 0 || i === 2
                 ? 'border-r border-r-[rgba(11,64,66,0.1)]'
                 : '',
@@ -34,7 +35,7 @@ export function TrustStrip() {
                 ? 'sm:border-r sm:border-r-[rgba(11,64,66,0.1)]'
                 : 'sm:border-r-0',
             ].filter(Boolean).join(' ')}
-            style={{ padding: '0 clamp(10px, 2.5vw, 28px)' }}
+            style={{ paddingInline: 'clamp(12px, 2vw, 28px)' }}
           >
             <p
               style={{
@@ -43,7 +44,7 @@ export function TrustStrip() {
                 fontWeight: 600,
                 color: '#0B4042',
                 lineHeight: 1.3,
-                marginBottom: '8px',
+                marginBottom: '10px',
               }}
             >
               {pillar.label}
