@@ -15,6 +15,7 @@ export function Header() {
   const { locale, dictionary } = useLocaleDictionary();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [disableHeaderBlur, setDisableHeaderBlur] = useState(false);
   const nextLocale = locale === "fr" ? "en" : "fr";
   const languageSwitchHref = swapLocaleInPathname(pathname, nextLocale);
   const navLinks = dictionary.header.nav;
@@ -33,17 +34,48 @@ export function Header() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [menuOpen]);
 
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    const platform = navigator.platform;
+    const isWindows = /Win/i.test(platform);
+    const isChromium =
+      /\bChrome\/|\bEdg\/|\bOPR\/|\bBrave\//.test(ua) &&
+      !/\bFirefox\//.test(ua);
+
+    setDisableHeaderBlur(isWindows && isChromium);
+  }, []);
+
+  const headerIsDark = scrolled;
+  const headerBackground = headerIsDark ? "bg-teal/95" : "bg-white/80";
+  const headerShadow = headerIsDark
+    ? "shadow-lg shadow-black/20"
+    : "shadow-sm shadow-black/5";
+  const textTone = headerIsDark
+    ? "text-cream/80 hover:text-cream"
+    : "text-ink/70 hover:text-ink";
+  const accentTone = headerIsDark ? "bg-brass" : "bg-teal";
+  const utilityTone = headerIsDark
+    ? "text-cream/70 hover:text-cream"
+    : "text-ink/60 hover:text-ink";
+
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-teal/95 shadow-lg shadow-black/20"
-            : "bg-white/80 shadow-sm shadow-black/5"
-        }`}
-        style={{ backdropFilter: "blur(12px)" }}
+        className={`fixed top-0 left-0 right-0 z-50 ${headerShadow}`}
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
+        <div
+          aria-hidden="true"
+          className={`absolute inset-0 transition-all duration-300 ${headerBackground}`}
+          style={
+            disableHeaderBlur
+              ? undefined
+              : {
+                  backdropFilter: "blur(12px)",
+                  WebkitBackdropFilter: "blur(12px)",
+                }
+          }
+        />
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
           {/* Logo */}
           <Link
             href={localizePath(locale, "/")}
@@ -64,13 +96,14 @@ export function Header() {
           <nav className="hidden lg:flex items-center gap-8" aria-label={dictionary.header.desktopNavAria}>
             {navLinks.map((link) => (
               <Link
-                key={link.href}
-                href={localizePath(locale, link.href)}
-                prefetch={false}
-                className={`${scrolled ? "text-cream/80 hover:text-cream" : "text-ink/70 hover:text-ink"} text-sm font-medium tracking-wide transition-colors duration-200 relative group`}
-              >
-                {link.label}
-                <span className={`absolute -bottom-0.5 left-0 w-0 h-px ${scrolled ? "bg-brass" : "bg-teal"} group-hover:w-full transition-all duration-300`} />
+              key={link.href}
+              href={localizePath(locale, link.href)}
+              prefetch={false}
+              className={`${textTone} text-sm font-medium tracking-wide transition-colors duration-200 relative group`}
+              style={{ fontFamily: "var(--font-sans)" }}
+            >
+              {link.label}
+                <span className={`absolute -bottom-0.5 left-0 w-0 h-px ${accentTone} group-hover:w-full transition-all duration-300`} />
               </Link>
             ))}
           </nav>
@@ -79,7 +112,7 @@ export function Header() {
           <div className="hidden md:flex items-center gap-5">
             <div
               className={`inline-flex items-center rounded-full border px-1 py-1 ${
-                scrolled
+                headerIsDark
                   ? "border-cream/20 bg-cream/10"
                   : "border-ink/10 bg-white/70"
               }`}
@@ -95,10 +128,11 @@ export function Header() {
                     className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors ${
                       active
                         ? "bg-brass text-ink"
-                        : scrolled
+                        : headerIsDark
                           ? "text-cream/70 hover:text-cream"
                           : "text-ink/55 hover:text-ink"
                     }`}
+                    style={{ fontFamily: "var(--font-sans)" }}
                   >
                     {item.toUpperCase()}
                   </Link>
@@ -107,13 +141,15 @@ export function Header() {
             </div>
             <a
               href={PHONE_HREF}
-              className={`${scrolled ? "text-cream/70 hover:text-cream" : "text-ink/60 hover:text-ink"} text-sm font-medium transition-colors duration-200`}
+              className={`${utilityTone} text-sm font-medium transition-colors duration-200`}
+              style={{ fontFamily: "var(--font-sans)" }}
             >
               {PHONE}
             </a>
             <Link
               href={localizePath(locale, "/contact")}
               className="bg-brass hover:bg-brass-light text-ink font-semibold text-sm px-5 py-2.5 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-brass/30 hover:scale-105"
+              style={{ fontFamily: "var(--font-sans)" }}
             >
               {dictionary.header.submitCase}
             </Link>
@@ -122,20 +158,20 @@ export function Header() {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className={`lg:hidden ${scrolled ? "text-cream" : "text-ink"} p-3 -mr-3`}
+            className={`lg:hidden ${headerIsDark ? "text-cream" : "text-ink"} p-3 -mr-3`}
             aria-label={menuOpen ? dictionary.header.closeMenu : dictionary.header.openMenu}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
           >
             <div className="flex flex-col gap-[5px] w-6">
               <span
-                className={`block h-[1.5px] ${scrolled ? "bg-cream" : "bg-ink"} transition-all duration-300 origin-left ${menuOpen ? "rotate-45 translate-x-[3px]" : ""}`}
+                className={`block h-[1.5px] ${headerIsDark ? "bg-cream" : "bg-ink"} transition-all duration-300 origin-left ${menuOpen ? "rotate-45 translate-x-[3px]" : ""}`}
               />
               <span
-                className={`block h-[1.5px] ${scrolled ? "bg-cream" : "bg-ink"} transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
+                className={`block h-[1.5px] ${headerIsDark ? "bg-cream" : "bg-ink"} transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
               />
               <span
-                className={`block h-[1.5px] ${scrolled ? "bg-cream" : "bg-ink"} transition-all duration-300 origin-left ${menuOpen ? "-rotate-45 translate-x-[3px]" : ""}`}
+                className={`block h-[1.5px] ${headerIsDark ? "bg-cream" : "bg-ink"} transition-all duration-300 origin-left ${menuOpen ? "-rotate-45 translate-x-[3px]" : ""}`}
               />
             </div>
           </button>
