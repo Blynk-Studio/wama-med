@@ -49,6 +49,12 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
   useLayoutEffect(() => {
     initCycleRef.current += 1;
     resetGsapReady();
+
+    // Always start new route renders at the top, regardless of previous page position.
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    lenisRef.current?.scrollTo(0, { immediate: true, force: true });
   }, [pathname]);
 
   useEffect(() => {
@@ -138,6 +144,7 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
       });
+      lenisNew.scrollTo(0, { immediate: true, force: true });
       lenisRef.current = lenisNew;
 
       // Remove any previous ticker callbacks before adding a new one

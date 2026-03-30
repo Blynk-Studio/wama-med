@@ -1,11 +1,13 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { useLocaleDictionary } from '@/components/ui/LocaleProvider';
+import { localizePath } from '@/lib/i18n';
 
 export function HeroSection() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
-  const { dictionary } = useLocaleDictionary();
+  const { locale, dictionary } = useLocaleDictionary();
   const content = dictionary.home.hero;
 
   useEffect(() => {
@@ -157,8 +159,8 @@ export function HeroSection() {
             '--hero-delay': '0.7s',
           } as React.CSSProperties}
         >
-          <a
-            href="#contact"
+          <Link
+            href={localizePath(locale, '/contact')}
             style={{
               display: 'inline-block',
               padding: '16px 48px',
@@ -183,7 +185,7 @@ export function HeroSection() {
             }}
           >
             {content.cta}
-          </a>
+          </Link>
         </div>
       </div>
 

@@ -1,8 +1,10 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { useLocaleDictionary } from '@/components/ui/LocaleProvider';
 import { waitForGsap } from '@/lib/gsap-ready';
+import { localizePath } from '@/lib/i18n';
 
 interface Act {
   id: number;
@@ -16,7 +18,7 @@ interface Act {
 }
 
 export function ScrollJourney() {
-  const { dictionary } = useLocaleDictionary();
+  const { locale, dictionary } = useLocaleDictionary();
   const acts = dictionary.home.scrollJourney.acts as readonly Act[];
   const outerRef    = useRef<HTMLElement>(null);
   const stickyRef   = useRef<HTMLDivElement>(null);
@@ -456,7 +458,7 @@ export function ScrollJourney() {
                 opacity: Math.min(1, Math.max(.1, actProgress * 4)),
                 textShadow: '0 1px 16px rgba(0,0,0,.95)',
               }}>{act.subtext}</p>
-              <a href="#contact" style={{
+              <Link href={localizePath(locale, '/contact')} style={{
                 display: 'inline-block',
                 padding: 'clamp(14px,3vw,16px) clamp(28px,6vw,44px)',
                 background: '#C9A84C',
@@ -470,7 +472,7 @@ export function ScrollJourney() {
                 borderRadius: '9999px',
                 opacity: Math.min(1, Math.max(.1, actProgress * 5)),
                 boxShadow: '0 4px 24px rgba(201,168,76,.25)',
-              }}>{dictionary.home.scrollJourney.cta}</a>
+              }}>{dictionary.home.scrollJourney.cta}</Link>
             </div>
           )}
         </div>
