@@ -47,6 +47,7 @@ export function ServicesOverview() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
+    let cancelled = false;
     const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
     if (isMobile) {
       // Mobile: render cards immediately visible — no pop-in jank
@@ -54,10 +55,13 @@ export function ServicesOverview() {
         if (!el) return;
         el.style.opacity = '1';
       });
-      return;
+      return () => {
+        cancelled = true;
+      };
     }
     // Desktop only: wait for AnimationProvider init before creating ScrollTriggers.
     waitForGsap().then(({ gsap, ScrollTrigger }) => {
+      if (cancelled) return;
       cardRefs.current.forEach((el, i) => {
         if (!el) return;
         gsap.fromTo(
@@ -78,6 +82,9 @@ export function ServicesOverview() {
         );
       });
     });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (

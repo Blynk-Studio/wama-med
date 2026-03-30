@@ -25,18 +25,34 @@ type GSAPReadyPayload = {
   ScrollTrigger: typeof import("gsap/ScrollTrigger").ScrollTrigger;
 };
 
-let gsapReadyResolve!: (value: GSAPReadyPayload) => void;
+type GSAPReadyDeferred = {
+  promise: Promise<GSAPReadyPayload>;
+  resolve: (value: GSAPReadyPayload) => void;
+};
 
-const gsapReadyPromise = new Promise<GSAPReadyPayload>((resolve) => {
-  gsapReadyResolve = resolve;
-});
+function createDeferred(): GSAPReadyDeferred {
+  let resolve!: (value: GSAPReadyPayload) => void;
+
+  const promise = new Promise<GSAPReadyPayload>((nextResolve) => {
+    resolve = nextResolve;
+  });
+
+  return { promise, resolve };
+}
+
+let currentDeferred = createDeferred();
+
+/** Re-arms the shared readiness promise for the next route/init cycle. */
+export function resetGsapReady() {
+  currentDeferred = createDeferred();
+}
 
 /** Called by AnimationProvider once GSAP + ScrollTrigger are fully initialized and refresh() has run. */
 export function signalGsapReady(payload: GSAPReadyPayload) {
-  gsapReadyResolve(payload);
+  currentDeferred.resolve(payload);
 }
 
 /** Awaited by any component that needs to create its own ScrollTrigger. */
 export function waitForGsap(): Promise<GSAPReadyPayload> {
-  return gsapReadyPromise;
+  return currentDeferred.promise;
 }

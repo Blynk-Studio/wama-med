@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { signalGsapReady } from "@/lib/gsap-ready";
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { resetGsapReady, signalGsapReady } from "@/lib/gsap-ready";
 import { usePathname } from "next/navigation";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -44,9 +44,20 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<LenisType | null>(null);
   const STRef = useRef<STType | null>(null);
   const hasInteracted = useRef(false);
+  const initCycleRef = useRef(0);
+
+  useLayoutEffect(() => {
+    initCycleRef.current += 1;
+    resetGsapReady();
+  }, [pathname]);
 
   useEffect(() => {
     let fallbackIO: IntersectionObserver | null = null;
+    const cycle = initCycleRef.current;
+    let cancelled = false;
+    let loadHandler: (() => void) | null = null;
+
+    const isCurrentCycle = () => !cancelled && cycle === initCycleRef.current;
 
     // ── Fallback observer ───────────────────────────────────────────────────
     // Attached on every route change. If GSAP hasn't loaded yet (first visit,
@@ -105,6 +116,8 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
           import("lenis"),
         ]);
 
+      if (!isCurrentCycle()) return;
+
       // Disconnect fallback — GSAP is now loaded
       if (fallbackIO) fallbackIO.disconnect();
 
@@ -135,46 +148,51 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
       // Step 6: ScrollTrigger.refresh() after a tick to let React finish
       // painting the new page DOM before calculating trigger positions
       requestAnimationFrame(() => {
+        if (!isCurrentCycle()) return;
         // Two rAFs to ensure the new page DOM has fully painted before we
         // measure element positions in ScrollTrigger.refresh().
         requestAnimationFrame(() => {
-        setTimeout(() => {
-          ScrollTrigger.refresh();
-          // On mobile (touch devices), skip scroll-reveal animations entirely.
-          // GSAP scroll-reveals on mobile cause the flash-in jank: elements are
-          // set to opacity:0 by gsap.set(), then pop in when ScrollTrigger fires.
-          // Mobile users scroll fast and expectations are different — content
-          // should be visible immediately. Animations are a desktop enhancement.
-          const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-          if (!isMobile) {
-            setupAnimations(gsapFresh, ScrollTrigger);
-          } else {
-            // On mobile: force all [data-animate] elements to full visibility immediately.
-            // No pop-in, no opacity:0, no jank.
-            document.querySelectorAll<HTMLElement>(
-              '[data-animate], [data-animate-child], [data-animate-children]'
-            ).forEach(el => {
-              el.style.opacity = '1';
-              el.style.transform = 'none';
-              el.dataset.gsapDone = 'true';
-            });
-            // Also force brass rules visible
-            document.querySelectorAll<HTMLElement>('.brass-rule').forEach(el => {
-              el.style.width = '48px';
-            });
-          }
-          // Signal component-level triggers that GSAP is ready.
-          signalGsapReady({ gsap: gsapFresh, ScrollTrigger });
-        }, 200);
+          if (!isCurrentCycle()) return;
+          setTimeout(() => {
+            if (!isCurrentCycle()) return;
+            ScrollTrigger.refresh();
+            // On mobile (touch devices), skip scroll-reveal animations entirely.
+            // GSAP scroll-reveals on mobile cause the flash-in jank: elements are
+            // set to opacity:0 by gsap.set(), then pop in when ScrollTrigger fires.
+            // Mobile users scroll fast and expectations are different — content
+            // should be visible immediately. Animations are a desktop enhancement.
+            const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+            if (!isMobile) {
+              setupAnimations(gsapFresh, ScrollTrigger);
+            } else {
+              // On mobile: force all [data-animate] elements to full visibility immediately.
+              // No pop-in, no opacity:0, no jank.
+              document.querySelectorAll<HTMLElement>(
+                '[data-animate], [data-animate-child], [data-animate-children]'
+              ).forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+                el.dataset.gsapDone = 'true';
+              });
+              // Also force brass rules visible
+              document.querySelectorAll<HTMLElement>('.brass-rule').forEach(el => {
+                el.style.width = '48px';
+              });
+            }
+            // Signal component-level triggers that GSAP is ready.
+            signalGsapReady({ gsap: gsapFresh, ScrollTrigger });
+          }, 200);
         }); // second rAF
       });
 
       // Also refresh once everything (fonts, images) is fully loaded
-      window.addEventListener(
-        "load",
-        () => setTimeout(() => ScrollTrigger.refresh(), 200),
-        { once: true }
-      );
+      loadHandler = () => {
+        setTimeout(() => {
+          if (!isCurrentCycle()) return;
+          ScrollTrigger.refresh();
+        }, 200);
+      };
+      window.addEventListener("load", loadHandler, { once: true });
 
       return () => {
         gsapFresh.ticker.remove(lenisRaf);
@@ -196,16 +214,26 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         reinit();
       };
       window.addEventListener("pointerdown", onInteraction, { passive: true, once: true });
+      window.addEventListener("wheel", onInteraction, { passive: true, once: true });
+      window.addEventListener("scroll", onInteraction, { passive: true, once: true });
+      window.addEventListener("touchstart", onInteraction, { passive: true, once: true });
       window.addEventListener("keydown", onInteraction, { once: true });
 
       return () => {
+        cancelled = true;
         window.removeEventListener("pointerdown", onInteraction);
+        window.removeEventListener("wheel", onInteraction);
+        window.removeEventListener("scroll", onInteraction);
+        window.removeEventListener("touchstart", onInteraction);
         window.removeEventListener("keydown", onInteraction);
+        if (loadHandler) window.removeEventListener("load", loadHandler);
         if (fallbackIO) fallbackIO.disconnect();
       };
     }
 
     return () => {
+      cancelled = true;
+      if (loadHandler) window.removeEventListener("load", loadHandler);
       if (fallbackIO) fallbackIO.disconnect();
     };
   // pathname is the key dependency — re-run this entire effect on every route change

@@ -78,6 +78,7 @@ export function ScrollJourney() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    let cancelled = false;
 
     // ── 1. Scrub loop — runs every rAF, writes to video.currentTime ─────────
     const LERP  = 0.14;
@@ -153,10 +154,12 @@ export function ScrollJourney() {
       // This prevents race conditions where AnimationProvider kills all
       // ScrollTriggers after we've already created ours.
       const { gsap, ScrollTrigger } = await waitForGsap();
+      if (cancelled) return;
 
       // Let React finish painting the 500vh container
       await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
       await new Promise<void>(r => setTimeout(r, 100));
+      if (cancelled) return;
 
       if (!outerRef.current || !stickyRef.current) return;
 
@@ -175,12 +178,15 @@ export function ScrollJourney() {
         anticipatePin: 1,
       });
 
-      requestAnimationFrame(() => ScrollTrigger.refresh());
+      requestAnimationFrame(() => {
+        if (!cancelled) ScrollTrigger.refresh();
+      });
     };
 
     initGSAP();
 
     return () => {
+      cancelled = true;
       cancelAnimationFrame(rafHandle.current);
       trigger?.kill();
       window.removeEventListener('touchstart',  onGesture);
