@@ -24,6 +24,11 @@ export function ScrollJourney() {
   const stickyRef   = useRef<HTMLDivElement>(null);
   const videoRef    = useRef<HTMLVideoElement>(null);
   const progressFillRef = useRef<HTMLDivElement>(null);
+  const stepItemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const stepCircleRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const commitmentCardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const act5SubtextRef = useRef<HTMLParagraphElement | null>(null);
+  const act5CtaRef = useRef<HTMLAnchorElement | null>(null);
 
   // All mutable state in refs — no re-renders in the hot loop
   const scrollProg  = useRef(0);   // 0–1 from ScrollTrigger
@@ -34,6 +39,72 @@ export function ScrollJourney() {
   const activeActRef = useRef(0);
 
   const [actIdx, setActIdx] = useState(0);
+
+  const syncActAnimations = (progress: number) => {
+    const currentAct = activeActRef.current;
+    const actProgress = Math.max(0, Math.min(0.999, progress * acts.length - currentAct));
+
+    if (currentAct === 2) {
+      stepItemRefs.current.forEach((item, i) => {
+        const circle = stepCircleRefs.current[i];
+        if (!item || !circle) return;
+
+        const stepStart = i * 0.14;
+        const reveal = Math.max(0, Math.min(1, (actProgress - stepStart) * 4.5));
+        const isActive = actProgress >= stepStart && actProgress < stepStart + 0.20;
+        const isPast = actProgress >= stepStart + 0.20;
+
+        item.style.opacity = String(Math.max(i === 0 ? 0.7 : 0.16, reveal));
+        circle.style.border = isActive
+          ? '2px solid rgba(201,168,76,1)'
+          : isPast
+            ? '1px solid rgba(201,168,76,.60)'
+            : '1px solid rgba(201,168,76,.25)';
+        circle.style.background = isActive ? 'rgba(201,168,76,.12)' : 'rgba(201,168,76,.04)';
+        circle.style.boxShadow = isActive
+          ? '0 0 0 4px rgba(201,168,76,.15),0 0 24px rgba(201,168,76,.4)'
+          : isPast
+            ? '0 0 0 2px rgba(201,168,76,.08),0 0 16px rgba(201,168,76,.18)'
+            : '0 0 12px rgba(201,168,76,.08)';
+        circle.style.transform = isActive ? 'scale(1.05)' : 'scale(1)';
+      });
+    }
+
+    if (currentAct === 3) {
+      commitmentCardRefs.current.forEach((card, i) => {
+        if (!card) return;
+
+        const stepStart = i / 3;
+        const isActive = actProgress >= stepStart && actProgress < stepStart + 0.333;
+        const isPast = actProgress >= stepStart + 0.333;
+
+        card.style.background = isActive ? 'rgba(20,16,8,.88)' : 'rgba(10,14,26,.75)';
+        card.style.borderColor = isActive
+          ? 'rgba(201,168,76,.95)'
+          : isPast
+            ? 'rgba(201,168,76,.40)'
+            : 'rgba(201,168,76,.18)';
+        card.style.boxShadow = isActive
+          ? '0 0 0 1px rgba(201,168,76,.4),0 8px 48px rgba(201,168,76,.18),0 8px 40px rgba(0,0,0,.65)'
+          : '0 8px 40px rgba(0,0,0,.65)';
+        card.style.opacity = isActive ? '1' : isPast ? '0.80' : '0.45';
+        card.style.transform = isActive ? 'translateY(-4px)' : 'translateY(0)';
+      });
+    }
+
+    if (currentAct === 4) {
+      if (act5SubtextRef.current) {
+        const subtextOpacity = Math.min(1, Math.max(0.1, actProgress * 4));
+        act5SubtextRef.current.style.opacity = String(subtextOpacity);
+        act5SubtextRef.current.style.transform = `translateY(${(1 - subtextOpacity) * 10}px)`;
+      }
+      if (act5CtaRef.current) {
+        const ctaOpacity = Math.min(1, Math.max(0.1, actProgress * 5));
+        act5CtaRef.current.style.opacity = String(ctaOpacity);
+        act5CtaRef.current.style.transform = `translateY(${(1 - ctaOpacity) * 12}px)`;
+      }
+    }
+  };
 
   useEffect(() => {
     const video = videoRef.current;
@@ -132,6 +203,8 @@ export function ScrollJourney() {
             progressFillRef.current.style.transform = `scaleX(${self.progress})`;
           }
 
+          syncActAnimations(self.progress);
+
           const nextActIdx = Math.min(4, Math.floor(self.progress * acts.length));
           if (nextActIdx !== activeActRef.current) {
             activeActRef.current = nextActIdx;
@@ -159,6 +232,13 @@ export function ScrollJourney() {
       window.removeEventListener('scroll',      onGesture);
     };
   }, []);
+
+  useEffect(() => {
+    stepItemRefs.current = [];
+    stepCircleRefs.current = [];
+    commitmentCardRefs.current = [];
+    syncActAnimations(scrollProg.current);
+  }, [actIdx]);
 
   const act         = acts[actIdx];
 
@@ -344,16 +424,17 @@ export function ScrollJourney() {
               }}>
                 {act.steps?.map((step, i) => {
                   return (
-                    <div key={i} style={{
+                    <div key={i} ref={el => { stepItemRefs.current[i] = el; }} style={{
                       textAlign: 'center',
                       flex: '1 1 0',
                       maxWidth: '72px',
-                      opacity: 1,
+                      opacity: 0.16,
+                      transition: 'opacity .35s ease',
                     }}>
-                      <div style={{
+                      <div ref={el => { stepCircleRefs.current[i] = el; }} style={{
                         width: 'clamp(48px,11vw,60px)',
                         height: 'clamp(48px,11vw,60px)',
-                        border: '1px solid rgba(201,168,76,.55)',
+                        border: '1px solid rgba(201,168,76,.25)',
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
@@ -363,8 +444,8 @@ export function ScrollJourney() {
                         fontFamily: "'Cormorant Garamond',serif",
                         fontSize: 'clamp(18px,4.5vw,26px)',
                         fontWeight: 600,
-                        boxShadow: '0 0 0 4px rgba(201,168,76,.08),0 0 18px rgba(201,168,76,.22)',
-                        background: 'rgba(201,168,76,.10)',
+                        boxShadow: '0 0 12px rgba(201,168,76,.08)',
+                        background: 'rgba(201,168,76,.04)',
                         transition: 'all .35s ease',
                       }}>{i + 1}</div>
                       <p style={{
@@ -409,14 +490,14 @@ export function ScrollJourney() {
               }}>
                 {act.commitments?.map((c, i) => {
                   return (
-                    <div key={i} style={{
-                      background: 'rgba(20,16,8,.82)',
-                      border: '1px solid rgba(201,168,76,.36)',
+                    <div key={i} ref={el => { commitmentCardRefs.current[i] = el; }} style={{
+                      background: 'rgba(10,14,26,.75)',
+                      border: '1px solid rgba(201,168,76,.18)',
                       borderRadius: '16px',
                       padding: 'clamp(20px,4vw,28px) clamp(16px,3vw,24px)',
                       boxShadow: '0 8px 40px rgba(0,0,0,.65)',
                       backdropFilter: 'blur(8px)',
-                      opacity: 1,
+                      opacity: .45,
                       transition: 'border-color .4s ease,box-shadow .4s ease,opacity .4s ease,background .4s ease',
                     }}>
                       <p style={{
@@ -452,16 +533,18 @@ export function ScrollJourney() {
                 marginBottom: '12px',
                 textShadow: '0 2px 24px rgba(0,0,0,.85),0 1px 4px #000',
               }}>{act.headline}</h2>
-              <p style={{
+              <p ref={act5SubtextRef} style={{
                 fontFamily: "'Cormorant Garamond',Georgia,serif",
                 fontSize: 'clamp(1.2rem,3vw,2rem)',
                 fontStyle: 'italic',
                 color: '#D4AE5A',
                 marginBottom: '40px',
-                opacity: 1,
+                opacity: .1,
+                transform: 'translateY(10px)',
+                transition: 'opacity .2s linear,transform .2s linear',
                 textShadow: '0 1px 16px rgba(0,0,0,.95)',
               }}>{act.subtext}</p>
-              <Link href={localizePath(locale, '/contact')} style={{
+              <Link ref={act5CtaRef} href={localizePath(locale, '/contact')} style={{
                 display: 'inline-block',
                 padding: 'clamp(14px,3vw,16px) clamp(28px,6vw,44px)',
                 background: '#C9A84C',
@@ -473,7 +556,9 @@ export function ScrollJourney() {
                 fontWeight: 700,
                 textTransform: 'uppercase',
                 borderRadius: '9999px',
-                opacity: 1,
+                opacity: .1,
+                transform: 'translateY(12px)',
+                transition: 'opacity .2s linear,transform .2s linear',
                 boxShadow: '0 4px 24px rgba(201,168,76,.25)',
               }}>{dictionary.home.scrollJourney.cta}</Link>
             </div>
