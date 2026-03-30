@@ -9,13 +9,26 @@ export function HeroSection() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const { locale, dictionary } = useLocaleDictionary();
   const content = dictionary.home.hero;
-  const meridianScales = [1, 0.8, 0.6, 0.4];
+  const meridianScales = [1, 0.88, 0.74, 0.58, 0.4];
   const latitudeBands = [
-    { offset: -30, height: 18, opacity: 0.12 },
-    { offset: -15, height: 30, opacity: 0.15 },
-    { offset: 0, height: 42, opacity: 0.18 },
-    { offset: 15, height: 30, opacity: 0.15 },
-    { offset: 30, height: 18, opacity: 0.12 },
+    { offset: -34, height: 14, opacity: 0.12 },
+    { offset: -22, height: 22, opacity: 0.16 },
+    { offset: -8, height: 32, opacity: 0.18 },
+    { offset: 8, height: 32, opacity: 0.18 },
+    { offset: 22, height: 22, opacity: 0.16 },
+    { offset: 34, height: 14, opacity: 0.12 },
+  ];
+  const networkNodes = [
+    { top: '26%', left: '39%', size: 9 },
+    { top: '34%', left: '58%', size: 7 },
+    { top: '47%', left: '31%', size: 8 },
+    { top: '54%', left: '63%', size: 10 },
+    { top: '68%', left: '46%', size: 7 },
+  ];
+  const networkLinks = [
+    { top: '31%', left: '40%', width: '22%', rotate: '-16deg' },
+    { top: '42%', left: '30%', width: '34%', rotate: '11deg' },
+    { top: '58%', left: '40%', width: '18%', rotate: '-21deg' },
   ];
 
   useEffect(() => {
@@ -102,20 +115,20 @@ export function HeroSection() {
         aria-hidden="true"
         style={{
           position: 'absolute',
-          width: 'min(82vw, 920px)',
+          width: 'min(92vw, 1040px)',
           aspectRatio: '1 / 1',
-          right: 'clamp(-280px, -18vw, -120px)',
-          top: '50%',
-          transform: 'translateY(-50%) rotate(-12deg)',
+          right: 'clamp(-140px, -7vw, 28px)',
+          top: '51%',
+          transform: 'translateY(-50%) rotate(-11deg)',
           borderRadius: '50%',
           pointerEvents: 'none',
           overflow: 'hidden',
-          opacity: 0.92,
+          opacity: 0.98,
           background:
-            'radial-gradient(circle at 34% 30%, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0) 24%), radial-gradient(circle at 64% 62%, rgba(11,64,66,0.05) 0%, rgba(11,64,66,0) 28%), linear-gradient(140deg, rgba(255,255,255,0.12) 0%, rgba(11,64,66,0.05) 55%, rgba(184,144,58,0.06) 100%)',
+            'radial-gradient(circle at 33% 28%, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.04) 26%, rgba(255,255,255,0) 42%), radial-gradient(circle at 60% 62%, rgba(11,64,66,0.08) 0%, rgba(11,64,66,0) 26%), linear-gradient(140deg, rgba(255,255,255,0.14) 0%, rgba(11,64,66,0.06) 55%, rgba(184,144,58,0.08) 100%)',
           boxShadow:
-            'inset 0 0 0 1px rgba(11,64,66,0.08), inset 30px 0 70px rgba(255,255,255,0.52), inset -44px 0 86px rgba(11,64,66,0.06), 0 34px 70px rgba(11,64,66,0.04)',
-          filter: 'blur(0.1px)',
+            'inset 0 0 0 1px rgba(11,64,66,0.10), inset 44px 0 88px rgba(255,255,255,0.52), inset -64px 0 110px rgba(11,64,66,0.08), 0 44px 90px rgba(11,64,66,0.05)',
+          filter: 'blur(0.08px)',
         }}
       >
         {meridianScales.map((scale, i) => (
@@ -125,7 +138,7 @@ export function HeroSection() {
               position: 'absolute',
               inset: '4%',
               borderRadius: '50%',
-              border: `1px solid rgba(11,64,66,${i === 0 ? 0.14 : 0.08})`,
+              border: `1px solid rgba(11,64,66,${i === 0 ? 0.18 : i < 3 ? 0.12 : 0.08})`,
               transform: `scaleX(${scale})`,
             }}
           />
@@ -146,13 +159,49 @@ export function HeroSection() {
           />
         ))}
 
+        {networkLinks.map((link, i) => (
+          <div
+            key={`network-link-${i}`}
+            style={{
+              position: 'absolute',
+              top: link.top,
+              left: link.left,
+              width: link.width,
+              height: '1px',
+              background:
+                'linear-gradient(90deg, rgba(11,64,66,0) 0%, rgba(11,64,66,0.18) 18%, rgba(184,144,58,0.28) 52%, rgba(11,64,66,0.16) 82%, rgba(11,64,66,0) 100%)',
+              transform: `rotate(${link.rotate})`,
+              transformOrigin: 'left center',
+            }}
+          />
+        ))}
+
+        {networkNodes.map((node, i) => (
+          <div
+            key={`network-node-${i}`}
+            style={{
+              position: 'absolute',
+              top: node.top,
+              left: node.left,
+              width: `${node.size}px`,
+              height: `${node.size}px`,
+              marginLeft: `${node.size / -2}px`,
+              marginTop: `${node.size / -2}px`,
+              borderRadius: '50%',
+              background: 'rgba(250,250,248,0.88)',
+              boxShadow:
+                '0 0 0 1px rgba(11,64,66,0.15), 0 0 0 5px rgba(184,144,58,0.10), 0 0 18px rgba(11,64,66,0.14)',
+            }}
+          />
+        ))}
+
         <div
           style={{
             position: 'absolute',
-            inset: '12%',
+            inset: '11%',
             borderRadius: '50%',
             background:
-              'radial-gradient(circle at 46% 44%, rgba(184,144,58,0.09) 0%, rgba(184,144,58,0) 34%), radial-gradient(circle at 56% 58%, rgba(11,64,66,0.06) 0%, rgba(11,64,66,0) 24%)',
+              'radial-gradient(circle at 45% 44%, rgba(184,144,58,0.12) 0%, rgba(184,144,58,0) 34%), radial-gradient(circle at 58% 58%, rgba(11,64,66,0.08) 0%, rgba(11,64,66,0) 24%)',
             mixBlendMode: 'multiply',
           }}
         />
