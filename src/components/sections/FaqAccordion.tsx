@@ -38,18 +38,18 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
             key={faq.q}
             className="rounded-xl border border-brass/10 overflow-hidden transition-all duration-200 faq-item"
             style={{
-              background: "#0A1E2A",
+              background: "#FFFFFF",
               animationDelay: `${i * 80}ms`,
             }}
           >
             <button
               onClick={() => setOpenIndex(isOpen ? null : i)}
-              className="w-full flex items-center justify-between px-6 py-5 text-left transition-colors duration-200 hover:bg-white/[0.02]"
+              className="w-full flex items-center justify-between px-6 py-5 text-left transition-colors duration-200 hover:bg-black/[0.02]"
               aria-expanded={isOpen}
             >
               <span
                 className="font-bold text-base pr-4"
-                style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
+                style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
               >
                 {faq.q}
               </span>
@@ -67,7 +67,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
             >
               <p
                 className="px-6 pb-5 text-sm leading-relaxed"
-                style={{ color: "rgba(245,240,232,0.6)" }}
+                style={{ color: "rgba(28,20,16,0.6)" }}
               >
                 {faq.a}
               </p>

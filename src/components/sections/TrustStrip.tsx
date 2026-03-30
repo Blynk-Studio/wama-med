@@ -10,8 +10,8 @@ export function TrustStrip() {
     <section
       aria-label="Engagements"
       style={{
-        background: '#0E1225',
-        borderTop: '1px solid rgba(201,168,76,0.12)',
+        background: '#F5F0E8',
+        borderTop: '1px solid rgba(11,64,66,0.08)',
         padding: 'clamp(48px, 8vw, 80px) clamp(20px, 5vw, 64px)',
         overflowX: 'hidden',
       }}
@@ -41,7 +41,7 @@ export function TrustStrip() {
                 fontFamily: "'Cormorant Garamond', Georgia, serif",
                 fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
                 fontWeight: 600,
-                color: '#C9A84C',
+                color: '#0B4042',
                 lineHeight: 1.3,
                 marginBottom: '8px',
               }}
@@ -52,8 +52,8 @@ export function TrustStrip() {
               style={{
                 fontFamily: "'Almarai', sans-serif",
                 fontSize: 'clamp(10px, 1.8vw, 11px)',
-                color: '#F5F0E8',
-                opacity: 0.45,
+                color: '#1C1410',
+                opacity: 0.35,
                 letterSpacing: '0.04em',
                 direction: 'rtl',
               }}

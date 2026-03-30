@@ -102,12 +102,12 @@ export default function CommentCaMarchePage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section
         className="relative overflow-hidden min-h-dvh flex items-center pt-24"
-        style={{ background: "#0F2938" }}
+        style={{ background: "#F5F0E8" }}
       >
         {/* Ghost Arabic */}
         <p
           className="font-cormorant absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
-          style={{ fontSize: "18vw", opacity: 0.04, color: "#F5F0E8", lineHeight: 1 }}
+          style={{ fontSize: "18vw", opacity: 0.04, color: "#1C1410", lineHeight: 1 }}
           aria-hidden="true"
         >
           كيف يعمل
@@ -121,7 +121,7 @@ export default function CommentCaMarchePage() {
             style={{
               fontFamily: "var(--font-fraunces)",
               fontSize: "clamp(2.5rem, 6vw, 5rem)",
-              color: "#F5F0E8",
+              color: "#1C1410",
             }}
           >
             Un protocole structuré,
@@ -130,7 +130,7 @@ export default function CommentCaMarchePage() {
           </h1>
           <p
             className="max-w-2xl mt-6 leading-relaxed text-base"
-            style={{ color: "rgba(245,240,232,0.6)" }}
+            style={{ color: "rgba(28,20,16,0.6)" }}
           >
             Le protocole Wama Med est conçu pour éliminer toute incertitude.
             Chaque étape a un objectif défini, un délai réaliste et un responsable identifié.
@@ -141,7 +141,7 @@ export default function CommentCaMarchePage() {
       {/* ── Animated Timeline ────────────────────────────────── */}
       <section
         className="py-20 sm:py-28 lg:py-36"
-        style={{ background: "#0A0E1A" }}
+        style={{ background: "#FAFAF8" }}
         aria-label="Étapes du processus"
       >
         <div className="max-w-5xl mx-auto px-5 sm:px-8">
@@ -152,7 +152,7 @@ export default function CommentCaMarchePage() {
       {/* ── FAQ Accordion ────────────────────────────────────── */}
       <section
         className="py-20 sm:py-28 lg:py-36"
-        style={{ background: "#0F2938" }}
+        style={{ background: "#F5F0E8" }}
         aria-labelledby="faq-heading"
       >
         <div className="max-w-4xl mx-auto px-5 sm:px-8">
@@ -162,7 +162,7 @@ export default function CommentCaMarchePage() {
             <h2
               className="text-3xl sm:text-4xl font-black"
               id="faq-heading"
-              style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
+              style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
             >
               Ce que vous voulez savoir.
             </h2>
@@ -171,7 +171,7 @@ export default function CommentCaMarchePage() {
           <FaqAccordion items={FAQS} />
 
           <div className="text-center mt-10">
-            <p className="text-sm mb-4" style={{ color: "rgba(245,240,232,0.4)" }}>
+            <p className="text-sm mb-4" style={{ color: "rgba(28,20,16,0.4)" }}>
               Vous avez une question non listée ci-dessus ?
             </p>
             <Link

@@ -19,11 +19,11 @@ export default function ContactPage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section
         className="relative overflow-hidden min-h-dvh flex items-center pt-24"
-        style={{ background: "rgba(15,41,56,0.5)" }}
+        style={{ background: "#F5F0E8" }}
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
           {/* Availability badge */}
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-widest mb-6" style={{ background: "rgba(201,168,76,0.15)", color: "#C9A84C" }}>
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-widest mb-6" style={{ background: "rgba(11,64,66,0.1)", color: "#0B4042" }}>
             <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#4ade80" }} />
             Disponible maintenant · Répond en &lt; 2h
           </div>
@@ -35,7 +35,7 @@ export default function ContactPage() {
             style={{
               fontFamily: "var(--font-fraunces)",
               fontSize: "clamp(2.5rem, 6vw, 5rem)",
-              color: "#F5F0E8",
+              color: "#1C1410",
             }}
           >
             Votre dossier mérite
@@ -44,7 +44,7 @@ export default function ContactPage() {
           </h1>
           <p
             className="mt-5 text-base leading-relaxed max-w-xl"
-            style={{ color: "rgba(245,240,232,0.6)" }}
+            style={{ color: "rgba(28,20,16,0.6)" }}
           >
             Partagez votre situation. Notre équipe vous répond sous 2 heures.
             Disponible 24h/24, 7j/7.
@@ -52,7 +52,7 @@ export default function ContactPage() {
           <a
             href={PHONE_HREF}
             className="inline-flex items-center gap-2 text-base font-medium mt-4 transition-colors duration-200"
-            style={{ color: "rgba(245,240,232,0.7)" }}
+            style={{ color: "rgba(28,20,16,0.7)" }}
           >
             <span aria-hidden="true">&#128222;</span> {PHONE}
           </a>
@@ -62,23 +62,23 @@ export default function ContactPage() {
       {/* ── AI Assistant — Full-width Section ─────────────────── */}
       <section
         className="py-16 sm:py-20"
-        style={{ background: "#0A0E1A" }}
+        style={{ background: "#FAFAF8" }}
         aria-label="Assistant IA immédiat"
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-widest mb-6" style={{ background: "rgba(74,222,128,0.1)", color: "#4ade80" }}>
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-widest mb-6" style={{ background: "rgba(11,64,66,0.08)", color: "#0B4042" }}>
             <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#4ade80" }} />
             En ligne · Répond immédiatement
           </div>
           <h2
             className="text-2xl sm:text-3xl lg:text-4xl font-black mb-3 leading-tight"
-            style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
+            style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
           >
             Parlez à notre assistant maintenant
           </h2>
           <p
             className="text-sm sm:text-base leading-relaxed mb-10 max-w-lg mx-auto"
-            style={{ color: "rgba(245,240,232,0.55)" }}
+            style={{ color: "rgba(28,20,16,0.55)" }}
           >
             Disponible 24h/24 · Répond immédiatement · Français, Arabe, Anglais
           </p>
@@ -91,7 +91,7 @@ export default function ContactPage() {
       {/* ── Contact Form Section ───────────────────────────────── */}
       <section
         className="py-20 sm:py-28"
-        style={{ background: "#0F1B2D" }}
+        style={{ background: "#FAFAF8" }}
         aria-label="Formulaire de contact et informations"
       >
         <div className="max-w-2xl mx-auto px-5 sm:px-8">
@@ -100,13 +100,13 @@ export default function ContactPage() {
             <span className="brass-rule mb-5 block" />
             <h2
               className="text-2xl sm:text-3xl font-black mb-3 leading-tight"
-              style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
+              style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
             >
               Soumettez votre dossier.
             </h2>
             <p
               className="text-sm leading-relaxed mb-6"
-              style={{ color: "rgba(245,240,232,0.55)" }}
+              style={{ color: "rgba(28,20,16,0.55)" }}
             >
               Notre équipe vous répond sous 2 heures.
             </p>
@@ -116,7 +116,7 @@ export default function ContactPage() {
             {/* NAP Info Block */}
             <div
               className="mt-8 rounded-xl p-6 border border-brass/15 space-y-3 text-sm"
-              style={{ background: "#0A1E2A", color: "rgba(245,240,232,0.5)" }}
+              style={{ background: "#FFFFFF", color: "rgba(28,20,16,0.5)" }}
             >
               <p className="flex items-start gap-2.5">
                 <span className="text-brass mt-0.5">&#128205;</span>

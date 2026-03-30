@@ -4,7 +4,7 @@ import Link from "next/link";
 export function FounderSection() {
   return (
     <section
-      className="bg-teal py-20 sm:py-28 overflow-hidden relative"
+      className="bg-stone py-20 sm:py-28 overflow-hidden relative"
      
       aria-labelledby="founder-heading"
     >
@@ -14,7 +14,7 @@ export function FounderSection() {
         aria-hidden="true"
       >
         <div
-          className="type-texture type-texture-ghost text-cream whitespace-nowrap"
+          className="type-texture type-texture-ghost text-ink whitespace-nowrap"
           style={{ opacity: 0.04, transform: "translateX(8%)" }}
           data-text="DRISS"
         />
@@ -45,10 +45,10 @@ export function FounderSection() {
 
           {/* Text */}
           <div>
-            <p className="eyebrow text-brass mb-4">La promesse</p>
+            <p className="eyebrow text-teal mb-4">La promesse</p>
             <span className="brass-rule mb-6 block" />
             <h2
-              className="text-cream text-3xl sm:text-4xl xl:text-5xl font-black leading-tight mb-6"
+              className="text-ink text-3xl sm:text-4xl xl:text-5xl font-black leading-tight mb-6"
               id="founder-heading"
               style={{ fontFamily: "var(--font-fraunces)" }}
             >
@@ -61,7 +61,7 @@ export function FounderSection() {
               style={{ fontFamily: "var(--font-crimson)" }}
             >
               <p
-                className="text-cream/85 text-xl sm:text-2xl italic leading-relaxed"
+                className="text-ink/85 text-xl sm:text-2xl italic leading-relaxed"
               >
                 "Votre dossier médical mérite mieux qu'un agenda et un stylo rouge."
               </p>
@@ -70,7 +70,7 @@ export function FounderSection() {
               </cite>
             </blockquote>
 
-            <p className="text-cream/65 leading-relaxed text-[15px] body-copy text-left">
+            <p className="text-ink/65 leading-relaxed text-[15px] body-copy text-left">
               Driss Benwahoud n'a pas fondé Wama Med pour saisir une opportunité de marché.
               Il l'a fondé après avoir vécu personnellement le chaos de la coordination médicale
               fragmentée — un proche, plusieurs spécialistes qui ne se parlent pas, des mois
@@ -82,7 +82,7 @@ export function FounderSection() {
             <Link
               prefetch={false}
               href="/about"
-              className="inline-flex items-center gap-2 text-brass hover:text-brass-light text-sm font-semibold mt-8 group"
+              className="inline-flex items-center gap-2 text-teal hover:text-teal-light text-sm font-semibold mt-8 group"
             >
               Découvrir notre histoire
               <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>

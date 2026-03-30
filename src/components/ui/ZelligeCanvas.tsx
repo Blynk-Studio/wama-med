@@ -65,15 +65,15 @@ export function ZelligeCanvas() {
         float n2 = noise(uv * 5.5 - uTime * 0.05);
         float nv = n * 0.6 + n2 * 0.4;
 
-        vec3 dark = vec3(0.039, 0.055, 0.102); /* #0A0E1A */
-        vec3 teal = vec3(0.102, 0.290, 0.322); /* #1A4A52 */
-        float breathe = sin(uTime * 0.125) * 0.10;
-        vec3 bg = mix(dark, teal, nv * 0.42 + breathe);
+        vec3 cream = vec3(0.976, 0.957, 0.937); /* #F9F4EF warm cream */
+        vec3 teal  = vec3(0.850, 0.910, 0.912); /* #D9E8E9 soft teal tint */
+        float breathe = sin(uTime * 0.125) * 0.06;
+        vec3 bg = mix(cream, teal, nv * 0.35 + breathe);
 
         vec2 starUV = uv * vec2(uRes.x / uRes.y, 1.0);
         float star = star8(starUV * 4.0);
-        vec3 gold = vec3(0.788, 0.659, 0.298); /* #C9A84C */
-        vec3 col = mix(bg, gold, star * 0.12);
+        vec3 gold = vec3(0.722, 0.565, 0.227); /* #B8903A brass */
+        vec3 col = mix(bg, gold, star * 0.08);
 
         gl_FragColor = vec4(col, 1.0);
       }
@@ -137,7 +137,7 @@ export function ZelligeCanvas() {
         height: '100%',
         zIndex: -1,
         display: 'block',
-        background: '#0A0E1A', // CSS fallback if WebGL fails
+        background: '#F9F4EF', // CSS fallback if WebGL fails
       }}
     />
   );

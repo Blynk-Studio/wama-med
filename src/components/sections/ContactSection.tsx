@@ -44,8 +44,8 @@ export function ContactSection() {
   const fieldStyle = {
     background: 'transparent',
     border: 'none',
-    borderBottom: '1px solid rgba(201,168,76,0.35)',
-    color: '#F5F0E8',
+    borderBottom: '1px solid rgba(11,64,66,0.2)',
+    color: '#1C1410',
     fontFamily: "'Cormorant Garamond', Georgia, serif",
     fontSize: '18px',
     padding: '10px 0',
@@ -59,7 +59,7 @@ export function ContactSection() {
     fontSize: '12px',
     letterSpacing: '0.18em',
     textTransform: 'uppercase' as const,
-    color: '#C9A84C',
+    color: '#0B4042',
     display: 'block',
     marginBottom: '6px',
   };
@@ -69,8 +69,8 @@ export function ContactSection() {
       id="contact"
       aria-labelledby="contact-heading"
       style={{
-        background: '#0A0E1A',
-        borderTop: '1px solid rgba(201,168,76,0.1)',
+        background: '#FAFAF8',
+        borderTop: '1px solid rgba(11,64,66,0.08)',
         padding: 'clamp(64px, 10vw, 100px) clamp(24px, 5vw, 64px)',
       }}
     >
@@ -81,7 +81,7 @@ export function ContactSection() {
             fontFamily: 'Inter, DM Sans, sans-serif',
             fontSize: '12px',
             letterSpacing: '0.18em',
-            color: '#C9A84C',
+            color: '#0B4042',
             textTransform: 'uppercase',
             marginBottom: '16px',
           }}>
@@ -93,7 +93,7 @@ export function ContactSection() {
               fontFamily: "'Cormorant Garamond', Georgia, serif",
               fontSize: 'clamp(2.2rem, 5vw, 3.6rem)',
               fontWeight: 300,
-              color: '#F5F0E8',
+              color: '#1C1410',
               lineHeight: 1.1,
               marginBottom: '8px',
             }}
@@ -104,10 +104,10 @@ export function ContactSection() {
             style={{
               fontFamily: "'Almarai', sans-serif",
               fontSize: 'clamp(1rem, 2vw, 1.4rem)',
-              color: '#C9A84C',
+              color: '#B8903A',
               direction: 'rtl',
               textAlign: 'right',
-              opacity: 0.85,
+              opacity: 0.75,
             }}
           >
             تواصلوا معنا
@@ -117,23 +117,23 @@ export function ContactSection() {
         {state === 'success' ? (
           <div
             style={{
-              border: '1px solid rgba(201,168,76,0.3)',
+              border: '1px solid rgba(11,64,66,0.15)',
             borderRadius: '16px',
-            boxShadow: '0 8px 32px rgba(201,168,76,0.08)',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
               padding: 'clamp(28px, 6vw, 48px)',
               textAlign: 'center',
             }}
           >
-            <div style={{ color: '#C9A84C', fontSize: '32px', marginBottom: '16px' }}>✓</div>
+            <div style={{ color: '#0B4042', fontSize: '32px', marginBottom: '16px' }}>✓</div>
             <p style={{
               fontFamily: "'Cormorant Garamond', serif",
               fontSize: '24px',
-              color: '#F5F0E8',
+              color: '#1C1410',
               marginBottom: '8px',
             }}>
               Dossier reçu.
             </p>
-            <p style={{ fontFamily: 'Inter', fontSize: '14px', color: 'rgba(245,240,232,0.6)' }}>
+            <p style={{ fontFamily: 'Inter', fontSize: '14px', color: 'rgba(28,20,16,0.6)' }}>
               Notre équipe vous contactera dans les 2 heures.
             </p>
           </div>
@@ -147,8 +147,8 @@ export function ContactSection() {
                   value={form.name} onChange={handleChange} required
                   placeholder="Votre nom"
                   style={fieldStyle}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
@@ -158,8 +158,8 @@ export function ContactSection() {
                   value={form.email} onChange={handleChange} required
                   placeholder="votre@email.com"
                   style={fieldStyle}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
@@ -169,8 +169,8 @@ export function ContactSection() {
                   value={form.phone} onChange={handleChange}
                   placeholder="+33 6 XX XX XX XX"
                   style={fieldStyle}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
@@ -178,12 +178,12 @@ export function ContactSection() {
                 <select
                   id="c-country" name="country"
                   value={form.country} onChange={handleChange}
-                  style={{ ...fieldStyle, color: form.country ? '#F5F0E8' : 'rgba(245,240,232,0.4)' }}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  style={{ ...fieldStyle, color: form.country ? '#1C1410' : 'rgba(28,20,16,0.4)' }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 >
-                  <option value="" style={{ color: '#0A0E1A' }}>Sélectionner...</option>
-                  {COUNTRIES.map(c => <option key={c} value={c} style={{ color: '#0A0E1A' }}>{c}</option>)}
+                  <option value="" style={{ color: '#1C1410' }}>Sélectionner...</option>
+                  {COUNTRIES.map(c => <option key={c} value={c} style={{ color: '#1C1410' }}>{c}</option>)}
                 </select>
               </div>
             </div>
@@ -195,8 +195,8 @@ export function ContactSection() {
                 value={form.message} onChange={handleChange} required
                 placeholder="Décrivez brièvement votre situation..."
                 style={{ ...fieldStyle, resize: 'none' }}
-                onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
               />
             </div>
 
@@ -210,15 +210,15 @@ export function ContactSection() {
                   justifyContent: 'center',
                   gap: '8px',
                   padding: '14px 0',
-                  borderBottom: '1px dashed rgba(201,168,76,0.35)',
-                  color: 'rgba(245,240,232,0.4)',
+                  borderBottom: '1px dashed rgba(11,64,66,0.2)',
+                  color: 'rgba(28,20,16,0.4)',
                   fontFamily: "'Cormorant Garamond', Georgia, serif",
                   fontSize: '16px',
                   cursor: 'pointer',
                   transition: 'border-bottom-color 0.2s ease, color 0.2s ease',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.color = 'rgba(245,240,232,0.7)'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.color = 'rgba(245,240,232,0.4)'; }}
+                onMouseEnter={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.color = 'rgba(28,20,16,0.7)'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.color = 'rgba(28,20,16,0.4)'; }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
@@ -236,8 +236,8 @@ export function ContactSection() {
               {files.length > 0 && (
                 <ul style={{ marginTop: '8px' }}>
                   {files.map((f, i) => (
-                    <li key={i} style={{ fontFamily: 'Inter', fontSize: '12px', color: 'rgba(245,240,232,0.45)', padding: '2px 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(201,168,76,0.5)', flexShrink: 0 }} />
+                    <li key={i} style={{ fontFamily: 'Inter', fontSize: '12px', color: 'rgba(28,20,16,0.45)', padding: '2px 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(11,64,66,0.4)', flexShrink: 0 }} />
                       {f.name}
                     </li>
                   ))}
@@ -257,8 +257,8 @@ export function ContactSection() {
               style={{
                 width: '100%',
                 padding: '18px',
-                background: '#C9A84C',
-                color: '#0A0E1A',
+                background: '#0B4042',
+                color: '#FAFAF8',
                 fontFamily: 'Inter, DM Sans, sans-serif',
                 fontSize: '12px',
                 letterSpacing: '0.18em',
@@ -270,8 +270,8 @@ export function ContactSection() {
                 opacity: state === 'sending' ? 0.7 : 1,
                 transition: 'background 0.2s ease',
               }}
-              onMouseEnter={e => { if (state !== 'sending') (e.currentTarget as HTMLButtonElement).style.background = '#E8C06A'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#C9A84C'; }}
+              onMouseEnter={e => { if (state !== 'sending') (e.currentTarget as HTMLButtonElement).style.background = '#155558'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#0B4042'; }}
             >
               {state === 'sending' ? 'Envoi en cours...' : 'Soumettre mon dossier'}
             </button>
@@ -279,7 +279,7 @@ export function ContactSection() {
             <p style={{
               fontFamily: 'Inter',
               fontSize: '12px',
-              color: 'rgba(245,240,232,0.35)',
+              color: 'rgba(28,20,16,0.35)',
               textAlign: 'center',
               marginTop: '16px',
             }}>

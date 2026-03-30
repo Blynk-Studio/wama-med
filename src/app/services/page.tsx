@@ -128,12 +128,12 @@ export default function ServicesPage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section
         className="relative overflow-hidden min-h-dvh flex items-center pt-24"
-        style={{ background: "#0A0E1A" }}
+        style={{ background: "#F5F0E8" }}
       >
         {/* Ghost Arabic */}
         <p
           className="font-cormorant absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
-          style={{ fontSize: "18vw", opacity: 0.04, color: "#F5F0E8", lineHeight: 1 }}
+          style={{ fontSize: "18vw", opacity: 0.04, color: "#1C1410", lineHeight: 1 }}
           aria-hidden="true"
         >
           خدمات
@@ -147,7 +147,7 @@ export default function ServicesPage() {
             style={{
               fontFamily: "var(--font-fraunces)",
               fontSize: "clamp(2.5rem, 6vw, 5rem)",
-              color: "#F5F0E8",
+              color: "#1C1410",
             }}
           >
             Coordination complète.
@@ -156,7 +156,7 @@ export default function ServicesPage() {
           </h1>
           <p
             className="max-w-2xl mt-6 leading-relaxed text-base"
-            style={{ color: "rgba(245,240,232,0.6)" }}
+            style={{ color: "rgba(28,20,16,0.6)" }}
           >
             De l&apos;analyse de votre dossier jusqu&apos;au suivi post-opératoire — Wama Med
             gère chaque dimension de votre parcours médical au Maroc.
@@ -167,25 +167,25 @@ export default function ServicesPage() {
       {/* ── Services Card Grid ───────────────────────────────── */}
       <section
         className="py-20 sm:py-28 lg:py-36"
-        style={{ background: "#0A0E1A" }}
+        style={{ background: "#FAFAF8" }}
         aria-label="Aperçu des services"
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-           
+
           >
             {SERVICES.map((svc) => (
               <div
                 key={svc.number}
                 className="relative rounded-2xl p-6 sm:p-8 border border-brass/15 hover:border-brass/40 hover:shadow-2xl transition-all duration-300"
-                style={{ background: "#0A1E2A" }}
-               
+                style={{ background: "#FFFFFF" }}
+
               >
                 {/* Ghost number */}
                 <p
                   className="font-cormorant absolute top-4 right-6 select-none pointer-events-none"
-                  style={{ fontSize: "5rem", lineHeight: 1, color: "rgba(201,168,76,0.1)" }}
+                  style={{ fontSize: "5rem", lineHeight: 1, color: "rgba(11,64,66,0.1)" }}
                   aria-hidden="true"
                 >
                   {svc.number}
@@ -194,21 +194,21 @@ export default function ServicesPage() {
                 {/* Arabic micro-label */}
                 <p
                   className="font-almarai text-xs tracking-widest mb-3"
-                  style={{ color: "rgba(201,168,76,0.6)", direction: "rtl", textAlign: "right" }}
+                  style={{ color: "rgba(11,64,66,0.6)", direction: "rtl", textAlign: "right" }}
                 >
                   {svc.ar}
                 </p>
 
                 <h3
                   className="text-xl font-black mb-3 leading-tight"
-                  style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
+                  style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
                 >
                   {svc.title}
                 </h3>
 
                 <p
                   className="text-sm leading-relaxed mb-5"
-                  style={{ color: "rgba(245,240,232,0.65)" }}
+                  style={{ color: "rgba(28,20,16,0.65)" }}
                 >
                   {svc.desc}
                 </p>
@@ -218,7 +218,7 @@ export default function ServicesPage() {
                     <li
                       key={d}
                       className="flex items-start gap-2.5 text-sm"
-                      style={{ color: "rgba(245,240,232,0.55)" }}
+                      style={{ color: "rgba(28,20,16,0.55)" }}
                     >
                       <span className="text-brass mt-0.5 flex-shrink-0">&#10003;</span>
                       {d}
@@ -234,7 +234,7 @@ export default function ServicesPage() {
       {/* ── Featured Service Details (alternating) ───────────── */}
       <section
         className="py-20 sm:py-28 lg:py-36"
-        style={{ background: "#0F2938" }}
+        style={{ background: "#FAFAF8" }}
         aria-label="Services en détail"
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-24 sm:space-y-32">
@@ -261,13 +261,13 @@ export default function ServicesPage() {
               <div>
                 <h2
                   className="text-2xl sm:text-3xl font-black mb-4 leading-tight"
-                  style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
+                  style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
                 >
                   {svc.title}
                 </h2>
                 <p
                   className="leading-relaxed text-[15px] mb-5"
-                  style={{ color: "rgba(245,240,232,0.65)" }}
+                  style={{ color: "rgba(28,20,16,0.65)" }}
                 >
                   {svc.desc}
                 </p>
@@ -276,7 +276,7 @@ export default function ServicesPage() {
                     <li
                       key={d}
                       className="flex items-start gap-2.5 text-sm"
-                      style={{ color: "rgba(245,240,232,0.55)" }}
+                      style={{ color: "rgba(28,20,16,0.55)" }}
                     >
                       <span className="text-brass mt-0.5 flex-shrink-0">&#10003;</span>
                       {d}

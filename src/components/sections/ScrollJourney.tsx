@@ -17,7 +17,7 @@ const ACTS: Act[] = [
   {
     id: 1,
     label: 'Le Problème',
-    bg: '#0E1225',
+    bg: '#1A2E40',
     headline: "Naviguer seul dans un système médical étranger est épuisant.",
     subtext: "Des rendez-vous manqués. Des barrières linguistiques. De l'incertitude.",
     textColor: '#F5F0E8',
@@ -25,7 +25,7 @@ const ACTS: Act[] = [
   {
     id: 2,
     label: 'Le Maroc',
-    bg: '#123038',
+    bg: '#1A3E48',
     headline: "Le Maroc possède une médecine d'excellence.",
     subtext: "L'accès, c'est ce qui manquait.",
     textColor: '#F5F0E8',
@@ -33,7 +33,7 @@ const ACTS: Act[] = [
   {
     id: 3,
     label: 'La Solution',
-    bg: '#0E1E28',
+    bg: '#1A3440',
     headline: "Un seul interlocuteur. Tout pris en charge.",
     steps: ['Appel', 'Dossier', 'Clinique', 'Suivi', 'Retour'],
     textColor: '#F5F0E8',
@@ -41,7 +41,7 @@ const ACTS: Act[] = [
   {
     id: 4,
     label: 'Les Engagements',
-    bg: '#0E1225',
+    bg: '#1A2E40',
     headline: 'Ce qui définit notre coordination',
     commitments: [
       { title: 'Rigueur méthodologique',   desc: 'Chaque dossier suit un protocole structuré, sans improvisation.' },
@@ -53,7 +53,7 @@ const ACTS: Act[] = [
   {
     id: 5,
     label: "L'Invitation",
-    bg: '#0E1225',
+    bg: '#1A2E40',
     headline: "Votre santé mérite mieux.",
     subtext: "Nous sommes prêts.",
     textColor: '#C9A84C',

@@ -100,7 +100,7 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
         ref={lineRef}
         className="absolute left-8 sm:left-1/2 top-0 bottom-0 w-0.5"
         style={{
-          background: "rgba(201,168,76,0.3)",
+          background: "rgba(11,64,66,0.3)",
           transformOrigin: "top center",
         }}
         aria-hidden="true"
@@ -118,7 +118,7 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
               {/* Dot on the line */}
               <div
                 className="absolute left-[26px] sm:left-1/2 sm:-translate-x-1/2 top-8 w-5 h-5 rounded-full border-2 border-brass z-10"
-                style={{ background: "#0A0E1A" }}
+                style={{ background: "#FAFAF8" }}
                 aria-hidden="true"
               >
                 <div className="absolute inset-1 rounded-full bg-brass/40" />
@@ -132,7 +132,7 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
                   className={`rounded-2xl p-6 sm:p-8 border border-brass/10 ${
                     isEven ? "" : ""
                   }`}
-                  style={{ background: idx % 2 === 0 ? "#0A1E2A" : "rgba(245,240,232,0.04)" }}
+                  style={{ background: idx % 2 === 0 ? "#FFFFFF" : "#F5F0E8" }}
                 >
                   {/* Ghost number */}
                   <p
@@ -140,7 +140,7 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
                     style={{
                       fontSize: "4rem",
                       lineHeight: 1,
-                      color: "rgba(201,168,76,0.08)",
+                      color: "rgba(11,64,66,0.08)",
                       position: "absolute",
                       top: "0.5rem",
                       right: isEven ? undefined : "1.5rem",
@@ -154,21 +154,21 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
                   {/* Duration badge */}
                   <span
                     className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium mb-4"
-                    style={{ background: "rgba(201,168,76,0.15)", color: "#C9A84C" }}
+                    style={{ background: "rgba(11,64,66,0.1)", color: "#0B4042" }}
                   >
                     {step.durationLabel}: {step.duration}
                   </span>
 
                   <h3
                     className={`text-xl sm:text-2xl font-black mb-3 leading-tight ${isEven ? "sm:text-right" : ""}`}
-                    style={{ fontFamily: "var(--font-fraunces)", color: "#F5F0E8" }}
+                    style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
                   >
                     {step.title}
                   </h3>
 
                   <p
                     className={`text-sm leading-relaxed mb-4 ${isEven ? "sm:text-right" : ""}`}
-                    style={{ color: "rgba(245,240,232,0.6)" }}
+                    style={{ color: "rgba(28,20,16,0.6)" }}
                   >
                     {step.desc}
                   </p>
@@ -178,7 +178,7 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
                       <li
                         key={d}
                         className={`flex items-start gap-2.5 text-sm ${isEven ? "sm:flex-row-reverse sm:text-right" : ""}`}
-                        style={{ color: "rgba(245,240,232,0.55)" }}
+                        style={{ color: "rgba(28,20,16,0.55)" }}
                       >
                         <span className="text-brass mt-0.5 flex-shrink-0">&#10003;</span>
                         {d}
@@ -190,8 +190,8 @@ export function AnimatedTimeline({ steps }: { steps: TimelineStep[] }) {
                     className={`rounded-lg p-4 text-sm italic leading-relaxed border border-brass/10 ${isEven ? "sm:text-right" : ""}`}
                     style={{
                       fontFamily: "var(--font-crimson)",
-                      color: "rgba(245,240,232,0.5)",
-                      background: "rgba(201,168,76,0.05)",
+                      color: "rgba(28,20,16,0.5)",
+                      background: "rgba(11,64,66,0.05)",
                     }}
                   >
                     {step.callout}

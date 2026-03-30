@@ -368,9 +368,10 @@ export function AIWidget() {
           <span
             className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-semibold shadow-lg whitespace-nowrap"
             style={{
-              background: "#0F2938",
-              color: "#F5F0E8",
-              border: "1px solid rgba(201,168,76,0.3)",
+              background: "#FFFFFF",
+              color: "#1C1410",
+              border: "1px solid rgba(11,64,66,0.15)",
+              boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
             }}
           >
             <span

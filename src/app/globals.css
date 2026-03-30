@@ -231,21 +231,22 @@ html.lenis, html.lenis body { height: auto; }
    ───────────────────────────────────────────────────────── */
 
 :root {
-  --bg-deep: #0A0E1A;
+  --bg-deep: #FAFAF8;
   --gold: #C9A84C;
   --sand: #F5F0E8;
-  --teal-deep: #1A4A52;
+  --teal-deep: #0B4042;
   --medical: #FFFFFF;
+  --ink: #1C1410;
 }
 
-/* New section backgrounds use dark base */
+/* Section utilities — light-first design */
 .section-dark {
-  background-color: var(--bg-deep);
+  background-color: var(--teal-deep);
   color: var(--sand);
 }
 .section-sand {
   background-color: var(--sand);
-  color: var(--bg-deep);
+  color: var(--ink);
 }
 
 /* Cormorant display utility */

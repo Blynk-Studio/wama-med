@@ -79,7 +79,7 @@ export function HeroSection() {
           position: 'absolute',
           inset: 0,
           background:
-            'linear-gradient(135deg, rgba(10,14,26,0.70) 0%, rgba(10,14,26,0.30) 55%, rgba(10,14,26,0.60) 100%)',
+            'linear-gradient(135deg, rgba(249,244,239,0.60) 0%, rgba(249,244,239,0.20) 55%, rgba(249,244,239,0.50) 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -102,7 +102,7 @@ export function HeroSection() {
             fontFamily: 'Inter, DM Sans, sans-serif',
             fontSize: '12px',
             letterSpacing: '0.18em',
-            color: '#C9A84C',
+            color: '#0B4042',
             textTransform: 'uppercase',
             marginBottom: '24px',
             '--hero-delay': '0.1s',
@@ -118,7 +118,7 @@ export function HeroSection() {
             fontFamily: "'Cormorant Garamond', Georgia, serif",
             fontSize: 'clamp(2.8rem, 7.5vw, 5.5rem)',
             fontWeight: 300,
-            color: '#F5F0E8',
+            color: '#1C1410',
             lineHeight: 1.08,
             maxWidth: '16ch',
             marginBottom: '24px',
@@ -134,7 +134,7 @@ export function HeroSection() {
           style={{
             fontFamily: "'Almarai', sans-serif",
             fontSize: 'clamp(1rem, 2vw, 1.6rem)',
-            color: '#C9A84C',
+            color: '#B8903A',
             direction: 'rtl',
             textAlign: 'right',
             maxWidth: '480px',
@@ -159,8 +159,8 @@ export function HeroSection() {
             style={{
               display: 'inline-block',
               padding: '16px 48px',
-              background: '#C9A84C',
-              color: '#0A0E1A',
+              background: '#0B4042',
+              color: '#FAFAF8',
               fontFamily: 'Inter, DM Sans, sans-serif',
               fontSize: '12px',
               letterSpacing: '0.18em',
@@ -171,11 +171,11 @@ export function HeroSection() {
               transition: 'background 0.25s ease, transform 0.2s ease',
             }}
             onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.background = '#E8C06A';
+              (e.currentTarget as HTMLElement).style.background = '#155558';
               (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
             }}
             onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.background = '#C9A84C';
+              (e.currentTarget as HTMLElement).style.background = '#0B4042';
               (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
             }}
           >
@@ -198,7 +198,7 @@ export function HeroSection() {
           style={{
             width: '1px',
             height: '56px',
-            background: '#C9A84C',
+            background: '#0B4042',
             animation: 'scrollPulse 2.2s ease-in-out infinite',
           }}
         />
