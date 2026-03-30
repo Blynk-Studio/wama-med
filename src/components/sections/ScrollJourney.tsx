@@ -45,16 +45,22 @@ export function ScrollJourney() {
     const actProgress = Math.max(0, Math.min(0.999, progress * acts.length - currentAct));
 
     if (currentAct === 2) {
+      const totalSteps = stepItemRefs.current.length || act.steps?.length || 0;
+      const activeStepIdx = totalSteps > 0
+        ? Math.min(totalSteps - 1, Math.floor(actProgress * totalSteps))
+        : -1;
+
       stepItemRefs.current.forEach((item, i) => {
         const circle = stepCircleRefs.current[i];
         if (!item || !circle) return;
 
-        const stepStart = i * 0.14;
-        const reveal = Math.max(0, Math.min(1, (actProgress - stepStart) * 4.5));
-        const isActive = actProgress >= stepStart && actProgress < stepStart + 0.20;
-        const isPast = actProgress >= stepStart + 0.20;
+        const isActive = i === activeStepIdx;
+        const isPast = activeStepIdx > i;
+        const reveal = Math.max(0, Math.min(1, actProgress * totalSteps - i + 0.35));
 
-        item.style.opacity = String(Math.max(i === 0 ? 0.7 : 0.16, reveal));
+        item.style.opacity = String(
+          isActive ? 1 : isPast ? 0.82 : Math.max(i === 0 ? 0.65 : 0.16, reveal * 0.55)
+        );
         circle.style.border = isActive
           ? '2px solid rgba(201,168,76,1)'
           : isPast
@@ -71,12 +77,16 @@ export function ScrollJourney() {
     }
 
     if (currentAct === 3) {
+      const totalCards = commitmentCardRefs.current.length || act.commitments?.length || 0;
+      const activeCardIdx = totalCards > 0
+        ? Math.min(totalCards - 1, Math.floor(actProgress * totalCards))
+        : -1;
+
       commitmentCardRefs.current.forEach((card, i) => {
         if (!card) return;
 
-        const stepStart = i / 3;
-        const isActive = actProgress >= stepStart && actProgress < stepStart + 0.333;
-        const isPast = actProgress >= stepStart + 0.333;
+        const isActive = i === activeCardIdx;
+        const isPast = activeCardIdx > i;
 
         card.style.background = isActive ? 'rgba(20,16,8,.88)' : 'rgba(10,14,26,.75)';
         card.style.borderColor = isActive
@@ -234,9 +244,6 @@ export function ScrollJourney() {
   }, []);
 
   useEffect(() => {
-    stepItemRefs.current = [];
-    stepCircleRefs.current = [];
-    commitmentCardRefs.current = [];
     syncActAnimations(scrollProg.current);
   }, [actIdx]);
 
