@@ -10,7 +10,7 @@ export function TrustStrip() {
     <section
       aria-label="Engagements"
       style={{
-        background: '#0A0E1A',
+        background: '#0E1225',
         borderTop: '1px solid rgba(201,168,76,0.12)',
         padding: 'clamp(48px, 8vw, 80px) clamp(20px, 5vw, 64px)',
         overflowX: 'hidden',

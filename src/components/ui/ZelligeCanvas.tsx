@@ -67,13 +67,13 @@ export function ZelligeCanvas() {
 
         vec3 dark = vec3(0.039, 0.055, 0.102); /* #0A0E1A */
         vec3 teal = vec3(0.102, 0.290, 0.322); /* #1A4A52 */
-        float breathe = sin(uTime * 0.125) * 0.08;
-        vec3 bg = mix(dark, teal, nv * 0.32 + breathe);
+        float breathe = sin(uTime * 0.125) * 0.10;
+        vec3 bg = mix(dark, teal, nv * 0.42 + breathe);
 
         vec2 starUV = uv * vec2(uRes.x / uRes.y, 1.0);
         float star = star8(starUV * 4.0);
         vec3 gold = vec3(0.788, 0.659, 0.298); /* #C9A84C */
-        vec3 col = mix(bg, gold, star * 0.05);
+        vec3 col = mix(bg, gold, star * 0.12);
 
         gl_FragColor = vec4(col, 1.0);
       }

@@ -17,7 +17,7 @@ const ACTS: Act[] = [
   {
     id: 1,
     label: 'Le Problème',
-    bg: '#0A0E1A',
+    bg: '#0E1225',
     headline: "Naviguer seul dans un système médical étranger est épuisant.",
     subtext: "Des rendez-vous manqués. Des barrières linguistiques. De l'incertitude.",
     textColor: '#F5F0E8',
@@ -25,7 +25,7 @@ const ACTS: Act[] = [
   {
     id: 2,
     label: 'Le Maroc',
-    bg: '#0E2830',
+    bg: '#123038',
     headline: "Le Maroc possède une médecine d'excellence.",
     subtext: "L'accès, c'est ce qui manquait.",
     textColor: '#F5F0E8',
@@ -33,7 +33,7 @@ const ACTS: Act[] = [
   {
     id: 3,
     label: 'La Solution',
-    bg: '#0A1820',
+    bg: '#0E1E28',
     headline: "Un seul interlocuteur. Tout pris en charge.",
     steps: ['Appel', 'Dossier', 'Clinique', 'Suivi', 'Retour'],
     textColor: '#F5F0E8',
@@ -41,7 +41,7 @@ const ACTS: Act[] = [
   {
     id: 4,
     label: 'Les Engagements',
-    bg: '#0A0E1A',
+    bg: '#0E1225',
     headline: 'Ce qui définit notre coordination',
     commitments: [
       { title: 'Rigueur méthodologique',   desc: 'Chaque dossier suit un protocole structuré, sans improvisation.' },
@@ -53,7 +53,7 @@ const ACTS: Act[] = [
   {
     id: 5,
     label: "L'Invitation",
-    bg: '#0A0E1A',
+    bg: '#0E1225',
     headline: "Votre santé mérite mieux.",
     subtext: "Nous sommes prêts.",
     textColor: '#C9A84C',
@@ -227,7 +227,7 @@ export function ScrollJourney() {
             height: '100%',
             objectFit: 'cover',
             objectPosition: 'center center',
-            opacity: 0.50,
+            opacity: 0.60,
             pointerEvents: 'none',
             zIndex: 0,
           }}
@@ -237,7 +237,7 @@ export function ScrollJourney() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to bottom,rgba(10,14,26,.55) 0%,rgba(10,14,26,.38) 40%,rgba(10,14,26,.38) 60%,rgba(10,14,26,.60) 100%)',
+          background: 'linear-gradient(to bottom,rgba(10,14,26,.45) 0%,rgba(10,14,26,.28) 40%,rgba(10,14,26,.28) 60%,rgba(10,14,26,.50) 100%)',
           zIndex: 1,
           pointerEvents: 'none',
         }} />

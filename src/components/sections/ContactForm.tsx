@@ -18,6 +18,11 @@ export function ContactForm() {
     country: "",
     message: "",
   });
+  const [files, setFiles] = useState<File[]>([]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setFiles(Array.from(e.target.files));
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -39,6 +44,7 @@ export function ContactForm() {
       if (res.ok) {
         setState("success");
         setForm({ name: "", email: "", phone: "", country: "", message: "" });
+        setFiles([]);
       } else {
         setState("error");
       }
@@ -151,6 +157,39 @@ export function ContactForm() {
           placeholder="Décrivez brièvement votre situation médicale, la ou les pathologies concernées, et ce dont vous avez besoin..."
           className="w-full bg-stone border border-stone-dark rounded-xl px-4 py-3 text-sm text-ink placeholder-ink/30 focus:outline-none focus:border-teal/40 focus:ring-1 focus:ring-teal/30 transition-colors resize-none"
         />
+      </div>
+
+      <div>
+        <label htmlFor="files" className="block text-xs font-medium text-ink/70 mb-1.5 uppercase tracking-wide">
+          Joindre des documents <span className="text-ink/40">(optionnel)</span>
+        </label>
+        <label
+          htmlFor="files"
+          className="flex items-center justify-center gap-2 w-full bg-stone border border-dashed border-stone-dark rounded-xl px-4 py-3 text-sm text-ink/50 cursor-pointer hover:border-teal/40 hover:text-ink/70 transition-colors"
+        >
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
+          </svg>
+          {files.length > 0 ? `${files.length} fichier${files.length > 1 ? 's' : ''} sélectionné${files.length > 1 ? 's' : ''}` : 'PDF, JPG, PNG, DOC — max. 10 Mo'}
+        </label>
+        <input
+          id="files"
+          type="file"
+          accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+          multiple
+          onChange={handleFileChange}
+          className="sr-only"
+        />
+        {files.length > 0 && (
+          <ul className="mt-2 space-y-1">
+            {files.map((f, i) => (
+              <li key={i} className="text-xs text-ink/50 flex items-center gap-1.5">
+                <span className="w-1 h-1 rounded-full bg-teal/60 flex-shrink-0" />
+                {f.name}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       {state === "error" && (

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const PHONE = "+212 522 000 000";
 const PHONE_HREF = "tel:+212522000000";
@@ -12,12 +13,13 @@ export function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-1">
-            <p
-              className="text-cream text-2xl font-black mb-3 tracking-tight"
-              style={{ fontFamily: "var(--font-fraunces)" }}
-            >
-              Wama<span style={{ color: "var(--color-brass)" }}>Med</span>
-            </p>
+            <Image
+              src="/images/wama-logo-transparent.png"
+              alt="Wama Med"
+              width={1540}
+              height={1120}
+              className="h-8 w-auto mb-3"
+            />
             <p className="text-sm leading-relaxed text-cream/60 max-w-[220px]">
               Coordination médicale nationale et internationale — de Casablanca, pour le monde.
             </p>

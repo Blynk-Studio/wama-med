@@ -12,6 +12,11 @@ type FormState = 'idle' | 'sending' | 'success' | 'error';
 export function ContactSection() {
   const [state, setState] = useState<FormState>('idle');
   const [form, setForm] = useState({ name: '', email: '', phone: '', country: '', message: '' });
+  const [files, setFiles] = useState<File[]>([]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) setFiles(Array.from(e.target.files));
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -29,6 +34,7 @@ export function ContactSection() {
       if (res.ok) {
         setState('success');
         setForm({ name: '', email: '', phone: '', country: '', message: '' });
+        setFiles([]);
       } else setState('error');
     } catch {
       setState('error');
@@ -192,6 +198,51 @@ export function ContactSection() {
                 onFocus={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.borderBottomWidth = '2px'; }}
                 onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
               />
+            </div>
+
+            <div style={{ marginBottom: '32px', gridColumn: '1/-1' }}>
+              <label htmlFor="c-files" style={labelStyle}>Joindre des documents <span style={{ opacity: 0.5, fontWeight: 400 }}>(optionnel)</span></label>
+              <label
+                htmlFor="c-files"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  padding: '14px 0',
+                  borderBottom: '1px dashed rgba(201,168,76,0.35)',
+                  color: 'rgba(245,240,232,0.4)',
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  transition: 'border-bottom-color 0.2s ease, color 0.2s ease',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderBottomColor = '#C9A84C'; e.currentTarget.style.color = 'rgba(245,240,232,0.7)'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderBottomColor = 'rgba(201,168,76,0.35)'; e.currentTarget.style.color = 'rgba(245,240,232,0.4)'; }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
+                </svg>
+                {files.length > 0 ? `${files.length} fichier${files.length > 1 ? 's' : ''} sélectionné${files.length > 1 ? 's' : ''}` : 'PDF, JPG, PNG, DOC — max. 10 Mo'}
+              </label>
+              <input
+                id="c-files"
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                multiple
+                onChange={handleFileChange}
+                style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0,0,0,0)' }}
+              />
+              {files.length > 0 && (
+                <ul style={{ marginTop: '8px' }}>
+                  {files.map((f, i) => (
+                    <li key={i} style={{ fontFamily: 'Inter', fontSize: '12px', color: 'rgba(245,240,232,0.45)', padding: '2px 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(201,168,76,0.5)', flexShrink: 0 }} />
+                      {f.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             {state === 'error' && (

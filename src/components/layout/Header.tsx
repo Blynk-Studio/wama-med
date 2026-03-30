@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const NAV_LINKS = [
@@ -48,13 +49,14 @@ export function Header() {
             className="flex items-center gap-2 group"
             aria-label="Wama Med — Accueil"
           >
-            <span
-              className="text-cream font-fraunces text-xl sm:text-2xl font-black tracking-tight leading-none"
-              style={{ fontFamily: "var(--font-fraunces)" }}
-            >
-              Wama{" "}
-              <span style={{ color: "var(--color-brass)" }}>Med</span>
-            </span>
+            <Image
+              src="/images/wama-logo-transparent.png"
+              alt="Wama Med"
+              width={1540}
+              height={1120}
+              className="h-8 sm:h-10 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}

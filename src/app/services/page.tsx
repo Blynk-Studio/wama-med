@@ -105,7 +105,7 @@ const FEATURED = [
       "Meilleurs établissements de Casablanca et du Maroc",
       "Prise de rendez-vous prioritaire",
     ],
-    image: "/images/wama-accompagnement.jpg",
+    image: "/images/wama-orientation-specialisee.jpg",
     alt: "Coordination et orientation médicale spécialisée — Wama Med",
   },
   {

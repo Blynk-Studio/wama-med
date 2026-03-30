@@ -79,7 +79,7 @@ export function HeroSection() {
           position: 'absolute',
           inset: 0,
           background:
-            'linear-gradient(135deg, rgba(10,14,26,0.82) 0%, rgba(10,14,26,0.4) 55%, rgba(10,14,26,0.72) 100%)',
+            'linear-gradient(135deg, rgba(10,14,26,0.70) 0%, rgba(10,14,26,0.30) 55%, rgba(10,14,26,0.60) 100%)',
           pointerEvents: 'none',
         }}
       />
