@@ -19,7 +19,7 @@ function AIWidgetPanel({
   onClose?: () => void;
   className?: string;
 }) {
-  const [activeTab, setActiveTab] = useState<Tab>("chat");
+  const [activeTab, setActiveTab] = useState<Tab>("voice");
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false);
@@ -171,7 +171,7 @@ function AIWidgetPanel({
 
       {/* Tabs */}
       <div className="flex border-b border-stone-dark flex-shrink-0" role="tablist" aria-label="Mode de contact">
-        {(["chat", "voice"] as Tab[]).map((tab) => (
+        {(["voice", "chat"] as Tab[]).map((tab) => (
           <button
             key={tab}
             role="tab"
