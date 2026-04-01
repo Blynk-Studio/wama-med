@@ -4,13 +4,11 @@
    ───────────────────────────────────────────────────────── */
 
 /* Override the custom cursor from globals.css.
-   Radix Dialog portals render at <body> level outside .demo-root,
-   so we also target [data-radix-portal] for the drawer. */
+   body:has(.demo-root) covers body + all descendants + all portals,
+   but only when /demo is rendered. Self-cleaning on route change. */
 @media (pointer: fine) {
-  .demo-root,
-  .demo-root *,
-  [data-radix-portal],
-  [data-radix-portal] * {
+  body:has(.demo-root),
+  body:has(.demo-root) * {
     cursor: auto !important;
   }
 }
