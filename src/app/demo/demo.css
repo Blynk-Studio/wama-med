@@ -25,6 +25,22 @@
   font: inherit;
 }
 
+.demo-mobile-topbar {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 10px 22px -22px rgba(53, 31, 22, 0.45);
+}
+
+@media (min-width: 768px) {
+  .demo-mobile-topbar {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+  }
+}
+
 /* Workspace shell — frosted glass effect */
 .demo-workspace {
   background: rgba(255, 255, 255, 0.88);

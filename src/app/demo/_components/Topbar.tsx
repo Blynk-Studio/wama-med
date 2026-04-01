@@ -5,7 +5,13 @@ import { useDemoStore } from "../_lib/store";
 import { getInitials } from "../_lib/utils";
 import { useState, useEffect } from "react";
 
-export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
+export function Topbar({
+  onMenuToggle,
+  mobileNavOpen = false,
+}: {
+  onMenuToggle?: () => void;
+  mobileNavOpen?: boolean;
+}) {
   const search = useDemoStore((s) => s.search);
   const setSearch = useDemoStore((s) => s.setSearch);
   const role = useDemoStore((s) => s.role);
@@ -32,7 +38,10 @@ export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
     "Driss Tazi";
 
   return (
-    <div className="flex items-center gap-3 px-4 py-2.5 md:px-5 md:py-4 border-b border-[var(--demo-border)]">
+    <div
+      className="demo-mobile-topbar sticky top-0 z-40 flex items-center gap-3 px-4 py-2.5 md:px-5 md:py-4 border-b border-[var(--demo-border)] md:static md:z-auto"
+      data-nav-open={mobileNavOpen ? "true" : "false"}
+    >
       {/* Mobile hamburger */}
       {onMenuToggle && (
         <button

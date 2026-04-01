@@ -59,7 +59,10 @@ export function Workspace() {
 
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0 bg-white/60 min-h-dvh md:min-h-0">
-        <Topbar onMenuToggle={() => setMobileNavOpen(!mobileNavOpen)} />
+        <Topbar
+          onMenuToggle={() => setMobileNavOpen(!mobileNavOpen)}
+          mobileNavOpen={mobileNavOpen}
+        />
         <ContextBar />
 
         {/* View content */}
