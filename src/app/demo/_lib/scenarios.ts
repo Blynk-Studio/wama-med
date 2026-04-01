@@ -41,8 +41,13 @@ function applyIntake(base: DemoData): DemoData {
     docsPending: 0,
     partnerIds: ["P-CLINIC-01"],
     blocked: false,
+    blockerType: "medical",
+    progressPercent: 2,
     valueMad: 210000,
     dueLabel: "Aujourd'hui · URGENT",
+    stageHistory: [
+      { stage: "Nouveau", enteredAt: "Maintenant", owner: "Aissatou Faye" },
+    ],
     timeline: [
       { label: "Demande recue par formulaire", time: "Maintenant" },
     ],

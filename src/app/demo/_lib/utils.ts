@@ -1,4 +1,4 @@
-import type { CasePriority, CaseStage, CommStatus, DocStatus, InvoiceStatus, PartnerHealth, EventStatus, CommissionStatus } from "./types";
+import type { CasePriority, CaseStage, CommStatus, DocStatus, InvoiceStatus, PartnerHealth, EventStatus, CommissionStatus, BlockerType } from "./types";
 
 /** Conditional class joiner — no external dep needed for this scope */
 export function cn(...classes: (string | false | null | undefined)[]): string {
@@ -112,4 +112,30 @@ export function priorityWeight(p: CasePriority): number {
     standard: 1,
   };
   return map[p];
+}
+
+/* ─── SLA Status ─── */
+
+export function getSlaStatus(slaHours: number): { color: string; percent: number; label: string } {
+  // Simulate elapsed time: shorter SLA = more burned
+  const elapsed = slaHours <= 3 ? 0.75 : slaHours <= 9 ? 0.55 : slaHours <= 18 ? 0.35 : 0.15;
+  const remaining = 1 - elapsed;
+  const percent = Math.round(remaining * 100);
+
+  if (remaining > 0.5) return { color: "#16a34a", percent, label: `${Math.round(slaHours * remaining)}h restantes` };
+  if (remaining > 0.25) return { color: "#d97706", percent, label: `${Math.round(slaHours * remaining)}h restantes` };
+  return { color: "#dc2626", percent, label: `${Math.round(slaHours * remaining)}h restantes` };
+}
+
+/* ─── Blocker ─── */
+
+export function getBlockerInfo(type: BlockerType): { label: string; color: string; bg: string; text: string } | null {
+  if (!type) return null;
+  const map: Record<NonNullable<BlockerType>, { label: string; color: string; bg: string; text: string }> = {
+    docs:    { label: "Docs", color: "#dc2626", bg: "bg-red-50", text: "text-red-700" },
+    finance: { label: "Finance", color: "#d97706", bg: "bg-amber-50", text: "text-amber-700" },
+    partner: { label: "Partenaire", color: "#2563eb", bg: "bg-blue-50", text: "text-blue-700" },
+    medical: { label: "Medical", color: "#7c3aed", bg: "bg-violet-50", text: "text-violet-700" },
+  };
+  return map[type];
 }

@@ -10,6 +10,16 @@ export type CaseStage =
 
 export type CasePriority = "critique" | "haute" | "moyenne" | "standard";
 
+export type BlockerType = "docs" | "finance" | "partner" | "medical" | null;
+
+export interface StageHistoryEntry {
+  stage: CaseStage;
+  enteredAt: string;
+  exitedAt?: string;
+  duration?: string;
+  owner?: string;
+}
+
 export interface TimelineEntry {
   label: string;
   time: string;
@@ -38,8 +48,11 @@ export interface PatientCase {
   docsPending: number;
   partnerIds: string[];
   blocked: boolean;
+  blockerType: BlockerType;
+  progressPercent: number;
   valueMad: number;
   dueLabel: string;
+  stageHistory: StageHistoryEntry[];
   timeline: TimelineEntry[];
   tasks: Task[];
   notes: string[];
