@@ -66,14 +66,57 @@
   background: rgba(11, 64, 66, 0.35);
 }
 
-/* Kanban horizontal scroll with snap */
-.demo-kanban-scroll {
-  overflow-x: auto;
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
+/* ─── Kanban Board — responsive pipeline layout ─── */
+
+/* Desktop (1024+): all 6 columns in a horizontal row */
+.demo-kanban-board {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(200px, 1fr));
+  gap: 12px;
+  align-items: start;
 }
-.demo-kanban-scroll > * {
-  scroll-snap-align: start;
+
+/* Tablet (768–1023): horizontal scroll, 3.5 columns visible as peek */
+@media (max-width: 1023px) {
+  .demo-kanban-board {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  .demo-kanban-col {
+    min-width: 260px;
+    max-width: 300px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+}
+
+/* Mobile (<768): vertical stack, columns become full-width sections */
+@media (max-width: 767px) {
+  .demo-kanban-board {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-x: visible;
+  }
+  .demo-kanban-col {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Kanban scrollbar — thinner, blends with surface */
+.demo-kanban-board::-webkit-scrollbar { height: 4px; }
+.demo-kanban-board::-webkit-scrollbar-track { background: transparent; }
+.demo-kanban-board::-webkit-scrollbar-thumb {
+  background: rgba(11, 64, 66, 0.15);
+  border-radius: 2px;
+}
+.demo-kanban-board::-webkit-scrollbar-thumb:hover {
+  background: rgba(11, 64, 66, 0.3);
 }
 
 /* Badge pulse for critical items */
