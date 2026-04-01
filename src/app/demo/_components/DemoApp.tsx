@@ -5,7 +5,7 @@ import { Workspace } from "./Workspace";
 export function DemoApp() {
   return (
     <div
-      className="demo-root h-screen w-screen overflow-hidden bg-cream flex items-center justify-center p-3"
+      className="demo-root min-h-dvh w-full bg-cream p-0 md:h-screen md:w-screen md:overflow-hidden md:flex md:items-center md:justify-center md:p-3"
       style={{
         /* Demo-scoped color tokens */
         "--demo-success": "#16a34a",

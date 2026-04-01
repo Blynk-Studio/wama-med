@@ -66,7 +66,7 @@ export function CaseDrawer() {
                   {selectedCase ? (
                     <>
                       {/* Header */}
-                      <div className="flex items-center gap-3 p-5 border-b border-[var(--demo-border)] shrink-0">
+                      <div className="flex items-center gap-3 p-5 md:p-6 border-b border-[var(--demo-border)] shrink-0">
                         <div className="w-10 h-10 rounded-xl bg-teal/10 flex items-center justify-center text-sm font-bold text-teal">
                           {getInitials(selectedCase.patient)}
                         </div>
@@ -74,14 +74,14 @@ export function CaseDrawer() {
                           <Dialog.Title className="text-base font-bold text-ink truncate">
                             {selectedCase.patient}
                           </Dialog.Title>
-                          <p className="text-xs text-[var(--demo-muted)]">
+                          <p className="text-[13px] text-[var(--demo-muted)]">
                             {selectedCase.id} · {selectedCase.cityPath}
                           </p>
                         </div>
                         {/* Progress pill */}
                         <div className="flex items-center gap-1.5 bg-stone/50 rounded-full px-2.5 py-1 shrink-0">
                           <TrendingUp size={12} className="text-teal" />
-                          <span className="text-[11px] font-bold text-teal tabular-nums">{selectedCase.progressPercent}%</span>
+                          <span className="text-xs font-bold text-teal tabular-nums">{selectedCase.progressPercent}%</span>
                         </div>
                         <Dialog.Close asChild>
                           <button className="p-2 rounded-lg hover:bg-stone/60 transition-colors" aria-label="Fermer">
@@ -91,7 +91,7 @@ export function CaseDrawer() {
                       </div>
 
                       {/* Body */}
-                      <div className="flex-1 overflow-y-auto demo-scroll p-5 space-y-5">
+                      <div className="flex-1 overflow-y-auto demo-scroll p-5 md:p-6 space-y-6">
                         {/* Journey Timeline — the hero piece */}
                         <JourneyTimeline
                           currentStage={selectedCase.stage}
@@ -104,10 +104,10 @@ export function CaseDrawer() {
                           <div className={cn("rounded-xl p-4 border flex items-center gap-3", blockerInfo.bg, "border-current/10")}>
                             <AlertTriangle size={18} style={{ color: blockerInfo.color }} />
                             <div>
-                              <p className={cn("text-xs font-bold", blockerInfo.text)}>
+                              <p className={cn("text-sm font-semibold", blockerInfo.text)}>
                                 Bloque — {blockerInfo.label}
                               </p>
-                              <p className="text-[11px] text-ink-soft mt-0.5">{selectedCase.wait}</p>
+                              <p className="text-[13px] text-ink-soft mt-1 leading-relaxed">{selectedCase.wait}</p>
                             </div>
                           </div>
                         )}
@@ -124,10 +124,10 @@ export function CaseDrawer() {
                         <div className="bg-amber-50/80 border border-amber-200/50 rounded-xl p-4">
                           <div className="flex items-start justify-between gap-3">
                             <div className="flex-1">
-                              <p className="text-[11px] font-medium tracking-wide uppercase text-amber-700 mb-1">
+                              <p className="text-xs font-semibold tracking-[0.12em] uppercase text-amber-700 mb-1.5">
                                 Prochaine action
                               </p>
-                              <p className="text-sm text-amber-900 leading-snug">{selectedCase.nextAction}</p>
+                              <p className="text-[15px] text-amber-900 leading-relaxed">{selectedCase.nextAction}</p>
                             </div>
                             <SlaRing slaHours={selectedCase.slaHours} />
                           </div>
@@ -155,8 +155,8 @@ export function CaseDrawer() {
                                   )}
                                 </div>
                                 <div className="min-w-0 flex-1">
-                                  <p className="text-xs font-medium text-ink">{entry.label}</p>
-                                  <p className="text-[11px] text-[var(--demo-muted)]">{entry.time}</p>
+                                  <p className="text-[13px] font-medium text-ink leading-relaxed">{entry.label}</p>
+                                  <p className="text-xs text-[var(--demo-muted)] mt-0.5">{entry.time}</p>
                                 </div>
                               </div>
                             ))}
@@ -177,8 +177,8 @@ export function CaseDrawer() {
                                   <Circle size={14} className="text-amber-500 mt-0.5 shrink-0" />
                                 )}
                                 <div className="min-w-0 flex-1">
-                                  <p className="text-xs text-ink">{task.label}</p>
-                                  <p className="text-[11px] text-[var(--demo-muted)]">
+                                  <p className="text-[13px] text-ink leading-relaxed">{task.label}</p>
+                                  <p className="text-xs text-[var(--demo-muted)] mt-0.5">
                                     {task.owner} · {task.due}
                                   </p>
                                 </div>
@@ -198,7 +198,7 @@ export function CaseDrawer() {
                             <div className="space-y-2">
                               {caseComms.map((comm) => (
                                 <div key={comm.id} className="flex items-center gap-2 py-1">
-                                  <span className="text-[11px] font-medium text-ink truncate flex-1">{comm.title}</span>
+                                  <span className="text-[13px] font-medium text-ink truncate flex-1">{comm.title}</span>
                                   <Badge variant="commStatus" value={comm.status} />
                                 </div>
                               ))}
@@ -212,9 +212,9 @@ export function CaseDrawer() {
                             <div className="space-y-2">
                               {caseEvents.map((ev) => (
                                 <div key={ev.id} className="flex items-center gap-2 py-1">
-                                  <span className="text-xs font-medium text-ink tabular-nums">{ev.time}</span>
-                                  <span className="text-xs text-ink-soft truncate flex-1">{ev.title}</span>
-                                  <span className="text-[11px] text-[var(--demo-muted)]">{ev.location}</span>
+                                  <span className="text-[13px] font-medium text-ink tabular-nums">{ev.time}</span>
+                                  <span className="text-[13px] text-ink-soft truncate flex-1">{ev.title}</span>
+                                  <span className="text-xs text-[var(--demo-muted)]">{ev.location}</span>
                                 </div>
                               ))}
                             </div>
@@ -232,7 +232,7 @@ export function CaseDrawer() {
                             <div className="space-y-2">
                               {caseDocs.map((doc) => (
                                 <div key={doc.id} className="flex items-center gap-2 py-1">
-                                  <span className="text-xs text-ink-soft truncate flex-1">{doc.title}</span>
+                                  <span className="text-[13px] text-ink-soft truncate flex-1">{doc.title}</span>
                                   <Badge variant="docStatus" value={doc.status} />
                                 </div>
                               ))}
@@ -246,7 +246,7 @@ export function CaseDrawer() {
                             <div className="space-y-2">
                               {casePartners.map((p) => (
                                 <div key={p.id} className="flex items-center gap-2 py-1">
-                                  <span className="text-xs font-medium text-ink truncate flex-1">{p.name}</span>
+                                  <span className="text-[13px] font-medium text-ink truncate flex-1">{p.name}</span>
                                   <Badge variant="partnerHealth" value={p.health} />
                                 </div>
                               ))}
@@ -264,15 +264,15 @@ export function CaseDrawer() {
                             <div className="space-y-2">
                               {caseInvoices.map((inv) => (
                                 <div key={inv.id} className="flex items-center gap-2 py-1">
-                                  <span className="text-xs text-ink-soft truncate flex-1">{inv.title}</span>
+                                  <span className="text-[13px] text-ink-soft truncate flex-1">{inv.title}</span>
                                   <Badge variant="invoiceStatus" value={inv.status} />
-                                  <span className="text-xs font-semibold text-ink tabular-nums whitespace-nowrap">
+                                  <span className="text-[13px] font-semibold text-ink tabular-nums whitespace-nowrap">
                                     {formatMoney(inv.amountMad)}
                                   </span>
                                 </div>
                               ))}
                               {caseCommissions.map((c) => (
-                                <div key={c.id} className="flex items-center gap-2 py-1 text-xs">
+                                <div key={c.id} className="flex items-center gap-2 py-1 text-[13px]">
                                   <span className="text-ink-soft truncate flex-1">{c.title}</span>
                                   <span className="font-semibold text-ink tabular-nums whitespace-nowrap">
                                     {formatMoney(c.amountMad)}
@@ -288,7 +288,7 @@ export function CaseDrawer() {
                           <Section icon={StickyNote} title="Notes internes">
                             <div className="space-y-2">
                               {selectedCase.notes.map((note, i) => (
-                                <p key={i} className="text-xs text-ink-soft italic leading-relaxed">
+                                <p key={i} className="text-[13px] text-ink-soft italic leading-relaxed">
                                   &ldquo;{note}&rdquo;
                                 </p>
                               ))}
@@ -330,15 +330,15 @@ function Section({
 }) {
   return (
     <div className={cn(
-      "rounded-xl p-3 -mx-1 transition-colors",
+      "rounded-xl p-3.5 -mx-1 transition-colors",
       highlight && "bg-amber-50/60 border border-amber-200/30"
     )}>
       <div className="flex items-center gap-2 mb-2">
         <Icon size={14} className={cn(highlight ? "text-amber-600" : "text-brass")} />
-        <h4 className="text-xs font-semibold text-ink">{title}</h4>
+        <h4 className="text-sm font-semibold text-ink">{title}</h4>
         {count !== undefined && (
           <span className={cn(
-            "ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded-full",
+            "ml-auto text-xs font-semibold px-2 py-1 rounded-full",
             highlight ? "bg-amber-100 text-amber-700" : "bg-stone/60 text-[var(--demo-muted)]"
           )}>
             {count}
@@ -352,8 +352,8 @@ function Section({
 
 function MetaItem({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="bg-stone/30 rounded-lg p-3">
-      <p className="text-[10px] uppercase tracking-wider text-[var(--demo-muted)] mb-1">{label}</p>
+    <div className="bg-stone/30 rounded-xl p-3.5">
+      <p className="text-xs uppercase tracking-[0.12em] text-[var(--demo-muted)] mb-1.5">{label}</p>
       {value}
     </div>
   );
@@ -363,7 +363,7 @@ function QuickAction({ icon: Icon, label, onClick }: { icon: typeof Send; label:
   return (
     <button
       onClick={onClick}
-      className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border border-[var(--demo-border)] text-[11px] font-medium text-ink-soft hover:bg-stone/40 hover:text-ink transition-colors"
+      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl border border-[var(--demo-border)] text-[13px] font-medium text-ink-soft hover:bg-stone/40 hover:text-ink transition-colors"
     >
       <Icon size={13} />
       <span className="hidden sm:inline">{label}</span>

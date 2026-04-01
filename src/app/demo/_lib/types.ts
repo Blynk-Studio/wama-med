@@ -11,6 +11,18 @@ export type CaseStage =
 export type CasePriority = "critique" | "haute" | "moyenne" | "standard";
 
 export type BlockerType = "docs" | "finance" | "partner" | "medical" | null;
+export type WatchType = Exclude<BlockerType, null>;
+
+export type PanelId =
+  | "contextBar"
+  | "overviewHero"
+  | "queuePanel"
+  | "agendaPanel"
+  | "communicationPanel"
+  | "journeyPanel"
+  | "partnerPanel"
+  | "financePanel"
+  | "documentPanel";
 
 export interface StageHistoryEntry {
   stage: CaseStage;
@@ -49,6 +61,7 @@ export interface PatientCase {
   partnerIds: string[];
   blocked: boolean;
   blockerType: BlockerType;
+  watchType?: WatchType | null;
   progressPercent: number;
   valueMad: number;
   dueLabel: string;
@@ -165,7 +178,7 @@ export interface RoleMeta {
   narrative: string;
   queueNarrative: string;
   story: string;
-  focusPanels: string[];
+  focusPanels: PanelId[];
 }
 
 export interface ViewMeta {

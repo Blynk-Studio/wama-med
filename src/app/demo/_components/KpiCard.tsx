@@ -19,17 +19,17 @@ export function KpiCard({ label, value, delta, accentColor, className }: KpiCard
       )}
       style={{ "--accent-color": accentColor } as React.CSSProperties}
     >
-      <p className="text-[11px] font-medium tracking-wide uppercase text-[var(--demo-muted)] mb-2">
+      <p className="text-xs font-semibold tracking-[0.12em] uppercase text-[var(--demo-muted)] mb-2">
         {label}
       </p>
       <div className="flex items-baseline gap-2">
-        <span className="text-2xl font-bold text-ink tabular-nums">
+        <span className="text-[1.9rem] md:text-[2.05rem] font-bold text-ink tabular-nums leading-none">
           {value}
         </span>
         {delta && (
           <span
             className={cn(
-              "text-xs font-medium",
+              "text-[13px] font-medium",
               delta.startsWith("+") || delta.startsWith("↑")
                 ? "text-[var(--demo-success)]"
                 : delta.startsWith("-") || delta.startsWith("↓")

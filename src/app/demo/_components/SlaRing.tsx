@@ -41,14 +41,14 @@ export function SlaRing({ slaHours, size = 48 }: Props) {
         </svg>
         {/* Center text */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[10px] font-bold tabular-nums" style={{ color }}>
+          <span className="text-xs font-bold tabular-nums" style={{ color }}>
             {percent}%
           </span>
         </div>
       </div>
       <div>
-        <p className="text-[11px] font-medium text-ink">{label}</p>
-        <p className="text-[10px] text-[var(--demo-muted)]">SLA : {slaHours}h</p>
+        <p className="text-[13px] font-medium text-ink">{label}</p>
+        <p className="text-xs text-[var(--demo-muted)] mt-0.5">SLA : {slaHours}h</p>
       </div>
     </div>
   );

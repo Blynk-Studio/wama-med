@@ -41,7 +41,8 @@ function applyIntake(base: DemoData): DemoData {
     docsPending: 0,
     partnerIds: ["P-CLINIC-01"],
     blocked: false,
-    blockerType: "medical",
+    blockerType: null,
+    watchType: "medical",
     progressPercent: 2,
     valueMad: 210000,
     dueLabel: "Aujourd'hui · URGENT",
@@ -120,7 +121,13 @@ function applyRendezvous(base: DemoData): DemoData {
 function applyPartner(base: DemoData): DemoData {
   const cases = base.cases.map((c) =>
     c.id === "CASE-7402"
-      ? { ...c, stage: "Planification" as const, nextAction: "Hebergement et transport a verrouiller", wait: "Confirmation clinique recue" }
+      ? {
+          ...c,
+          stage: "Planification" as const,
+          nextAction: "Hebergement et transport a verrouiller",
+          wait: "Confirmation clinique recue",
+          watchType: null,
+        }
       : c
   );
 
@@ -131,7 +138,14 @@ function applyPartner(base: DemoData): DemoData {
 function applyPayment(base: DemoData): DemoData {
   const cases = base.cases.map((c) =>
     c.id === "CASE-7403"
-      ? { ...c, priority: "critique" as const, blocked: true, wait: "Acompte en retard — bloc operatoire menace" }
+      ? {
+          ...c,
+          priority: "critique" as const,
+          blocked: true,
+          blockerType: "finance" as const,
+          watchType: null,
+          wait: "Acompte en retard — bloc operatoire menace",
+        }
       : c
   );
 

@@ -1,14 +1,15 @@
 import { useMemo } from "react";
 import { useDemoStore } from "../_lib/store";
-import { useDemoData } from "./use-demo-data";
+import { useSearchScopedData } from "./use-search-scoped-data";
 import { priorityWeight } from "../_lib/utils";
 import type { PatientCase } from "../_lib/types";
 
 /** Returns cases filtered by queueFilter + search, sorted by priority. */
 export function useFilteredCases(): PatientCase[] {
-  const { cases } = useDemoData();
+  const {
+    data: { cases },
+  } = useSearchScopedData();
   const filter = useDemoStore((s) => s.queueFilter);
-  const search = useDemoStore((s) => s.search);
 
   return useMemo(() => {
     let filtered = cases;
@@ -28,21 +29,9 @@ export function useFilteredCases(): PatientCase[] {
         break;
     }
 
-    // Apply search
-    if (search.trim()) {
-      const q = search.toLowerCase();
-      filtered = filtered.filter(
-        (c) =>
-          c.patient.toLowerCase().includes(q) ||
-          c.id.toLowerCase().includes(q) ||
-          c.program.toLowerCase().includes(q) ||
-          c.country.toLowerCase().includes(q)
-      );
-    }
-
     // Sort by priority (most urgent first)
     return [...filtered].sort(
       (a, b) => priorityWeight(b.priority) - priorityWeight(a.priority)
     );
-  }, [cases, filter, search]);
+  }, [cases, filter]);
 }

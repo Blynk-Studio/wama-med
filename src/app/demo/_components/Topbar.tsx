@@ -2,7 +2,7 @@
 
 import { Search, Menu } from "lucide-react";
 import { useDemoStore } from "../_lib/store";
-import { cn, getInitials } from "../_lib/utils";
+import { getInitials } from "../_lib/utils";
 import { useState, useEffect } from "react";
 
 export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
@@ -32,12 +32,12 @@ export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
     "Driss Tazi";
 
   return (
-    <div className="flex items-center gap-3 px-5 py-3 border-b border-[var(--demo-border)]">
+    <div className="flex items-center gap-3 px-4 py-2.5 md:px-5 md:py-4 border-b border-[var(--demo-border)]">
       {/* Mobile hamburger */}
       {onMenuToggle && (
         <button
           onClick={onMenuToggle}
-          className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-stone/60 transition-colors"
+          className="md:hidden p-2 -ml-2 rounded-lg hover:bg-stone/60 transition-colors"
           aria-label="Menu"
         >
           <Menu size={20} className="text-ink-soft" />
@@ -73,10 +73,7 @@ export function Topbar({ onMenuToggle }: { onMenuToggle?: () => void }) {
       </span>
 
       {/* Avatar */}
-      <div className={cn(
-        "w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0",
-        "bg-teal text-cream"
-      )}>
+      <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 bg-teal text-cream">
         {getInitials(ownerName)}
       </div>
     </div>

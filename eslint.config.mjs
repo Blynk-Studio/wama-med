@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "client-file (AI SLOP NOISE)/**",
+    "firebase-debug.log",
   ]),
 ]);
 

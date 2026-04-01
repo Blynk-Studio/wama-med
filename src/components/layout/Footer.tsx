@@ -112,9 +112,10 @@ export function Footer({
           <Link
             href="/demo"
             prefetch
-            className="inline-flex items-center gap-2 bg-brass/20 hover:bg-brass/30 text-brass-light text-xs font-semibold px-4 py-2 rounded-full transition-colors duration-200"
+            aria-label={content.demoCtaAria}
+            className="inline-flex items-center gap-2 bg-brass/20 hover:bg-brass/30 text-brass-light text-sm font-semibold px-4 py-2.5 rounded-full transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3"
           >
-            <span>Mission Control Demo</span>
+            <span>{content.demoCtaLabel}</span>
             <ArrowRight size={14} />
           </Link>
         </div>

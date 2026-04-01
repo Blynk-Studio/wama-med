@@ -8,48 +8,49 @@ import type { PatientCase } from "../_lib/types";
 
 export function QueueCard({ c }: { c: PatientCase }) {
   const openCase = useDemoStore((s) => s.openCase);
-  const blocker = getBlockerInfo(c.blockerType);
+  const blocker = c.blocked ? getBlockerInfo(c.blockerType) : null;
+  const watch = !c.blocked ? getBlockerInfo(c.watchType ?? null) : null;
 
   return (
     <button
       onClick={() => openCase(c.id)}
       className={cn(
-        "demo-card w-full text-left bg-white rounded-xl p-4 border border-[var(--demo-border)]",
+        "demo-card w-full text-left bg-white rounded-2xl p-4 md:p-5 border border-[var(--demo-border)]",
         c.blocked && "border-l-[3px] border-l-red-400",
-        "focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-2"
+        "focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-2",
       )}
     >
-      {/* Row 1: Patient + badges */}
-      <div className="flex items-center gap-2 mb-2">
-        <div className="w-7 h-7 rounded-full bg-teal/10 flex items-center justify-center text-[10px] font-bold text-teal shrink-0">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center text-xs font-bold text-teal shrink-0">
           {getInitials(c.patient)}
         </div>
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold text-ink truncate">{c.patient}</p>
-          <p className="text-[11px] text-[var(--demo-muted)] truncate">{c.cityPath}</p>
+          <p className="text-[15px] font-semibold text-ink truncate">{c.patient}</p>
+          <p className="text-[13px] text-[var(--demo-muted)] truncate mt-0.5">{c.cityPath}</p>
         </div>
         <Badge variant="priority" value={c.priority} />
       </div>
 
-      {/* Row 2: Program + Stage + Blocker */}
-      <div className="flex items-center gap-2 mb-2">
-        <span className="text-xs text-ink-soft truncate flex-1">{c.program}</span>
+      <div className="flex items-start gap-2.5 mb-3">
+        <span className="text-[13px] text-ink-soft leading-relaxed flex-1">{c.program}</span>
         {blocker && (
-          <span className={cn("text-[10px] font-bold px-1.5 py-0.5 rounded", blocker.bg, blocker.text)}>
-            ← {blocker.label}
+          <span className={cn("text-xs font-semibold px-2 py-1 rounded-lg", blocker.bg, blocker.text)}>
+            Bloqué · {blocker.label}
           </span>
         )}
-        <Badge variant="stage" value={c.stage} />
+        {!blocker && watch && (
+          <span className={cn("text-xs font-medium px-2 py-1 rounded-lg", watch.bg, watch.text)}>
+            Vigilance · {watch.label}
+          </span>
+        )}
       </div>
 
-      {/* Row 3: Next action */}
-      <p className="text-xs text-[var(--demo-muted)] leading-snug mb-2 line-clamp-2">
-        → {c.nextAction}
+      <p className="text-[13px] text-[var(--demo-muted)] leading-relaxed mb-3 line-clamp-2">
+        {c.nextAction}
       </p>
 
-      {/* Row 4: Progress bar + Metadata */}
-      <div className="mb-2">
-        <div className="h-1 bg-stone-dark/30 rounded-full overflow-hidden">
+      <div className="mb-3">
+        <div className="h-1.5 bg-stone-dark/30 rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-teal to-emerald-500 rounded-full transition-all"
             style={{ width: `${c.progressPercent}%` }}
@@ -57,28 +58,28 @@ export function QueueCard({ c }: { c: PatientCase }) {
         </div>
       </div>
 
-      <div className="flex items-center gap-3 text-[11px] text-[var(--demo-muted)]">
-        <span className="flex items-center gap-1">
-          <Clock size={12} />
+      <div className="flex items-center gap-3 flex-wrap text-[13px] text-[var(--demo-muted)]">
+        <span className="flex items-center gap-1.5">
+          <Clock size={13} />
           {c.slaHours}h
         </span>
-        <span className="flex items-center gap-1 text-teal font-medium">
-          <TrendingUp size={11} />
+        <span className="flex items-center gap-1.5 text-teal font-medium">
+          <TrendingUp size={12} />
           {c.progressPercent}%
         </span>
         {c.unread > 0 && (
           <span className="flex items-center gap-1 text-orange-600 font-medium">
-            <MessageSquare size={12} />
+            <MessageSquare size={13} />
             {c.unread}
           </span>
         )}
         {c.docsPending > 0 && (
           <span className="flex items-center gap-1 text-red-600 font-medium">
-            <FileWarning size={12} />
+            <FileWarning size={13} />
             {c.docsPending}
           </span>
         )}
-        <span className="ml-auto truncate">{c.dueLabel}</span>
+        <span className="ml-auto truncate text-ink-soft">{c.dueLabel}</span>
       </div>
     </button>
   );

@@ -36,7 +36,7 @@ export function ToastContainer({ toasts }: { toasts: ToastMessage[] }) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="flex items-center gap-2 bg-teal text-cream text-xs font-medium px-4 py-2.5 rounded-xl shadow-lg"
+            className="flex items-center gap-2 bg-teal text-cream text-[13px] font-medium px-4 py-2.5 rounded-xl shadow-lg"
           >
             <Check size={14} />
             <span>{t.text}</span>

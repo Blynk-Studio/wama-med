@@ -1,4 +1,16 @@
-import type { CasePriority, CaseStage, CommStatus, DocStatus, InvoiceStatus, PartnerHealth, EventStatus, CommissionStatus, BlockerType } from "./types";
+import type {
+  BlockerType,
+  CasePriority,
+  CaseStage,
+  CommissionStatus,
+  CommStatus,
+  DemoData,
+  DocStatus,
+  EventStatus,
+  InvoiceStatus,
+  PartnerHealth,
+  PatientCase,
+} from "./types";
 
 /** Conditional class joiner — no external dep needed for this scope */
 export function cn(...classes: (string | false | null | undefined)[]): string {
@@ -18,6 +30,43 @@ export function getInitials(name: string): string {
     .join("")
     .toUpperCase()
     .slice(0, 2);
+}
+
+export function normalizeSearchQuery(query: string): string {
+  return query.trim().toLowerCase();
+}
+
+export function caseMatchesSearch(c: PatientCase, query: string): boolean {
+  const normalized = normalizeSearchQuery(query);
+
+  if (!normalized) return true;
+
+  return [
+    c.patient,
+    c.id,
+    c.program,
+    c.country,
+    c.owner,
+    c.cityPath,
+    c.nextAction,
+  ].some((value) => value.toLowerCase().includes(normalized));
+}
+
+export function scopeDataToCaseIds(data: DemoData, caseIds: Set<string>): DemoData {
+  const cases = data.cases.filter((c) => caseIds.has(c.id));
+  const partnerIds = new Set(cases.flatMap((c) => c.partnerIds));
+  const partners = data.partners.filter((partner) => partnerIds.has(partner.id));
+  const visiblePartnerIds = new Set(partners.map((partner) => partner.id));
+
+  return {
+    cases,
+    events: data.events.filter((event) => caseIds.has(event.caseId)),
+    communications: data.communications.filter((communication) => caseIds.has(communication.caseId)),
+    documents: data.documents.filter((document) => caseIds.has(document.caseId)),
+    partners,
+    invoices: data.invoices.filter((invoice) => caseIds.has(invoice.caseId)),
+    commissions: data.commissions.filter((commission) => visiblePartnerIds.has(commission.partnerId)),
+  };
 }
 
 /* ─── Color Maps ─── */

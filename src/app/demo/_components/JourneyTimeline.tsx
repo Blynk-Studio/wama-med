@@ -27,13 +27,13 @@ export function JourneyTimeline({ currentStage, stageHistory, progressPercent }:
   const currentIdx = ALL_STAGES.indexOf(currentStage);
 
   return (
-    <div className="bg-gradient-to-r from-stone/40 to-stone/20 rounded-2xl p-5 border border-[var(--demo-border)]">
+    <div className="bg-gradient-to-r from-stone/40 to-stone/20 rounded-2xl p-5 md:p-6 border border-[var(--demo-border)]">
       {/* Progress bar header */}
       <div className="flex items-center justify-between mb-1">
-        <span className="text-[10px] font-medium tracking-[0.12em] uppercase text-[var(--demo-muted)]">
+        <span className="text-xs font-semibold tracking-[0.12em] uppercase text-[var(--demo-muted)]">
           Parcours patient
         </span>
-        <span className="text-[11px] font-bold text-teal tabular-nums">
+        <span className="text-[13px] font-bold text-teal tabular-nums">
           {progressPercent}%
         </span>
       </div>
@@ -88,7 +88,7 @@ export function JourneyTimeline({ currentStage, stageHistory, progressPercent }:
               {/* Label */}
               <span
                 className={cn(
-                  "text-[10px] mt-2 text-center leading-tight font-medium",
+                  "text-xs mt-2 text-center leading-tight font-medium",
                   isCurrent ? "text-teal" : isPast ? "text-ink-soft" : "text-[var(--demo-muted)]"
                 )}
               >
@@ -97,12 +97,12 @@ export function JourneyTimeline({ currentStage, stageHistory, progressPercent }:
 
               {/* Duration / Status */}
               {historyEntry && (
-                <span className="text-[9px] text-[var(--demo-muted)] mt-0.5 text-center">
+                <span className="text-[12px] text-[var(--demo-muted)] mt-1 text-center">
                   {historyEntry.duration || (isCurrent ? "En cours" : "")}
                 </span>
               )}
               {isFuture && !historyEntry && (
-                <span className="text-[9px] text-[var(--demo-muted)]/50 mt-0.5">—</span>
+                <span className="text-[12px] text-[var(--demo-muted)]/50 mt-1">—</span>
               )}
             </div>
           );

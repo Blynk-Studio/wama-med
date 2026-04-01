@@ -1,22 +1,31 @@
 "use client";
 
 import {
-  Users, AlertTriangle, CalendarCheck, Wallet, TrendingUp,
-  MessageSquare, Clock, FileText, Activity, ArrowRight,
+  Activity,
+  CalendarCheck,
+  Clock,
+  FileText,
+  MessageSquare,
 } from "lucide-react";
 import { useDemoStore } from "../_lib/store";
-import { useDemoData } from "../_hooks/use-demo-data";
 import { useFilteredCases } from "../_hooks/use-filtered-cases";
-import { roles } from "../_lib/data";
-import { cn, formatMoney, getBlockerInfo } from "../_lib/utils";
+import { useRoleMeta } from "../_hooks/use-role-meta";
+import { useSearchScopedData } from "../_hooks/use-search-scoped-data";
+import { cn, formatMoney } from "../_lib/utils";
 import { KpiCard } from "./KpiCard";
 import { QueueCard } from "./QueueCard";
 import { Badge } from "./Badge";
 import { EmptyState } from "./EmptyState";
+import { FocusPanel } from "./FocusPanel";
 import type { CaseStage } from "../_lib/types";
 
 const STAGES: CaseStage[] = [
-  "Nouveau", "Qualification", "Validation", "Planification", "Sur place", "Cloture",
+  "Nouveau",
+  "Qualification",
+  "Validation",
+  "Planification",
+  "Sur place",
+  "Cloture",
 ];
 
 const STAGE_COLORS: Record<CaseStage, string> = {
@@ -29,111 +38,132 @@ const STAGE_COLORS: Record<CaseStage, string> = {
 };
 
 export function OverviewView() {
-  const data = useDemoData();
+  const { data, searchActive } = useSearchScopedData();
   const filteredCases = useFilteredCases();
-  const role = useDemoStore((s) => s.role);
   const filter = useDemoStore((s) => s.queueFilter);
   const setFilter = useDemoStore((s) => s.setFilter);
   const setView = useDemoStore((s) => s.setView);
   const openCase = useDemoStore((s) => s.openCase);
-  const roleMeta = roles.find((r) => r.key === role)!;
+  const roleMeta = useRoleMeta();
 
   const totalValue = data.cases.reduce((sum, c) => sum + c.valueMad, 0);
   const criticalCount = data.cases.filter((c) => c.priority === "critique" || c.priority === "haute").length;
   const blockedCount = data.cases.filter((c) => c.blocked).length;
   const todayEvents = data.events.filter((e) => e.dayOffset === 0).length;
   const pendingComms = data.communications.filter((c) => c.status !== "envoye").length;
-  const maxCases = Math.max(...STAGES.map((s) => data.cases.filter((c) => c.stage === s).length), 1);
-
-  // Activity feed — combine all timeline entries across cases
+  const maxCases = Math.max(...STAGES.map((stage) => data.cases.filter((c) => c.stage === stage).length), 1);
   const activityFeed = data.cases
     .flatMap((c) => c.timeline.map((t) => ({ ...t, patient: c.patient, caseId: c.id })))
     .slice(-6)
     .reverse();
+  const queueEmptyMessage = searchActive
+    ? "Aucun dossier ne correspond à cette recherche."
+    : "Aucun dossier ne correspond au filtre en cours.";
 
   return (
-    <div className="space-y-5">
-      {/* Hero narrative */}
-      <div className="bg-gradient-to-r from-teal to-teal-light rounded-2xl p-5 text-cream">
-        <p className="text-[11px] font-medium tracking-[0.15em] uppercase text-brass-light mb-1">
-          {roleMeta.label}
-        </p>
-        <p className="text-sm leading-relaxed text-cream/85 max-w-2xl">
-          {roleMeta.story}
-        </p>
-      </div>
+    <div className="space-y-6">
+      <FocusPanel panelId="overviewHero" className="overflow-hidden">
+        <div className="bg-gradient-to-r from-teal to-teal-light px-5 py-6 text-cream md:px-6 md:py-7">
+          <p className="text-xs font-semibold tracking-[0.16em] uppercase text-brass-light mb-2">
+            {roleMeta.label}
+          </p>
+          <p className="text-base leading-relaxed text-cream/90 max-w-3xl">
+            {roleMeta.story}
+          </p>
+        </div>
+      </FocusPanel>
 
-      {/* KPI Row — clickable */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-        <button onClick={() => setFilter("all")} className="text-left">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-5">
+        <button
+          onClick={() => setFilter("all")}
+          aria-pressed={filter === "all"}
+          className="text-left focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3 rounded-2xl"
+        >
           <KpiCard label="Dossiers actifs" value={data.cases.length} accentColor="var(--color-teal)" />
         </button>
-        <button onClick={() => setFilter("hot")} className="text-left">
+        <button
+          onClick={() => setFilter("hot")}
+          aria-pressed={filter === "hot"}
+          className="text-left focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3 rounded-2xl"
+        >
           <KpiCard label="Urgents" value={criticalCount} delta={criticalCount > 2 ? "↑" : undefined} accentColor="#dc2626" />
         </button>
-        <button onClick={() => setFilter("blocked")} className="text-left">
-          <KpiCard label="Bloques" value={blockedCount} accentColor="#d97706" />
+        <button
+          onClick={() => setFilter("blocked")}
+          aria-pressed={filter === "blocked"}
+          className="text-left focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3 rounded-2xl"
+        >
+          <KpiCard label="Bloqués" value={blockedCount} accentColor="#d97706" />
         </button>
-        <button onClick={() => setView("calendar")} className="text-left">
-          <KpiCard label="RDV aujourd'hui" value={todayEvents} accentColor="var(--color-brass)" />
+        <button
+          onClick={() => setView("calendar")}
+          className="text-left focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3 rounded-2xl"
+        >
+          <KpiCard label="RDV du jour" value={todayEvents} accentColor="var(--color-brass)" />
         </button>
-        <button onClick={() => setView("finance")} className="text-left col-span-2 sm:col-span-1">
+        <button
+          onClick={() => setView("finance")}
+          className="text-left focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3 rounded-2xl"
+        >
           <KpiCard label="Pipeline" value={formatMoney(totalValue)} accentColor="var(--demo-success)" />
         </button>
       </div>
 
-      {/* Split grid: Queue + Pipeline + Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
-        {/* Priority Queue — 3 cols */}
-        <div className="lg:col-span-3">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-sm font-semibold text-ink">File prioritaire</h3>
-            <div className="flex gap-1">
-              {(["all", "hot", "blocked", "today"] as const).map((f) => (
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-5">
+        <FocusPanel panelId="queuePanel" className="xl:col-span-3 p-4 md:p-5">
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div className="min-w-0">
+              <h3 className="text-base font-semibold text-ink">File prioritaire</h3>
+              <p className="mt-1 text-[13px] leading-relaxed text-[var(--demo-muted)] max-w-2xl">
+                {roleMeta.queueNarrative}
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {(["all", "hot", "blocked", "today"] as const).map((item) => (
                 <button
-                  key={f}
-                  onClick={() => setFilter(f)}
+                  key={item}
+                  onClick={() => setFilter(item)}
+                  aria-pressed={filter === item}
                   className={cn(
-                    "px-2.5 py-1 rounded-lg text-[11px] font-medium transition-colors",
-                    filter === f
+                    "px-3 py-2 rounded-xl text-[13px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-2",
+                    filter === item
                       ? "bg-teal text-cream"
-                      : "bg-stone/50 text-[var(--demo-muted)] hover:bg-stone"
+                      : "bg-stone/50 text-[var(--demo-muted)] hover:bg-stone hover:text-ink",
                   )}
                 >
-                  {f === "all" ? "Tous" : f === "hot" ? "Urgents" : f === "blocked" ? "Bloques" : "Aujourd'hui"}
+                  {item === "all" ? "Tous" : item === "hot" ? "Urgents" : item === "blocked" ? "Bloqués" : "Aujourd'hui"}
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="space-y-2 max-h-[420px] overflow-y-auto demo-scroll pr-1">
+          <div className="space-y-3 max-h-none overflow-visible md:max-h-[460px] md:overflow-y-auto demo-scroll pr-0 md:pr-1 mt-4">
             {filteredCases.length === 0 ? (
-              <EmptyState message="Aucun dossier ne correspond au filtre" />
+              <EmptyState message={queueEmptyMessage} />
             ) : (
               filteredCases.map((c) => <QueueCard key={c.id} c={c} />)
             )}
           </div>
-        </div>
+        </FocusPanel>
 
-        {/* Right column — Pipeline + Activity + Finance */}
-        <div className="lg:col-span-2 space-y-5">
-          {/* Pipeline visualization — horizontal bars */}
-          <div>
-            <h3 className="text-sm font-semibold text-ink mb-3">Pipeline</h3>
-            <div className="bg-white rounded-xl border border-[var(--demo-border)] p-4 space-y-2.5">
+        <div className="xl:col-span-2 space-y-5">
+          <FocusPanel panelId="journeyPanel" className="p-4 md:p-5">
+            <h3 className="text-base font-semibold text-ink mb-4">Pipeline</h3>
+            <div className="space-y-3">
               {STAGES.map((stage) => {
                 const count = data.cases.filter((c) => c.stage === stage).length;
                 const pct = (count / maxCases) * 100;
-                const stageValue = data.cases.filter((c) => c.stage === stage).reduce((s, c) => s + c.valueMad, 0);
+                const stageValue = data.cases.filter((c) => c.stage === stage).reduce((sum, c) => sum + c.valueMad, 0);
+
                 return (
                   <div key={stage}>
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[11px] text-ink-soft">{stage}</span>
-                      <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between mb-1.5 gap-3">
+                      <span className="text-[13px] text-ink-soft font-medium">{stage}</span>
+                      <div className="flex items-center gap-2 text-[13px]">
                         {stageValue > 0 && (
-                          <span className="text-[10px] text-[var(--demo-muted)] tabular-nums">{formatMoney(stageValue)}</span>
+                          <span className="text-[var(--demo-muted)] tabular-nums">{formatMoney(stageValue)}</span>
                         )}
-                        <span className="text-[11px] font-bold text-ink tabular-nums w-4 text-right">{count}</span>
+                        <span className="font-semibold text-ink tabular-nums min-w-5 text-right">{count}</span>
                       </div>
                     </div>
                     <div className="h-2 bg-stone/50 rounded-full overflow-hidden">
@@ -146,119 +176,133 @@ export function OverviewView() {
                 );
               })}
             </div>
-          </div>
+          </FocusPanel>
 
-          {/* Activity feed */}
-          <div>
-            <div className="flex items-center gap-2 mb-3">
-              <Activity size={14} className="text-brass" />
-              <h3 className="text-sm font-semibold text-ink">Activite recente</h3>
-            </div>
-            <div className="bg-white rounded-xl border border-[var(--demo-border)] p-3 space-y-0">
-              {activityFeed.map((a, i) => (
-                <button
-                  key={i}
-                  onClick={() => openCase(a.caseId)}
-                  className="w-full text-left flex items-start gap-2 py-2 border-b border-[var(--demo-border)] last:border-b-0 hover:bg-stone/20 -mx-1 px-1 rounded transition-colors"
-                >
-                  <div className="w-1.5 h-1.5 rounded-full bg-teal mt-1.5 shrink-0" />
-                  <div className="min-w-0 flex-1">
-                    <p className="text-[11px] text-ink">
-                      <span className="font-medium">{a.patient}</span>
-                      {" — "}
-                      {a.label}
-                    </p>
-                    <p className="text-[10px] text-[var(--demo-muted)]">{a.time}</p>
+          <FocusPanel panelId="financePanel" className="p-4 md:p-5">
+            <h3 className="text-base font-semibold text-ink mb-4">Exposition</h3>
+            <div className="space-y-3">
+              {data.invoices.length === 0 ? (
+                <EmptyState message="Aucun flux financier visible pour cette recherche." />
+              ) : (
+                data.invoices.map((invoice) => (
+                  <div key={invoice.id} className="flex items-center justify-between gap-3">
+                    <span className="text-sm text-ink-soft truncate flex-1">{invoice.title}</span>
+                    <Badge variant="invoiceStatus" value={invoice.status} />
+                    <span className="text-sm font-semibold text-ink tabular-nums whitespace-nowrap">
+                      {formatMoney(invoice.amountMad)}
+                    </span>
                   </div>
-                </button>
-              ))}
+                ))
+              )}
             </div>
-          </div>
+          </FocusPanel>
 
-          {/* Quick Finance */}
-          <div>
-            <h3 className="text-sm font-semibold text-ink mb-3">Exposition</h3>
-            <div className="bg-white rounded-xl border border-[var(--demo-border)] p-4 space-y-2">
-              {data.invoices.map((inv) => (
-                <div key={inv.id} className="flex items-center justify-between gap-2">
-                  <span className="text-xs text-ink-soft truncate flex-1">{inv.title}</span>
-                  <Badge variant="invoiceStatus" value={inv.status} />
-                  <span className="text-xs font-semibold text-ink tabular-nums whitespace-nowrap">
-                    {formatMoney(inv.amountMad)}
-                  </span>
-                </div>
-              ))}
+          <div className="rounded-2xl border border-[var(--demo-border)] bg-white/96 shadow-[0_10px_26px_-22px_rgba(53,31,22,0.24)] p-4 md:p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <Activity size={16} className="text-brass" />
+              <h3 className="text-base font-semibold text-ink">Activité récente</h3>
+            </div>
+            <div className="space-y-0">
+              {activityFeed.length === 0 ? (
+                <EmptyState message="Aucune activité visible pour cette recherche." />
+              ) : (
+                activityFeed.map((item, index) => (
+                  <button
+                    key={`${item.caseId}-${item.time}-${index}`}
+                    onClick={() => openCase(item.caseId)}
+                    className="w-full text-left flex items-start gap-2.5 py-2.5 border-b border-[var(--demo-border)] last:border-b-0 hover:bg-stone/20 -mx-1 px-1 rounded transition-colors"
+                  >
+                    <div className="w-2 h-2 rounded-full bg-teal mt-1.5 shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[13px] leading-relaxed text-ink">
+                        <span className="font-semibold">{item.patient}</span>
+                        {" — "}
+                        {item.label}
+                      </p>
+                      <p className="text-xs text-[var(--demo-muted)] mt-0.5">{item.time}</p>
+                    </div>
+                  </button>
+                ))
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Triptych: Agenda + Comms + Docs */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Agenda */}
-        <div className="bg-white rounded-xl border border-[var(--demo-border)] p-4">
-          <div className="flex items-center gap-2 mb-3">
-            <CalendarCheck size={14} className="text-brass" />
-            <h4 className="text-xs font-semibold text-ink">Agenda du jour</h4>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+        <FocusPanel panelId="agendaPanel" className="p-4 md:p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <CalendarCheck size={16} className="text-brass" />
+            <h4 className="text-base font-semibold text-ink">Agenda du jour</h4>
           </div>
-          {data.events
-            .filter((e) => e.dayOffset === 0)
-            .map((e) => (
-              <button
-                key={e.id}
-                onClick={() => openCase(e.caseId)}
-                className="w-full text-left flex items-center gap-2 py-2 border-b border-[var(--demo-border)] last:border-b-0 hover:bg-stone/30 -mx-1 px-1 rounded transition-colors"
-              >
-                <Clock size={12} className="text-[var(--demo-muted)] shrink-0" />
-                <span className="text-xs font-medium text-ink tabular-nums">{e.time}</span>
-                <span className="text-xs text-ink-soft truncate flex-1">{e.title}</span>
-              </button>
-            ))}
-        </div>
+          {data.events.filter((e) => e.dayOffset === 0).length === 0 ? (
+            <EmptyState message="Aucun rendez-vous visible pour cette recherche." />
+          ) : (
+            data.events
+              .filter((e) => e.dayOffset === 0)
+              .map((event) => (
+                <button
+                  key={event.id}
+                  onClick={() => openCase(event.caseId)}
+                  className="w-full text-left flex items-center gap-2.5 py-2.5 border-b border-[var(--demo-border)] last:border-b-0 hover:bg-stone/30 -mx-1 px-1 rounded transition-colors"
+                >
+                  <Clock size={13} className="text-[var(--demo-muted)] shrink-0" />
+                  <span className="text-sm font-semibold text-ink tabular-nums">{event.time}</span>
+                  <span className="text-sm text-ink-soft truncate flex-1">{event.title}</span>
+                </button>
+              ))
+          )}
+        </FocusPanel>
 
-        {/* Comms */}
-        <div className="bg-white rounded-xl border border-[var(--demo-border)] p-4">
-          <div className="flex items-center gap-2 mb-3">
-            <MessageSquare size={14} className="text-brass" />
-            <h4 className="text-xs font-semibold text-ink">Communications</h4>
+        <FocusPanel panelId="communicationPanel" className="p-4 md:p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <MessageSquare size={16} className="text-brass" />
+            <h4 className="text-base font-semibold text-ink">Communications</h4>
             {pendingComms > 0 && (
-              <span className="ml-auto text-[10px] font-bold bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded-full">
+              <span className="ml-auto text-xs font-semibold bg-orange-100 text-orange-700 px-2 py-1 rounded-full">
                 {pendingComms}
               </span>
             )}
           </div>
-          {data.communications.slice(0, 3).map((comm) => (
-            <button
-              key={comm.id}
-              onClick={() => openCase(comm.caseId)}
-              className="w-full text-left py-2 border-b border-[var(--demo-border)] last:border-b-0 hover:bg-stone/30 -mx-1 px-1 rounded transition-colors"
-            >
-              <p className="text-xs font-medium text-ink truncate">{comm.title}</p>
-              <p className="text-[11px] text-[var(--demo-muted)] truncate">{comm.summary}</p>
-            </button>
-          ))}
-        </div>
-
-        {/* Docs */}
-        <div className="bg-white rounded-xl border border-[var(--demo-border)] p-4">
-          <div className="flex items-center gap-2 mb-3">
-            <FileText size={14} className="text-brass" />
-            <h4 className="text-xs font-semibold text-ink">Documents</h4>
-          </div>
-          {data.documents
-            .filter((d) => d.status !== "valide")
-            .slice(0, 3)
-            .map((doc) => (
+          {data.communications.length === 0 ? (
+            <EmptyState message="Aucune communication visible pour cette recherche." />
+          ) : (
+            data.communications.slice(0, 3).map((comm) => (
               <button
-                key={doc.id}
-                onClick={() => openCase(doc.caseId)}
-                className="w-full text-left flex items-center gap-2 py-2 border-b border-[var(--demo-border)] last:border-b-0 hover:bg-stone/30 -mx-1 px-1 rounded transition-colors"
+                key={comm.id}
+                onClick={() => openCase(comm.caseId)}
+                className="w-full text-left py-2.5 border-b border-[var(--demo-border)] last:border-b-0 hover:bg-stone/30 -mx-1 px-1 rounded transition-colors"
               >
-                <span className="text-xs text-ink-soft truncate flex-1">{doc.title}</span>
-                <Badge variant="docStatus" value={doc.status} />
+                <p className="text-sm font-semibold text-ink truncate">{comm.title}</p>
+                <p className="text-[13px] text-[var(--demo-muted)] mt-0.5 line-clamp-2">{comm.summary}</p>
               </button>
-            ))}
-        </div>
+            ))
+          )}
+        </FocusPanel>
+
+        <FocusPanel panelId="documentPanel" className="p-4 md:p-5">
+          <div className="flex items-center gap-2 mb-4">
+            <FileText size={16} className="text-brass" />
+            <h4 className="text-base font-semibold text-ink">Documents</h4>
+          </div>
+          {data.documents.filter((d) => d.status !== "valide").length === 0 ? (
+            <EmptyState message="Aucun document à traiter pour cette recherche." />
+          ) : (
+            data.documents
+              .filter((d) => d.status !== "valide")
+              .slice(0, 3)
+              .map((doc) => (
+                <button
+                  key={doc.id}
+                  onClick={() => openCase(doc.caseId)}
+                  className="w-full text-left flex items-center gap-2.5 py-2.5 border-b border-[var(--demo-border)] last:border-b-0 hover:bg-stone/30 -mx-1 px-1 rounded transition-colors"
+                >
+                  <span className="text-sm text-ink-soft truncate flex-1">{doc.title}</span>
+                  <Badge variant="docStatus" value={doc.status} />
+                </button>
+              ))
+          )}
+        </FocusPanel>
       </div>
     </div>
   );

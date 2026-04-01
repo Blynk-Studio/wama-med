@@ -94,7 +94,7 @@ export function Badge(props: BadgeVariant) {
   return (
     <span
       className={cn(
-        "inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium leading-tight",
+        "inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium leading-tight",
         bg, text,
         props.variant === "priority" && props.value === "critique" && "demo-pulse"
       )}
