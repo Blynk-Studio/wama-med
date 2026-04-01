@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocaleDictionary } from '@/components/ui/LocaleProvider';
 import { waitForGsap } from '@/lib/gsap-ready';
 import { localizePath } from '@/lib/i18n';
@@ -37,15 +37,18 @@ export function ScrollJourney() {
   const rafHandle   = useRef(0);
   const ready       = useRef(false); // true once video decoder is unlocked
   const activeActRef = useRef(0);
+  const triggerRef = useRef<ReturnType<typeof import('gsap/ScrollTrigger').ScrollTrigger.create> | null>(null);
+  const isPinnedRef = useRef(false);
 
   const [actIdx, setActIdx] = useState(0);
 
-  const syncActAnimations = (progress: number) => {
+  const syncActAnimations = useCallback((progress: number) => {
     const currentAct = activeActRef.current;
+    const currentActData = acts[currentAct];
     const actProgress = Math.max(0, Math.min(0.999, progress * acts.length - currentAct));
 
     if (currentAct === 2) {
-      const totalSteps = stepItemRefs.current.length || act.steps?.length || 0;
+      const totalSteps = stepItemRefs.current.length || currentActData.steps?.length || 0;
       const activeStepIdx = totalSteps > 0
         ? Math.min(totalSteps - 1, Math.floor(actProgress * totalSteps))
         : -1;
@@ -77,7 +80,7 @@ export function ScrollJourney() {
     }
 
     if (currentAct === 3) {
-      const totalCards = commitmentCardRefs.current.length || act.commitments?.length || 0;
+      const totalCards = commitmentCardRefs.current.length || currentActData.commitments?.length || 0;
       const activeCardIdx = totalCards > 0
         ? Math.min(totalCards - 1, Math.floor(actProgress * totalCards))
         : -1;
@@ -114,12 +117,46 @@ export function ScrollJourney() {
         act5CtaRef.current.style.transform = `translateY(${(1 - ctaOpacity) * 12}px)`;
       }
     }
-  };
+  }, [acts]);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    const sticky = stickyRef.current;
+    if (!video || !sticky) return;
     let cancelled = false;
+    const lastActIndex = acts.length - 1;
+
+    const focusSticky = () => {
+      if (!isPinnedRef.current) return;
+
+      const activeElement = document.activeElement;
+      if (activeElement instanceof HTMLElement && sticky.contains(activeElement)) return;
+      if (activeElement instanceof HTMLElement && activeElement !== document.body) {
+        activeElement.blur();
+      }
+      sticky.focus({ preventScroll: true });
+    };
+
+    const onPinnedFocusIn = (event: FocusEvent) => {
+      if (!isPinnedRef.current || activeActRef.current >= lastActIndex) return;
+
+      const target = event.target;
+      if (target instanceof HTMLElement && sticky.contains(target)) return;
+
+      requestAnimationFrame(focusSticky);
+    };
+
+    const onPinnedKeyDown = (event: KeyboardEvent) => {
+      if (!isPinnedRef.current) return;
+      if (event.key !== 'Tab') return;
+      if (activeActRef.current >= lastActIndex) return;
+
+      event.preventDefault();
+      focusSticky();
+    };
+
+    document.addEventListener('focusin', onPinnedFocusIn, true);
+    window.addEventListener('keydown', onPinnedKeyDown, true);
 
     // ── 1. Scrub loop — runs every rAF, writes to video.currentTime ─────────
     const LERP  = 0.14;
@@ -192,7 +229,7 @@ export function ScrollJourney() {
       // Wait for AnimationProvider to fully init GSAP + ScrollTrigger.
       // This prevents race conditions where AnimationProvider kills all
       // ScrollTriggers after we've already created ours.
-      const { gsap, ScrollTrigger } = await waitForGsap();
+      const { ScrollTrigger } = await waitForGsap();
       if (cancelled) return;
 
       // Let React finish painting the 500vh container
@@ -202,11 +239,23 @@ export function ScrollJourney() {
 
       if (!outerRef.current || !stickyRef.current) return;
 
+      const setPinnedState = (isActive: boolean) => {
+        isPinnedRef.current = isActive;
+        if (isActive) {
+          focusSticky();
+        } else if (document.activeElement === sticky) {
+          sticky.blur();
+        }
+      };
+
       trigger = ScrollTrigger.create({
         trigger: outerRef.current,
         start: 'top top',
         end: 'bottom bottom',
         scrub: 1.0,
+        onToggle: self => {
+          setPinnedState(self.isActive);
+        },
         onUpdate: self => {
           scrollProg.current = self.progress;
           if (progressFillRef.current) {
@@ -226,6 +275,7 @@ export function ScrollJourney() {
         invalidateOnRefresh: true,
         anticipatePin: 1,
       });
+      triggerRef.current = trigger;
 
       requestAnimationFrame(() => {
         if (!cancelled) ScrollTrigger.refresh();
@@ -238,14 +288,18 @@ export function ScrollJourney() {
       cancelled = true;
       cancelAnimationFrame(rafHandle.current);
       trigger?.kill();
+      triggerRef.current = null;
+      isPinnedRef.current = false;
+      document.removeEventListener('focusin', onPinnedFocusIn, true);
+      window.removeEventListener('keydown', onPinnedKeyDown, true);
       window.removeEventListener('touchstart',  onGesture);
       window.removeEventListener('scroll',      onGesture);
     };
-  }, []);
+  }, [acts.length, syncActAnimations]);
 
   useEffect(() => {
     syncActAnimations(scrollProg.current);
-  }, [actIdx]);
+  }, [actIdx, syncActAnimations]);
 
   const act         = acts[actIdx];
 
@@ -257,6 +311,7 @@ export function ScrollJourney() {
     >
       <div
         ref={stickyRef}
+        tabIndex={-1}
         style={{
           height: '100svh',
           position: 'relative',

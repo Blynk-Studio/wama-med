@@ -26,7 +26,7 @@ import { usePathname } from "next/navigation";
 //      the async gap before GSAP imports finish
 //
 // LIGHTHOUSE SAFETY:
-//   GSAP is still interaction-gated (scroll/wheel/touchstart/keydown) so it never
+//   GSAP is still interaction-gated (scroll/wheel/touchstart) so it never
 //   runs during headless Lighthouse simulation.
 //   On route change we bypass the gate — the user has already interacted
 //   to navigate. The `hasInteracted` ref persists across navigations.
@@ -35,6 +35,26 @@ import { usePathname } from "next/navigation";
 type GSAPType = typeof import("gsap").default;
 type LenisType = import("lenis").default;
 type STType = typeof import("gsap/ScrollTrigger").ScrollTrigger;
+
+const EDITABLE_SELECTOR = 'input, textarea, select, [contenteditable=""], [contenteditable="true"]';
+const HANDLED_SCROLL_KEYS = new Set([
+  "ArrowDown",
+  "ArrowUp",
+  "PageDown",
+  "PageUp",
+  "Home",
+  "End",
+  " ",
+  "Spacebar",
+]);
+
+function isEditableTarget(target: EventTarget | null): boolean {
+  return target instanceof HTMLElement && !!target.closest(EDITABLE_SELECTOR);
+}
+
+function isHandledScrollKey(event: KeyboardEvent): boolean {
+  return HANDLED_SCROLL_KEYS.has(event.key);
+}
 
 export function AnimationProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -94,7 +114,6 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
 
     // ── Core re-init ────────────────────────────────────────────────────────
     const reinit = async () => {
-      const gsap = gsapRef.current;
       const ST = STRef.current;
       const lenis = lenisRef.current;
 
@@ -145,11 +164,60 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         smoothWheel: true,
       });
       lenisRef.current = lenisNew;
+      const removeLenisScrollListener = lenisNew.on("scroll", ScrollTrigger.update);
 
       // Remove any previous ticker callbacks before adding a new one
       gsapFresh.ticker.lagSmoothing(0);
       const lenisRaf = (time: number) => lenisNew.raf(time * 1000);
       gsapFresh.ticker.add(lenisRaf);
+
+      const onKeyboardScroll = (event: KeyboardEvent) => {
+        if (event.defaultPrevented) return;
+        if (!isHandledScrollKey(event)) return;
+        if (event.metaKey || event.ctrlKey || event.altKey) return;
+        if (isEditableTarget(event.target)) return;
+
+        const currentTarget = lenisNew.targetScroll;
+        const arrowStep = Math.max(120, Math.round(window.innerHeight * 0.12));
+        const pageStep = Math.max(arrowStep * 4, Math.round(window.innerHeight * 0.9));
+        let nextTarget = currentTarget;
+
+        switch (event.key) {
+          case "ArrowDown":
+            nextTarget += arrowStep;
+            break;
+          case "ArrowUp":
+            nextTarget -= arrowStep;
+            break;
+          case "PageDown":
+            nextTarget += pageStep;
+            break;
+          case "PageUp":
+            nextTarget -= pageStep;
+            break;
+          case "Home":
+            nextTarget = 0;
+            break;
+          case "End":
+            nextTarget = lenisNew.limit;
+            break;
+          case " ":
+          case "Spacebar":
+            nextTarget += event.shiftKey ? -pageStep : pageStep;
+            break;
+          default:
+            return;
+        }
+
+        event.preventDefault();
+
+        lenisNew.scrollTo(Math.max(0, Math.min(lenisNew.limit, nextTarget)), {
+          duration: 0.9,
+          force: true,
+          userData: { initiator: "keyboard" },
+        });
+      };
+      window.addEventListener("keydown", onKeyboardScroll, { capture: true });
 
       // Step 6: ScrollTrigger.refresh() after a tick to let React finish
       // painting the new page DOM before calculating trigger positions
@@ -169,7 +237,7 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
             // should be visible immediately. Animations are a desktop enhancement.
             const isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
             if (!isMobile) {
-              setupAnimations(gsapFresh, ScrollTrigger);
+              setupAnimations(gsapFresh);
             } else {
               // On mobile: force all [data-animate] elements to full visibility immediately.
               // No pop-in, no opacity:0, no jank.
@@ -201,6 +269,8 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
       window.addEventListener("load", loadHandler, { once: true });
 
       return () => {
+        removeLenisScrollListener();
+        window.removeEventListener("keydown", onKeyboardScroll, true);
         gsapFresh.ticker.remove(lenisRaf);
         lenisNew.destroy();
         ScrollTrigger.getAll().forEach((t) => t.kill());
@@ -222,14 +292,12 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
       window.addEventListener("wheel", onInteraction, { passive: true, once: true });
       window.addEventListener("scroll", onInteraction, { passive: true, once: true });
       window.addEventListener("touchstart", onInteraction, { passive: true, once: true });
-      window.addEventListener("keydown", onInteraction, { once: true });
 
       return () => {
         cancelled = true;
         window.removeEventListener("wheel", onInteraction);
         window.removeEventListener("scroll", onInteraction);
         window.removeEventListener("touchstart", onInteraction);
-        window.removeEventListener("keydown", onInteraction);
         if (loadHandler) window.removeEventListener("load", loadHandler);
         if (fallbackIO) fallbackIO.disconnect();
       };
@@ -240,8 +308,6 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
       if (loadHandler) window.removeEventListener("load", loadHandler);
       if (fallbackIO) fallbackIO.disconnect();
     };
-  // pathname is the key dependency — re-run this entire effect on every route change
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return <>{children}</>;
@@ -250,8 +316,7 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
 // ── Animation setup — called after ScrollTrigger.refresh() ─────────────────
 // Runs fresh on every route change against the current DOM.
 function setupAnimations(
-  gsap: GSAPType,
-  ScrollTrigger: STType
+  gsap: GSAPType
 ) {
   // This function is only called on non-touch/desktop devices (see call site).
   // Section fade-up entrances
