@@ -162,14 +162,16 @@ export interface Commission {
 
 export type Role = "coordinator" | "manager" | "finance" | "leadership";
 export type Scenario = "baseline" | "intake" | "docs" | "rendezvous" | "partner" | "payment";
-export type DemoView =
-  | "overview"
-  | "journeys"
-  | "communications"
-  | "calendar"
-  | "documents"
-  | "partners"
-  | "finance";
+export const demoViews = [
+  "overview",
+  "journeys",
+  "communications",
+  "calendar",
+  "documents",
+  "partners",
+  "finance",
+] as const;
+export type DemoView = (typeof demoViews)[number];
 export type QueueFilter = "all" | "hot" | "blocked" | "today";
 
 export interface RoleMeta {

@@ -1,11 +1,10 @@
 import { create } from "zustand";
-import type { Role, Scenario, DemoView, QueueFilter } from "./types";
+import type { Role, Scenario, QueueFilter } from "./types";
 
 interface DemoState {
   /* ─── State ─── */
   role: Role;
   scenario: Scenario;
-  activeView: DemoView;
   selectedCaseId: string | null;
   queueFilter: QueueFilter;
   dayOffset: number;
@@ -15,7 +14,6 @@ interface DemoState {
   /* ─── Actions ─── */
   setRole: (role: Role) => void;
   setScenario: (scenario: Scenario) => void;
-  setView: (view: DemoView) => void;
   openCase: (caseId: string) => void;
   closeDrawer: () => void;
   setFilter: (filter: QueueFilter) => void;
@@ -26,7 +24,6 @@ interface DemoState {
 export const useDemoStore = create<DemoState>((set) => ({
   role: "coordinator",
   scenario: "baseline",
-  activeView: "overview",
   selectedCaseId: null,
   queueFilter: "all",
   dayOffset: 0,
@@ -43,8 +40,6 @@ export const useDemoStore = create<DemoState>((set) => ({
       set({ scenario });
     }
   },
-
-  setView: (activeView) => set({ activeView }),
 
   openCase: (caseId) => set({ selectedCaseId: caseId, drawerOpen: true }),
 

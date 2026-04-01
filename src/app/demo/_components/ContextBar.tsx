@@ -1,5 +1,6 @@
 "use client";
 
+import { useDemoViewRouting } from "../_hooks/use-demo-view-routing";
 import { useRoleMeta } from "../_hooks/use-role-meta";
 import { useDemoStore } from "../_lib/store";
 import { views, scenariosMeta } from "../_lib/data";
@@ -7,7 +8,7 @@ import { cn } from "../_lib/utils";
 import { FocusPanel } from "./FocusPanel";
 
 export function ContextBar() {
-  const activeView = useDemoStore((s) => s.activeView);
+  const { activeView } = useDemoViewRouting();
   const scenario = useDemoStore((s) => s.scenario);
   const setScenario = useDemoStore((s) => s.setScenario);
 

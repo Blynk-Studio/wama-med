@@ -7,6 +7,7 @@ import {
   FileText,
   MessageSquare,
 } from "lucide-react";
+import { useDemoViewRouting } from "../_hooks/use-demo-view-routing";
 import { useDemoStore } from "../_lib/store";
 import { useFilteredCases } from "../_hooks/use-filtered-cases";
 import { useRoleMeta } from "../_hooks/use-role-meta";
@@ -42,7 +43,7 @@ export function OverviewView() {
   const filteredCases = useFilteredCases();
   const filter = useDemoStore((s) => s.queueFilter);
   const setFilter = useDemoStore((s) => s.setFilter);
-  const setView = useDemoStore((s) => s.setView);
+  const { setActiveView } = useDemoViewRouting();
   const openCase = useDemoStore((s) => s.openCase);
   const roleMeta = useRoleMeta();
 
@@ -96,13 +97,13 @@ export function OverviewView() {
           <KpiCard label="Bloqués" value={blockedCount} accentColor="#d97706" />
         </button>
         <button
-          onClick={() => setView("calendar")}
+          onClick={() => setActiveView("calendar")}
           className="text-left focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3 rounded-2xl"
         >
           <KpiCard label="RDV du jour" value={todayEvents} accentColor="var(--color-brass)" />
         </button>
         <button
-          onClick={() => setView("finance")}
+          onClick={() => setActiveView("finance")}
           className="text-left focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3 rounded-2xl"
         >
           <KpiCard label="Pipeline" value={formatMoney(totalValue)} accentColor="var(--demo-success)" />

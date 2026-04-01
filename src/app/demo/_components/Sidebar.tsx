@@ -11,6 +11,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useDemoViewRouting } from "../_hooks/use-demo-view-routing";
 import { useDemoStore } from "../_lib/store";
 import { roles } from "../_lib/data";
 import { cn } from "../_lib/utils";
@@ -33,8 +34,7 @@ export function Sidebar({
   collapsed: boolean;
   onNavigate?: () => void;
 }) {
-  const activeView = useDemoStore((s) => s.activeView);
-  const setView = useDemoStore((s) => s.setView);
+  const { activeView, setActiveView } = useDemoViewRouting();
   const role = useDemoStore((s) => s.role);
   const setRole = useDemoStore((s) => s.setRole);
   const [roleOpen, setRoleOpen] = useState(false);
@@ -93,7 +93,7 @@ export function Sidebar({
             <button
               key={key}
               onClick={() => {
-                setView(key);
+                setActiveView(key);
                 onNavigate?.();
               }}
               aria-label={label}

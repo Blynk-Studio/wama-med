@@ -5,12 +5,14 @@ import type {
   CommissionStatus,
   CommStatus,
   DemoData,
+  DemoView,
   DocStatus,
   EventStatus,
   InvoiceStatus,
   PartnerHealth,
   PatientCase,
 } from "./types";
+import { demoViews } from "./types";
 
 /** Conditional class joiner — no external dep needed for this scope */
 export function cn(...classes: (string | false | null | undefined)[]): string {
@@ -34,6 +36,18 @@ export function getInitials(name: string): string {
 
 export function normalizeSearchQuery(query: string): string {
   return query.trim().toLowerCase();
+}
+
+export function parseDemoView(
+  value: string | string[] | null | undefined,
+): DemoView | null {
+  const normalized = Array.isArray(value) ? value[0] : value;
+
+  if (!normalized) return null;
+
+  return demoViews.includes(normalized as DemoView)
+    ? (normalized as DemoView)
+    : null;
 }
 
 export function caseMatchesSearch(c: PatientCase, query: string): boolean {

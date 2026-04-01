@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useDemoStore } from "../_lib/store";
+import { useDemoViewRouting } from "../_hooks/use-demo-view-routing";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { ContextBar } from "./ContextBar";
@@ -27,7 +27,7 @@ const VIEW_COMPONENTS: Record<DemoView, React.ComponentType> = {
 };
 
 export function Workspace() {
-  const activeView = useDemoStore((s) => s.activeView);
+  const { activeView } = useDemoViewRouting();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   const ViewComponent = VIEW_COMPONENTS[activeView];
@@ -59,10 +59,9 @@ export function Workspace() {
 
       {/* Main content area */}
       <div className="flex-1 flex flex-col min-w-0 bg-white/60 min-h-dvh md:min-h-0">
-        <Topbar
-          onMenuToggle={() => setMobileNavOpen(!mobileNavOpen)}
-          mobileNavOpen={mobileNavOpen}
-        />
+        <div className="demo-mobile-topbar-shell sticky top-0 z-40 md:static md:z-auto">
+          <Topbar onMenuToggle={() => setMobileNavOpen(!mobileNavOpen)} />
+        </div>
         <ContextBar />
 
         {/* View content */}

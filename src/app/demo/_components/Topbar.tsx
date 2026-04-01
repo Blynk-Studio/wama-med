@@ -7,10 +7,8 @@ import { useState, useEffect } from "react";
 
 export function Topbar({
   onMenuToggle,
-  mobileNavOpen = false,
 }: {
   onMenuToggle?: () => void;
-  mobileNavOpen?: boolean;
 }) {
   const search = useDemoStore((s) => s.search);
   const setSearch = useDemoStore((s) => s.setSearch);
@@ -38,10 +36,7 @@ export function Topbar({
     "Driss Tazi";
 
   return (
-    <div
-      className="demo-mobile-topbar sticky top-0 z-40 flex items-center gap-3 px-4 py-2.5 md:px-5 md:py-4 border-b border-[var(--demo-border)] md:static md:z-auto"
-      data-nav-open={mobileNavOpen ? "true" : "false"}
-    >
+    <div className="flex items-center gap-3 px-4 py-2.5 md:px-5 md:py-4 border-b border-[var(--demo-border)]">
       {/* Mobile hamburger */}
       {onMenuToggle && (
         <button
