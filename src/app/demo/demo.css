@@ -1,0 +1,102 @@
+/* ─────────────────────────────────────────────────────────
+   Mission Control Demo — Feature-scoped styles
+   Keeps globals.css clean. Removed with the demo route.
+   ───────────────────────────────────────────────────────── */
+
+/* Override the custom cursor from globals.css.
+   Radix Dialog portals render at <body> level outside .demo-root,
+   so we also target [data-radix-portal] for the drawer. */
+@media (pointer: fine) {
+  .demo-root,
+  .demo-root *,
+  [data-radix-portal],
+  [data-radix-portal] * {
+    cursor: auto !important;
+  }
+}
+
+/* Workspace shell — frosted glass effect */
+.demo-workspace {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(28, 20, 16, 0.06);
+  box-shadow:
+    0 1px 3px rgba(53, 31, 22, 0.04),
+    0 8px 32px rgba(53, 31, 22, 0.08);
+}
+
+/* Sidebar */
+.demo-sidebar {
+  background: linear-gradient(180deg, #0B4042 0%, #072B2D 100%);
+}
+
+/* Card hover lift */
+.demo-card {
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+.demo-card:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 2px 8px rgba(53, 31, 22, 0.06),
+    0 8px 24px rgba(53, 31, 22, 0.1);
+}
+
+/* KPI accent border */
+.demo-kpi-accent {
+  position: relative;
+}
+.demo-kpi-accent::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--accent-color, var(--color-brass));
+}
+
+/* Demo scrollbar — narrower, warmer */
+.demo-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
+.demo-scroll::-webkit-scrollbar-track { background: transparent; }
+.demo-scroll::-webkit-scrollbar-thumb {
+  background: rgba(11, 64, 66, 0.2);
+  border-radius: 2px;
+}
+.demo-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(11, 64, 66, 0.35);
+}
+
+/* Kanban horizontal scroll with snap */
+.demo-kanban-scroll {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+.demo-kanban-scroll > * {
+  scroll-snap-align: start;
+}
+
+/* Badge pulse for critical items */
+@keyframes demo-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.demo-pulse {
+  animation: demo-pulse 2s ease-in-out infinite;
+}
+
+/* Scenario button active glow */
+.demo-scenario-active {
+  box-shadow: 0 0 0 2px rgba(184, 144, 58, 0.3);
+}
+
+/* Status dot — pulsing for live items */
+@keyframes demo-status-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
+}
+.demo-status-dot-live {
+  animation: demo-status-pulse 2s ease-in-out infinite;
+}

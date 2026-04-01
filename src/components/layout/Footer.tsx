@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
 import { localizePath } from "@/lib/i18n";
@@ -104,6 +105,18 @@ export function Footer({
               </li>
             </ul>
           </div>
+        </div>
+
+        {/* Demo link */}
+        <div className="border-t border-cream/10 pt-6 pb-4 flex justify-center">
+          <Link
+            href="/demo"
+            prefetch
+            className="inline-flex items-center gap-2 bg-brass/20 hover:bg-brass/30 text-brass-light text-xs font-semibold px-4 py-2 rounded-full transition-colors duration-200"
+          >
+            <span>Mission Control Demo</span>
+            <ArrowRight size={14} />
+          </Link>
         </div>
 
         {/* Divider */}
