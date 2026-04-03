@@ -1,0 +1,200 @@
+/* ─── Demo V2 — Feature-scoped styles ─── */
+
+/* Remove custom site cursor inside demo */
+.demo-v2-root,
+.demo-v2-root * {
+  cursor: auto !important;
+}
+
+/* ─── Card system ─── */
+.v2-card {
+  background: #fff;
+  border: 1px solid rgba(28, 20, 16, 0.06);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(53, 31, 22, 0.04);
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms ease;
+}
+
+.v2-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(53, 31, 22, 0.08);
+  border-color: rgba(28, 20, 16, 0.12);
+}
+
+.v2-card:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow: 0 1px 3px rgba(53, 31, 22, 0.04);
+}
+
+/* Cards inside the kanban shouldn't double-elevate on column hover */
+.v2-card-static {
+  background: #fff;
+  border: 1px solid rgba(28, 20, 16, 0.06);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(53, 31, 22, 0.04);
+}
+
+/* ─── Drag overlay card ─── */
+.v2-drag-overlay {
+  background: #fff;
+  border: 1px solid rgba(28, 20, 16, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(53, 31, 22, 0.15);
+  transform: scale(1.03) rotate(2deg);
+  cursor: grabbing;
+}
+
+/* ─── Drop zone highlight ─── */
+.v2-drop-active {
+  background: rgba(184, 144, 58, 0.04);
+  border-radius: 20px;
+  transition: background 150ms ease;
+}
+
+/* ─── Kanban board ─── */
+.v2-pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  min-height: 0;
+}
+
+@media (max-width: 1199px) {
+  .v2-pipeline-grid {
+    grid-template-columns: repeat(5, minmax(240px, 1fr));
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+  }
+
+  .v2-pipeline-grid > * {
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 767px) {
+  .v2-pipeline-grid {
+    grid-template-columns: 1fr;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+}
+
+/* ─── Custom scrollbar ─── */
+.demo-v2-root ::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.demo-v2-root ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.demo-v2-root ::-webkit-scrollbar-thumb {
+  background: rgba(11, 64, 66, 0.15);
+  border-radius: 4px;
+}
+
+.demo-v2-root ::-webkit-scrollbar-thumb:hover {
+  background: rgba(11, 64, 66, 0.3);
+}
+
+/* ─── Glassmorphic nav bar ─── */
+.v2-nav-glass {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(28, 20, 16, 0.06);
+}
+
+/* ─── Shell container ─── */
+.v2-shell {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(28, 20, 16, 0.06);
+}
+
+/* ─── Stat card accent border ─── */
+.v2-stat-accent {
+  border-left: 3px solid var(--accent-color, #0B4042);
+  border-radius: 16px;
+}
+
+/* ─── Stage column header dot ─── */
+.v2-stage-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─── Pulse animation for drop confirmation ─── */
+@keyframes v2-drop-pulse {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+}
+
+.v2-drop-pulse {
+  animation: v2-drop-pulse 600ms ease-out forwards;
+}
+
+/* ─── Toast slide-in ─── */
+@keyframes v2-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes v2-toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+}
+
+/* ─── Drawer slide animation (CSS-driven, avoids Framer x% issues) ─── */
+@keyframes v2-drawer-enter {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.v2-drawer-slide {
+  animation: v2-drawer-enter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─── Number counting shimmer (subtle) ─── */
+@keyframes v2-shimmer {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

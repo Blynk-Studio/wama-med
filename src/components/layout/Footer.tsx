@@ -107,8 +107,8 @@ export function Footer({
           </div>
         </div>
 
-        {/* Demo link */}
-        <div className="border-t border-cream/10 pt-6 pb-4 flex justify-center">
+        {/* Demo links */}
+        <div className="border-t border-cream/10 pt-6 pb-4 flex justify-center gap-3">
           <Link
             href="/demo"
             prefetch
@@ -116,6 +116,15 @@ export function Footer({
             className="inline-flex items-center gap-2 bg-brass/20 hover:bg-brass/30 text-brass-light text-sm font-semibold px-4 py-2.5 rounded-full transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3"
           >
             <span>{content.demoCtaLabel}</span>
+            <ArrowRight size={14} />
+          </Link>
+          <Link
+            href="/demo-v2"
+            prefetch
+            aria-label="Patient CRM Demo"
+            className="inline-flex items-center gap-2 bg-cream/10 hover:bg-cream/15 text-cream/80 text-sm font-semibold px-4 py-2.5 rounded-full transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3"
+          >
+            <span>Patient CRM</span>
             <ArrowRight size={14} />
           </Link>
         </div>
