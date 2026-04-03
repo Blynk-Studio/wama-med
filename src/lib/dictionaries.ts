@@ -276,7 +276,7 @@ const dictionaries = {
       },
       founderSection: {
         alt: "Driss Benwahoud, fondateur de Wama Med",
-        badge: "Fondateur & Directeur",
+        badge: "Fondateur",
         eyebrow: "La promesse",
         heading:
           "Construit pour rendre chaque parcours plus lisible, plus humain et mieux coordonné.",
@@ -393,7 +393,7 @@ const dictionaries = {
       founder: {
         alt: "Driss Benwahoud, fondateur et directeur de Wama Med",
         name: "Driss Benwahoud",
-        role: "Fondateur & Directeur — Wama Med",
+        role: "Fondateur",
         eyebrow: "Le fondateur",
         quote:
           "Une bonne coordination se mesure à la sérénité qu'elle crée autour du patient.",
@@ -996,7 +996,7 @@ const dictionaries = {
       },
       founderSection: {
         alt: "Driss Benwahoud, founder of Wama Med",
-        badge: "Founder & Director",
+        badge: "Founder",
         eyebrow: "The promise",
         heading:
           "Built to make every care journey clearer, more human, and better coordinated.",
@@ -1113,7 +1113,7 @@ const dictionaries = {
       founder: {
         alt: "Driss Benwahoud, founder and director of Wama Med",
         name: "Driss Benwahoud",
-        role: "Founder & Director — Wama Med",
+        role: "Founder",
         eyebrow: "The founder",
         quote:
           "Strong coordination is measured by the calm and clarity it creates around the patient.",
