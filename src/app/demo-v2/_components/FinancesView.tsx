@@ -130,7 +130,7 @@ export function FinancesView() {
           variants={listVariants}
           initial="hidden"
           animate="visible"
-          className="space-y-3"
+          className="space-y-4"
         >
           {invoices.map((inv, i) => {
             const statusColor = getInvoiceColor(inv.status);
@@ -138,7 +138,7 @@ export function FinancesView() {
               <motion.div
                 key={inv.id}
                 variants={i < 8 ? itemVariants : undefined}
-                className="v2-card-static p-4 flex items-center gap-4"
+                className="v2-card-static p-5 flex items-center gap-4"
               >
                 {/* Invoice info */}
                 <div className="flex-1 min-w-0">
@@ -146,17 +146,17 @@ export function FinancesView() {
                     <span className="text-[15px] font-semibold text-ink truncate">
                       {inv.patientName}
                     </span>
-                    <span className="text-xs text-ink-soft/40 font-medium">
+                    <span className="text-xs text-ink-soft/60 font-medium">
                       {inv.id}
                     </span>
                   </div>
-                  <p className="text-[13px] text-ink-soft/60 truncate">
+                  <p className="text-sm text-ink-soft/70 truncate">
                     {inv.description}
                   </p>
                 </div>
 
                 {/* Date */}
-                <span className="text-xs text-ink-soft/40 font-medium hidden sm:block whitespace-nowrap">
+                <span className="text-xs text-ink-soft/60 font-medium hidden sm:block whitespace-nowrap">
                   {inv.date}
                 </span>
 

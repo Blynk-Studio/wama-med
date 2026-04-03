@@ -41,7 +41,7 @@ export function NavBar() {
                   "relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-150",
                   isActive
                     ? "text-teal"
-                    : "text-ink-soft/60 hover:text-ink-soft hover:bg-stone/40",
+                    : "text-ink-soft/80 hover:text-ink hover:bg-stone/40",
                 )}
               >
                 <Icon className="w-4 h-4" strokeWidth={isActive ? 2 : 1.5} />
@@ -66,7 +66,7 @@ export function NavBar() {
 
         {/* Right side — minimal */}
         <div className="ml-auto flex items-center gap-3">
-          <div className="text-xs text-ink-soft/50 font-medium hidden md:block">
+          <div className="text-xs text-ink-soft/70 font-medium hidden md:block">
             Demo Mode
           </div>
           <div className="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center">

@@ -193,7 +193,7 @@ function StageColumn({
     <div
       ref={setNodeRef}
       className={cn(
-        "flex flex-col min-h-[200px] rounded-[20px] p-2 transition-colors duration-150",
+        "flex flex-col min-h-[200px] rounded-[20px] p-3 transition-colors duration-150",
         isOverTarget && "v2-drop-active",
       )}
     >
@@ -221,7 +221,7 @@ function StageColumn({
           variants={listVariants}
           initial="hidden"
           animate="visible"
-          className="flex flex-col gap-3 flex-1"
+          className="flex flex-col gap-4 flex-1"
         >
           {patients.map((patient, i) => (
             <motion.div

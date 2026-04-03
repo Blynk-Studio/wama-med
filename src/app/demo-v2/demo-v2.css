@@ -58,7 +58,7 @@
 .v2-pipeline-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  gap: 16px;
   min-height: 0;
 }
 

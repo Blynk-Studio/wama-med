@@ -79,7 +79,7 @@ function ToastBubble({
       <span className="text-sm font-medium text-ink">{toast.message}</span>
       <button
         onClick={() => onDismiss(toast.id)}
-        className="ml-1 text-ink-soft/30 hover:text-ink-soft/60 transition-colors"
+        className="ml-1 w-7 h-7 flex items-center justify-center rounded-lg text-ink-soft/50 hover:text-ink-soft/80 hover:bg-stone/30 transition-colors flex-shrink-0"
       >
         <X className="w-3.5 h-3.5" />
       </button>

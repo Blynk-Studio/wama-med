@@ -56,11 +56,11 @@ export function StatCard({
       style={{ "--accent-color": accent } as React.CSSProperties}
     >
       <div className="flex items-start justify-between mb-3">
-        <span className="text-xs font-medium text-ink-soft/60 uppercase tracking-wide">
+        <span className="text-xs font-medium text-ink-soft/75 uppercase tracking-wide">
           {label}
         </span>
         {icon && (
-          <span className="text-ink-soft/30">{icon}</span>
+          <span className="text-ink-soft/50">{icon}</span>
         )}
       </div>
       <div className={cn("text-2xl font-bold text-ink tracking-tight")}>

@@ -92,23 +92,23 @@ export function PartnersView() {
                   <h3 className="text-[15px] font-semibold text-ink truncate">
                     {partner.name}
                   </h3>
-                  <span className="text-xs text-ink-soft/50 font-medium">
+                  <span className="text-xs text-ink-soft/70 font-medium">
                     {typeConfig.label}
                   </span>
                 </div>
               </div>
 
               {/* Details */}
-              <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-2 text-[13px] text-ink-soft/60">
+              <div className="space-y-2.5 mb-4">
+                <div className="flex items-center gap-2 text-sm text-ink-soft/70">
                   <MapPin className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={1.5} />
                   <span>{partner.city}</span>
                 </div>
-                <div className="flex items-center gap-2 text-[13px] text-ink-soft/60">
+                <div className="flex items-center gap-2 text-sm text-ink-soft/70">
                   <Phone className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={1.5} />
                   <span>{partner.contact}</span>
                 </div>
-                <div className="flex items-center gap-2 text-[13px] text-ink-soft/60">
+                <div className="flex items-center gap-2 text-sm text-ink-soft/70">
                   <Briefcase className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={1.5} />
                   <span>
                     {partner.activeCases} active case

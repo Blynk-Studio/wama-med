@@ -67,24 +67,24 @@ export function PatientCard({ patient, justMoved }: PatientCardProps) {
       {/* Clickable card body */}
       <div
         className={cn(
-          "v2-card p-4 cursor-pointer select-none",
+          "v2-card p-5 cursor-pointer select-none",
           isDragging && "shadow-none",
         )}
         onClick={() => openPatient(patient.id)}
       >
         {/* Drag handle — top-right grip, only visible on hover */}
         <div
-          className="absolute top-2.5 right-2.5 w-6 h-6 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-grab active:cursor-grabbing text-ink-soft/30 hover:text-ink-soft/50 hover:bg-stone/50 z-10"
+          className="absolute top-3 right-3 w-8 h-8 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-grab active:cursor-grabbing text-ink-soft/50 hover:text-ink-soft/70 hover:bg-stone/50 z-10"
           {...(mounted ? attributes : {})}
           {...(mounted ? listeners : {})}
           onClick={(e) => e.stopPropagation()}
         >
-          <GripVertical className="w-3.5 h-3.5" strokeWidth={1.5} />
+          <GripVertical className="w-4 h-4" strokeWidth={1.5} />
         </div>
 
         {/* Header: name + flag */}
-        <div className="flex items-start justify-between mb-2.5">
-          <div className="flex items-center gap-2 min-w-0 pr-6">
+        <div className="flex items-start justify-between mb-3">
+          <div className="flex items-center gap-2.5 min-w-0 pr-8">
             <span className="text-base leading-none">{patient.countryFlag}</span>
             <h4 className="text-[15px] font-semibold text-ink truncate">
               {patient.name}
@@ -93,12 +93,12 @@ export function PatientCard({ patient, justMoved }: PatientCardProps) {
         </div>
 
         {/* Summary */}
-        <p className="text-[13px] text-ink-soft/70 leading-relaxed mb-3 line-clamp-2">
+        <p className="text-sm text-ink-soft/80 leading-relaxed mb-3 line-clamp-2">
           {patient.summary}
         </p>
 
         {/* Meta row */}
-        <div className="flex items-center gap-3 text-xs text-ink-soft/50">
+        <div className="flex items-center gap-3 text-xs text-ink-soft/70">
           <span className="flex items-center gap-1">
             <Calendar className="w-3 h-3" strokeWidth={1.5} />
             {patient.nextDate}
@@ -110,8 +110,8 @@ export function PatientCard({ patient, justMoved }: PatientCardProps) {
         </div>
 
         {/* Value */}
-        <div className="mt-3 pt-3 border-t border-[rgba(28,20,16,0.05)] flex items-center justify-between">
-          <span className="text-xs font-semibold text-ink-soft/50">
+        <div className="mt-3.5 pt-3.5 border-t border-[rgba(28,20,16,0.06)] flex items-center justify-between">
+          <span className="text-xs font-semibold text-ink-soft/70">
             {formatMoney(patient.valueMad)}
           </span>
           <Badge
@@ -135,19 +135,19 @@ export function PatientCardOverlay({ patient }: { patient: Patient }) {
   const stageMeta = STAGE_META[currentStage];
 
   return (
-    <div className="v2-drag-overlay p-4 w-full max-w-[280px]">
-      <div className="flex items-start justify-between mb-2.5">
-        <div className="flex items-center gap-2 min-w-0">
+    <div className="v2-drag-overlay p-5 w-full max-w-[280px]">
+      <div className="flex items-start justify-between mb-3">
+        <div className="flex items-center gap-2.5 min-w-0">
           <span className="text-base leading-none">{patient.countryFlag}</span>
           <h4 className="text-[15px] font-semibold text-ink truncate">
             {patient.name}
           </h4>
         </div>
       </div>
-      <p className="text-[13px] text-ink-soft/70 leading-relaxed mb-3 line-clamp-2">
+      <p className="text-sm text-ink-soft/80 leading-relaxed mb-3 line-clamp-2">
         {patient.summary}
       </p>
-      <div className="flex items-center gap-3 text-xs text-ink-soft/50">
+      <div className="flex items-center gap-3 text-xs text-ink-soft/70">
         <span className="flex items-center gap-1">
           <Calendar className="w-3 h-3" strokeWidth={1.5} />
           {patient.nextDate}
@@ -157,8 +157,8 @@ export function PatientCardOverlay({ patient }: { patient: Patient }) {
           {patient.assignedTo}
         </span>
       </div>
-      <div className="mt-3 pt-3 border-t border-[rgba(28,20,16,0.05)] flex items-center justify-between">
-        <span className="text-xs font-semibold text-ink-soft/50">
+      <div className="mt-3.5 pt-3.5 border-t border-[rgba(28,20,16,0.06)] flex items-center justify-between">
+        <span className="text-xs font-semibold text-ink-soft/70">
           {formatMoney(patient.valueMad)}
         </span>
         <Badge
