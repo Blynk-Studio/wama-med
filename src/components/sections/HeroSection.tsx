@@ -89,7 +89,7 @@ export function HeroSection() {
           position: 'absolute',
           inset: 0,
           background:
-            'linear-gradient(90deg, rgba(250,250,248,0.98) 0%, rgba(250,250,248,0.94) 28%, rgba(250,250,248,0.72) 46%, rgba(250,250,248,0.22) 66%, rgba(23,59,99,0.10) 100%), linear-gradient(180deg, rgba(250,250,248,0.08) 0%, rgba(23,59,99,0.10) 100%)',
+            'linear-gradient(90deg, rgba(250,250,248,1) 0%, rgba(250,250,248,0.985) 18%, rgba(250,250,248,0.94) 32%, rgba(250,250,248,0.82) 44%, rgba(250,250,248,0.62) 56%, rgba(250,250,248,0.36) 68%, rgba(250,250,248,0.14) 80%, rgba(23,59,99,0.06) 100%), linear-gradient(180deg, rgba(250,250,248,0.08) 0%, rgba(23,59,99,0.10) 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -99,7 +99,7 @@ export function HeroSection() {
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(circle at 22% 26%, rgba(255,255,255,0.56) 0%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0) 44%), radial-gradient(circle at 74% 58%, rgba(184,144,58,0.24) 0%, rgba(184,144,58,0.10) 18%, rgba(184,144,58,0) 42%)',
+            'radial-gradient(circle at 34% 48%, rgba(250,250,248,0.48) 0%, rgba(250,250,248,0.26) 18%, rgba(250,250,248,0.08) 34%, rgba(250,250,248,0) 54%), radial-gradient(circle at 22% 26%, rgba(255,255,255,0.56) 0%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0) 44%), radial-gradient(circle at 74% 58%, rgba(184,144,58,0.24) 0%, rgba(184,144,58,0.10) 18%, rgba(184,144,58,0) 42%)',
           mixBlendMode: 'screen',
           pointerEvents: 'none',
         }}
@@ -133,11 +133,11 @@ export function HeroSection() {
           ref={headlineRef}
           className="hero-display type-display-tight"
           style={{
-            fontSize: 'clamp(1.8rem, 8.2vw, 5rem)',
+            fontSize: 'clamp(1.85rem, 4.95vw, 4.35rem)',
             fontWeight: 500,
             color: '#1C1410',
-            lineHeight: 0.9,
-            maxWidth: '7.2ch',
+            lineHeight: 1.01,
+            maxWidth: '12ch',
             marginBottom: '28px',
           }}
         >

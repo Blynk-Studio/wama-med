@@ -24,10 +24,10 @@ export function PublicPageHero({
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute inset-y-0 right-0 w-[45vw] min-w-[280px]"
+          className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(135deg, rgba(23,59,99,0.08) 0%, rgba(23,59,99,0.03) 34%, rgba(212,168,74,0.08) 100%)",
+              "linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.08) 32%, rgba(255,255,255,0.02) 54%, rgba(23,59,99,0.02) 100%), radial-gradient(circle at 78% 46%, rgba(23,59,99,0.11) 0%, rgba(23,59,99,0.06) 14%, rgba(23,59,99,0) 42%), radial-gradient(circle at 22% 18%, rgba(212,168,74,0.08) 0%, rgba(212,168,74,0) 26%)",
           }}
         />
         <div
@@ -35,8 +35,8 @@ export function PublicPageHero({
           style={{ background: "rgba(212,168,74,0.14)" }}
         />
         <div
-          className="absolute bottom-0 right-[18%] h-56 w-56 rounded-full blur-3xl"
-          style={{ background: "rgba(23,59,99,0.09)" }}
+          className="absolute top-[24%] right-[16%] h-72 w-72 rounded-full blur-3xl"
+          style={{ background: "rgba(23,59,99,0.08)" }}
         />
       </div>
 
