@@ -44,8 +44,8 @@ export function ContactSection() {
     border: 'none',
     borderBottom: '1px solid rgba(11,64,66,0.2)',
     color: '#1C1410',
-    fontFamily: "'Cormorant Garamond', Georgia, serif",
-    fontSize: '18px',
+    fontFamily: 'var(--font-body)',
+    fontSize: '16px',
     padding: '10px 0',
     width: '100%',
     outline: 'none',
@@ -53,7 +53,7 @@ export function ContactSection() {
   } as React.CSSProperties;
 
   const labelStyle = {
-    fontFamily: 'Inter, DM Sans, sans-serif',
+    fontFamily: 'var(--font-body)',
     fontSize: '12px',
     letterSpacing: '0.18em',
     textTransform: 'uppercase' as const,
@@ -80,7 +80,7 @@ export function ContactSection() {
         {/* Headings */}
         <div style={{ marginBottom: '48px' }}>
           <p style={{
-            fontFamily: 'Inter, DM Sans, sans-serif',
+            fontFamily: 'var(--font-body)',
             fontSize: '12px',
             letterSpacing: '0.18em',
             color: '#0B4042',
@@ -92,9 +92,9 @@ export function ContactSection() {
           <h2
             id="contact-heading"
             style={{
-              fontFamily: "'Cormorant Garamond', Georgia, serif",
+              fontFamily: 'var(--font-display)',
               fontSize: 'clamp(2.2rem, 5vw, 3.6rem)',
-              fontWeight: 300,
+              fontWeight: 500,
               color: '#1C1410',
               lineHeight: 1.1,
               marginBottom: '8px',
@@ -104,7 +104,7 @@ export function ContactSection() {
           </h2>
           <p
             style={{
-              fontFamily: 'Inter, DM Sans, sans-serif',
+              fontFamily: 'var(--font-body)',
               fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
               color: 'rgba(11,64,66,0.72)',
               lineHeight: 1.7,
@@ -127,14 +127,16 @@ export function ContactSection() {
           >
             <div style={{ color: '#0B4042', fontSize: '32px', marginBottom: '16px' }}>✓</div>
             <p style={{
-              fontFamily: "'Cormorant Garamond', serif",
+              fontFamily: 'var(--font-display)',
               fontSize: '24px',
               color: '#1C1410',
               marginBottom: '8px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.08em',
             }}>
               {content.successTitle}
             </p>
-            <p style={{ fontFamily: 'Inter', fontSize: '14px', color: 'rgba(28,20,16,0.6)' }}>
+            <p style={{ fontFamily: 'var(--font-body)', fontSize: '14px', color: 'rgba(28,20,16,0.6)' }}>
               {content.successDescription}
             </p>
           </div>
@@ -213,8 +215,8 @@ export function ContactSection() {
                   padding: '14px 0',
                   borderBottom: '1px dashed rgba(11,64,66,0.2)',
                   color: 'rgba(28,20,16,0.4)',
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                  fontSize: '16px',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '15px',
                   cursor: 'pointer',
                   transition: 'border-bottom-color 0.2s ease, color 0.2s ease',
                 }}
@@ -237,7 +239,7 @@ export function ContactSection() {
               {files.length > 0 && (
                 <ul style={{ marginTop: '8px' }}>
                   {files.map((f, i) => (
-                    <li key={i} style={{ fontFamily: 'Inter', fontSize: '12px', color: 'rgba(28,20,16,0.45)', padding: '2px 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <li key={i} style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'rgba(28,20,16,0.45)', padding: '2px 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(11,64,66,0.4)', flexShrink: 0 }} />
                       {f.name}
                     </li>
@@ -247,7 +249,7 @@ export function ContactSection() {
             </div>
 
             {state === 'error' && (
-              <p style={{ fontFamily: 'Inter', fontSize: '13px', color: '#e57373', marginBottom: '20px' }}>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '13px', color: '#e57373', marginBottom: '20px' }}>
                 {content.error}
               </p>
             )}
@@ -260,11 +262,9 @@ export function ContactSection() {
                 padding: '18px',
                 background: '#0B4042',
                 color: '#FAFAF8',
-                fontFamily: 'Inter, DM Sans, sans-serif',
-                fontSize: '12px',
-                letterSpacing: '0.18em',
-                textTransform: 'uppercase',
-                fontWeight: 700,
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.95rem',
+                fontWeight: 600,
                 border: 'none',
                 borderRadius: '9999px',
                 cursor: state === 'sending' ? 'wait' : 'pointer',
@@ -278,7 +278,7 @@ export function ContactSection() {
             </button>
 
             <p style={{
-              fontFamily: 'Inter',
+              fontFamily: 'var(--font-body)',
               fontSize: '12px',
               color: 'rgba(28,20,16,0.35)',
               textAlign: 'center',

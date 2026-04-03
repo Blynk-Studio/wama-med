@@ -25,7 +25,7 @@ export function ServicesOverview() {
       };
     }
     // Desktop only: wait for AnimationProvider init before creating ScrollTriggers.
-    waitForGsap().then(({ gsap, ScrollTrigger }) => {
+    waitForGsap().then(({ gsap }) => {
       if (cancelled) return;
       cardRefs.current.forEach((el, i) => {
         if (!el) return;
@@ -73,7 +73,7 @@ export function ServicesOverview() {
         >
           <p
             style={{
-              fontFamily: 'Inter, DM Sans, sans-serif',
+              fontFamily: 'var(--font-body)',
               fontSize: '12px',
               letterSpacing: '0.18em',
               color: '#0B4042',
@@ -86,9 +86,9 @@ export function ServicesOverview() {
             <h2
               id="services-heading"
               style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
-                fontWeight: 300,
+                fontWeight: 500,
                 color: '#1C1410',
                 lineHeight: 1.1,
               }}
@@ -121,12 +121,10 @@ export function ServicesOverview() {
           <Link
             href={localizePath(locale, "/services")}
             style={{
-              fontFamily: 'Inter, DM Sans, sans-serif',
-              fontSize: '12px',
-              letterSpacing: '0.2em',
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.95rem',
               color: '#0B4042',
               textDecoration: 'none',
-              textTransform: 'uppercase',
               borderBottom: '1px solid rgba(11,64,66,0.3)',
               paddingBottom: '3px',
             }}
@@ -171,9 +169,9 @@ const ServiceCard = forwardRef<HTMLDivElement, { svc: { title: string; desc: str
       >
         <h3
           style={{
-            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontFamily: 'var(--font-display)',
             fontSize: 'clamp(1.2rem, 2vw, 1.55rem)',
-            fontWeight: 400,
+            fontWeight: 500,
             color: '#1C1410',
             lineHeight: 1.3,
             marginBottom: '12px',
@@ -188,7 +186,7 @@ const ServiceCard = forwardRef<HTMLDivElement, { svc: { title: string; desc: str
         {/* Description */}
         <p
           style={{
-            fontFamily: 'Inter, DM Sans, sans-serif',
+            fontFamily: 'var(--font-body)',
             fontSize: '14px',
             color: 'rgba(28,20,16,0.6)',
             lineHeight: 1.75,

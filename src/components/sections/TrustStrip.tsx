@@ -38,12 +38,14 @@ export function TrustStrip({
           >
             <p
               style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
-                fontWeight: 600,
+                fontWeight: 500,
                 color: '#0B4042',
                 lineHeight: 1.3,
                 marginBottom: '0',
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
               }}
             >
               {pillar.label}

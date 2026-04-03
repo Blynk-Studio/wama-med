@@ -41,7 +41,7 @@ export function AudienceSection() {
             id="audience-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
-            Vous n'êtes pas seuls
+            Vous n&apos;êtes pas seuls
             <br />
             <span style={{ color: "var(--color-teal)" }}>face au système.</span>
           </h2>

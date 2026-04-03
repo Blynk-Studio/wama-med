@@ -62,7 +62,7 @@ function AIWidgetPanel({
       // Fallback
     }
     return null;
-  }, [chatId]);
+  }, [assistant.greeting, chatId]);
 
   const sendMessage = useCallback(async () => {
     if (!input.trim() || isSending) return;
@@ -109,7 +109,7 @@ function AIWidgetPanel({
       ]);
     }
     setIsSending(false);
-  }, [assistant.responseError, assistant.sendError, ensureChatSession, input, isSending, locale]);
+  }, [assistant.responseError, assistant.sendError, assistant.unavailable, ensureChatSession, input, isSending, locale]);
 
   const startVoiceCall = useCallback(async () => {
     setVoiceState("connecting");

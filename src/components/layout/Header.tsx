@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { useLocaleDictionary } from "@/components/ui/LocaleProvider";
 import { localizePath, swapLocaleInPathname } from "@/lib/i18n";
@@ -15,10 +15,21 @@ export function Header() {
   const { locale, dictionary } = useLocaleDictionary();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [disableHeaderBlur, setDisableHeaderBlur] = useState(false);
   const nextLocale = locale === "fr" ? "en" : "fr";
   const languageSwitchHref = swapLocaleInPathname(pathname, nextLocale);
   const navLinks = dictionary.header.nav;
+  const disableHeaderBlur = useMemo(() => {
+    if (typeof navigator === "undefined") return false;
+
+    const ua = navigator.userAgent;
+    const platform = navigator.platform;
+    const isWindows = /Win/i.test(platform);
+    const isChromium =
+      /\bChrome\/|\bEdg\/|\bOPR\/|\bBrave\//.test(ua) &&
+      !/\bFirefox\//.test(ua);
+
+    return isWindows && isChromium;
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -33,17 +44,6 @@ export function Header() {
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [menuOpen]);
-
-  useEffect(() => {
-    const ua = navigator.userAgent;
-    const platform = navigator.platform;
-    const isWindows = /Win/i.test(platform);
-    const isChromium =
-      /\bChrome\/|\bEdg\/|\bOPR\/|\bBrave\//.test(ua) &&
-      !/\bFirefox\//.test(ua);
-
-    setDisableHeaderBlur(isWindows && isChromium);
-  }, []);
 
   const headerIsDark = scrolled;
   const headerBackground = headerIsDark ? "bg-teal/95" : "bg-white/80";
@@ -211,7 +211,7 @@ export function Header() {
               onClick={() => setMenuOpen(false)}
               className="text-cream text-2xl font-medium border-b border-cream/10 pb-4 hover:text-brass transition-all duration-200"
               style={{
-                fontFamily: "var(--font-fraunces)",
+                fontFamily: "var(--font-body)",
                 opacity: menuOpen ? 1 : 0,
                 transform: menuOpen ? "translateY(0)" : "translateY(-6px)",
                 transitionDelay: menuOpen ? `${60 + i * 55}ms` : "0ms",

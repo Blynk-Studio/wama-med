@@ -32,13 +32,25 @@ html, body {
   --color-error: #c62828; /* WCAG-compliant error red on light backgrounds */
 
   /* Fonts */
-  --font-fraunces: var(--font-fraunces-var), Georgia, serif;
-  --font-sans: var(--font-dm-sans-var), system-ui, sans-serif;
-  --font-crimson: var(--font-crimson-var), Georgia, serif;
+  --font-display: var(--font-display-var), Georgia, serif;
+  --font-body: var(--font-body-var), system-ui, sans-serif;
+  --font-fraunces: var(--font-display);
+  --font-cormorant: var(--font-display);
+  --font-sans: var(--font-body);
+  --font-crimson: var(--font-body);
 
   /* Letter-spacing */
   --letter-spacing-eyebrow: 0.2em;
   --letter-spacing-ultra: 0.35em;
+}
+
+:root {
+  --font-display: var(--font-display-var), Georgia, serif;
+  --font-body: var(--font-body-var), system-ui, sans-serif;
+  --font-fraunces: var(--font-display);
+  --font-cormorant: var(--font-display);
+  --font-sans: var(--font-body);
+  --font-crimson: var(--font-body);
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -54,18 +66,45 @@ html {
 body {
   background-color: var(--color-cream);
   color: var(--color-ink);
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: 1rem;   /* 16px base — never scale below this */
   line-height: 1.65; /* DM Sans needs slightly open leading */
 }
 
-/* Fraunces optical sizing — maps opsz axis to computed font-size.
-   Large headings get aged, handcrafted letterforms; small sizes
-   get more legible proportions. This is the key design direction
-   difference that no template can replicate. */
-[class~="font-fraunces"],
-[style*="font-fraunces"] {
-  font-optical-sizing: auto;
+/* Public marketing typography */
+.public-site :is(h1, h2, h3, h4, .type-display) {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-wrap: balance;
+}
+
+.public-site .type-display-tight {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 640px) {
+  .public-site .hero-display {
+    font-size: 1.45rem !important;
+    max-width: 6.6ch !important;
+    line-height: 0.88 !important;
+  }
+}
+
+.public-site .type-body {
+  font-family: var(--font-body);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.public-site .eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -110,7 +149,7 @@ html.lenis, html.lenis body { height: auto; }
    Eyebrow Labels — 0.75rem (12px) minimum for WCAG legibility
    ───────────────────────────────────────────────────────── */
 .eyebrow {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: 0.75rem;   /* raised from 0.6875rem (11px) → 12px */
   font-weight: 500;
   letter-spacing: 0.18em;
@@ -121,12 +160,12 @@ html.lenis, html.lenis body { height: auto; }
    Oversized Background Type (DESIGN_STANDARDS.md)
    ───────────────────────────────────────────────────────── */
 .type-texture {
-  font-family: var(--font-fraunces);
-  font-optical-sizing: auto;
+  font-family: var(--font-display);
   font-size: clamp(80px, 15vw, 200px);
-  font-weight: 900;
+  font-weight: 600;
   line-height: 0.85;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   user-select: none;
   pointer-events: none;
 }
@@ -251,7 +290,7 @@ html.lenis, html.lenis body { height: auto; }
 
 /* Cormorant display utility */
 .font-cormorant {
-  font-family: var(--font-cormorant-var), Georgia, serif;
+  font-family: var(--font-display);
 }
 /* ─── Keyframes ── */
 @keyframes scrollPulse {

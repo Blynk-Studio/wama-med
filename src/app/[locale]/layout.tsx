@@ -88,7 +88,7 @@ export default async function LocaleLayout({
             {dictionary.skipToContent}
           </a>
           <Header />
-          <main id="main-content" className="flex-1">{children}</main>
+          <main id="main-content" className="public-site flex-1">{children}</main>
           <Footer locale={locale} content={dictionary.footer} />
           <LazyAIWidget />
         </AnimationProvider>
