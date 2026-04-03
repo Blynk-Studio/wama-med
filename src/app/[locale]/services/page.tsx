@@ -67,8 +67,8 @@ export default async function ServicesPage({
                   {service.number}
                 </p>
                 <h3
-                  className="text-xl font-black mb-3 leading-tight"
-                  style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
+                  className="text-lg font-semibold mb-3 leading-tight"
+                  style={{ fontFamily: "var(--font-body)", color: "#1C1410" }}
                 >
                   {service.title}
                 </h3>

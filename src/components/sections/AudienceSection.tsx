@@ -69,8 +69,8 @@ export function AudienceSection() {
               {/* Text */}
               <div className="p-6">
                 <h3
-                  className="text-ink font-black text-xl mb-2.5"
-                  style={{ fontFamily: "var(--font-fraunces)" }}
+                  className="text-ink text-lg font-semibold mb-2.5"
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   {a.title}
                 </h3>

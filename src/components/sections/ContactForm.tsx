@@ -65,8 +65,8 @@ export function ContactForm() {
           </svg>
         </div>
         <p
-          className="text-ink text-xl font-bold mb-2"
-          style={{ fontFamily: "var(--font-fraunces)" }}
+          className="text-ink text-lg font-semibold mb-2"
+          style={{ fontFamily: "var(--font-body)" }}
         >
           {content.successTitle}
         </p>

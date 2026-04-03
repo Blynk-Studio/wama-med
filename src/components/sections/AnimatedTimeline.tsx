@@ -160,8 +160,8 @@ export function AnimatedTimeline({ steps }: { steps: readonly TimelineStep[] }) 
                   </span>
 
                   <h3
-                    className={`text-xl sm:text-2xl font-black mb-3 leading-tight ${isEven ? "sm:text-right" : ""}`}
-                    style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
+                    className={`text-lg sm:text-xl font-semibold mb-3 leading-tight ${isEven ? "sm:text-right" : ""}`}
+                    style={{ fontFamily: "var(--font-body)", color: "#1C1410" }}
                   >
                     {step.title}
                   </h3>
@@ -189,7 +189,7 @@ export function AnimatedTimeline({ steps }: { steps: readonly TimelineStep[] }) 
                   <blockquote
                     className={`rounded-lg p-4 text-sm italic leading-relaxed border border-brass/10 ${isEven ? "sm:text-right" : ""}`}
                     style={{
-                      fontFamily: "var(--font-crimson)",
+                      fontFamily: "var(--font-body)",
                       color: "rgba(28,20,16,0.5)",
                       background: "rgba(23,59,99,0.05)",
                     }}

@@ -10,6 +10,10 @@ export function HeroSection() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const { locale, dictionary } = useLocaleDictionary();
   const content = dictionary.home.hero;
+  const headlineLines =
+    locale === 'fr'
+      ? ['Une coordination', 'médicale pensée', 'pour avancer', 'avec confiance']
+      : ['Medical coordination', 'designed to move', 'forward with confidence'];
 
   useEffect(() => {
     // Only split + animate the headline — word-level for natural wrapping.
@@ -23,14 +27,25 @@ export function HeroSection() {
       if (!headline) return;
 
       const raw = headline.textContent || '';
-      headline.innerHTML = raw
-        .split(' ')
-        .map(word =>
-          `<span style="display:inline-block;will-change:transform;white-space:nowrap;opacity:0">${word}</span>`
-        )
-        .join(' ');
+      const lines = raw
+        .split(/\n+/)
+        .map(line => line.trim())
+        .filter(Boolean);
 
-      const words = Array.from(headline.querySelectorAll('span'));
+      headline.innerHTML = lines
+        .map(
+          line =>
+            `<span style="display:block">${line
+              .split(' ')
+              .map(
+                word =>
+                  `<span data-word style="display:inline-block;will-change:transform;white-space:nowrap;opacity:0">${word}</span>`
+              )
+              .join(' ')}</span>`
+        )
+        .join('');
+
+      const words = Array.from(headline.querySelectorAll<HTMLElement>('[data-word]'));
 
       gsap.fromTo(
         words,
@@ -72,16 +87,61 @@ export function HeroSection() {
       className="relative flex min-h-screen items-center overflow-hidden bg-cream"
       aria-label={content.ariaLabel}
     >
-      <Image
-        src="/images/wama-hero-airport.jpeg"
-        alt=""
-        aria-hidden="true"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-        style={{ objectPosition: '68% center' }}
-      />
+      <div className="absolute inset-0 hidden md:block" aria-hidden="true">
+        <div
+          style={{
+            position: 'absolute',
+            inset: '0 0 0 auto',
+            width: 'min(76vw, 1160px)',
+            minWidth: '820px',
+          }}
+        >
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              height: '100%',
+              WebkitMaskImage:
+                'linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.08) 6%, rgba(0,0,0,0.28) 12%, rgba(0,0,0,0.62) 20%, rgba(0,0,0,0.88) 30%, rgba(0,0,0,1) 42%, rgba(0,0,0,1) 100%)',
+              maskImage:
+                'linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.08) 6%, rgba(0,0,0,0.28) 12%, rgba(0,0,0,0.62) 20%, rgba(0,0,0,0.88) 30%, rgba(0,0,0,1) 42%, rgba(0,0,0,1) 100%)',
+              WebkitMaskRepeat: 'no-repeat',
+              maskRepeat: 'no-repeat',
+            }}
+          >
+            <Image
+              src="/images/wama-hero-airport.jpeg"
+              alt=""
+              aria-hidden="true"
+              fill
+              priority
+              sizes="76vw"
+              className="object-cover"
+              style={{ objectPosition: '86% center' }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                inset: 0,
+                background:
+                  'linear-gradient(180deg, rgba(250,250,248,0.03) 0%, rgba(23,59,99,0.05) 100%)',
+              }}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute inset-0 md:hidden" aria-hidden="true">
+        <Image
+          src="/images/wama-hero-airport.jpeg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          style={{ objectPosition: '76% center' }}
+        />
+      </div>
 
       <div
         aria-hidden="true"
@@ -89,7 +149,7 @@ export function HeroSection() {
           position: 'absolute',
           inset: 0,
           background:
-            'linear-gradient(90deg, rgba(250,250,248,1) 0%, rgba(250,250,248,0.985) 18%, rgba(250,250,248,0.94) 32%, rgba(250,250,248,0.82) 44%, rgba(250,250,248,0.62) 56%, rgba(250,250,248,0.36) 68%, rgba(250,250,248,0.14) 80%, rgba(23,59,99,0.06) 100%), linear-gradient(180deg, rgba(250,250,248,0.08) 0%, rgba(23,59,99,0.10) 100%)',
+            'linear-gradient(180deg, rgba(250,250,248,0.04) 0%, rgba(23,59,99,0.08) 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -133,15 +193,16 @@ export function HeroSection() {
           ref={headlineRef}
           className="hero-display type-display-tight"
           style={{
-            fontSize: 'clamp(1.85rem, 4.95vw, 4.35rem)',
+            whiteSpace: 'pre-line',
+            fontSize: 'clamp(2rem, 4.15vw, 4rem)',
             fontWeight: 500,
             color: '#1C1410',
-            lineHeight: 1.01,
-            maxWidth: '12ch',
+            lineHeight: 1.04,
+            maxWidth: '15ch',
             marginBottom: '28px',
           }}
         >
-          {content.headline}
+          {headlineLines.join('\n')}
         </h1>
 
         {/* Supporting line — CSS animation */}

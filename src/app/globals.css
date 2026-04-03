@@ -80,17 +80,18 @@ body {
 }
 
 .public-site :is(h3, h4) {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   text-transform: none;
-  letter-spacing: 0.02em;
-  line-height: 1.08;
+  letter-spacing: 0;
+  line-height: 1.2;
+  font-weight: 600;
   text-wrap: balance;
 }
 
 .public-site .type-display-tight {
   font-family: var(--font-display);
   text-transform: uppercase;
-  letter-spacing: 0.025em;
+  letter-spacing: 0.012em;
 }
 
 .public-site .page-hero-title {
@@ -110,10 +111,10 @@ body {
 
 @media (max-width: 640px) {
   .public-site .hero-display {
-    font-size: 1.42rem !important;
-    max-width: 7.8ch !important;
-    line-height: 0.94 !important;
-    letter-spacing: 0.02em !important;
+    font-size: 1.32rem !important;
+    max-width: 10.5ch !important;
+    line-height: 0.98 !important;
+    letter-spacing: 0.015em !important;
   }
 
   .public-site .page-hero-title {

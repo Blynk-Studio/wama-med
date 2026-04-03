@@ -48,8 +48,8 @@ export function FaqAccordion({ items }: { items: readonly FaqItem[] }) {
               aria-expanded={isOpen}
             >
               <span
-                className="font-bold text-base pr-4"
-                style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
+                className="text-base font-semibold pr-4"
+                style={{ fontFamily: "var(--font-body)", color: "#1C1410" }}
               >
                 {faq.q}
               </span>

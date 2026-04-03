@@ -151,7 +151,7 @@ function AIWidgetPanel({
         <div>
           <p
             className="text-cream text-sm font-bold"
-            style={{ fontFamily: "var(--font-fraunces)" }}
+            style={{ fontFamily: "var(--font-body)" }}
           >
             {assistant.headerTitle}
           </p>
@@ -281,8 +281,8 @@ function AIWidgetPanel({
           </div>
           <div className="text-center">
             <p
-              className="text-ink font-bold mb-1"
-              style={{ fontFamily: "var(--font-fraunces)" }}
+              className="text-ink font-semibold mb-1"
+              style={{ fontFamily: "var(--font-body)" }}
             >
               {voiceState === "idle" && assistant.voice.idleTitle}
               {voiceState === "connecting" && assistant.voice.connectingTitle}

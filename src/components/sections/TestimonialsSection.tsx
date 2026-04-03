@@ -47,15 +47,15 @@ export function TestimonialsSection({
               </div>
 
               <h3
-                className="text-cream text-xl font-bold mb-3"
-                style={{ fontFamily: "var(--font-fraunces)", lineHeight: 1.2 }}
+                className="text-cream text-lg font-semibold mb-3"
+                style={{ fontFamily: "var(--font-body)", lineHeight: 1.35 }}
               >
                 {p.title}
               </h3>
 
               <p
                 className="text-cream/75 text-[15px] leading-relaxed"
-                style={{ fontFamily: "var(--font-crimson)" }}
+                style={{ fontFamily: "var(--font-body)" }}
               >
                 {p.desc}
               </p>

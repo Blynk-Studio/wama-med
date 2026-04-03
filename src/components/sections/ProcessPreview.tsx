@@ -57,8 +57,8 @@ export function ProcessPreview({
                   {step.number}
                 </p>
                 <h3
-                  className="text-ink font-bold text-base mb-2"
-                  style={{ fontFamily: "var(--font-fraunces)" }}
+                  className="text-ink text-base font-semibold mb-2"
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   {step.title}
                 </h3>

@@ -169,11 +169,11 @@ const ServiceCard = forwardRef<HTMLDivElement, { svc: { title: string; desc: str
       >
         <h3
           style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(1.2rem, 2vw, 1.55rem)',
-            fontWeight: 500,
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(1.05rem, 1.6vw, 1.18rem)',
+            fontWeight: 600,
             color: '#1C1410',
-            lineHeight: 1.3,
+            lineHeight: 1.35,
             marginBottom: '12px',
           }}
         >

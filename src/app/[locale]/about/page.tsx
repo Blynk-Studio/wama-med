@@ -67,8 +67,8 @@ export default async function AboutPage({
                 style={{ background: "#FFFFFF", border: "1px solid rgba(23,59,99,0.2)" }}
               >
                 <p
-                  className="text-lg font-black"
-                  style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
+                  className="text-lg font-semibold"
+                  style={{ fontFamily: "var(--font-body)", color: "#1C1410" }}
                 >
                   {content.founder.name}
                 </p>
@@ -111,8 +111,8 @@ export default async function AboutPage({
             {content.credentials.map((item) => (
               <div key={item.title}>
                 <p
-                  className="font-cormorant font-bold mb-2"
-                  style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", color: "var(--color-teal)", lineHeight: 1.3 }}
+                  className="font-semibold mb-2"
+                  style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem, 2vw, 1.1rem)", color: "var(--color-teal)", lineHeight: 1.35 }}
                 >
                   {item.title}
                 </p>
@@ -190,8 +190,8 @@ export default async function AboutPage({
                 style={{ background: "#FFFFFF" }}
               >
                 <h3
-                  className="text-xl font-black mb-3 leading-tight"
-                  style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
+                  className="text-lg font-semibold mb-3 leading-tight"
+                  style={{ fontFamily: "var(--font-body)", color: "#1C1410" }}
                 >
                   {value.title}
                 </h3>
