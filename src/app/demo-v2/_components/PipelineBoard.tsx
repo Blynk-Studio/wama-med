@@ -81,14 +81,38 @@ export function PipelineBoard() {
     setJustMovedId(null);
   }, []);
 
-  const handleDragOver = useCallback((event: DragOverEvent) => {
-    const overId = event.over?.id as string | undefined;
-    if (overId && PIPELINE_STAGES.includes(overId as PipelineStage)) {
-      setOverColumn(overId as PipelineStage);
-    } else {
-      setOverColumn(null);
-    }
-  }, []);
+  /**
+   * Resolve a drop target ID to a pipeline stage.
+   * The target could be a column ID ("inquiry") or a patient card ID ("PAT-003").
+   * If it's a patient, look up which column that patient is currently in.
+   */
+  const resolveStage = useCallback(
+    (overId: string): PipelineStage | null => {
+      if (PIPELINE_STAGES.includes(overId as PipelineStage)) {
+        return overId as PipelineStage;
+      }
+      // It's a patient card — find which stage it's in
+      const stages = useDemoV2Store.getState().patientStages;
+      const patient = patients.find((p) => p.id === overId);
+      if (patient) {
+        return stages[patient.id] ?? patient.stage;
+      }
+      return null;
+    },
+    [patients],
+  );
+
+  const handleDragOver = useCallback(
+    (event: DragOverEvent) => {
+      const overId = event.over?.id as string | undefined;
+      if (!overId) {
+        setOverColumn(null);
+        return;
+      }
+      setOverColumn(resolveStage(overId));
+    },
+    [resolveStage],
+  );
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
@@ -99,14 +123,7 @@ export function PipelineBoard() {
       if (!over) return;
 
       const patientId = active.id as string;
-      let targetStage: PipelineStage | null = null;
-
-      // Dropped on a column droppable
-      const overId = over.id as string;
-      if (PIPELINE_STAGES.includes(overId as PipelineStage)) {
-        targetStage = overId as PipelineStage;
-      }
-
+      const targetStage = resolveStage(over.id as string);
       if (!targetStage) return;
 
       const patient = patients.find((p) => p.id === patientId);
@@ -119,14 +136,12 @@ export function PipelineBoard() {
       movePatient(patientId, targetStage);
       setJustMovedId(patientId);
 
-      const fromLabel = STAGE_META[currentStage].label;
       const toLabel = STAGE_META[targetStage].label;
       showToast(`${patient.name} moved to ${toLabel}`);
 
-      // Clear the pulse after animation
       setTimeout(() => setJustMovedId(null), 700);
     },
-    [patients, movePatient, showToast],
+    [patients, movePatient, showToast, resolveStage],
   );
 
   return (
@@ -207,7 +222,7 @@ function StageColumn({
     <div
       ref={setNodeRef}
       className={cn(
-        "flex flex-col min-h-[200px] rounded-2xl p-3 transition-colors duration-150 bg-stone/30 border border-[rgba(28,20,16,0.04)]",
+        "flex flex-col min-h-[200px] min-w-0 rounded-2xl p-3 transition-colors duration-150 bg-stone/30 border border-[rgba(28,20,16,0.04)]",
         isOverTarget && "v2-drop-active bg-brass/5 border-brass/20",
       )}
     >
