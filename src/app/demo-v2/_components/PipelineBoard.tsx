@@ -193,23 +193,23 @@ function StageColumn({
     <div
       ref={setNodeRef}
       className={cn(
-        "flex flex-col min-h-[200px] rounded-[20px] p-3 transition-colors duration-150",
-        isOverTarget && "v2-drop-active",
+        "flex flex-col min-h-[200px] rounded-2xl p-3 transition-colors duration-150 bg-stone/30 border border-[rgba(28,20,16,0.04)]",
+        isOverTarget && "v2-drop-active bg-brass/5 border-brass/20",
       )}
     >
       {/* Column header */}
-      <div className="flex items-center gap-2.5 px-2 py-3 mb-2">
+      <div
+        className="flex items-center gap-2.5 px-3 py-3 mb-3 rounded-xl"
+        style={{ backgroundColor: meta.bgTint }}
+      >
         <span
           className="v2-stage-dot"
           style={{ backgroundColor: meta.color }}
         />
         <span className="text-base font-semibold text-ink">{meta.label}</span>
         <span
-          className="ml-auto text-sm font-semibold rounded-full px-2.5 py-0.5"
-          style={{
-            backgroundColor: meta.bgTint,
-            color: meta.color,
-          }}
+          className="ml-auto text-sm font-bold rounded-full px-2.5 py-0.5 bg-white/60"
+          style={{ color: meta.color }}
         >
           {patients.length}
         </span>

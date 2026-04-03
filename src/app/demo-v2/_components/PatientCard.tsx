@@ -52,7 +52,9 @@ export function PatientCard({ patient, justMoved }: PatientCardProps) {
           ? { layout: { type: "spring", stiffness: 400, damping: 28 } }
           : undefined
       }
-      className="relative group"
+      className="relative group cursor-grab active:cursor-grabbing"
+      {...(mounted ? attributes : {})}
+      {...(mounted ? listeners : {})}
     >
       {justMoved && (
         <div
@@ -63,18 +65,15 @@ export function PatientCard({ patient, justMoved }: PatientCardProps) {
 
       <div
         className={cn(
-          "v2-card p-6 cursor-pointer select-none",
-          isDragging && "shadow-none",
+          "v2-card p-6 select-none",
+          isDragging && "shadow-none opacity-50",
         )}
-        onClick={() => openPatient(patient.id)}
+        onClick={() => {
+          if (!isDragging) openPatient(patient.id);
+        }}
       >
-        {/* Drag handle */}
-        <div
-          className="absolute top-4 right-4 w-8 h-8 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-grab active:cursor-grabbing text-ink-soft/50 hover:text-ink-soft/70 hover:bg-stone/50 z-10"
-          {...(mounted ? attributes : {})}
-          {...(mounted ? listeners : {})}
-          onClick={(e) => e.stopPropagation()}
-        >
+        {/* Drag grip indicator */}
+        <div className="absolute top-4 right-4 w-8 h-8 rounded-lg flex items-center justify-center opacity-0 group-hover:opacity-60 transition-opacity text-ink-soft/50 pointer-events-none">
           <GripVertical className="w-4 h-4" strokeWidth={1.5} />
         </div>
 
