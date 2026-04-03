@@ -42,7 +42,7 @@ export function ContactSection() {
   const fieldStyle = {
     background: 'transparent',
     border: 'none',
-    borderBottom: '1px solid rgba(11,64,66,0.2)',
+    borderBottom: '1px solid rgba(23,59,99,0.2)',
     color: '#1C1410',
     fontFamily: 'var(--font-body)',
     fontSize: '16px',
@@ -57,7 +57,7 @@ export function ContactSection() {
     fontSize: '12px',
     letterSpacing: '0.18em',
     textTransform: 'uppercase' as const,
-    color: '#0B4042',
+    color: 'var(--color-teal)',
     display: 'block',
     marginBottom: '6px',
   };
@@ -70,11 +70,11 @@ export function ContactSection() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      style={{
-        background: '#FAFAF8',
-        borderTop: '1px solid rgba(11,64,66,0.08)',
-        padding: 'clamp(64px, 10vw, 100px) clamp(24px, 5vw, 64px)',
-      }}
+        style={{
+          background: '#FAFAF8',
+          borderTop: '1px solid rgba(23,59,99,0.08)',
+          padding: 'clamp(64px, 10vw, 100px) clamp(24px, 5vw, 64px)',
+        }}
     >
       <div style={{ maxWidth: '720px', margin: '0 auto' }}>
         {/* Headings */}
@@ -83,7 +83,7 @@ export function ContactSection() {
             fontFamily: 'var(--font-body)',
             fontSize: '12px',
             letterSpacing: '0.18em',
-            color: '#0B4042',
+            color: 'var(--color-teal)',
             textTransform: 'uppercase',
             marginBottom: '16px',
           }}>
@@ -106,7 +106,7 @@ export function ContactSection() {
             style={{
               fontFamily: 'var(--font-body)',
               fontSize: 'clamp(0.95rem, 1.8vw, 1.1rem)',
-              color: 'rgba(11,64,66,0.72)',
+              color: 'rgba(23,59,99,0.72)',
               lineHeight: 1.7,
               maxWidth: '32rem',
             }}
@@ -118,14 +118,14 @@ export function ContactSection() {
         {state === 'success' ? (
           <div
             style={{
-              border: '1px solid rgba(11,64,66,0.15)',
-            borderRadius: '16px',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
+              border: '1px solid rgba(23,59,99,0.15)',
+              borderRadius: '16px',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.06)',
               padding: 'clamp(28px, 6vw, 48px)',
               textAlign: 'center',
             }}
           >
-            <div style={{ color: '#0B4042', fontSize: '32px', marginBottom: '16px' }}>✓</div>
+            <div style={{ color: 'var(--color-teal)', fontSize: '32px', marginBottom: '16px' }}>✓</div>
             <p style={{
               fontFamily: 'var(--font-display)',
               fontSize: '24px',
@@ -150,8 +150,8 @@ export function ContactSection() {
                   value={form.name} onChange={handleChange} required
                   placeholder={content.placeholders.name}
                   style={fieldStyle}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'var(--color-teal)'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(23,59,99,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
@@ -161,8 +161,8 @@ export function ContactSection() {
                   value={form.email} onChange={handleChange} required
                   placeholder={content.placeholders.email}
                   style={fieldStyle}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'var(--color-teal)'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(23,59,99,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
@@ -172,8 +172,8 @@ export function ContactSection() {
                   value={form.phone} onChange={handleChange}
                   placeholder={content.placeholders.phone}
                   style={fieldStyle}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'var(--color-teal)'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(23,59,99,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 />
               </div>
               <div style={{ marginBottom: '32px' }}>
@@ -182,8 +182,8 @@ export function ContactSection() {
                   id="c-country" name="country"
                   value={form.country} onChange={handleChange}
                   style={{ ...fieldStyle, color: form.country ? '#1C1410' : 'rgba(28,20,16,0.4)' }}
-                  onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                  onFocus={e => { e.currentTarget.style.borderBottomColor = 'var(--color-teal)'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                  onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(23,59,99,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
                 >
                   <option value="" style={{ color: '#1C1410' }}>{content.placeholders.country}</option>
                   {dictionary.shared.countries.map(c => <option key={c} value={c} style={{ color: '#1C1410' }}>{c}</option>)}
@@ -198,8 +198,8 @@ export function ContactSection() {
                 value={form.message} onChange={handleChange} required
                 placeholder={content.placeholders.message}
                 style={{ ...fieldStyle, resize: 'none' }}
-                onFocus={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.borderBottomWidth = '2px'; }}
-                onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
+                onFocus={e => { e.currentTarget.style.borderBottomColor = 'var(--color-teal)'; e.currentTarget.style.borderBottomWidth = '2px'; }}
+                onBlur={e => { e.currentTarget.style.borderBottomColor = 'rgba(23,59,99,0.2)'; e.currentTarget.style.borderBottomWidth = '1px'; }}
               />
             </div>
 
@@ -213,15 +213,15 @@ export function ContactSection() {
                   justifyContent: 'center',
                   gap: '8px',
                   padding: '14px 0',
-                  borderBottom: '1px dashed rgba(11,64,66,0.2)',
+                  borderBottom: '1px dashed rgba(23,59,99,0.2)',
                   color: 'rgba(28,20,16,0.4)',
                   fontFamily: 'var(--font-body)',
                   fontSize: '15px',
                   cursor: 'pointer',
                   transition: 'border-bottom-color 0.2s ease, color 0.2s ease',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderBottomColor = '#0B4042'; e.currentTarget.style.color = 'rgba(28,20,16,0.7)'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderBottomColor = 'rgba(11,64,66,0.2)'; e.currentTarget.style.color = 'rgba(28,20,16,0.4)'; }}
+                onMouseEnter={e => { e.currentTarget.style.borderBottomColor = 'var(--color-teal)'; e.currentTarget.style.color = 'rgba(28,20,16,0.7)'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderBottomColor = 'rgba(23,59,99,0.2)'; e.currentTarget.style.color = 'rgba(28,20,16,0.4)'; }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
@@ -240,7 +240,7 @@ export function ContactSection() {
                 <ul style={{ marginTop: '8px' }}>
                   {files.map((f, i) => (
                     <li key={i} style={{ fontFamily: 'var(--font-body)', fontSize: '12px', color: 'rgba(28,20,16,0.45)', padding: '2px 0', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(11,64,66,0.4)', flexShrink: 0 }} />
+                      <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(23,59,99,0.4)', flexShrink: 0 }} />
                       {f.name}
                     </li>
                   ))}
@@ -260,7 +260,7 @@ export function ContactSection() {
               style={{
                 width: '100%',
                 padding: '18px',
-                background: '#0B4042',
+                background: 'var(--color-teal)',
                 color: '#FAFAF8',
                 fontFamily: 'var(--font-body)',
                 fontSize: '0.95rem',
@@ -271,8 +271,8 @@ export function ContactSection() {
                 opacity: state === 'sending' ? 0.7 : 1,
                 transition: 'background 0.2s ease',
               }}
-              onMouseEnter={e => { if (state !== 'sending') (e.currentTarget as HTMLButtonElement).style.background = '#155558'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = '#0B4042'; }}
+              onMouseEnter={e => { if (state !== 'sending') (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-teal-light)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = 'var(--color-teal)'; }}
             >
               {state === 'sending' ? content.sending : content.submit}
             </button>

@@ -76,7 +76,7 @@ export function ServicesOverview() {
               fontFamily: 'var(--font-body)',
               fontSize: '12px',
               letterSpacing: '0.18em',
-              color: '#0B4042',
+              color: 'var(--color-teal)',
               textTransform: 'uppercase',
             }}
           >
@@ -96,7 +96,7 @@ export function ServicesOverview() {
               {dictionary.home.servicesOverview.title}
             </h2>
           </div>
-          <div style={{ width: '40px', height: '1px', background: 'rgba(11,64,66,0.3)', marginTop: '8px' }} />
+          <div style={{ width: '40px', height: '1px', background: 'rgba(23,59,99,0.3)', marginTop: '8px' }} />
         </div>
 
         {/* Cards grid */}
@@ -123,9 +123,9 @@ export function ServicesOverview() {
             style={{
               fontFamily: 'var(--font-body)',
               fontSize: '0.95rem',
-              color: '#0B4042',
+              color: 'var(--color-teal)',
               textDecoration: 'none',
-              borderBottom: '1px solid rgba(11,64,66,0.3)',
+              borderBottom: '1px solid rgba(23,59,99,0.3)',
               paddingBottom: '3px',
             }}
           >
@@ -147,7 +147,7 @@ const ServiceCard = forwardRef<HTMLDivElement, { svc: { title: string; desc: str
         ref={ref}
         style={{
           background: '#FFFFFF',
-          border: '1px solid rgba(11,64,66,0.08)',
+          border: '1px solid rgba(23,59,99,0.08)',
           boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
           padding: 'clamp(24px, 3vw, 36px) clamp(20px, 2.5vw, 28px)',
           transition: 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
@@ -157,13 +157,13 @@ const ServiceCard = forwardRef<HTMLDivElement, { svc: { title: string; desc: str
         onMouseEnter={e => {
           const el = e.currentTarget;
           el.style.transform = 'translateY(-5px)';
-          el.style.borderColor = 'rgba(11,64,66,0.2)';
+          el.style.borderColor = 'rgba(23,59,99,0.2)';
           el.style.boxShadow = '0 12px 32px rgba(0,0,0,0.08)';
         }}
         onMouseLeave={e => {
           const el = e.currentTarget;
           el.style.transform = 'translateY(0)';
-          el.style.borderColor = 'rgba(11,64,66,0.08)';
+          el.style.borderColor = 'rgba(23,59,99,0.08)';
           el.style.boxShadow = '0 1px 3px rgba(0,0,0,0.04)';
         }}
       >

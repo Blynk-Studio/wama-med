@@ -17,10 +17,10 @@ html, body {
 
 @theme {
   /* Colors */
-  --color-teal: #0B4042;
-  --color-teal-dark: #072B2D;
-  --color-teal-light: #155558;
-  --color-teal-muted: #1A5558;
+  --color-teal: #173b63;
+  --color-teal-dark: #0d2745;
+  --color-teal-light: #2b5d8d;
+  --color-teal-muted: #3a658e;
   --color-stone: #F5F0E4;
   --color-stone-dark: #EDE6D3;
   --color-brass: #B8903A;
@@ -75,7 +75,7 @@ body {
 .public-site :is(h1, h2, h3, h4, .type-display) {
   font-family: var(--font-display);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   text-wrap: balance;
 }
 
@@ -85,11 +85,32 @@ body {
   letter-spacing: 0.04em;
 }
 
+.public-site .page-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.2vw, 4.9rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 0.98;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.public-site .page-hero-highlight {
+  display: block;
+  color: var(--color-brass);
+}
+
 @media (max-width: 640px) {
   .public-site .hero-display {
     font-size: 1.45rem !important;
     max-width: 6.6ch !important;
     line-height: 0.88 !important;
+  }
+
+  .public-site .page-hero-title {
+    font-size: clamp(1.95rem, 9vw, 3.1rem);
+    line-height: 1;
+    max-width: 8.5ch;
   }
 }
 
@@ -273,7 +294,7 @@ html.lenis, html.lenis body { height: auto; }
   --bg-deep: #FAFAF8;
   --gold: #C9A84C;
   --sand: #F5F0E8;
-  --teal-deep: #0B4042;
+  --teal-deep: var(--color-teal-dark);
   --medical: #FFFFFF;
   --ink: #1C1410;
 }

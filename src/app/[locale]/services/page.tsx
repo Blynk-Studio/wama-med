@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ClosingCTA } from "@/components/sections/ClosingCTA";
+import { PublicPageHero } from "@/components/sections/PublicPageHero";
 import { getDictionary } from "@/lib/dictionaries";
 import { localeOpenGraph, normalizeLocale } from "@/lib/i18n";
 
@@ -34,45 +35,16 @@ export default async function ServicesPage({
   const locale = normalizeLocale(rawLocale);
   const dictionary = getDictionary(locale);
   const content = dictionary.servicesPage;
-  const backgroundWord = locale === "fr" ? "SERVICES" : "SERVICES";
 
   return (
     <>
-      <section
-        className="relative overflow-hidden min-h-dvh flex items-center pt-24"
-        style={{ background: "#F5F0E8" }}
-      >
-        <p
-          className="font-cormorant absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
-          style={{ fontSize: "18vw", opacity: 0.04, color: "#1C1410", lineHeight: 1 }}
-          aria-hidden="true"
-        >
-          {backgroundWord}
-        </p>
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
-          <p className="eyebrow text-brass mb-3">{content.hero.eyebrow}</p>
-          <span className="brass-rule mb-6 block" />
-          <h1
-            className="font-black leading-tight max-w-3xl"
-            style={{
-              fontFamily: "var(--font-fraunces)",
-              fontSize: "clamp(2.5rem, 6vw, 5rem)",
-              color: "#1C1410",
-            }}
-          >
-            {content.hero.titleStart}
-            <br />
-            <span className="text-brass">{content.hero.titleHighlight}</span>
-          </h1>
-          <p
-            className="max-w-2xl mt-6 leading-relaxed text-base"
-            style={{ color: "rgba(28,20,16,0.6)" }}
-          >
-            {content.hero.body}
-          </p>
-        </div>
-      </section>
+      <PublicPageHero
+        eyebrow={content.hero.eyebrow}
+        title={content.hero.titleStart}
+        highlight={content.hero.titleHighlight}
+        body={content.hero.body}
+        titleMaxWidth="12ch"
+      />
 
       <section
         className="py-20 sm:py-28 lg:py-36"
@@ -89,7 +61,7 @@ export default async function ServicesPage({
               >
                 <p
                   className="font-cormorant absolute top-4 right-6 select-none pointer-events-none"
-                  style={{ fontSize: "5rem", lineHeight: 1, color: "rgba(11,64,66,0.1)" }}
+                  style={{ fontSize: "5rem", lineHeight: 1, color: "rgba(23,59,99,0.1)" }}
                   aria-hidden="true"
                 >
                   {service.number}

@@ -11,7 +11,7 @@ export function WhatsAppFAB({ href }: { href: string }) {
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 rounded-full p-4 shadow-2xl hover:scale-110 transition-all duration-200"
-      style={{ background: "#25D366" }}
+      style={{ background: "var(--color-teal)" }}
       aria-label={dictionary.shared.whatsappAria}
     >
       <svg viewBox="0 0 24 24" fill="white" width="24" height="24" aria-hidden="true">

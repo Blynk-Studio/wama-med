@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AIWidgetInline } from "@/components/widgets/AIWidget";
 import { ContactForm } from "@/components/sections/ContactForm";
+import { PublicPageHero } from "@/components/sections/PublicPageHero";
 import { WhatsAppFAB } from "@/components/ui/WhatsAppFAB";
 import { getDictionary } from "@/lib/dictionaries";
 import { localeOpenGraph, normalizeLocale } from "@/lib/i18n";
@@ -42,45 +43,31 @@ export default async function ContactPage({
 
   return (
     <>
-      <section
-        className="relative overflow-hidden min-h-dvh flex items-center pt-24"
-        style={{ background: "#F5F0E8" }}
-      >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-widest mb-6" style={{ background: "rgba(11,64,66,0.1)", color: "#0B4042" }}>
-            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#4ade80" }} />
+      <PublicPageHero
+        badge={
+          <>
+            <span
+              className="w-2 h-2 rounded-full animate-pulse"
+              style={{ background: "var(--color-brass)" }}
+            />
             {content.hero.badge}
-          </div>
-
-          <p className="eyebrow text-brass mb-3">{content.hero.eyebrow}</p>
-          <span className="brass-rule mb-6 block" />
-          <h1
-            className="font-black leading-tight"
-            style={{
-              fontFamily: "var(--font-fraunces)",
-              fontSize: "clamp(2.5rem, 6vw, 5rem)",
-              color: "#1C1410",
-            }}
-          >
-            {content.hero.titleStart}
-            <br />
-            <span className="text-brass">{content.hero.titleHighlight}</span>
-          </h1>
-          <p
-            className="mt-5 text-base leading-relaxed max-w-xl"
-            style={{ color: "rgba(28,20,16,0.6)" }}
-          >
-            {content.hero.body}
-          </p>
+          </>
+        }
+        eyebrow={content.hero.eyebrow}
+        title={content.hero.titleStart}
+        highlight={content.hero.titleHighlight}
+        body={content.hero.body}
+        titleMaxWidth="12ch"
+        supplementary={
           <a
             href={PHONE_HREF}
-            className="inline-flex items-center gap-2 text-base font-medium mt-4 transition-colors duration-200"
-            style={{ color: "rgba(28,20,16,0.7)" }}
+            className="inline-flex items-center gap-2 text-base font-medium transition-colors duration-200"
+            style={{ color: "rgba(28,20,16,0.72)" }}
           >
             <span aria-hidden="true">&#128222;</span> {PHONE}
           </a>
-        </div>
-      </section>
+        }
+      />
 
       <section
         className="py-16 sm:py-20"
@@ -88,8 +75,8 @@ export default async function ContactPage({
         aria-label={content.formSection.assistantAria}
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-widest mb-6" style={{ background: "rgba(11,64,66,0.08)", color: "#0B4042" }}>
-            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#4ade80" }} />
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs tracking-widest mb-6" style={{ background: "rgba(23,59,99,0.08)", color: "var(--color-teal)" }}>
+            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--color-brass)" }} />
             {dictionary.shared.aiSection.badge}
           </div>
           <h2
@@ -144,13 +131,13 @@ export default async function ContactPage({
               </p>
               <p className="flex items-center gap-2.5">
                 <span className="text-brass">&#128222;</span>
-                <a href={PHONE_HREF} className="hover:text-cream transition-colors">
+                <a href={PHONE_HREF} className="hover:text-teal transition-colors">
                   {PHONE}
                 </a>
               </p>
               <p className="flex items-center gap-2.5">
                 <span className="text-brass">&#128231;</span>
-                <a href="mailto:contact@wamamed.com" className="hover:text-cream transition-colors">
+                <a href="mailto:contact@wamamed.com" className="hover:text-teal transition-colors">
                   contact@wamamed.com
                 </a>
               </p>
@@ -160,7 +147,7 @@ export default async function ContactPage({
                   href={WHATSAPP_HREF}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-cream transition-colors"
+                  className="hover:text-teal transition-colors"
                 >
                   {content.formSection.whatsappAvailability}
                 </a>

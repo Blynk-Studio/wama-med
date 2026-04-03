@@ -370,13 +370,13 @@ export function AIWidget() {
             style={{
               background: "#FFFFFF",
               color: "#1C1410",
-              border: "1px solid rgba(11,64,66,0.15)",
+              border: "1px solid rgba(23,59,99,0.15)",
               boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
             }}
           >
             <span
               className="w-1.5 h-1.5 rounded-full animate-pulse"
-              style={{ background: "#4ade80" }}
+              style={{ background: "var(--color-brass)" }}
             />
             {dictionary.assistant.label}
           </span>
@@ -398,11 +398,11 @@ export function AIWidget() {
         {!isOpen && (
           <span
             className="absolute top-0 right-0 w-3.5 h-3.5 rounded-full border-2 border-teal"
-            style={{ background: "#4ade80" }}
+            style={{ background: "var(--color-brass)" }}
           >
             <span
               className="absolute inset-0 rounded-full animate-ping"
-              style={{ background: "#4ade80", opacity: 0.6 }}
+              style={{ background: "var(--color-brass)", opacity: 0.5 }}
             />
           </span>
         )}

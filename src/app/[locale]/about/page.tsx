@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { ClosingCTA } from "@/components/sections/ClosingCTA";
+import { PublicPageHero } from "@/components/sections/PublicPageHero";
 import { WordRevealQuote } from "@/components/sections/WordRevealQuote";
 import { getDictionary } from "@/lib/dictionaries";
 import { localeOpenGraph, normalizeLocale } from "@/lib/i18n";
@@ -35,37 +36,14 @@ export default async function AboutPage({
   const locale = normalizeLocale(rawLocale);
   const dictionary = getDictionary(locale);
   const content = dictionary.about;
-  const backgroundWord = locale === "fr" ? "HISTOIRE" : "STORY";
 
   return (
     <>
-      <section
-        className="relative overflow-hidden min-h-dvh flex items-center pt-24"
-        style={{ background: "#F5F0E8" }}
-      >
-        <p
-          className="font-cormorant absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
-          style={{ fontSize: "18vw", opacity: 0.04, color: "#1C1410", lineHeight: 1 }}
-          aria-hidden="true"
-        >
-          {backgroundWord}
-        </p>
-
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
-          <p className="eyebrow text-brass mb-3">{content.hero.eyebrow}</p>
-          <span className="brass-rule mb-6 block" />
-          <h1
-            className="font-black leading-tight max-w-3xl"
-            style={{
-              fontFamily: "var(--font-fraunces)",
-              fontSize: "clamp(2.5rem, 6vw, 5rem)",
-              color: "#1C1410",
-            }}
-          >
-            {content.hero.title}
-          </h1>
-        </div>
-      </section>
+      <PublicPageHero
+        eyebrow={content.hero.eyebrow}
+        title={content.hero.title}
+        titleMaxWidth="14ch"
+      />
 
       <section
         className="py-20 sm:py-28 lg:py-36"
@@ -86,7 +64,7 @@ export default async function AboutPage({
               </div>
               <div
                 className="absolute -bottom-4 left-4 right-4 sm:left-auto sm:-right-6 rounded-xl p-4 shadow-xl"
-                style={{ background: "#FFFFFF", border: "1px solid rgba(11,64,66,0.2)" }}
+                style={{ background: "#FFFFFF", border: "1px solid rgba(23,59,99,0.2)" }}
               >
                 <p
                   className="text-lg font-black"
@@ -134,7 +112,7 @@ export default async function AboutPage({
               <div key={item.title}>
                 <p
                   className="font-cormorant font-bold mb-2"
-                  style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", color: "#0B4042", lineHeight: 1.3 }}
+                  style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)", color: "var(--color-teal)", lineHeight: 1.3 }}
                 >
                   {item.title}
                 </p>

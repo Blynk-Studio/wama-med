@@ -82,7 +82,7 @@ export function WordRevealQuote({ text, cite }: { text: string; cite: string }) 
       </p>
       <cite
         className="text-sm not-italic font-medium mt-3 block"
-        style={{ color: "rgba(11,64,66,0.6)" }}
+        style={{ color: "rgba(23,59,99,0.6)" }}
       >
         — {cite}
       </cite>

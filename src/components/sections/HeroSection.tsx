@@ -89,7 +89,7 @@ export function HeroSection() {
           position: 'absolute',
           inset: 0,
           background:
-            'linear-gradient(90deg, rgba(250,250,248,0.98) 0%, rgba(250,250,248,0.94) 28%, rgba(250,250,248,0.72) 46%, rgba(250,250,248,0.22) 66%, rgba(11,64,66,0.10) 100%), linear-gradient(180deg, rgba(250,250,248,0.08) 0%, rgba(11,64,66,0.10) 100%)',
+            'linear-gradient(90deg, rgba(250,250,248,0.98) 0%, rgba(250,250,248,0.94) 28%, rgba(250,250,248,0.72) 46%, rgba(250,250,248,0.22) 66%, rgba(23,59,99,0.10) 100%), linear-gradient(180deg, rgba(250,250,248,0.08) 0%, rgba(23,59,99,0.10) 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -120,7 +120,7 @@ export function HeroSection() {
         <p
           className="hero-anim eyebrow"
           style={{
-            color: '#0B4042',
+            color: 'var(--color-teal)',
             marginBottom: '20px',
             '--hero-delay': '0.1s',
           } as React.CSSProperties}
@@ -149,7 +149,7 @@ export function HeroSection() {
           className="hero-anim type-body"
           style={{
             fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
-            color: 'rgba(11,64,66,0.82)',
+            color: 'rgba(23,59,99,0.82)',
             maxWidth: '34ch',
             lineHeight: 1.72,
             marginTop: '4px',
@@ -172,7 +172,7 @@ export function HeroSection() {
             style={{
               display: 'inline-block',
               padding: '16px 36px',
-              background: '#0B4042',
+              background: 'var(--color-teal)',
               color: '#FAFAF8',
               fontFamily: 'var(--font-body)',
               fontSize: '0.95rem',
@@ -182,11 +182,11 @@ export function HeroSection() {
               transition: 'background 0.25s ease, transform 0.2s ease',
             }}
             onMouseEnter={e => {
-              (e.currentTarget as HTMLElement).style.background = '#155558';
+              (e.currentTarget as HTMLElement).style.background = 'var(--color-teal-light)';
               (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
             }}
             onMouseLeave={e => {
-              (e.currentTarget as HTMLElement).style.background = '#0B4042';
+              (e.currentTarget as HTMLElement).style.background = 'var(--color-teal)';
               (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
             }}
           >
@@ -209,7 +209,7 @@ export function HeroSection() {
           style={{
             width: '1px',
             height: '56px',
-            background: '#0B4042',
+            background: 'var(--color-teal)',
             animation: 'scrollPulse 2.2s ease-in-out infinite',
           }}
         />

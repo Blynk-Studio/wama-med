@@ -100,7 +100,7 @@ export function AnimatedTimeline({ steps }: { steps: readonly TimelineStep[] }) 
         ref={lineRef}
         className="absolute left-8 sm:left-1/2 top-0 bottom-0 w-0.5"
         style={{
-          background: "rgba(11,64,66,0.3)",
+          background: "rgba(23,59,99,0.3)",
           transformOrigin: "top center",
         }}
         aria-hidden="true"
@@ -140,7 +140,7 @@ export function AnimatedTimeline({ steps }: { steps: readonly TimelineStep[] }) 
                     style={{
                       fontSize: "4rem",
                       lineHeight: 1,
-                      color: "rgba(11,64,66,0.08)",
+                      color: "rgba(23,59,99,0.08)",
                       position: "absolute",
                       top: "0.5rem",
                       right: isEven ? undefined : "1.5rem",
@@ -154,7 +154,7 @@ export function AnimatedTimeline({ steps }: { steps: readonly TimelineStep[] }) 
                   {/* Duration badge */}
                   <span
                     className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium mb-4"
-                    style={{ background: "rgba(11,64,66,0.1)", color: "#0B4042" }}
+                    style={{ background: "rgba(23,59,99,0.1)", color: "var(--color-teal)" }}
                   >
                     {step.durationLabel}: {step.duration}
                   </span>
@@ -191,7 +191,7 @@ export function AnimatedTimeline({ steps }: { steps: readonly TimelineStep[] }) 
                     style={{
                       fontFamily: "var(--font-crimson)",
                       color: "rgba(28,20,16,0.5)",
-                      background: "rgba(11,64,66,0.05)",
+                      background: "rgba(23,59,99,0.05)",
                     }}
                   >
                     {step.callout}
