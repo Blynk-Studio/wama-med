@@ -194,11 +194,11 @@ export function HeroSection() {
           className="hero-display type-display-tight"
           style={{
             whiteSpace: 'pre-line',
-            fontSize: 'clamp(2rem, 4.15vw, 4rem)',
+            fontSize: 'clamp(1.7rem, 3.45vw, 3.45rem)',
             fontWeight: 500,
             color: '#1C1410',
-            lineHeight: 1.04,
-            maxWidth: '15ch',
+            lineHeight: 1.08,
+            maxWidth: '17ch',
             marginBottom: '28px',
           }}
         >

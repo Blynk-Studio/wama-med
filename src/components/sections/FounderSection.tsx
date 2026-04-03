@@ -57,7 +57,7 @@ export function FounderSection({
             <p className="eyebrow text-teal mb-4">{content.eyebrow}</p>
             <span className="brass-rule mb-6 block" />
             <h2
-              className="text-ink text-3xl sm:text-4xl xl:text-5xl font-black leading-tight mb-6"
+              className="section-display text-ink mb-6"
               id="founder-heading"
               style={{ fontFamily: "var(--font-fraunces)" }}
             >

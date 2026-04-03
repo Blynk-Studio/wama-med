@@ -68,7 +68,7 @@ export default async function ProcessPage({
             <p className="eyebrow text-brass mb-3">{content.faq.eyebrow}</p>
             <span className="brass-rule mx-auto mb-5 block" />
             <h2
-              className="text-3xl sm:text-4xl font-black"
+              className="section-display text-ink"
               id="faq-heading"
               style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
             >

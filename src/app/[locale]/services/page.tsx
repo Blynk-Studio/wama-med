@@ -122,8 +122,8 @@ export default async function ServicesPage({
 
               <div>
                 <h2
-                  className="text-2xl sm:text-3xl font-black mb-4 leading-tight"
-                  style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
+                  className="text-xl sm:text-2xl font-semibold mb-4 leading-tight"
+                  style={{ fontFamily: "var(--font-body)", color: "#1C1410" }}
                 >
                   {service.title}
                 </h2>

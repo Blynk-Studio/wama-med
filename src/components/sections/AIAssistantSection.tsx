@@ -14,7 +14,7 @@ export function AIAssistantSection() {
             <p className="eyebrow text-brass mb-3">Assistant IA — Disponible 24h/24</p>
             <span className="brass-rule mb-6 block" />
             <h2
-              className="text-ink text-3xl sm:text-4xl font-black leading-tight mb-5"
+              className="section-display text-ink mb-5"
               id="ai-assistant-heading"
               style={{ fontFamily: "var(--font-fraunces)" }}
             >

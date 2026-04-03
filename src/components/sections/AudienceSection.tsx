@@ -37,7 +37,7 @@ export function AudienceSection() {
           <p className="eyebrow text-brass mb-3">Qui nous accompagnons</p>
           <span className="brass-rule mb-5 block" />
           <h2
-            className="text-ink text-4xl sm:text-5xl font-black leading-tight max-w-lg"
+            className="section-display text-ink max-w-lg"
             id="audience-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >

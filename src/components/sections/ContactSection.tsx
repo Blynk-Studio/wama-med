@@ -91,12 +91,9 @@ export function ContactSection() {
           </p>
           <h2
             id="contact-heading"
+            className="section-display"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(2.2rem, 5vw, 3.6rem)',
-              fontWeight: 500,
               color: '#1C1410',
-              lineHeight: 1.1,
               marginBottom: '8px',
             }}
           >

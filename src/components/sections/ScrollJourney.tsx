@@ -423,17 +423,17 @@ export function ScrollJourney() {
             <div style={{ textAlign: 'center' }}>
               <h2 style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2rem,7vw,5rem)',
+                fontSize: 'clamp(1.55rem,4.1vw,3.15rem)',
                 fontWeight: 500,
                 color: '#EEE9DF',
-                lineHeight: 1.2,
-                maxWidth: '18ch',
+                lineHeight: 1.08,
+                maxWidth: '16ch',
                 margin: '0 auto 24px',
                 textShadow: '0 2px 24px rgba(0,0,0,.85),0 1px 4px #000',
               }}>{act.headline}</h2>
               <p style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(1.05rem,2.5vw,1.35rem)',
+                fontSize: 'clamp(0.98rem,1.65vw,1.08rem)',
                 color: '#DDD8CE',
                 lineHeight: 1.8,
                 maxWidth: '36ch',
@@ -448,16 +448,16 @@ export function ScrollJourney() {
             <div style={{ textAlign: 'center' }}>
               <h2 style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2rem,7vw,5rem)',
+                fontSize: 'clamp(1.55rem,4.1vw,3.15rem)',
                 fontWeight: 500,
                 color: '#EEE9DF',
-                lineHeight: 1.2,
+                lineHeight: 1.08,
                 marginBottom: '20px',
                 textShadow: '0 2px 24px rgba(0,0,0,.85),0 1px 4px #000',
               }}>{act.headline}</h2>
               <p style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(1rem,2.4vw,1.25rem)',
+                fontSize: 'clamp(0.95rem,1.55vw,1.05rem)',
                 color: '#D4AE5A',
                 lineHeight: 1.7,
                 textShadow: '0 1px 16px rgba(0,0,0,.95)',
@@ -470,10 +470,10 @@ export function ScrollJourney() {
             <div style={{ textAlign: 'center' }}>
               <h2 style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2rem,7vw,5rem)',
+                fontSize: 'clamp(1.55rem,4.1vw,3.15rem)',
                 fontWeight: 500,
                 color: '#EEE9DF',
-                lineHeight: 1.2,
+                lineHeight: 1.08,
                 marginBottom: '40px',
                 textShadow: '0 2px 24px rgba(0,0,0,.85),0 1px 4px #000',
               }}>{act.headline}</h2>
@@ -588,16 +588,16 @@ export function ScrollJourney() {
             <div style={{ textAlign: 'center' }}>
               <h2 style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2rem,7vw,5rem)',
+                fontSize: 'clamp(1.55rem,4.1vw,3.15rem)',
                 fontWeight: 500,
                 color: '#EEE9DF',
-                lineHeight: 1.15,
+                lineHeight: 1.08,
                 marginBottom: '12px',
                 textShadow: '0 2px 24px rgba(0,0,0,.85),0 1px 4px #000',
               }}>{act.headline}</h2>
               <p ref={act5SubtextRef} style={{
                 fontFamily: 'var(--font-body)',
-                fontSize: 'clamp(1rem,2.4vw,1.2rem)',
+                fontSize: 'clamp(0.95rem,1.55vw,1.05rem)',
                 color: '#D4AE5A',
                 lineHeight: 1.7,
                 marginBottom: '40px',

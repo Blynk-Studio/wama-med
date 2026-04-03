@@ -80,7 +80,7 @@ export default async function ContactPage({
             {dictionary.shared.aiSection.badge}
           </div>
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-black mb-3 leading-tight"
+            className="section-display text-ink mb-3"
             style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
           >
             {dictionary.shared.aiSection.heading}
@@ -107,7 +107,7 @@ export default async function ContactPage({
             <p className="eyebrow text-brass mb-3">{content.formSection.eyebrow}</p>
             <span className="brass-rule mb-5 block" />
             <h2
-              className="text-2xl sm:text-3xl font-black mb-3 leading-tight"
+              className="section-display text-ink mb-3"
               style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
             >
               {content.formSection.title}

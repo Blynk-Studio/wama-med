@@ -135,7 +135,7 @@ export default async function AboutPage({
               <p className="eyebrow text-brass mb-4">{content.mission.eyebrow}</p>
               <span className="brass-rule mb-6 block" />
               <h2
-                className="text-3xl sm:text-4xl font-black leading-tight mb-6"
+                className="section-display text-ink mb-6"
                 style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
               >
                 {content.mission.title}
@@ -174,7 +174,7 @@ export default async function AboutPage({
             <p className="eyebrow text-brass mb-3">{content.values.eyebrow}</p>
             <span className="brass-rule mx-auto mb-5 block" />
             <h2
-              className="text-4xl sm:text-5xl font-black leading-tight"
+              className="section-display text-ink"
               id="values-heading"
               style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
             >

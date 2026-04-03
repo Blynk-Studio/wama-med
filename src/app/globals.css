@@ -75,7 +75,7 @@ body {
 .public-site :is(h1, h2, .type-display) {
   font-family: var(--font-display);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.035em;
   text-wrap: balance;
 }
 
@@ -96,11 +96,21 @@ body {
 
 .public-site .page-hero-title {
   font-family: var(--font-display);
-  font-size: clamp(2.15rem, 4.8vw, 4.5rem);
+  font-size: clamp(1.95rem, 3.2vw, 3.15rem);
   font-weight: 500;
-  letter-spacing: 0.015em;
-  line-height: 1.02;
+  letter-spacing: 0.01em;
+  line-height: 1.06;
   text-transform: none;
+  text-wrap: balance;
+}
+
+.public-site .section-display {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2.6vw, 2.85rem);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.08;
+  text-transform: uppercase;
   text-wrap: balance;
 }
 
@@ -111,16 +121,21 @@ body {
 
 @media (max-width: 640px) {
   .public-site .hero-display {
-    font-size: 1.32rem !important;
+    font-size: 1.24rem !important;
     max-width: 10.5ch !important;
     line-height: 0.98 !important;
-    letter-spacing: 0.015em !important;
+    letter-spacing: 0.012em !important;
   }
 
   .public-site .page-hero-title {
-    font-size: clamp(1.9rem, 8.6vw, 2.9rem);
-    line-height: 1.04;
-    max-width: 9.2ch;
+    font-size: clamp(1.75rem, 7.4vw, 2.45rem);
+    line-height: 1.08;
+    max-width: 10.2ch;
+  }
+
+  .public-site .section-display {
+    font-size: clamp(1.55rem, 6.2vw, 2.1rem);
+    line-height: 1.1;
   }
 }
 

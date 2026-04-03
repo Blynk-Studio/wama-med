@@ -16,7 +16,7 @@ export function TestimonialsSection({
           <p className="eyebrow text-brass mb-3">{content.eyebrow}</p>
           <span className="brass-rule mx-auto mb-5 block" />
           <h2
-            className="text-cream text-4xl sm:text-5xl lg:text-6xl font-black leading-tight"
+            className="section-display text-cream"
             id="trust-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >

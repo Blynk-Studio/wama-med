@@ -85,12 +85,9 @@ export function ServicesOverview() {
           <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
             <h2
               id="services-heading"
+              className="section-display"
               style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
-                fontWeight: 500,
                 color: '#1C1410',
-                lineHeight: 1.1,
               }}
             >
               {dictionary.home.servicesOverview.title}

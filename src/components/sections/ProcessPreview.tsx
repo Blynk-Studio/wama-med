@@ -22,7 +22,7 @@ export function ProcessPreview({
           <p className="eyebrow text-brass mb-3">{content.eyebrow}</p>
           <span className="brass-rule mx-auto mb-5 block" />
           <h2
-            className="text-ink text-4xl sm:text-5xl font-black leading-tight"
+            className="section-display text-ink"
             id="process-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >

@@ -20,7 +20,7 @@ export function AISection() {
         </div>
         <h2
           id="ai-section-heading"
-          className="text-2xl sm:text-3xl lg:text-4xl font-black mb-3 leading-tight"
+          className="section-display text-ink mb-3"
           style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
         >
           {content.heading}
