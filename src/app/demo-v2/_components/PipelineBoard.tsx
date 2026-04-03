@@ -19,7 +19,8 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { GripVertical } from "lucide-react";
 import type { Patient, PipelineStage } from "../_lib/types";
 import { PIPELINE_STAGES } from "../_lib/types";
 import { STAGE_META } from "../_lib/data";
@@ -135,9 +136,22 @@ export function PipelineBoard() {
         <h1 className="font-fraunces text-3xl md:text-4xl font-bold text-ink tracking-tight mb-2">
           Patient Pipeline
         </h1>
-        <p className="text-base text-ink-soft/60">
-          Drag patients between stages to update their journey
-        </p>
+        <div className="flex items-center gap-2.5 text-base text-ink-soft/60">
+          <span>Drag patients between stages to update their journey</span>
+          <AnimatePresence>
+            {!activeId && (
+              <motion.span
+                initial={{ opacity: 0, x: -4 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0 }}
+                className="inline-flex items-center gap-1.5 bg-teal/8 text-teal rounded-full px-3 py-1 text-sm font-medium"
+              >
+                <GripVertical className="w-3.5 h-3.5" strokeWidth={2} />
+                Try it — grab any card
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Kanban board — only render after mount to avoid dnd-kit hydration mismatch */}
