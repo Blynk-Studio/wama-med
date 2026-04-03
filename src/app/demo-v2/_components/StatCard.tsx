@@ -22,7 +22,6 @@ export function StatCard({
   const rafRef = useRef<number>(0);
   const startTime = useRef<number>(0);
 
-  /* Animate number counting on mount and value change */
   useEffect(() => {
     const duration = 800;
     startTime.current = performance.now();
@@ -32,7 +31,6 @@ export function StatCard({
     function tick(now: number) {
       const elapsed = now - startTime.current;
       const progress = Math.min(elapsed / duration, 1);
-      // ease-out-expo
       const eased = 1 - Math.pow(1 - progress, 3);
       setDisplayValue(Math.round(from + (to - from) * eased));
 
@@ -52,18 +50,18 @@ export function StatCard({
 
   return (
     <div
-      className="v2-stat-accent bg-white p-5"
+      className="v2-stat-accent bg-white p-6 md:p-7"
       style={{ "--accent-color": accent } as React.CSSProperties}
     >
-      <div className="flex items-start justify-between mb-3">
-        <span className="text-xs font-medium text-ink-soft/75 uppercase tracking-wide">
+      <div className="flex items-start justify-between mb-4">
+        <span className="text-sm font-medium text-ink-soft/75 uppercase tracking-wide">
           {label}
         </span>
         {icon && (
           <span className="text-ink-soft/50">{icon}</span>
         )}
       </div>
-      <div className={cn("text-2xl font-bold text-ink tracking-tight")}>
+      <div className={cn("text-3xl md:text-4xl font-bold text-ink tracking-tight")}>
         {formatted}
       </div>
     </div>

@@ -18,13 +18,13 @@ export function NavBar() {
 
   return (
     <nav className="v2-nav-glass sticky top-0 z-30">
-      <div className="max-w-[1440px] mx-auto w-full px-4 md:px-6 lg:px-8 flex items-center h-16">
+      <div className="max-w-[1440px] mx-auto w-full px-5 md:px-8 lg:px-10 flex items-center h-[72px]">
         {/* Wordmark */}
-        <div className="flex items-center gap-2.5 mr-8">
-          <div className="w-8 h-8 rounded-xl bg-teal flex items-center justify-center">
-            <Stethoscope className="w-4 h-4 text-cream" strokeWidth={1.5} />
+        <div className="flex items-center gap-3 mr-10">
+          <div className="w-10 h-10 rounded-xl bg-teal flex items-center justify-center">
+            <Stethoscope className="w-5 h-5 text-cream" strokeWidth={1.5} />
           </div>
-          <span className="font-fraunces text-lg font-semibold text-ink tracking-tight hidden sm:block">
+          <span className="font-fraunces text-xl font-semibold text-ink tracking-tight hidden sm:block">
             WAMA MED
           </span>
         </div>
@@ -38,20 +38,19 @@ export function NavBar() {
                 key={key}
                 onClick={() => setActiveView(key)}
                 className={cn(
-                  "relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-colors duration-150",
+                  "relative flex items-center gap-2.5 px-5 py-2.5 rounded-xl text-[15px] font-medium transition-colors duration-150",
                   isActive
                     ? "text-teal"
                     : "text-ink-soft/80 hover:text-ink hover:bg-stone/40",
                 )}
               >
-                <Icon className="w-4 h-4" strokeWidth={isActive ? 2 : 1.5} />
+                <Icon className="w-[18px] h-[18px]" strokeWidth={isActive ? 2 : 1.5} />
                 <span className="hidden sm:inline">{label}</span>
 
-                {/* Animated underline indicator */}
                 {isActive && (
                   <motion.div
                     layoutId="v2-nav-indicator"
-                    className="absolute -bottom-[1px] left-2 right-2 h-0.5 rounded-full bg-teal"
+                    className="absolute -bottom-[1px] left-3 right-3 h-0.5 rounded-full bg-teal"
                     transition={{
                       type: "spring",
                       stiffness: 380,
@@ -64,13 +63,13 @@ export function NavBar() {
           })}
         </div>
 
-        {/* Right side — minimal */}
-        <div className="ml-auto flex items-center gap-3">
-          <div className="text-xs text-ink-soft/70 font-medium hidden md:block">
+        {/* Right side */}
+        <div className="ml-auto flex items-center gap-4">
+          <div className="text-sm text-ink-soft/70 font-medium hidden md:block">
             Demo Mode
           </div>
-          <div className="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center">
-            <span className="text-xs font-semibold text-teal">FB</span>
+          <div className="w-10 h-10 rounded-full bg-teal/10 flex items-center justify-center">
+            <span className="text-sm font-semibold text-teal">FB</span>
           </div>
         </div>
       </div>

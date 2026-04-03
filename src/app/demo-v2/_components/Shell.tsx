@@ -23,7 +23,7 @@ export function Shell() {
       <NavBar />
 
       {/* Content area */}
-      <main className="flex-1 px-4 pb-8 pt-4 md:px-6 md:pt-6 lg:px-8 max-w-[1440px] mx-auto w-full">
+      <main className="flex-1 px-5 pb-10 pt-6 md:px-8 md:pt-8 lg:px-10 max-w-[1440px] mx-auto w-full">
         <ViewComponent />
       </main>
 

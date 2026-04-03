@@ -131,11 +131,11 @@ export function PipelineBoard() {
   return (
     <div>
       {/* Page header */}
-      <div className="mb-6">
-        <h1 className="font-fraunces text-2xl md:text-3xl font-bold text-ink tracking-tight mb-1">
+      <div className="mb-8">
+        <h1 className="font-fraunces text-3xl md:text-4xl font-bold text-ink tracking-tight mb-2">
           Patient Pipeline
         </h1>
-        <p className="text-sm text-ink-soft/50">
+        <p className="text-base text-ink-soft/60">
           Drag patients between stages to update their journey
         </p>
       </div>
@@ -198,14 +198,14 @@ function StageColumn({
       )}
     >
       {/* Column header */}
-      <div className="flex items-center gap-2 px-2 py-2.5 mb-1">
+      <div className="flex items-center gap-2.5 px-2 py-3 mb-2">
         <span
           className="v2-stage-dot"
           style={{ backgroundColor: meta.color }}
         />
-        <span className="text-sm font-semibold text-ink">{meta.label}</span>
+        <span className="text-base font-semibold text-ink">{meta.label}</span>
         <span
-          className="ml-auto text-xs font-semibold rounded-full px-2 py-0.5"
+          className="ml-auto text-sm font-semibold rounded-full px-2.5 py-0.5"
           style={{
             backgroundColor: meta.bgTint,
             color: meta.color,

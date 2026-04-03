@@ -54,10 +54,10 @@ export function PartnersView() {
     <div>
       {/* Header */}
       <div className="mb-6">
-        <h1 className="font-fraunces text-2xl md:text-3xl font-bold text-ink tracking-tight mb-1">
+        <h1 className="font-fraunces text-3xl md:text-4xl font-bold text-ink tracking-tight mb-2">
           Partners
         </h1>
-        <p className="text-sm text-ink-soft/50">
+        <p className="text-base text-ink-soft/60">
           Clinics, doctors, hotels, and transport services
         </p>
       </div>
@@ -67,7 +67,7 @@ export function PartnersView() {
         variants={gridVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
       >
         {partners.map((partner) => {
           const typeConfig = TYPE_CONFIG[partner.type];
@@ -78,18 +78,18 @@ export function PartnersView() {
             <motion.div
               key={partner.id}
               variants={cardVariants}
-              className="v2-card p-5"
+              className="v2-card p-6"
             >
               {/* Type icon + name */}
               <div className="flex items-start gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-teal/8 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-teal/8 flex items-center justify-center flex-shrink-0">
                   <Icon
-                    className="w-5 h-5 text-teal"
+                    className="w-6 h-6 text-teal"
                     strokeWidth={1.5}
                   />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-[15px] font-semibold text-ink truncate">
+                  <h3 className="text-base font-semibold text-ink truncate">
                     {partner.name}
                   </h3>
                   <span className="text-xs text-ink-soft/70 font-medium">
@@ -99,7 +99,7 @@ export function PartnersView() {
               </div>
 
               {/* Details */}
-              <div className="space-y-2.5 mb-4">
+              <div className="space-y-3 mb-5">
                 <div className="flex items-center gap-2 text-sm text-ink-soft/70">
                   <MapPin className="w-3.5 h-3.5 flex-shrink-0" strokeWidth={1.5} />
                   <span>{partner.city}</span>

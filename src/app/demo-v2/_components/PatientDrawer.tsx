@@ -78,17 +78,17 @@ export function PatientDrawer() {
             aria-label={`Patient details: ${patient.name}`}
           >
             {/* Header */}
-            <div className="flex items-start justify-between p-6 pb-5 border-b border-[rgba(28,20,16,0.06)]">
+            <div className="flex items-start justify-between p-7 pb-6 border-b border-[rgba(28,20,16,0.06)]">
               <div className="min-w-0">
-                <div className="flex items-center gap-2.5 mb-1.5">
-                  <span className="text-xl leading-none">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-2xl leading-none">
                     {patient.countryFlag}
                   </span>
-                  <h2 className="text-xl font-bold text-ink truncate">
+                  <h2 className="text-2xl font-bold text-ink truncate">
                     {patient.name}
                   </h2>
                 </div>
-                <p className="text-sm text-ink-soft/70">
+                <p className="text-base text-ink-soft/70">
                   {patient.country} &middot; {patient.id}
                 </p>
               </div>
@@ -101,7 +101,7 @@ export function PatientDrawer() {
             </div>
 
             {/* Body — scrollable */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-7">
+            <div className="flex-1 overflow-y-auto p-7 space-y-8">
               {/* Stage badge */}
               <div>
                 <SectionLabel>Current Stage</SectionLabel>
@@ -151,13 +151,13 @@ export function PatientDrawer() {
               {/* Summary */}
               <div>
                 <SectionLabel>Summary</SectionLabel>
-                <p className="text-sm text-ink-soft/80 leading-relaxed">
+                <p className="text-[15px] text-ink-soft/80 leading-relaxed">
                   {patient.summary}
                 </p>
               </div>
 
               {/* Details grid */}
-              <div className="grid grid-cols-2 gap-3.5">
+              <div className="grid grid-cols-2 gap-4">
                 <DetailItem
                   icon={<MapPin className="w-3.5 h-3.5" />}
                   label="Country"
@@ -183,8 +183,8 @@ export function PatientDrawer() {
               {/* Notes */}
               <div>
                 <SectionLabel>Notes</SectionLabel>
-                <div className="bg-stone/40 rounded-2xl p-5">
-                  <p className="text-sm text-ink-soft/80 leading-relaxed whitespace-pre-wrap">
+                <div className="bg-stone/40 rounded-2xl p-6">
+                  <p className="text-[15px] text-ink-soft/80 leading-relaxed whitespace-pre-wrap">
                     {patient.notes}
                   </p>
                 </div>
@@ -200,7 +200,7 @@ export function PatientDrawer() {
 /* ─── Helpers ─── */
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <h3 className="text-xs font-semibold text-ink-soft/70 uppercase tracking-wide mb-2.5">
+    <h3 className="text-sm font-semibold text-ink-soft/70 uppercase tracking-wide mb-3">
       {children}
     </h3>
   );
@@ -216,14 +216,14 @@ function DetailItem({
   value: string;
 }) {
   return (
-    <div className="bg-stone/30 rounded-xl p-4">
-      <div className="flex items-center gap-2 text-ink-soft/60 mb-1.5">
+    <div className="bg-stone/30 rounded-xl p-5">
+      <div className="flex items-center gap-2 text-ink-soft/60 mb-2">
         {icon}
-        <span className="text-xs font-medium uppercase tracking-wide">
+        <span className="text-xs font-medium uppercase tracking-wider">
           {label}
         </span>
       </div>
-      <span className="text-sm font-semibold text-ink">{value}</span>
+      <span className="text-base font-semibold text-ink">{value}</span>
     </div>
   );
 }

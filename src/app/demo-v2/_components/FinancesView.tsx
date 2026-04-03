@@ -54,25 +54,25 @@ export function FinancesView() {
       {/* Page header + period toggle */}
       <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
         <div>
-          <h1 className="font-fraunces text-2xl md:text-3xl font-bold text-ink tracking-tight mb-1">
+          <h1 className="font-fraunces text-3xl md:text-4xl font-bold text-ink tracking-tight mb-2">
             Finances
           </h1>
-          <p className="text-sm text-ink-soft/50">
+          <p className="text-base text-ink-soft/60">
             Revenue overview and invoice tracking
           </p>
         </div>
 
         {/* Period toggle */}
-        <div className="flex items-center gap-1 bg-stone/50 rounded-xl p-1">
+        <div className="flex items-center gap-1 bg-stone/50 rounded-xl p-1.5">
           {PERIODS.map(({ key, label }) => (
             <button
               key={key}
               onClick={() => setPeriod(key)}
               className={cn(
-                "relative px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors duration-150",
+                "relative px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-150",
                 activePeriod === key
                   ? "text-teal"
-                  : "text-ink-soft/50 hover:text-ink-soft",
+                  : "text-ink-soft/60 hover:text-ink-soft",
               )}
             >
               {activePeriod === key && (
@@ -93,7 +93,7 @@ export function FinancesView() {
       </div>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
         <StatCard
           label="Revenue"
           value={snapshot.revenue}
@@ -123,7 +123,7 @@ export function FinancesView() {
 
       {/* Invoice list */}
       <div>
-        <h2 className="text-lg font-semibold text-ink mb-4">
+        <h2 className="text-xl font-semibold text-ink mb-5">
           Recent Invoices
         </h2>
         <motion.div
@@ -138,12 +138,12 @@ export function FinancesView() {
               <motion.div
                 key={inv.id}
                 variants={i < 8 ? itemVariants : undefined}
-                className="v2-card-static p-5 flex items-center gap-4"
+                className="v2-card-static p-5 md:p-6 flex items-center gap-5"
               >
                 {/* Invoice info */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-[15px] font-semibold text-ink truncate">
+                    <span className="text-base font-semibold text-ink truncate">
                       {inv.patientName}
                     </span>
                     <span className="text-xs text-ink-soft/60 font-medium">
