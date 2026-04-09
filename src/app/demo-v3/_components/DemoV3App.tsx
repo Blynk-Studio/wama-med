@@ -306,7 +306,11 @@ function renderPriorityPill(priority: AlertItem["priorite"]) {
   }[priority];
 }
 
-function prettifyTemplateVariable(variable: string) {
+function prettifyTemplateVariable(variable?: string | null) {
+  if (!variable) {
+    return "Variable";
+  }
+
   const normalized = variable.replace(/[{}[\]]/g, "").replace(/\s+/g, "");
   if (TEMPLATE_VARIABLE_LABELS[normalized]) {
     return TEMPLATE_VARIABLE_LABELS[normalized];
@@ -321,11 +325,15 @@ function prettifyTemplateVariable(variable: string) {
     .join(" ");
 }
 
-function normalizeTemplatePreview(text: string) {
+function normalizeTemplatePreview(text?: string | null) {
+  if (!text) {
+    return "";
+  }
+
   return text.replace(/\s+/g, " ").trim();
 }
 
-function renderTemplateRichText(text: string, maxLength: number) {
+function renderTemplateRichText(text: string | undefined | null, maxLength: number) {
   const normalized = normalizeTemplatePreview(text);
   const truncated =
     normalized.length > maxLength ? `${normalized.slice(0, maxLength).trimEnd()}…` : normalized;
@@ -352,6 +360,23 @@ function templatePreviewBody(body: string) {
     .slice(0, 3);
 
   return meaningfulLines.join(" ");
+}
+
+function templateDisplaySubject(template: { sujet?: string | null; corps: string; type: string }) {
+  const explicitSubject = normalizeTemplatePreview(template.sujet);
+  if (explicitSubject) {
+    return explicitSubject;
+  }
+
+  if (template.type === "sms") {
+    return "Message SMS";
+  }
+
+  if (template.type === "whatsapp") {
+    return "Message WhatsApp";
+  }
+
+  return templatePreviewBody(template.corps);
 }
 
 function ChartPanel({
@@ -2317,7 +2342,9 @@ export function DemoV3App({
               </div>
               <div className="template-section">
                 <p className="template-label">Sujet</p>
-                <p className="template-subject">{renderTemplateRichText(template.sujet, 150)}</p>
+                <p className="template-subject">
+                  {renderTemplateRichText(templateDisplaySubject(template), 150)}
+                </p>
               </div>
               <div className="template-section">
                 <p className="template-label">Aperçu</p>
