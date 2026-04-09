@@ -108,25 +108,28 @@ export function Footer({
         </div>
 
         {/* Demo links */}
-        <div className="border-t border-cream/10 pt-6 pb-4 flex justify-center gap-3">
-          <Link
-            href="/demo"
-            prefetch
-            aria-label={content.demoCtaAria}
-            className="inline-flex items-center gap-2 bg-brass/20 hover:bg-brass/30 text-brass-light text-sm font-semibold px-4 py-2.5 rounded-full transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3"
-          >
-            <span>{content.demoCtaLabel}</span>
-            <ArrowRight size={14} />
-          </Link>
-          <Link
-            href="/demo-v2"
-            prefetch
-            aria-label="Patient CRM Demo"
-            className="inline-flex items-center gap-2 bg-cream/10 hover:bg-cream/15 text-cream/80 text-sm font-semibold px-4 py-2.5 rounded-full transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3"
-          >
-            <span>Patient CRM</span>
-            <ArrowRight size={14} />
-          </Link>
+        <div className="border-t border-cream/10 pt-6 pb-4 flex justify-center gap-3 flex-wrap">
+          {content.demoLinks.map((link) => {
+            const className =
+              link.variant === "primary"
+                ? "bg-brass/20 hover:bg-brass/30 text-brass-light"
+                : link.variant === "secondary"
+                  ? "bg-cream/10 hover:bg-cream/15 text-cream/80"
+                  : "bg-cream/5 hover:bg-cream/10 text-cream";
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                prefetch
+                aria-label={link.ariaLabel}
+                className={`inline-flex items-center gap-2 text-sm font-semibold px-4 py-2.5 rounded-full transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3 ${className}`}
+              >
+                <span>{link.label}</span>
+                <ArrowRight size={14} />
+              </Link>
+            );
+          })}
         </div>
 
         {/* Divider */}
