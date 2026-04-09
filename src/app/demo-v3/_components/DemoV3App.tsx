@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { startTransition, useDeferredValue, useEffect, useRef, useState } from "react";
+import { Fragment, startTransition, useDeferredValue, useEffect, useRef, useState } from "react";
 import {
   AlertTriangle,
   ArrowRight,
@@ -102,6 +102,21 @@ const FINANCE_TAB_LABELS: Record<FinanceTab, string> = {
   factures: "Factures Patients",
   services: "Catalogue Services",
   parametres: "Paramètres",
+};
+
+const TEMPLATE_VARIABLE_LABELS: Record<string, string> = {
+  civilite: "Civilité",
+  prenom_patient: "Prénom patient",
+  nom_patient: "Nom patient",
+  pathologie: "Pathologie",
+  numero_dossier: "Numéro dossier",
+  prenom_cm: "Prénom CM",
+  nom_cm: "Nom CM",
+  titre_medecin: "Titre médecin",
+  nom_medecin: "Nom médecin",
+  date_consultation: "Date consultation",
+  date_intervention: "Date intervention",
+  documents_manquants: "Documents manquants",
 };
 
 type PartnerDraft = Record<string, string | number | boolean | string[] | undefined>;
@@ -289,6 +304,54 @@ function renderPriorityPill(priority: AlertItem["priorite"]) {
     moyenne: "pill-info",
     basse: "pill-neutral",
   }[priority];
+}
+
+function prettifyTemplateVariable(variable: string) {
+  const normalized = variable.replace(/[{}[\]]/g, "").replace(/\s+/g, "");
+  if (TEMPLATE_VARIABLE_LABELS[normalized]) {
+    return TEMPLATE_VARIABLE_LABELS[normalized];
+  }
+
+  return normalized
+    .split(/[_-]/)
+    .filter(Boolean)
+    .map((chunk, index) =>
+      index === 0 ? chunk.charAt(0).toUpperCase() + chunk.slice(1) : chunk.toLowerCase(),
+    )
+    .join(" ");
+}
+
+function normalizeTemplatePreview(text: string) {
+  return text.replace(/\s+/g, " ").trim();
+}
+
+function renderTemplateRichText(text: string, maxLength: number) {
+  const normalized = normalizeTemplatePreview(text);
+  const truncated =
+    normalized.length > maxLength ? `${normalized.slice(0, maxLength).trimEnd()}…` : normalized;
+  const parts = truncated.split(/(\{[^}]+\}|\[[^\]]+\])/g).filter(Boolean);
+
+  return parts.map((part, index) => {
+    if ((part.startsWith("{") && part.endsWith("}")) || (part.startsWith("[") && part.endsWith("]"))) {
+      return (
+        <span className="template-token-inline" key={`${part}-${index}`}>
+          {prettifyTemplateVariable(part)}
+        </span>
+      );
+    }
+
+    return <Fragment key={`${part}-${index}`}>{part}</Fragment>;
+  });
+}
+
+function templatePreviewBody(body: string) {
+  const meaningfulLines = body
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, 3);
+
+  return meaningfulLines.join(" ");
 }
 
 function ChartPanel({
@@ -2010,27 +2073,39 @@ export function DemoV3App({
       );
 
       return (
-        <div className="v3-card-grid">
+        <div className="v3-card-grid doctors-grid">
           {filteredDoctors.map((medecin) => (
-            <article className="profile-card" key={medecin.id}>
+            <article className="profile-card doctor-card" key={medecin.id}>
               <div className="profile-card-header">
-                <div>
+                <div className="profile-heading">
                   <p className="eyebrow">{medecin.specialite}</p>
                   <h3>
                     {medecin.civilite} {medecin.prenom} {medecin.nom}
                   </h3>
+                  <p className="profile-subheading">{medecin.sousSpecialite ?? medecin.clinique}</p>
                 </div>
-                <span className="pill pill-success">{medecin.evaluation?.toFixed(1) ?? "4.5"}</span>
+                <span className="pill pill-success rating-pill">
+                  {medecin.evaluation?.toFixed(1) ?? "4.5"}
+                </span>
               </div>
-              <p className="profile-card-copy">{medecin.diplomes}</p>
-              <div className="profile-card-meta">
-                <span>{medecin.ville}, {medecin.pays}</span>
-                <span>{medecin.clinique}</span>
-                <span>{medecin.disponibilite}</span>
+              <p className="profile-card-copy doctor-copy">{medecin.diplomes}</p>
+              <div className="profile-card-meta meta-stack">
+                <span>
+                  <strong>Lieu</strong>
+                  {medecin.ville}, {medecin.pays}
+                </span>
+                <span>
+                  <strong>Clinique</strong>
+                  {medecin.clinique ?? "À préciser"}
+                </span>
+                <span>
+                  <strong>Disponibilité</strong>
+                  {medecin.disponibilite ?? "À confirmer"}
+                </span>
               </div>
-              <div className="row-actions">
+              <div className="row-actions card-actions">
                 <button
-                  className="btn btn-secondary"
+                  className="btn btn-secondary btn-compact"
                   onClick={() => store.openModal({ type: "medecin", mode: "edit", id: medecin.id })}
                   type="button"
                 >
@@ -2038,7 +2113,7 @@ export function DemoV3App({
                   Modifier
                 </button>
                 <button
-                  className="btn btn-secondary danger"
+                  className="btn btn-secondary danger btn-compact"
                   onClick={() => store.deleteMedecin(medecin.id)}
                   type="button"
                 >
@@ -2059,7 +2134,7 @@ export function DemoV3App({
 
       return (
         <div className="v3-stack">
-          <div className="tabs-nav">
+          <div className="tabs-nav partner-tabs">
             {Object.entries(PARTNER_LABELS).map(([value, label]) => (
               <button
                 key={value}
@@ -2071,30 +2146,37 @@ export function DemoV3App({
               </button>
             ))}
           </div>
-          <div className="v3-card-grid">
+          <div className="v3-card-grid partners-grid">
             {partnerItems.map((partner) => (
-              <article className="partner-card" key={String(partner.id)}>
+              <article className="partner-card profile-card" key={String(partner.id)}>
                 <div className="profile-card-header">
-                  <div>
+                  <div className="profile-heading">
                     <p className="eyebrow">{PARTNER_LABELS[store.partnerTab]}</p>
                     <h3>{String(partner.nom ?? "")}</h3>
+                    <p className="profile-subheading">
+                      {[partner.type, partner.typeVehicule].filter(Boolean).join(" · ")}
+                    </p>
                   </div>
-                  <span className="pill pill-info">
+                  <span className="pill pill-info rating-pill">
                     {partner.evaluation ? Number(partner.evaluation).toFixed(1) : "4.5"}
                   </span>
                 </div>
-                <p className="profile-card-copy">
-                  {[partner.ville, partner.pays, partner.type, partner.typeVehicule]
-                    .filter(Boolean)
-                    .join(" · ")}
+                <p className="profile-card-copy partner-copy">
+                  {[partner.ville, partner.pays].filter(Boolean).join(" · ")}
                 </p>
-                <div className="profile-card-meta">
-                  <span>{String(partner.telephone ?? "Téléphone à renseigner")}</span>
-                  <span>{String(partner.email ?? "Email à renseigner")}</span>
+                <div className="profile-card-meta meta-stack">
+                  <span>
+                    <strong>Téléphone</strong>
+                    {String(partner.telephone ?? "Téléphone à renseigner")}
+                  </span>
+                  <span>
+                    <strong>Email</strong>
+                    {String(partner.email ?? "Email à renseigner")}
+                  </span>
                 </div>
-                <div className="row-actions">
+                <div className="row-actions card-actions">
                   <button
-                    className="btn btn-secondary"
+                    className="btn btn-secondary btn-compact"
                     onClick={() =>
                       store.openModal({
                         type: "partner",
@@ -2109,7 +2191,7 @@ export function DemoV3App({
                     Modifier
                   </button>
                   <button
-                    className="btn btn-secondary danger"
+                    className="btn btn-secondary danger btn-compact"
                     onClick={() => store.deletePartner(store.partnerTab, String(partner.id))}
                     type="button"
                   >
@@ -2219,26 +2301,47 @@ export function DemoV3App({
       );
 
       return (
-        <div className="v3-card-grid">
+        <div className="v3-card-grid template-grid">
           {filteredTemplates.slice(0, 18).map((template) => (
-            <article className="template-card" key={template.id}>
-              <div className="profile-card-header">
-                <div>
-                  <p className="eyebrow">
-                    {template.categorie} · {template.type}
-                  </p>
+            <article className="template-card profile-card" key={template.id}>
+              <div className="template-card-header">
+                <div className="profile-heading">
+                  <div className="template-meta-row">
+                    <span className="pill pill-neutral pill-outline">{template.categorie}</span>
+                    <span className="pill pill-neutral pill-outline">{template.type}</span>
+                  </div>
                   <h3>{template.titre}</h3>
+                  <p className="profile-subheading">Template {template.langue.toUpperCase()}</p>
                 </div>
-                <span className="pill pill-neutral">{template.langue.toUpperCase()}</span>
+                <span className="pill pill-info pill-outline">{template.langue.toUpperCase()}</span>
               </div>
-              <p className="template-subject">{template.sujet}</p>
-              <p className="profile-card-copy line-clamp-4">{template.corps}</p>
-              <div className="template-variables">
-                {(template.variables ?? []).slice(0, 4).map((variable) => (
-                  <span className="pill pill-info" key={variable}>
-                    {variable}
-                  </span>
-                ))}
+              <div className="template-section">
+                <p className="template-label">Sujet</p>
+                <p className="template-subject">{renderTemplateRichText(template.sujet, 150)}</p>
+              </div>
+              <div className="template-section">
+                <p className="template-label">Aperçu</p>
+                <p className="template-preview">
+                  {renderTemplateRichText(templatePreviewBody(template.corps), 240)}
+                </p>
+              </div>
+              <div className="template-section">
+                <div className="template-footer-row">
+                  <p className="template-label">Variables</p>
+                  <span className="template-count">{(template.variables ?? []).length}</span>
+                </div>
+                <div className="template-variables">
+                  {(template.variables ?? []).slice(0, 6).map((variable) => (
+                    <span className="pill pill-info template-variable-pill" key={variable}>
+                      {prettifyTemplateVariable(variable)}
+                    </span>
+                  ))}
+                  {(template.variables ?? []).length > 6 ? (
+                    <span className="pill pill-neutral template-variable-pill">
+                      +{(template.variables ?? []).length - 6}
+                    </span>
+                  ) : null}
+                </div>
               </div>
             </article>
           ))}
@@ -2356,17 +2459,21 @@ export function DemoV3App({
             {alerts.map((alert) => (
               <article className="alert-card" key={alert.id}>
                 <div className="alert-card-head">
-                  <div>
+                  <div className="alert-card-title">
                     <p className="eyebrow">{alert.type.replace(/_/g, " ")}</p>
                     <h3>{alert.titre}</h3>
+                    <p className="alert-description">{alert.description}</p>
                   </div>
                   <span className={`pill ${renderPriorityPill(alert.priorite)}`}>{alert.priorite}</span>
                 </div>
-                <p>{alert.description}</p>
                 <div className="alert-card-footer">
                   <span>{alert.patientNom ?? "Sans patient"}</span>
                   <span>{formatDateTime(alert.dateCreation)}</span>
-                  <button className="btn btn-secondary" onClick={() => store.dismissAlert(alert.id)} type="button">
+                  <button
+                    className="btn btn-secondary btn-compact"
+                    onClick={() => store.dismissAlert(alert.id)}
+                    type="button"
+                  >
                     Marquer comme vu
                   </button>
                 </div>
@@ -2690,7 +2797,7 @@ export function DemoV3App({
       return (
         <div className="v3-stack">
           <div className="v3-card-grid">
-            <article className="report-card">
+            <article className="report-card compact-report-card">
               <div>
                 <p className="eyebrow">Pilotage</p>
                 <h3>Rapport patients actifs</h3>
@@ -2715,7 +2822,7 @@ export function DemoV3App({
                 Télécharger
               </button>
             </article>
-            <article className="report-card">
+            <article className="report-card compact-report-card">
               <div>
                 <p className="eyebrow">Finance</p>
                 <h3>Snapshot financier</h3>
@@ -2729,7 +2836,7 @@ export function DemoV3App({
                 Télécharger
               </button>
             </article>
-            <article className="report-card">
+            <article className="report-card compact-report-card">
               <div>
                 <p className="eyebrow">Comptabilité</p>
                 <h3>Journal comptable</h3>
@@ -3083,7 +3190,7 @@ export function DemoV3App({
               </div>
             </div>
             <div className="v3-topbar-right">
-              <label className="toolbar-search">
+              <label className="toolbar-search topbar-search">
                 <Search className="h-4 w-4" />
                 <input
                   value={store.search}
@@ -3092,13 +3199,15 @@ export function DemoV3App({
                 />
               </label>
               <button
-                className="icon-button"
+                className="icon-button notification-trigger"
                 onClick={() => store.setNotificationsOpen(!store.notificationsOpen)}
                 type="button"
                 aria-label="Notifications"
               >
                 <Bell className="h-4 w-4" />
-                {alerts.length ? <span className="badge-dot">{alerts.length}</span> : null}
+                {alerts.length ? (
+                  <span className="notification-trigger-count">{alerts.length}</span>
+                ) : null}
               </button>
               <button className="icon-button" type="button" aria-label="Filtres">
                 <Filter className="h-4 w-4" />
@@ -3139,10 +3248,15 @@ export function DemoV3App({
           <div className="notification-list">
             {notificationItems.map((alert) => (
               <article className="notification-item" key={alert.id}>
-                <div className={`pill ${renderPriorityPill(alert.priorite)}`}>{alert.priorite}</div>
+                <div className="notification-item-top">
+                  <span className={`pill ${renderPriorityPill(alert.priorite)}`}>{alert.priorite}</span>
+                  <small>{formatDateTime(alert.dateCreation)}</small>
+                </div>
                 <strong>{alert.titre}</strong>
                 <p>{alert.description}</p>
-                <small>{formatDateTime(alert.dateCreation)}</small>
+                <div className="notification-item-bottom">
+                  <span>{alert.patientNom ?? "Sans patient"}</span>
+                </div>
               </article>
             ))}
           </div>
