@@ -1,83 +1,24 @@
 import { cache } from "react";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
-import type {
-  AccountingEntry,
-  CalendarEventItem,
-  CommissionItem,
-  CommissionsConfig,
-  DemoV3Partners,
-  DemoV3Seed,
-  EmailItem,
-  FacturePatient,
-  JournalTypes,
-  MedicalDocument,
-  Medecin,
-  Patient,
-  ServiceItem,
-  TemplateItem,
-} from "./types";
-
-function extractLiteral(source: string, name: string) {
-  const start = source.indexOf(`const ${name} =`);
-  if (start === -1) {
-    throw new Error(`Unable to find "${name}" in seed source.`);
-  }
-
-  const equalIndex = source.indexOf("=", start);
-  let index = equalIndex + 1;
-
-  while (index < source.length && /\s/.test(source[index])) {
-    index += 1;
-  }
-
-  const opening = source[index];
-  const closing = opening === "[" ? "]" : "}";
-  let depth = 0;
-  let inString = false;
-  let quote = "";
-  let escaped = false;
-
-  for (let cursor = index; cursor < source.length; cursor += 1) {
-    const character = source[cursor];
-
-    if (inString) {
-      if (escaped) {
-        escaped = false;
-      } else if (character === "\\") {
-        escaped = true;
-      } else if (character === quote) {
-        inString = false;
-      }
-      continue;
-    }
-
-    if (character === "'" || character === '"' || character === "`") {
-      inString = true;
-      quote = character;
-      continue;
-    }
-
-    if (character === opening) {
-      depth += 1;
-    } else if (character === closing) {
-      depth -= 1;
-      if (depth === 0) {
-        return source.slice(index, cursor + 1);
-      }
-    }
-  }
-
-  throw new Error(`Unable to parse literal "${name}".`);
-}
-
-function parseLiteral<T>(literal: string): T {
-  return Function(`"use strict"; return (${literal});`)() as T;
-}
+import {
+  generatedCommissions,
+  generatedCommissionsConfig,
+  generatedDocuments,
+  generatedEcritures,
+  generatedEvenements,
+  generatedFacturesPatients,
+  generatedJournalTypes,
+  generatedMedecins,
+  generatedPartners,
+  generatedPatients,
+  generatedServices,
+  generatedTemplates,
+} from "./generated-seed";
+import type { DemoV3Seed, EmailItem, Patient } from "./types";
 
 function seedEmails(patients: Patient[]): EmailItem[] {
   const [first, second, third] = patients;
   const now = Date.now();
+
   return [
     {
       id: "EMAIL-SEED-001",
@@ -122,51 +63,19 @@ function seedEmails(patients: Patient[]): EmailItem[] {
 }
 
 export const loadDemoV3Seed = cache(async (): Promise<DemoV3Seed> => {
-  const root = path.join(process.cwd(), "client-file-1", "js");
-
-  const [dataJs, documentsJs, calendrierJs, financierJs, comptabiliteJs] =
-    await Promise.all([
-      readFile(path.join(root, "data.js"), "utf8"),
-      readFile(path.join(root, "documents.js"), "utf8"),
-      readFile(path.join(root, "calendrier.js"), "utf8"),
-      readFile(path.join(root, "financier.js"), "utf8"),
-      readFile(path.join(root, "comptabilite.js"), "utf8"),
-    ]);
-
-  const patients = parseLiteral<Patient[]>(extractLiteral(dataJs, "samplePatients"));
-  const medecins = parseLiteral<Medecin[]>(extractLiteral(dataJs, "sampleMedecins"));
-  const partenaires: DemoV3Partners = {
-    cliniques: parseLiteral(extractLiteral(dataJs, "sampleCliniques")),
-    hebergements: parseLiteral(extractLiteral(dataJs, "sampleHebergements")),
-    chauffeurs: parseLiteral(extractLiteral(dataJs, "sampleChauffeurs")),
-    assurances: parseLiteral(extractLiteral(dataJs, "sampleAssurances")),
-  };
-
   return {
-    patients,
-    medecins,
-    partenaires,
-    templates: parseLiteral<TemplateItem[]>(extractLiteral(dataJs, "sampleTemplates")),
-    documents: parseLiteral<MedicalDocument[]>(
-      extractLiteral(documentsJs, "sampleDocuments"),
-    ),
-    evenements: parseLiteral<CalendarEventItem[]>(
-      extractLiteral(calendrierJs, "sampleEvenements"),
-    ),
-    emails: seedEmails(patients),
-    services: parseLiteral<ServiceItem[]>(extractLiteral(financierJs, "catalogueServices")),
-    commissions: parseLiteral<CommissionItem[]>(
-      extractLiteral(financierJs, "sampleCommissions"),
-    ),
-    facturesPatients: parseLiteral<FacturePatient[]>(
-      extractLiteral(financierJs, "sampleFacturesPatients"),
-    ),
-    ecritures: parseLiteral<AccountingEntry[]>(
-      extractLiteral(comptabiliteJs, "sampleEcritures"),
-    ),
-    commissionsConfig: parseLiteral<CommissionsConfig>(
-      extractLiteral(financierJs, "commissionsConfig"),
-    ),
-    journalTypes: parseLiteral<JournalTypes>(extractLiteral(comptabiliteJs, "typesJournaux")),
+    patients: generatedPatients,
+    medecins: generatedMedecins,
+    partenaires: generatedPartners,
+    templates: generatedTemplates,
+    documents: generatedDocuments,
+    evenements: generatedEvenements,
+    emails: seedEmails(generatedPatients),
+    services: generatedServices,
+    commissions: generatedCommissions,
+    facturesPatients: generatedFacturesPatients,
+    ecritures: generatedEcritures,
+    commissionsConfig: generatedCommissionsConfig,
+    journalTypes: generatedJournalTypes,
   };
 });
