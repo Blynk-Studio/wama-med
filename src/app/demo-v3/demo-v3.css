@@ -210,6 +210,10 @@
   align-items: center;
 }
 
+.demo-v3-root .v3-topbar-left {
+  min-width: 0;
+}
+
 .demo-v3-root .v3-main-content {
   padding: 1.25rem;
   display: flex;
@@ -436,17 +440,25 @@
 
 .demo-v3-root .toolbar-filters,
 .demo-v3-root .v3-topbar-right {
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 .demo-v3-root .topbar-search {
-  flex: 0 1 280px;
-  max-width: 300px;
-  min-width: 220px;
+  flex: 0 1 clamp(180px, 22vw, 250px);
+  max-width: 250px;
+  min-width: 0;
 }
 
 .demo-v3-root .topbar-search input {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
+}
+
+.demo-v3-root .v3-topbar-right {
+  margin-left: auto;
+  flex: 0 1 auto;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  min-width: 0;
 }
 
 .demo-v3-root .toolbar-filters select,
@@ -614,6 +626,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.38rem;
+  flex-shrink: 0;
 }
 
 .demo-v3-root .notification-trigger-count {
@@ -629,6 +642,10 @@
   font-size: 0.66rem;
   font-weight: 800;
   line-height: 1;
+}
+
+.demo-v3-root .v3-topbar-right > .icon-button {
+  flex-shrink: 0;
 }
 
 .demo-v3-root .profile-card-meta,
