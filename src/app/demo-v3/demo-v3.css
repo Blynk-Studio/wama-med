@@ -20,6 +20,14 @@
   color: var(--v3-dark);
 }
 
+/* Restore the native cursor inside demo-v3.
+   The public site hides the OS cursor globally and relies on a custom cursor,
+   but demo-v3 does not mount that component. */
+.demo-v3-root,
+.demo-v3-root * {
+  cursor: auto !important;
+}
+
 .demo-v3-root,
 .demo-v3-root * {
   box-sizing: border-box;
