@@ -35,6 +35,7 @@ import { usePathname } from "next/navigation";
 type GSAPType = typeof import("gsap").default;
 type LenisType = import("lenis").default;
 type STType = typeof import("gsap/ScrollTrigger").ScrollTrigger;
+type WamaWindow = Window & { __wamaLenis?: LenisType };
 
 const EDITABLE_SELECTOR = 'input, textarea, select, [contenteditable=""], [contenteditable="true"]';
 const HANDLED_SCROLL_KEYS = new Set([
@@ -48,6 +49,8 @@ const HANDLED_SCROLL_KEYS = new Set([
   "Spacebar",
 ]);
 
+const LOCALIZED_HOME_PATHS = new Set(["/fr", "/en"]);
+
 function isEditableTarget(target: EventTarget | null): boolean {
   return target instanceof HTMLElement && !!target.closest(EDITABLE_SELECTOR);
 }
@@ -56,8 +59,14 @@ function isHandledScrollKey(event: KeyboardEvent): boolean {
   return HANDLED_SCROLL_KEYS.has(event.key);
 }
 
+function isLocalizedHomePath(pathname: string | null): boolean {
+  const normalizedPathname = (pathname || "").replace(/\/+$/, "");
+  return LOCALIZED_HOME_PATHS.has(normalizedPathname);
+}
+
 export function AnimationProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const isHomePage = isLocalizedHomePath(pathname);
 
   // Persist GSAP/Lenis instances across re-initialisations
   const gsapRef = useRef<GSAPType | null>(null);
@@ -127,6 +136,10 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
       if (lenis) {
         lenis.destroy();
         lenisRef.current = null;
+        const wamaWindow = window as WamaWindow;
+        if (wamaWindow.__wamaLenis === lenis) {
+          delete wamaWindow.__wamaLenis;
+        }
       }
 
       // Step 3: (scroll reset removed — Next.js App Router handles scroll-to-top
@@ -164,6 +177,7 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
         smoothWheel: true,
       });
       lenisRef.current = lenisNew;
+      (window as WamaWindow).__wamaLenis = lenisNew;
       const removeLenisScrollListener = lenisNew.on("scroll", ScrollTrigger.update);
 
       // Remove any previous ticker callbacks before adding a new one
@@ -279,9 +293,12 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
 
     // ── Gate GSAP behind user interaction on FIRST LOAD only ───────────────
     // Prevents GSAP from running during Lighthouse headless simulation.
+    // Localized homepages bypass this gate because their boot guard locks
+    // scrolling until the scroll journey controller is ready.
     // After first interaction, hasInteracted stays true for all route changes.
-    if (hasInteracted.current) {
+    if (hasInteracted.current || isHomePage) {
       // Already interacted (navigating between pages) — init immediately
+      if (isHomePage) hasInteracted.current = true;
       reinit();
     } else {
       // First load — wait for real user interaction
@@ -308,7 +325,7 @@ export function AnimationProvider({ children }: { children: React.ReactNode }) {
       if (loadHandler) window.removeEventListener("load", loadHandler);
       if (fallbackIO) fallbackIO.disconnect();
     };
-  }, [pathname]);
+  }, [pathname, isHomePage]);
 
   return <>{children}</>;
 }

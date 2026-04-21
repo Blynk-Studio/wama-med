@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 html, body {
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
 }
 
@@ -192,6 +192,79 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: hidden; }
 
 /* ─────────────────────────────────────────────────────────
+   Homepage Boot Guard
+   Locks the localized homepages until the scroll journey is armed.
+   ───────────────────────────────────────────────────────── */
+html.wama-home-boot-lock,
+html.wama-home-boot-lock body {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+
+html.wama-home-boot-lock body {
+  touch-action: none;
+}
+
+.wama-home-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at center, rgba(184, 144, 58, 0.14), transparent 34%),
+    #FAFAF8;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  touch-action: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+html.wama-home-boot-lock .wama-home-boot {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+html.wama-home-boot-ready .wama-home-boot {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.wama-home-boot__mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  color: var(--color-teal);
+}
+
+.wama-home-boot__monogram {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  line-height: 1;
+  color: var(--color-teal);
+}
+
+.wama-home-boot__ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(23, 59, 99, 0.18);
+  border-top-color: var(--color-brass);
+  border-radius: 9999px;
+  animation: wamaBootSpin 1s linear infinite;
+}
+
+@keyframes wamaBootSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
    Eyebrow Labels — 0.75rem (12px) minimum for WCAG legibility
    ───────────────────────────────────────────────────────── */
 .eyebrow {
@@ -250,6 +323,10 @@ html.lenis, html.lenis body { height: auto; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .wama-home-boot__ring {
+    animation: none;
   }
 }
 

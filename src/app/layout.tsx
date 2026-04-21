@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { Bodoni_Moda, DM_Sans } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { normalizeLocale } from "@/lib/i18n";
 
@@ -37,6 +38,23 @@ export const metadata: Metadata = {
   },
 };
 
+const homeBootPrelockScript = `
+(function () {
+  try {
+    var path = window.location.pathname.replace(/\\/+$/, "");
+    if (path !== "/fr" && path !== "/en") return;
+    var root = document.documentElement;
+    window.__wamaHomeBootStartedAt = Date.now();
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+    root.classList.add("wama-home-boot-lock");
+    root.classList.remove("wama-home-boot-ready");
+    window.scrollTo(0, 0);
+  } catch (error) {}
+})();
+`;
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -48,9 +66,17 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
+      suppressHydrationWarning
       className={`${bodoniModa.variable} ${dmSans.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col antialiased" style={{ background: "#FAFAF8" }}>{children}</body>
+      <body className="min-h-full flex flex-col antialiased" style={{ background: "#FAFAF8" }}>
+        <Script
+          id="wama-home-boot-prelock"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: homeBootPrelockScript }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

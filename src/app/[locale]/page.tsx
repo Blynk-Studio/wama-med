@@ -9,6 +9,7 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { ClosingCTA } from "@/components/sections/ClosingCTA";
 import { AISection } from "@/components/sections/AISection";
+import { HomepageBootGuard } from "@/components/ui/HomepageBootGuard";
 import { getDictionary } from "@/lib/dictionaries";
 import { localeOpenGraph, normalizeLocale } from "@/lib/i18n";
 
@@ -44,6 +45,7 @@ export default async function HomePage({
 
   return (
     <>
+      <HomepageBootGuard />
       <HeroSection />
       <TrustStrip pillars={dictionary.home.trustStrip.pillars} />
       <ScrollJourney />

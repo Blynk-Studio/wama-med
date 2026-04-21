@@ -17,6 +17,17 @@ interface Act {
   textColor: string;
 }
 
+type WamaWindow = Window & {
+  __wamaLenis?: {
+    scrollTo: (
+      target: number,
+      options?: { immediate?: boolean; force?: boolean; userData?: Record<string, string> }
+    ) => void;
+  };
+};
+
+const JOURNEY_READY_EVENT = 'wama:scroll-journey-ready';
+
 export function ScrollJourney() {
   const { locale, dictionary } = useLocaleDictionary();
   const acts = dictionary.home.scrollJourney.acts as readonly Act[];
@@ -124,7 +135,89 @@ export function ScrollJourney() {
     const sticky = stickyRef.current;
     if (!video || !sticky) return;
     let cancelled = false;
+    let readySignaled = false;
     const lastActIndex = acts.length - 1;
+
+    sticky.dataset.scrollJourneyReady = 'false';
+
+    const signalJourneyReady = () => {
+      if (readySignaled || cancelled) return;
+      readySignaled = true;
+      sticky.dataset.scrollJourneyReady = 'true';
+      window.dispatchEvent(new CustomEvent(JOURNEY_READY_EVENT));
+    };
+
+    const waitForVideoSurface = () => new Promise<void>((resolve) => {
+      if (video.readyState >= 2) {
+        resolve();
+        return;
+      }
+
+      let done = false;
+      let timeoutId = 0;
+
+      const cleanup = () => {
+        window.clearTimeout(timeoutId);
+        video.removeEventListener('loadeddata', finish);
+        video.removeEventListener('canplay', finish);
+        video.removeEventListener('error', finish);
+      };
+
+      const finish = () => {
+        if (done) return;
+        done = true;
+        cleanup();
+        resolve();
+      };
+
+      video.addEventListener('loadeddata', finish, { once: true });
+      video.addEventListener('canplay', finish, { once: true });
+      video.addEventListener('error', finish, { once: true });
+      timeoutId = window.setTimeout(finish, 1600);
+    });
+
+    let didEntryCatch = false;
+    let lastWindowScrollY = window.scrollY;
+
+    const jumpToJourneyStart = () => {
+      const outer = outerRef.current;
+      if (!outer) return;
+
+      const top = Math.max(0, Math.round(outer.offsetTop));
+      const wamaWindow = window as WamaWindow;
+      wamaWindow.__wamaLenis?.scrollTo(top, {
+        immediate: true,
+        force: true,
+        userData: { initiator: 'scroll-journey-catch' },
+      });
+      window.scrollTo(0, top);
+      lastWindowScrollY = top;
+    };
+
+    const onEntryCatch = () => {
+      const outer = outerRef.current;
+      if (!outer || didEntryCatch) {
+        lastWindowScrollY = window.scrollY;
+        return;
+      }
+
+      const currentY = window.scrollY;
+      const journeyTop = outer.offsetTop;
+      const crossedJourneyStart =
+        currentY > lastWindowScrollY + 2 &&
+        lastWindowScrollY < journeyTop - 4 &&
+        currentY > journeyTop + 4;
+
+      if (crossedJourneyStart) {
+        didEntryCatch = true;
+        jumpToJourneyStart();
+        return;
+      }
+
+      lastWindowScrollY = currentY;
+    };
+
+    window.addEventListener('scroll', onEntryCatch, { passive: true });
 
     const focusSticky = () => {
       if (!isPinnedRef.current) return;
@@ -232,7 +325,9 @@ export function ScrollJourney() {
       const { ScrollTrigger } = await waitForGsap();
       if (cancelled) return;
 
-      // Let React finish painting the 500vh container
+      const videoSurfaceReady = waitForVideoSurface();
+
+      // Let React finish painting the 500svh container
       await new Promise<void>(r => requestAnimationFrame(() => requestAnimationFrame(() => r())));
       await new Promise<void>(r => setTimeout(r, 100));
       if (cancelled) return;
@@ -264,21 +359,28 @@ export function ScrollJourney() {
 
           syncActAnimations(self.progress);
 
-          const nextActIdx = Math.min(4, Math.floor(self.progress * acts.length));
+          const nextActIdx = Math.min(lastActIndex, Math.floor(self.progress * acts.length));
           if (nextActIdx !== activeActRef.current) {
             activeActRef.current = nextActIdx;
             setActIdx(nextActIdx);
           }
         },
-        pin: stickyRef.current,
-        pinSpacing: false,
         invalidateOnRefresh: true,
-        anticipatePin: 1,
       });
       triggerRef.current = trigger;
 
-      requestAnimationFrame(() => {
-        if (!cancelled) ScrollTrigger.refresh();
+      requestAnimationFrame(async () => {
+        if (cancelled) return;
+        ScrollTrigger.refresh();
+        trigger?.refresh();
+        scrollProg.current = trigger?.progress ?? scrollProg.current;
+        setPinnedState(trigger?.isActive ?? false);
+
+        await videoSurfaceReady;
+        if (cancelled) return;
+
+        trigger?.refresh();
+        signalJourneyReady();
       });
     };
 
@@ -290,8 +392,10 @@ export function ScrollJourney() {
       trigger?.kill();
       triggerRef.current = null;
       isPinnedRef.current = false;
+      sticky.dataset.scrollJourneyReady = 'false';
       document.removeEventListener('focusin', onPinnedFocusIn, true);
       window.removeEventListener('keydown', onPinnedKeyDown, true);
+      window.removeEventListener('scroll', onEntryCatch);
       window.removeEventListener('touchstart',  onGesture);
       window.removeEventListener('scroll',      onGesture);
     };
@@ -306,7 +410,8 @@ export function ScrollJourney() {
   return (
     <section
       ref={outerRef}
-      style={{ height: '500vh', position: 'relative' }}
+      data-scroll-journey
+      style={{ height: '500svh', minHeight: '500vh', position: 'relative' }}
       aria-label={dictionary.home.scrollJourney.ariaLabel}
     >
       <div
@@ -314,7 +419,9 @@ export function ScrollJourney() {
         tabIndex={-1}
         style={{
           height: '100svh',
-          position: 'relative',
+          minHeight: '100vh',
+          position: 'sticky',
+          top: 0,
           background: act.bg,
           transition: 'background 0.9s ease',
           display: 'flex',
@@ -329,6 +436,7 @@ export function ScrollJourney() {
           ref={videoRef}
           muted
           playsInline
+          aria-hidden="true"
           preload="auto"
           poster="/scroll_bg_poster.jpg"
           style={{
@@ -343,6 +451,7 @@ export function ScrollJourney() {
             zIndex: 0,
           }}
         >
+          <source src="/scroll_bg.webm" type="video/webm" />
           <source src="/scroll_bg.mp4" type="video/mp4" />
         </video>
 
