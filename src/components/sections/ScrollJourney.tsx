@@ -451,7 +451,6 @@ export function ScrollJourney() {
             zIndex: 0,
           }}
         >
-          <source src="/scroll_bg.webm" type="video/webm" />
           <source src="/scroll_bg.mp4" type="video/mp4" />
         </video>
 
