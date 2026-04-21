@@ -87,60 +87,19 @@ export function HeroSection() {
       className="relative flex min-h-screen items-center overflow-hidden bg-cream"
       aria-label={content.ariaLabel}
     >
-      <div className="absolute inset-0 hidden md:block" aria-hidden="true">
-        <div
-          style={{
-            position: 'absolute',
-            inset: '0 0 0 auto',
-            width: 'min(76vw, 1160px)',
-            minWidth: '820px',
-          }}
-        >
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: '100%',
-              WebkitMaskImage:
-                'linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.08) 6%, rgba(0,0,0,0.28) 12%, rgba(0,0,0,0.62) 20%, rgba(0,0,0,0.88) 30%, rgba(0,0,0,1) 42%, rgba(0,0,0,1) 100%)',
-              maskImage:
-                'linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.08) 6%, rgba(0,0,0,0.28) 12%, rgba(0,0,0,0.62) 20%, rgba(0,0,0,0.88) 30%, rgba(0,0,0,1) 42%, rgba(0,0,0,1) 100%)',
-              WebkitMaskRepeat: 'no-repeat',
-              maskRepeat: 'no-repeat',
-            }}
-          >
-            <Image
-              src="/images/wama-hero-airport.jpeg"
-              alt=""
-              aria-hidden="true"
-              fill
-              priority
-              sizes="76vw"
-              className="object-cover"
-              style={{ objectPosition: '86% center' }}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background:
-                  'linear-gradient(180deg, rgba(250,250,248,0.03) 0%, rgba(23,59,99,0.05) 100%)',
-              }}
-            />
-          </div>
+      <div className="hero-bg-shell" aria-hidden="true">
+        <div className="hero-bg-frame">
+          <Image
+            src="/images/wama-hero-airport.jpeg"
+            alt=""
+            aria-hidden="true"
+            fill
+            priority
+            sizes="(min-width: 768px) 76vw, 100vw"
+            className="hero-bg-image object-cover"
+          />
+          <div className="hero-bg-tint" />
         </div>
-      </div>
-
-      <div className="absolute inset-0 md:hidden" aria-hidden="true">
-        <Image
-          src="/images/wama-hero-airport.jpeg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-          style={{ objectPosition: '76% center' }}
-        />
       </div>
 
       <div
