@@ -1,13 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
 import { localizePath } from "@/lib/i18n";
-
-const PHONE = "+212 522 000 000";
-const PHONE_HREF = "tel:+212522000000";
-const WHATSAPP_HREF = "https://wa.me/212522000000";
 
 export function Footer({
   locale,
@@ -28,7 +23,7 @@ export function Footer({
               alt="Wama Med"
               width={1540}
               height={1120}
-              className="h-8 w-auto mb-3"
+              className="h-10 w-auto mb-3"
             />
             <p className="text-sm leading-relaxed text-cream/60 max-w-[220px]">
               {content.brandDescription}
@@ -71,14 +66,6 @@ export function Footer({
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  href={PHONE_HREF}
-                  className="hover:text-cream transition-colors duration-200"
-                >
-                  {PHONE}
-                </a>
-              </li>
-              <li>
-                <a
                   href="mailto:contact@wamamed.com"
                   className="hover:text-cream transition-colors duration-200"
                 >
@@ -93,43 +80,8 @@ export function Footer({
                   </span>
                 ))}
               </li>
-              <li className="pt-2">
-                <a
-                  href={WHATSAPP_HREF}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-brass/20 hover:bg-brass/30 text-brass-light text-xs font-semibold px-3 py-1.5 rounded-full transition-colors duration-200"
-                >
-                  <span>{content.whatsapp}</span>
-                </a>
-              </li>
             </ul>
           </div>
-        </div>
-
-        {/* Demo links */}
-        <div className="border-t border-cream/10 pt-6 pb-4 flex justify-center gap-3 flex-wrap">
-          {content.demoLinks.map((link) => {
-            const className =
-              link.variant === "primary"
-                ? "bg-brass/20 hover:bg-brass/30 text-brass-light"
-                : link.variant === "secondary"
-                  ? "bg-cream/10 hover:bg-cream/15 text-cream/80"
-                  : "bg-cream/5 hover:bg-cream/10 text-cream";
-
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                prefetch
-                aria-label={link.ariaLabel}
-                className={`inline-flex items-center gap-2 text-sm font-semibold px-4 py-2.5 rounded-full transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-brass focus-visible:outline-offset-3 ${className}`}
-              >
-                <span>{link.label}</span>
-                <ArrowRight size={14} />
-              </Link>
-            );
-          })}
         </div>
 
         {/* Divider */}
@@ -163,10 +115,7 @@ export function Footer({
             </svg>
           </div>
           <p className="text-center">
-            {content.availability} —{" "}
-            <a href={PHONE_HREF} className="hover:text-cream/70 transition-colors">
-              {PHONE}
-            </a>
+            {content.availability}
           </p>
         </div>
       </div>

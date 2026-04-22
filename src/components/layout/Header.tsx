@@ -7,9 +7,6 @@ import { usePathname } from "next/navigation";
 import { useLocaleDictionary } from "@/components/ui/LocaleProvider";
 import { localizePath, swapLocaleInPathname } from "@/lib/i18n";
 
-const PHONE = "+212 522 000 000";
-const PHONE_HREF = "tel:+212522000000";
-
 export function Header() {
   const pathname = usePathname();
   const { locale, dictionary } = useLocaleDictionary();
@@ -54,10 +51,6 @@ export function Header() {
     ? "text-cream/80 hover:text-cream"
     : "text-ink/70 hover:text-ink";
   const accentTone = headerIsDark ? "bg-brass" : "bg-teal";
-  const utilityTone = headerIsDark
-    ? "text-cream/70 hover:text-cream"
-    : "text-ink/60 hover:text-ink";
-
   return (
     <>
       <header
@@ -87,7 +80,7 @@ export function Header() {
               alt="Wama Med"
               width={1540}
               height={1120}
-              className={`h-8 sm:h-10 w-auto transition-all duration-300 ${scrolled ? "" : "brightness-0"}`}
+              className={`h-10 sm:h-12 w-auto transition-all duration-300 ${scrolled ? "" : "brightness-0"}`}
               priority
             />
           </Link>
@@ -108,7 +101,7 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Right: Phone + CTA */}
+          {/* Right: language + CTA */}
           <div className="hidden md:flex items-center gap-5">
             <div
               className={`inline-flex items-center rounded-full border px-1 py-1 ${
@@ -139,13 +132,6 @@ export function Header() {
                 );
               })}
             </div>
-            <a
-              href={PHONE_HREF}
-              className={`${utilityTone} text-sm font-medium transition-colors duration-200`}
-              style={{ fontFamily: "var(--font-sans)" }}
-            >
-              {PHONE}
-            </a>
             <Link
               href={localizePath(locale, "/contact")}
               className="bg-brass hover:bg-brass-light text-ink font-semibold text-sm px-5 py-2.5 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-brass/30 hover:scale-105"
@@ -220,12 +206,6 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <a
-            href={PHONE_HREF}
-            className="text-cream/70 text-lg mt-4"
-          >
-            <span aria-hidden="true">📞</span> {PHONE}
-          </a>
           <Link
             href={localizePath(locale, "/contact")}
             onClick={() => setMenuOpen(false)}

@@ -53,9 +53,7 @@ export function ClosingCTA({
             {content.primary}
           </Link>
           <a
-            href="https://wa.me/212522000000"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:contact@wamamed.com"
             className="w-full sm:w-auto inline-flex items-center justify-center border border-cream/30 hover:border-cream/60 text-cream font-medium px-10 py-4 rounded-full text-base transition-all duration-200 hover:bg-cream/5"
           >
             {content.secondary}
@@ -63,11 +61,7 @@ export function ClosingCTA({
         </div>
 
         <p className="text-cream/60 text-sm mt-8">
-          <span aria-hidden="true">📞</span>{" "}
-          <a href="tel:+212522000000" className="hover:text-cream/60 transition-colors duration-200">
-            +212 522 000 000
-          </a>{" "}
-          — {content.availability}
+          {content.availability}
         </p>
       </div>
     </section>

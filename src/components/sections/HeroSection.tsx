@@ -12,8 +12,8 @@ export function HeroSection() {
   const content = dictionary.home.hero;
   const headlineLines =
     locale === 'fr'
-      ? ['Une coordination', 'médicale pensée', 'pour avancer', 'avec confiance']
-      : ['Medical coordination', 'designed to move', 'forward with confidence'];
+      ? ['Wama Med,', 'votre coordination', 'médicale de confiance']
+      : ['Wama Med,', 'medical coordination', 'for patients and families'];
 
   useEffect(() => {
     // Only split + animate the headline — word-level for natural wrapping.
@@ -90,7 +90,7 @@ export function HeroSection() {
       <div className="hero-bg-shell" aria-hidden="true">
         <div className="hero-bg-frame">
           <Image
-            src="/images/wama-hero-airport.jpeg"
+            src="/images/wama-hero-medical-africa.webp"
             alt=""
             aria-hidden="true"
             fill

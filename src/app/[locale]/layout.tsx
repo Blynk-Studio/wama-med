@@ -55,7 +55,6 @@ export default async function LocaleLayout({
             name: "Wama Med",
             description: dictionary.schemaDescription,
             url: "https://wamamed.com",
-            telephone: "+212-522-000-000",
             email: "contact@wamamed.com",
             address: {
               "@type": "PostalAddress",
@@ -72,7 +71,7 @@ export default async function LocaleLayout({
               "Senegal",
               "Ivory Coast",
             ],
-            availableLanguage: ["fr", "en"],
+            availableLanguage: ["fr", "en", "ar"],
             openingHours: "Mo-Su 00:00-23:59",
             medicalSpecialty: "GeneralPractice",
           }),

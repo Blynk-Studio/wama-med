@@ -135,7 +135,15 @@ body {
 }
 
 .public-site .hero-bg-tint {
-  display: none;
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(250, 250, 248, 0.92) 0%,
+    rgba(250, 250, 248, 0.76) 48%,
+    rgba(250, 250, 248, 0.2) 100%
+  );
 }
 
 @media (min-width: 768px) {

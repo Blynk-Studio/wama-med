@@ -51,35 +51,27 @@ export default async function AboutPage({
       >
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 sm:gap-20 items-start">
-            <div className="relative">
-              <div className="relative w-full aspect-[3/4] max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden ring-2 ring-brass/20">
-                <Image
-                  src="/images/wama-driss-portrait.jpg"
-                  alt={content.founder.alt}
-                  fill
-                  className="object-cover"
-                  style={{ objectPosition: "center 20%" }}
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
-              <div
-                className="absolute -bottom-4 left-4 right-4 sm:left-auto sm:-right-6 rounded-xl p-4 shadow-xl"
-                style={{ background: "#FFFFFF", border: "1px solid rgba(23,59,99,0.2)" }}
+            <div
+              className="rounded-2xl border border-brass/20 p-8 sm:p-10"
+              style={{ background: "#FFFFFF" }}
+            >
+              <p className="eyebrow text-brass mb-4">{content.founder.eyebrow}</p>
+              <h2
+                className="section-display text-ink mb-6"
+                style={{ fontFamily: "var(--font-fraunces)", color: "#1C1410" }}
               >
-                <p
-                  className="text-lg font-semibold"
-                  style={{ fontFamily: "var(--font-body)", color: "#1C1410" }}
-                >
-                  {content.founder.name}
-                </p>
-                <p className="text-xs mt-0.5" style={{ color: "rgba(28,20,16,0.5)" }}>
-                  {content.founder.role}
-                </p>
-              </div>
+                {content.founder.name}
+              </h2>
+              <p className="text-sm font-semibold text-teal mb-8">
+                {content.founder.role}
+              </p>
+              <p className="text-brass text-sm font-semibold">
+                {content.founder.experience}
+              </p>
             </div>
 
             <div className="pt-8 lg:pt-0">
-              <p className="eyebrow text-brass mb-4">{content.founder.eyebrow}</p>
+              <p className="eyebrow text-brass mb-4">{content.founder.storyEyebrow}</p>
               <span className="brass-rule mb-6 block" />
 
               <WordRevealQuote
@@ -92,10 +84,6 @@ export default async function AboutPage({
                   <p key={paragraph}>{paragraph}</p>
                 ))}
               </div>
-
-              <p className="text-brass text-sm font-semibold mt-8">
-                {content.founder.experience}
-              </p>
             </div>
           </div>
         </div>

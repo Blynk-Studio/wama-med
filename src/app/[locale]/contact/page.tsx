@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { AIWidgetInline } from "@/components/widgets/AIWidget";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { PublicPageHero } from "@/components/sections/PublicPageHero";
-import { WhatsAppFAB } from "@/components/ui/WhatsAppFAB";
 import { getDictionary } from "@/lib/dictionaries";
 import { localeOpenGraph, normalizeLocale } from "@/lib/i18n";
 
@@ -26,10 +25,6 @@ export async function generateMetadata({
     },
   };
 }
-
-const PHONE = "+212 522 000 000";
-const PHONE_HREF = "tel:+212522000000";
-const WHATSAPP_HREF = "https://wa.me/212522000000";
 
 export default async function ContactPage({
   params,
@@ -58,15 +53,6 @@ export default async function ContactPage({
         highlight={content.hero.titleHighlight}
         body={content.hero.body}
         titleMaxWidth="12ch"
-        supplementary={
-          <a
-            href={PHONE_HREF}
-            className="inline-flex items-center gap-2 text-base font-medium transition-colors duration-200"
-            style={{ color: "rgba(28,20,16,0.72)" }}
-          >
-            <span aria-hidden="true">&#128222;</span> {PHONE}
-          </a>
-        }
       />
 
       <section
@@ -130,34 +116,15 @@ export default async function ContactPage({
                 {dictionary.footer.addressLines.join(", ")}
               </p>
               <p className="flex items-center gap-2.5">
-                <span className="text-brass">&#128222;</span>
-                <a href={PHONE_HREF} className="hover:text-teal transition-colors">
-                  {PHONE}
-                </a>
-              </p>
-              <p className="flex items-center gap-2.5">
                 <span className="text-brass">&#128231;</span>
                 <a href="mailto:contact@wamamed.com" className="hover:text-teal transition-colors">
                   contact@wamamed.com
-                </a>
-              </p>
-              <p className="flex items-center gap-2.5">
-                <span className="text-brass">&#128172;</span>
-                <a
-                  href={WHATSAPP_HREF}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-teal transition-colors"
-                >
-                  {content.formSection.whatsappAvailability}
                 </a>
               </p>
             </div>
           </div>
         </div>
       </section>
-
-      <WhatsAppFAB href={WHATSAPP_HREF} />
     </>
   );
 }

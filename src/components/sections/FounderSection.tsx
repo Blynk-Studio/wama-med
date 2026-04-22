@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
@@ -25,31 +24,24 @@ export function FounderSection({
         <div
           className="type-texture type-texture-ghost text-ink whitespace-nowrap"
           style={{ opacity: 0.04, transform: "translateX(8%)" }}
-          data-text="DRISS"
+          data-text="HISTOIRE"
         />
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 items-center">
-          {/* Image */}
-          <div className="relative">
-            <div className="relative w-full aspect-square max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden">
-              <Image
-                src="/images/wama-driss-portrait.jpg"
-                alt={content.alt}
-                fill
-                className="object-cover"
-                style={{ objectPosition: "center 20%" }}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-              {/* Brass border accent */}
-              <div className="absolute inset-0 rounded-2xl border border-brass/20" />
-            </div>
-            {/* Badge — anchored to bottom-left of image, overlapping the edge */}
-            <div className="absolute bottom-4 left-4 bg-brass text-ink text-xs font-bold px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-ink/40 inline-block" />
-              {content.badge}
-            </div>
+          <div
+            className="rounded-2xl border border-brass/20 bg-white/70 p-8 sm:p-10 shadow-sm"
+            style={{ backdropFilter: "blur(10px)" }}
+          >
+            <p className="eyebrow text-teal mb-4">{content.badge}</p>
+            <h3
+              className="text-2xl sm:text-3xl leading-tight text-ink"
+              style={{ fontFamily: "var(--font-fraunces)", letterSpacing: "0.01em" }}
+            >
+              {content.intro}
+            </h3>
+            <div className="mt-8 h-px w-16 bg-brass/50" />
           </div>
 
           {/* Text */}

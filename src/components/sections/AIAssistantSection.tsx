@@ -24,16 +24,16 @@ export function AIAssistantSection() {
             </h2>
             <p className="text-ink/55 leading-relaxed text-[15px] mb-6 body-copy text-left">
               Notre assistant intelligent répond instantanément à vos questions sur nos
-              services, le processus, les tarifs et les délais — en français, 24h/24.
+              services, le processus, les tarifs et les délais — en français.
               Pour une prise en charge immédiate, soumettez directement votre dossier.
             </p>
             <p className="text-ink/35 text-sm">
-              Ou appelez directement :{" "}
+              Ou écrivez directement :{" "}
               <a
-                href="tel:+212522000000"
+                href="mailto:contact@wamamed.com"
                 className="text-teal hover:text-teal-light font-medium transition-colors"
               >
-                +212 522 000 000
+                contact@wamamed.com
               </a>
             </p>
           </div>

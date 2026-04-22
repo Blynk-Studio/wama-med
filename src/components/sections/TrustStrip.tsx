@@ -15,37 +15,31 @@ export function TrustStrip({
           overflowX: 'hidden',
         }}
     >
-      <div
-        className="grid grid-cols-2 sm:grid-cols-4 w-full max-w-[1100px] mx-auto"
-      >
+      <div className="grid grid-cols-1 min-[520px]:grid-cols-2 lg:grid-cols-4 w-full max-w-[1100px] mx-auto">
         {pillars.map((pillar, i) => (
           <div
             key={pillar.label}
             className={[
-              'flex min-h-[92px] flex-col items-center justify-center text-center sm:min-h-0',
-              'px-3 py-5 sm:px-0 sm:py-0',
-              i === 0 || i === 2
-                ? 'border-r border-r-[rgba(23,59,99,0.1)]'
-                : '',
-              i < 2
-                ? 'border-b border-b-[rgba(23,59,99,0.1)] sm:border-b-0'
-                : '',
-              i < 3
-                ? 'sm:border-r sm:border-r-[rgba(23,59,99,0.1)]'
-                : 'sm:border-r-0',
+              'flex min-h-[88px] flex-col items-center justify-center text-center',
+              'px-4 py-5 min-[520px]:px-5 lg:px-7 lg:py-0',
+              i < 3 ? 'border-b border-b-[rgba(23,59,99,0.1)] min-[520px]:border-b-0' : '',
+              i === 0 || i === 2 ? 'min-[520px]:border-r min-[520px]:border-r-[rgba(23,59,99,0.1)]' : '',
+              i < 3 ? 'lg:border-r lg:border-r-[rgba(23,59,99,0.1)]' : 'lg:border-r-0',
             ].filter(Boolean).join(' ')}
-            style={{ paddingInline: 'clamp(12px, 2vw, 28px)' }}
           >
             <p
+              className="trust-strip-label"
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
+                fontSize: 'clamp(0.95rem, 2vw, 1.18rem)',
                 fontWeight: 500,
                 color: 'var(--color-teal)',
-                lineHeight: 1.3,
+                lineHeight: 1.22,
                 marginBottom: '0',
                 textTransform: 'uppercase',
-                letterSpacing: '0.08em',
+                letterSpacing: '0.04em',
+                overflowWrap: 'anywhere',
+                textWrap: 'balance',
               }}
             >
               {pillar.label}
