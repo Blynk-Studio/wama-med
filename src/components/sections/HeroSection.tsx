@@ -90,7 +90,7 @@ export function HeroSection() {
       <div className="hero-bg-shell" aria-hidden="true">
         <div className="hero-bg-frame">
           <Image
-            src="/images/wama-hero-grand-healthcare-airport.png"
+            src="/images/wama-hero-grand-healthcare-airport-v2.png"
             alt=""
             aria-hidden="true"
             fill
@@ -118,7 +118,7 @@ export function HeroSection() {
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(circle at 34% 48%, rgba(250,250,248,0.48) 0%, rgba(250,250,248,0.26) 18%, rgba(250,250,248,0.08) 34%, rgba(250,250,248,0) 54%), radial-gradient(circle at 22% 26%, rgba(255,255,255,0.56) 0%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0) 44%), radial-gradient(circle at 74% 58%, rgba(184,144,58,0.24) 0%, rgba(184,144,58,0.10) 18%, rgba(184,144,58,0) 42%)',
+            'radial-gradient(circle at 78% 56%, rgba(184,144,58,0.18) 0%, rgba(184,144,58,0.08) 16%, rgba(184,144,58,0) 38%)',
           mixBlendMode: 'screen',
           pointerEvents: 'none',
         }}
