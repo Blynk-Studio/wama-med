@@ -6,7 +6,7 @@ const dictionaries = {
     schemaDescription:
       "Coordination médicale nationale et internationale, basée à Casablanca et pensée pour des parcours de soins sans frontières.",
     header: {
-      homeAria: "Wama Med — Accueil",
+      homeAria: "WaMa Med — Accueil",
       desktopNavAria: "Navigation principale",
       mobileNavAria: "Navigation mobile",
       openMenu: "Ouvrir le menu",
@@ -42,15 +42,15 @@ const dictionaries = {
       addressLines: ["5 Rue Molière", "Quartier Racine", "Casablanca, Maroc"],
     },
     assistant: {
-      headerTitle: "Assistant Wama Med",
+      headerTitle: "Assistant WaMa Med",
       availability: "Disponible 24h/24",
-      openAria: "Ouvrir l'assistant Wama Med",
+      openAria: "Ouvrir l'assistant WaMa Med",
       closeAria: "Fermer l'assistant",
       label: "Discutez maintenant",
       tabAria: "Mode de contact",
       tabs: { voice: "Voix", chat: "Chat" },
       greeting:
-        "Bonjour ! Je suis l'assistant Wama Med. Comment puis-je vous aider avec votre coordination médicale aujourd'hui ?",
+        "Bonjour ! Je suis l'assistant WaMa Med. Comment puis-je vous aider avec votre coordination médicale aujourd'hui ?",
       unavailable:
         "Je ne peux pas me connecter pour le moment. Écrivez-nous à contact@wamamed.com.",
       responseError:
@@ -143,14 +143,14 @@ const dictionaries = {
     },
     home: {
       metadata: {
-        title: "Wama Med — Coordination Médicale Nationale et Internationale",
+        title: "WaMa Med — Coordination Médicale Nationale et Internationale",
         description:
-          "Wama Med orchestre des parcours médicaux nationaux et internationaux avec une coordination claire, humaine et rigoureuse, de l'analyse initiale au suivi.",
+          "WaMa Med orchestre des parcours médicaux nationaux et internationaux avec une coordination claire, humaine et rigoureuse, de l'analyse initiale au suivi.",
       },
       hero: {
-        ariaLabel: "Wama Med — Coordination médicale internationale",
-        eyebrow: "Wama Med · Coordination médicale",
-        headline: "Wama Med, votre coordination médicale de confiance",
+        ariaLabel: "WaMa Med — Coordination médicale internationale",
+        eyebrow: "WaMa Med · Coordination médicale",
+        headline: "WaMa Med, votre coordination médicale de confiance",
         supportingLine:
           "Vous êtes malade, vous accompagnez un proche ou vous préparez un check-up : nous organisons les bonnes étapes médicales, logistiques et humaines.",
         cta: "Soumettre votre dossier",
@@ -277,7 +277,7 @@ const dictionaries = {
         ],
       },
       founderSection: {
-        alt: "Driss Benwahoud, fondateur de Wama Med",
+        alt: "Driss Benwahoud, fondateur de WaMa Med",
         badge: "Notre histoire",
         intro:
           "Une structure de coordination pour les patients, les proches et les familles qui ont besoin d'un repère fiable.",
@@ -286,9 +286,9 @@ const dictionaries = {
           "Construit pour rendre chaque parcours plus lisible, plus humain et mieux coordonné.",
         quote:
           "\"La bonne coordination apporte de la clarté avant même le premier rendez-vous.\"",
-        cite: "— Wama Med",
+        cite: "— WaMa Med",
         body:
-          "Wama Med est né d'expériences personnelles fortes, vécues par Driss Benwahoud et Inken auprès de proches malades. Cette histoire a donné naissance à une méthode simple : écouter la personne, clarifier les priorités médicales et coordonner chaque étape avec attention.",
+          "WaMa Med est né d'expériences personnelles fortes, vécues par Driss Benwahoud et Inken Dosse auprès de proches malades. Cette histoire a donné naissance à une méthode simple : écouter la personne, clarifier les priorités médicales et coordonner chaque étape avec attention.",
         cta: "Découvrir notre histoire",
       },
       processPreview: {
@@ -386,27 +386,27 @@ const dictionaries = {
     about: {
       metadata: {
         title:
-          "À Propos — Driss Benwahoud & Wama Med | Coordination Médicale Internationale",
+          "À Propos — Driss Benwahoud & WaMa Med | Coordination Médicale Internationale",
         description:
-          "L'histoire de Wama Med : une entreprise construite pour apporter clarté, continuité et coordination experte aux parcours médicaux nationaux et internationaux.",
+          "L'histoire de WaMa Med : une entreprise construite pour apporter clarté, continuité et coordination experte aux parcours médicaux nationaux et internationaux.",
       },
       hero: {
         eyebrow: "Notre histoire",
         title: "Une entreprise née pour apporter clarté et continuité.",
       },
       founder: {
-        alt: "Driss Benwahoud, fondateur et directeur de Wama Med",
-        name: "Driss Benwahoud & Inken",
-        role: "Fondateurs de Wama Med",
+        alt: "Driss Benwahoud, fondateur et directeur de WaMa Med",
+        name: "Driss Benwahoud & Inken Dosse",
+        role: "Fondateurs de WaMa Med",
         eyebrow: "Les fondateurs",
         storyEyebrow: "Une histoire personnelle",
         quote:
           "Une bonne coordination se mesure à la sérénité qu'elle crée autour du patient.",
-        cite: "Wama Med",
+        cite: "WaMa Med",
         paragraphs: [
-          "Wama Med est né de deux histoires personnelles marquées par la maladie de proches. Ces expériences ont mis en évidence le même besoin : une coordination claire, humaine et fiable quand les décisions médicales deviennent complexes.",
-          "Driss Benwahoud apporte son expérience de l'assurance, de l'organisation de parcours et de la relation avec les établissements de santé. Inken apporte une expérience longue de l'accompagnement et du terrain auprès de patients et de familles.",
-          "Aujourd'hui, Wama Med met cette méthode au service des patients et de leurs proches : un interlocuteur unique, des décisions structurées et une continuité de suivi à chaque étape.",
+          "WaMa Med est né de deux histoires personnelles marquées par la maladie de proches. Ces expériences ont mis en évidence le même besoin : une coordination claire, humaine et fiable quand les décisions médicales deviennent complexes.",
+          "Driss Benwahoud apporte son expérience de l'assurance, de l'organisation de parcours et de la relation avec les établissements de santé. Inken Dosse apporte une expérience longue de l'accompagnement et du terrain auprès de patients et de familles.",
+          "Aujourd'hui, WaMa Med met cette méthode au service des patients et de leurs proches : un interlocuteur unique, des décisions structurées et une continuité de suivi à chaque étape.",
         ],
         experience:
           "Assurance, santé, accompagnement familial et coordination de parcours",
@@ -430,10 +430,10 @@ const dictionaries = {
         title:
           "Rendre la coordination médicale lisible, humaine et professionnelle.",
         paragraphs: [
-          "Wama Med relie les spécialistes, les établissements, la logistique et les familles dans un même cadre de travail. Cette cohérence permet au patient d'avancer avec visibilité et confiance.",
+          "WaMa Med relie les spécialistes, les établissements, la logistique et les familles dans un même cadre de travail. Cette cohérence permet au patient d'avancer avec visibilité et confiance.",
           "Basée à Casablanca, l'équipe coordonne des parcours locaux et internationaux avec la même exigence : clarté, réactivité et continuité à chaque étape.",
         ],
-        alt: "Coordination médicale structurée par Wama Med",
+        alt: "Coordination médicale structurée par WaMa Med",
       },
       values: {
         eyebrow: "Nos valeurs",
@@ -464,7 +464,7 @@ const dictionaries = {
     },
     servicesPage: {
       metadata: {
-        title: "Nos Services — Coordination Médicale | Wama Med",
+        title: "Nos Services — Coordination Médicale | WaMa Med",
         description:
           "Analyse médicale, orientation spécialisée, check-ups, coordination de rendez-vous, logistique, assurance, accompagnement post-consultation et évacuation sanitaire.",
       },
@@ -473,7 +473,7 @@ const dictionaries = {
         titleStart: "Coordination complète.",
         titleHighlight: "Une même trajectoire.",
         body:
-          "De l'analyse initiale au suivi post-consultation, Wama Med aligne chaque étape du parcours avec méthode, rythme et attention personnalisée.",
+          "De l'analyse initiale au suivi post-consultation, WaMa Med aligne chaque étape du parcours avec méthode, rythme et attention personnalisée.",
       },
       servicesAria: "Aperçu des services",
       detailsAria: "Services en détail",
@@ -506,7 +506,7 @@ const dictionaries = {
           number: "03",
           title: "Coordination des rendez-vous",
           desc:
-            "Wama Med synchronise les rendez-vous, les échanges médicaux et le partage d'information autour du même plan.",
+            "WaMa Med synchronise les rendez-vous, les échanges médicaux et le partage d'information autour du même plan.",
           details: [
             "Coordination inter-spécialistes",
             "Partage sécurisé des résultats",
@@ -563,7 +563,7 @@ const dictionaries = {
             "Premier retour rapide et exploitable",
           ],
           image: "/images/wama-coordination-medecin.jpg",
-          alt: "Médecin coordinateur Wama Med analysant un dossier médical",
+          alt: "Médecin coordinateur WaMa Med analysant un dossier médical",
         },
         {
           title: "Orientation spécialisée",
@@ -576,7 +576,7 @@ const dictionaries = {
             "Prise de rendez-vous prioritaire",
           ],
           image: "/images/wama-orientation-specialisee.jpg",
-          alt: "Coordination et orientation médicale spécialisée — Wama Med",
+          alt: "Coordination et orientation médicale spécialisée — WaMa Med",
         },
         {
           title: "Logistique médicale",
@@ -589,15 +589,15 @@ const dictionaries = {
             "Documents médicaux pour le retour",
           ],
           image: "/images/wama-patient-international.jpg",
-          alt: "Accueil de patients internationaux par l'équipe Wama Med",
+          alt: "Accueil de patients internationaux par l'équipe WaMa Med",
         },
       ],
     },
     approach: {
       metadata: {
-        title: "Notre Approche — Protocole de coordination | Wama Med",
+        title: "Notre Approche — Protocole de coordination | WaMa Med",
         description:
-          "Le protocole de coordination médicale Wama Med : de la soumission du dossier à l'accompagnement post-consultation, structuré en 4 étapes.",
+          "Le protocole de coordination médicale WaMa Med : de la soumission du dossier à l'accompagnement post-consultation, structuré en 4 étapes.",
       },
       hero: {
         eyebrow: "Notre Approche",
@@ -652,7 +652,7 @@ const dictionaries = {
           duration: "Continu",
           durationLabel: "Accompagnement",
           desc:
-            "Wama Med prend en charge toute la coordination opérationnelle : prise de rendez-vous, communication entre spécialistes, partage des résultats, transport local et hébergement si nécessaire.",
+            "WaMa Med prend en charge toute la coordination opérationnelle : prise de rendez-vous, communication entre spécialistes, partage des résultats, transport local et hébergement si nécessaire.",
           details: [
             "Rendez-vous pris en votre nom",
             "Communication directe entre spécialistes",
@@ -685,11 +685,11 @@ const dictionaries = {
           a: "Nos tarifs dépendent de la complexité du dossier et des services requis. Contactez-nous pour un devis personnalisé — la consultation initiale d’analyse est sans engagement.",
         },
         {
-          q: "Wama Med est-il un cabinet médical ?",
+          q: "WaMa Med est-il un cabinet médical ?",
           a: "Non. Nous sommes un service de coordination médicale — nous organisons, orientons et accompagnons, mais nous ne prodiguons pas de soins. Votre traitement reste entre les mains des spécialistes que nous coordonnons.",
         },
         {
-          q: "Puis-je faire appel à Wama Med pour un proche au Maroc alors que je suis à l’étranger ?",
+          q: "Puis-je faire appel à WaMa Med pour un proche au Maroc alors que je suis à l’étranger ?",
           a: "Absolument. C’est précisément l’un de nos services principaux. Nous agissons comme votre représentant sur place — avec les compétences médicales et administratives pour gérer tout votre dossier.",
         },
         {
@@ -704,9 +704,9 @@ const dictionaries = {
     },
     contactPage: {
       metadata: {
-        title: "Contact — Soumettre votre dossier médical | Wama Med",
+        title: "Contact — Soumettre votre dossier médical | WaMa Med",
         description:
-          "Soumettez votre dossier médical à Wama Med. Réponse rapide et coordination humaine pour des parcours de soins nationaux et internationaux.",
+          "Soumettez votre dossier médical à WaMa Med. Réponse rapide et coordination humaine pour des parcours de soins nationaux et internationaux.",
       },
       hero: {
         badge: "Contact professionnel · Réponse rapide",
@@ -731,7 +731,7 @@ const dictionaries = {
     schemaDescription:
       "National and international medical coordination, based in Casablanca and designed for seamless cross-border care journeys.",
     header: {
-      homeAria: "Wama Med — Home",
+      homeAria: "WaMa Med — Home",
       desktopNavAria: "Primary navigation",
       mobileNavAria: "Mobile navigation",
       openMenu: "Open menu",
@@ -767,15 +767,15 @@ const dictionaries = {
       addressLines: ["5 Rue Molière", "Racine District", "Casablanca, Morocco"],
     },
     assistant: {
-      headerTitle: "Wama Med Assistant",
+      headerTitle: "WaMa Med Assistant",
       availability: "Available 24/7",
-      openAria: "Open the Wama Med assistant",
+      openAria: "Open the WaMa Med assistant",
       closeAria: "Close the assistant",
       label: "Talk now",
       tabAria: "Contact mode",
       tabs: { voice: "Voice", chat: "Chat" },
       greeting:
-        "Hello! I'm the Wama Med assistant. How can I help with your medical coordination today?",
+        "Hello! I'm the WaMa Med assistant. How can I help with your medical coordination today?",
       unavailable:
         "I can't connect right now. Please email us at contact@wamamed.com.",
       responseError:
@@ -868,14 +868,14 @@ const dictionaries = {
     },
     home: {
       metadata: {
-        title: "Wama Med — National and International Medical Coordination",
+        title: "WaMa Med — National and International Medical Coordination",
         description:
-          "Wama Med orchestrates national and international medical journeys with clear, human-centered coordination from first review through follow-up.",
+          "WaMa Med orchestrates national and international medical journeys with clear, human-centered coordination from first review through follow-up.",
       },
       hero: {
-        ariaLabel: "Wama Med — International medical coordination",
-        eyebrow: "Wama Med · Medical coordination",
-        headline: "Wama Med, medical coordination for patients and families",
+        ariaLabel: "WaMa Med — International medical coordination",
+        eyebrow: "WaMa Med · Medical coordination",
+        headline: "WaMa Med, medical coordination for patients and families",
         supportingLine:
           "If you are ill, supporting a loved one, or planning prevention and check-ups, we organize the right medical, logistical, and human steps.",
         cta: "Submit your case",
@@ -1002,7 +1002,7 @@ const dictionaries = {
         ],
       },
       founderSection: {
-        alt: "Driss Benwahoud, founder of Wama Med",
+        alt: "Driss Benwahoud, founder of WaMa Med",
         badge: "Our story",
         intro:
           "A coordination structure for patients, relatives, and families who need one reliable point of reference.",
@@ -1011,9 +1011,9 @@ const dictionaries = {
           "Built to make every care journey clearer, more human, and better coordinated.",
         quote:
           "\"The best coordination brings clarity before the first appointment even begins.\"",
-        cite: "— Wama Med",
+        cite: "— WaMa Med",
         body:
-          "Wama Med was born from strong personal experiences lived by Driss Benwahoud and Inken alongside loved ones facing illness. That story became a simple method: listen to the person, clarify medical priorities, and coordinate each step with care.",
+          "WaMa Med was born from strong personal experiences lived by Driss Benwahoud and Inken Dosse alongside loved ones facing illness. That story became a simple method: listen to the person, clarify medical priorities, and coordinate each step with care.",
         cta: "Discover our story",
       },
       processPreview: {
@@ -1111,27 +1111,27 @@ const dictionaries = {
     about: {
       metadata: {
         title:
-          "About — Driss Benwahoud & Wama Med | International Medical Coordination",
+          "About — Driss Benwahoud & WaMa Med | International Medical Coordination",
         description:
-          "The story behind Wama Med: a company built to bring clarity, continuity, and expert coordination to national and international care journeys.",
+          "The story behind WaMa Med: a company built to bring clarity, continuity, and expert coordination to national and international care journeys.",
       },
       hero: {
         eyebrow: "Our story",
         title: "Built to bring clarity and continuity to care journeys.",
       },
       founder: {
-        alt: "Driss Benwahoud, founder and director of Wama Med",
-        name: "Driss Benwahoud & Inken",
-        role: "Wama Med founders",
+        alt: "Driss Benwahoud, founder and director of WaMa Med",
+        name: "Driss Benwahoud & Inken Dosse",
+        role: "WaMa Med founders",
         eyebrow: "The founders",
         storyEyebrow: "A personal story",
         quote:
           "Strong coordination is measured by the calm and clarity it creates around the patient.",
-        cite: "Wama Med",
+        cite: "WaMa Med",
         paragraphs: [
-          "Wama Med was born from two personal stories shaped by the illness of loved ones. Those experiences revealed the same need: clear, human, reliable coordination when medical decisions become complex.",
-          "Driss Benwahoud brings experience in insurance, care-path organization, and relationships with healthcare institutions. Inken brings long experience supporting patients and families on the ground.",
-          "Today, Wama Med puts that method into practice through a single point of coordination, structured decisions, and steady follow-through across every stage of care.",
+          "WaMa Med was born from two personal stories shaped by the illness of loved ones. Those experiences revealed the same need: clear, human, reliable coordination when medical decisions become complex.",
+          "Driss Benwahoud brings experience in insurance, care-path organization, and relationships with healthcare institutions. Inken Dosse brings long experience supporting patients and families on the ground.",
+          "Today, WaMa Med puts that method into practice through a single point of coordination, structured decisions, and steady follow-through across every stage of care.",
         ],
         experience:
           "Insurance, healthcare, family support, and care-path coordination",
@@ -1155,10 +1155,10 @@ const dictionaries = {
         title:
           "Making medical coordination readable, human, and truly professional.",
         paragraphs: [
-          "Wama Med connects specialists, institutions, logistics, and families inside one coordinated framework. That consistency lets patients move forward with visibility and confidence.",
+          "WaMa Med connects specialists, institutions, logistics, and families inside one coordinated framework. That consistency lets patients move forward with visibility and confidence.",
           "Based in Casablanca, the team manages local and international care journeys with the same standard: clarity, responsiveness, and continuity at every step.",
         ],
-        alt: "Structured medical coordination by Wama Med",
+        alt: "Structured medical coordination by WaMa Med",
       },
       values: {
         eyebrow: "Our values",
@@ -1189,7 +1189,7 @@ const dictionaries = {
     },
     servicesPage: {
       metadata: {
-        title: "Services — Medical Coordination | Wama Med",
+        title: "Services — Medical Coordination | WaMa Med",
         description:
           "Medical analysis, specialist orientation, check-ups, appointment coordination, logistics, insurance support, post-consultation follow-up, and medical evacuation.",
       },
@@ -1198,7 +1198,7 @@ const dictionaries = {
         titleStart: "Complete coordination.",
         titleHighlight: "One coherent pathway.",
         body:
-          "From the initial review to post-consultation follow-up, Wama Med aligns every stage of the journey with structure, pace, and personalized attention.",
+          "From the initial review to post-consultation follow-up, WaMa Med aligns every stage of the journey with structure, pace, and personalized attention.",
       },
       servicesAria: "Services overview",
       detailsAria: "Service details",
@@ -1231,7 +1231,7 @@ const dictionaries = {
           number: "03",
           title: "Appointment coordination",
           desc:
-            "Wama Med synchronizes appointments, medical exchanges, and information flow around one coordinated plan.",
+            "WaMa Med synchronizes appointments, medical exchanges, and information flow around one coordinated plan.",
           details: [
             "Cross-specialty coordination",
             "Secure sharing of results",
@@ -1288,7 +1288,7 @@ const dictionaries = {
             "Quick and actionable first response",
           ],
           image: "/images/wama-coordination-medecin.jpg",
-          alt: "Wama Med coordinating physician reviewing a medical file",
+          alt: "WaMa Med coordinating physician reviewing a medical file",
         },
         {
           title: "Specialist orientation",
@@ -1301,7 +1301,7 @@ const dictionaries = {
             "Priority appointment booking",
           ],
           image: "/images/wama-orientation-specialisee.jpg",
-          alt: "Specialized medical coordination and orientation — Wama Med",
+          alt: "Specialized medical coordination and orientation — WaMa Med",
         },
         {
           title: "Medical logistics",
@@ -1314,15 +1314,15 @@ const dictionaries = {
             "Documents for your return home",
           ],
           image: "/images/wama-patient-international.jpg",
-          alt: "International patient support from the Wama Med team",
+          alt: "International patient support from the WaMa Med team",
         },
       ],
     },
     approach: {
       metadata: {
-        title: "Our Process — Coordination Protocol | Wama Med",
+        title: "Our Process — Coordination Protocol | WaMa Med",
         description:
-          "The Wama Med medical coordination protocol: from case submission to post-consultation follow-up, structured in 4 steps.",
+          "The WaMa Med medical coordination protocol: from case submission to post-consultation follow-up, structured in 4 steps.",
       },
       hero: {
         eyebrow: "Our Process",
@@ -1377,7 +1377,7 @@ const dictionaries = {
           duration: "Ongoing",
           durationLabel: "Support",
           desc:
-            "Wama Med handles the full operational coordination: appointment booking, specialist communication, result sharing, local transport, and accommodation when needed.",
+            "WaMa Med handles the full operational coordination: appointment booking, specialist communication, result sharing, local transport, and accommodation when needed.",
           details: [
             "Appointments booked on your behalf",
             "Direct communication between specialists",
@@ -1410,11 +1410,11 @@ const dictionaries = {
           a: "Our fees depend on the complexity of the case and the services required. Contact us for a personalized quote — the initial review consultation is non-binding.",
         },
         {
-          q: "Is Wama Med a medical practice?",
+          q: "Is WaMa Med a medical practice?",
           a: "No. We are a medical coordination service — we organize, orient, and support, but we do not deliver medical treatment. Your care remains in the hands of the specialists we coordinate.",
         },
         {
-          q: "Can I use Wama Med for a loved one in Morocco while I am abroad?",
+          q: "Can I use WaMa Med for a loved one in Morocco while I am abroad?",
           a: "Absolutely. That is one of our core services. We act as your representative on the ground — with the medical and administrative expertise to manage the entire case.",
         },
         {
@@ -1429,9 +1429,9 @@ const dictionaries = {
     },
     contactPage: {
       metadata: {
-        title: "Contact — Submit your medical file | Wama Med",
+        title: "Contact — Submit your medical file | WaMa Med",
         description:
-          "Submit your medical file to Wama Med. Quick response and human coordination for national and international care journeys.",
+          "Submit your medical file to WaMa Med. Quick response and human coordination for national and international care journeys.",
       },
       hero: {
         badge: "Professional contact · Quick response",

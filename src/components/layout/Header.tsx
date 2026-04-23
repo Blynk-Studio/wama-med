@@ -77,10 +77,15 @@ export function Header() {
           >
             <Image
               src="/images/wama-logo-transparent.png"
-              alt="Wama Med"
+              alt="WaMa Med"
               width={1540}
               height={1120}
-              className={`h-10 sm:h-12 w-auto transition-all duration-300 ${scrolled ? "" : "brightness-0"}`}
+              className="h-10 sm:h-12 w-auto transition-all duration-300"
+              style={{
+                filter: scrolled
+                  ? "hue-rotate(45deg) saturate(0.7) brightness(1.15)"
+                  : "brightness(0)",
+              }}
               priority
             />
           </Link>

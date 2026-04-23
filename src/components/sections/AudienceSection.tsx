@@ -3,7 +3,7 @@ import Image from "next/image";
 const AUDIENCES = [
   {
     title: "Familles marocaines",
-    desc: "Un proche vient de recevoir un diagnostic complexe. Plusieurs spécialistes, plusieurs établissements, des rendez-vous qui ne se parlent pas. Wama Med prend la main.",
+    desc: "Un proche vient de recevoir un diagnostic complexe. Plusieurs spécialistes, plusieurs établissements, des rendez-vous qui ne se parlent pas. WaMa Med prend la main.",
     image: "/images/wama-accompagnement.jpg",
     alt: "Famille marocaine accompagnée par un coordinateur médical",
     cta: "Pour les résidents",
@@ -12,14 +12,14 @@ const AUDIENCES = [
     title: "Diaspora marocaine",
     desc: "Vous êtes à Paris, Bruxelles ou Amsterdam. Votre parent à Casablanca a besoin d'un suivi spécialisé. Nous sommes vos yeux et vos mains sur place.",
     image: "/images/wama-diaspora-famille.jpg",
-    alt: "Famille de la diaspora en communication avec Wama Med",
+    alt: "Famille de la diaspora en communication avec WaMa Med",
     cta: "Pour la diaspora",
   },
   {
     title: "Patients internationaux",
-    desc: "Le Maroc offre des soins de qualité à une fraction du coût européen. Wama Med coordonne tout — du vol à la sortie — pour les patients d'Afrique subsaharienne et d'Europe.",
+    desc: "Le Maroc offre des soins de qualité à une fraction du coût européen. WaMa Med coordonne tout — du vol à la sortie — pour les patients d'Afrique subsaharienne et d'Europe.",
     image: "/images/wama-patient-international.jpg",
-    alt: "Patient international accueilli par l'équipe Wama Med",
+    alt: "Patient international accueilli par l'équipe WaMa Med",
     cta: "Pour les patients étrangers",
   },
 ];

@@ -52,7 +52,7 @@ export default async function LocaleLayout({
             "@context": "https://schema.org",
             "@type": "MedicalOrganization",
             "@id": "https://wamamed.com",
-            name: "Wama Med",
+            name: "WaMa Med",
             description: dictionary.schemaDescription,
             url: "https://wamamed.com",
             email: "contact@wamamed.com",

@@ -27,10 +27,10 @@ export async function POST(request: NextRequest) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      sender: { name: "Wama Med — Site Web", email: "noreply@blynk.studio" },
-      to: [{ email: clientEmail, name: "Wama Med" }],
+      sender: { name: "WaMa Med — Site Web", email: "noreply@blynk.studio" },
+      to: [{ email: clientEmail, name: "WaMa Med" }],
       replyTo: { email, name },
-      subject: `Nouveau dossier de ${name} — Wama Med`,
+      subject: `Nouveau dossier de ${name} — WaMa Med`,
       htmlContent: `
         <h2>Nouvelle demande de coordination médicale</h2>
         <p><strong>Nom :</strong> ${name}</p>

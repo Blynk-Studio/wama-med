@@ -24,14 +24,14 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Wama Med",
+  title: "WaMa Med",
   description:
     "International medical coordination based in Casablanca for patients, families, and cross-border care journeys.",
   keywords:
     "medical coordination, care navigation, international patients, specialist coordination, cross-border care, Casablanca medical coordination",
-  authors: [{ name: "Wama Med" }],
+  authors: [{ name: "WaMa Med" }],
   openGraph: {
-    title: "Wama Med",
+    title: "WaMa Med",
     description:
       "International medical coordination with a clear, human-centered care journey.",
     type: "website",

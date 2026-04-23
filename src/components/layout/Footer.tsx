@@ -20,7 +20,7 @@ export function Footer({
           <div className="col-span-2 sm:col-span-1">
             <Image
               src="/images/wama-logo-transparent.png"
-              alt="Wama Med"
+              alt="WaMa Med"
               width={1540}
               height={1120}
               className="h-10 w-auto mb-3"
@@ -86,7 +86,7 @@ export function Footer({
 
         {/* Divider */}
         <div className="border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/60">
-          <p>© {new Date().getFullYear()} Wama Med. {content.copyright}</p>
+          <p>© {new Date().getFullYear()} WaMa Med. {content.copyright}</p>
           {/* Studio credit — inline with footer bottom row */}
           <div className="flex items-center gap-2 text-cream/50">
             <span>Built different by</span>
