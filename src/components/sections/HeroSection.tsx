@@ -90,7 +90,7 @@ export function HeroSection() {
       <div className="hero-bg-shell" aria-hidden="true">
         <div className="hero-bg-frame">
           <Image
-            src="/images/wama-hero-travel-neutral-airport.webp"
+            src="/images/wama-hero-grand-healthcare-airport.png"
             alt=""
             aria-hidden="true"
             fill
