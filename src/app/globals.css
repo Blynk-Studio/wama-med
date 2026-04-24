@@ -131,7 +131,7 @@ body {
 }
 
 .public-site .hero-bg-image {
-  object-position: 68% center;
+  object-position: 68% 72%;
 }
 
 .public-site .hero-bg-tint {
@@ -139,11 +139,12 @@ body {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    90deg,
-    rgba(250, 250, 248, 0.88) 0%,
-    rgba(250, 250, 248, 0.70) 40%,
-    rgba(250, 250, 248, 0.25) 75%,
-    rgba(250, 250, 248, 0) 100%
+    180deg,
+    rgba(250, 250, 248, 0.96) 0%,
+    rgba(250, 250, 248, 0.96) 45%,
+    rgba(250, 250, 248, 0.82) 65%,
+    rgba(250, 250, 248, 0.35) 88%,
+    rgba(250, 250, 248, 0.15) 100%
   );
 }
 
@@ -205,8 +206,9 @@ body {
   }
 
   .public-site .section-display {
-    font-size: clamp(1.55rem, 6.2vw, 2.1rem);
-    line-height: 1.1;
+    font-size: clamp(1.35rem, 5.6vw, 2.1rem);
+    letter-spacing: 0.015em;
+    line-height: 1.12;
   }
 }
 

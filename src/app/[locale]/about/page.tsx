@@ -95,7 +95,7 @@ export default async function AboutPage({
         aria-label="Expertise"
       >
         <div className="max-w-5xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-3 gap-6 sm:gap-8 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-8 text-center">
             {content.credentials.map((item) => (
               <div key={item.title}>
                 <p
