@@ -153,7 +153,7 @@ export function HeroSection() {
             lineHeight: 1.72,
             marginTop: '4px',
             textShadow:
-              '-1px -1px 0 rgba(250,250,248,0.95), 1px -1px 0 rgba(250,250,248,0.95), -1px 1px 0 rgba(250,250,248,0.95), 1px 1px 0 rgba(250,250,248,0.95), 0 0 10px rgba(250,250,248,0.7), 0 2px 4px rgba(0,0,0,0.18)',
+              '-0.5px -0.5px 0 rgba(250,250,248,0.95), 0.5px -0.5px 0 rgba(250,250,248,0.95), -0.5px 0.5px 0 rgba(250,250,248,0.95), 0.5px 0.5px 0 rgba(250,250,248,0.95), 0 0 10px rgba(250,250,248,0.7), 0 2px 4px rgba(0,0,0,0.18)',
             '--hero-delay': '0.55s',
           } as React.CSSProperties}
         >
