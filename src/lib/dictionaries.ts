@@ -29,7 +29,7 @@ const dictionaries = {
       serviceLinks: [
         { href: "/services", label: "Coordination de parcours" },
         { href: "/services", label: "Check-ups et prévention" },
-        { href: "/services", label: "Assurance et prises en charge" },
+        { href: "/services", label: "Conseil en prises en charge" },
         { href: "/services", label: "Accompagnement familial à distance" },
       ],
       navLinks: [
@@ -269,7 +269,7 @@ const dictionaries = {
             href: "/services",
           },
           {
-            title: "Assurance et prises en charge",
+            title: "Conseil en prises en charge",
             desc:
               "Un appui administratif pour les échanges avec assureurs, entreprises et organismes de couverture.",
             href: "/services",
@@ -277,7 +277,7 @@ const dictionaries = {
         ],
       },
       founderSection: {
-        alt: "Driss Benwahoud, fondateur de WaMa Med",
+        alt: "L'équipe fondatrice de WaMa Med",
         badge: "Notre histoire",
         intro:
           "Une structure de coordination pour les patients, les proches et les familles qui ont besoin d'un repère fiable.",
@@ -288,7 +288,7 @@ const dictionaries = {
           "\"La bonne coordination apporte de la clarté avant même le premier rendez-vous.\"",
         cite: "— WaMa Med",
         body:
-          "WaMa Med est né d'expériences personnelles fortes, vécues par Driss Benwahoud et Inken Dosse auprès de proches malades. Cette histoire a donné naissance à une méthode simple : écouter la personne, clarifier les priorités médicales et coordonner chaque étape avec attention.",
+          "WaMa Med est né d'expériences personnelles fortes, vécues par les fondateurs de WaMa Med auprès de proches malades. Cette histoire a donné naissance à une méthode simple : écouter la personne, clarifier les priorités médicales et coordonner chaque étape avec attention.",
         cta: "Découvrir notre histoire",
       },
       processPreview: {
@@ -386,7 +386,7 @@ const dictionaries = {
     about: {
       metadata: {
         title:
-          "À Propos — Driss Benwahoud & WaMa Med | Coordination Médicale Internationale",
+          "À Propos — WaMa Med | Coordination Médicale Internationale",
         description:
           "L'histoire de WaMa Med : une entreprise construite pour apporter clarté, continuité et coordination experte aux parcours médicaux nationaux et internationaux.",
       },
@@ -395,8 +395,8 @@ const dictionaries = {
         title: "Une entreprise née pour apporter clarté et continuité.",
       },
       founder: {
-        alt: "Driss Benwahoud, fondateur et directeur de WaMa Med",
-        name: "Driss Benwahoud & Inken Dosse",
+        alt: "L'équipe fondatrice de WaMa Med",
+        name: "L'équipe fondatrice",
         role: "Fondateurs de WaMa Med",
         eyebrow: "Les fondateurs",
         storyEyebrow: "Une histoire personnelle",
@@ -405,15 +405,15 @@ const dictionaries = {
         cite: "WaMa Med",
         paragraphs: [
           "WaMa Med est né de deux histoires personnelles marquées par la maladie de proches. Ces expériences ont mis en évidence le même besoin : une coordination claire, humaine et fiable quand les décisions médicales deviennent complexes.",
-          "Driss Benwahoud apporte son expérience de l'assurance, de l'organisation de parcours et de la relation avec les établissements de santé. Inken Dosse apporte une expérience longue de l'accompagnement et du terrain auprès de patients et de familles.",
+          "L'équipe fondatrice combine une expérience opérationnelle de l'organisation de parcours et de la relation avec les établissements de santé, une longue pratique du conseil en prises en charge, et un accompagnement de terrain auprès des patients et des familles.",
           "Aujourd'hui, WaMa Med met cette méthode au service des patients et de leurs proches : un interlocuteur unique, des décisions structurées et une continuité de suivi à chaque étape.",
         ],
         experience:
-          "Assurance, santé, accompagnement familial et coordination de parcours",
+          "Conseil en prises en charge, accompagnement familial et coordination de parcours",
       },
       credentials: [
         {
-          title: "Assurance & santé",
+          title: "Conseil & santé",
           desc: "Plus de dix ans d'expérience opérationnelle",
         },
         {
@@ -466,7 +466,7 @@ const dictionaries = {
       metadata: {
         title: "Nos Services — Coordination Médicale | WaMa Med",
         description:
-          "Analyse médicale, orientation spécialisée, check-ups, coordination de rendez-vous, logistique, assurance, accompagnement post-consultation et évacuation sanitaire.",
+          "Analyse médicale, orientation spécialisée, check-ups, coordination de rendez-vous, logistique, conseil en prises en charge, accompagnement post-consultation et évacuation sanitaire.",
       },
       hero: {
         eyebrow: "Nos Services",
@@ -482,7 +482,7 @@ const dictionaries = {
           number: "01",
           title: "Analyse de dossier médical",
           desc:
-            "Une revue structurée du dossier pour définir une orientation exploitable, priorisée et cohérente.",
+            "Nous étudions votre dossier en détail pour vous orienter vers les bons spécialistes et clarifier vos prochaines étapes.",
           details: [
             "Lecture complète du dossier existant",
             "Identification des spécialistes requis",
@@ -540,7 +540,7 @@ const dictionaries = {
         },
         {
           number: "06",
-          title: "Assurance et évacuation sanitaire",
+          title: "Conseil en prises en charge et évacuation sanitaire",
           desc:
             "Une organisation structurée pour les prises en charge, les échanges avec assureurs et les transferts médicaux si nécessaire.",
           details: [
@@ -754,7 +754,7 @@ const dictionaries = {
       serviceLinks: [
         { href: "/services", label: "Care coordination" },
         { href: "/services", label: "Check-ups and prevention" },
-        { href: "/services", label: "Insurance and coverage support" },
+        { href: "/services", label: "Coverage advisory" },
         { href: "/services", label: "Family support abroad" },
       ],
       navLinks: [
@@ -994,7 +994,7 @@ const dictionaries = {
             href: "/services",
           },
           {
-            title: "Insurance and coverage support",
+            title: "Coverage advisory",
             desc:
               "Administrative support for exchanges with insurers, companies, and coverage organizations.",
             href: "/services",
@@ -1002,7 +1002,7 @@ const dictionaries = {
         ],
       },
       founderSection: {
-        alt: "Driss Benwahoud, founder of WaMa Med",
+        alt: "WaMa Med's founding team",
         badge: "Our story",
         intro:
           "A coordination structure for patients, relatives, and families who need one reliable point of reference.",
@@ -1013,7 +1013,7 @@ const dictionaries = {
           "\"The best coordination brings clarity before the first appointment even begins.\"",
         cite: "— WaMa Med",
         body:
-          "WaMa Med was born from strong personal experiences lived by Driss Benwahoud and Inken Dosse alongside loved ones facing illness. That story became a simple method: listen to the person, clarify medical priorities, and coordinate each step with care.",
+          "WaMa Med was born from strong personal experiences lived by its founders alongside loved ones facing illness. That story became a simple method: listen to the person, clarify medical priorities, and coordinate each step with care.",
         cta: "Discover our story",
       },
       processPreview: {
@@ -1111,7 +1111,7 @@ const dictionaries = {
     about: {
       metadata: {
         title:
-          "About — Driss Benwahoud & WaMa Med | International Medical Coordination",
+          "About — WaMa Med | International Medical Coordination",
         description:
           "The story behind WaMa Med: a company built to bring clarity, continuity, and expert coordination to national and international care journeys.",
       },
@@ -1120,8 +1120,8 @@ const dictionaries = {
         title: "Built to bring clarity and continuity to care journeys.",
       },
       founder: {
-        alt: "Driss Benwahoud, founder and director of WaMa Med",
-        name: "Driss Benwahoud & Inken Dosse",
+        alt: "WaMa Med's founding team",
+        name: "The founding team",
         role: "WaMa Med founders",
         eyebrow: "The founders",
         storyEyebrow: "A personal story",
@@ -1130,15 +1130,15 @@ const dictionaries = {
         cite: "WaMa Med",
         paragraphs: [
           "WaMa Med was born from two personal stories shaped by the illness of loved ones. Those experiences revealed the same need: clear, human, reliable coordination when medical decisions become complex.",
-          "Driss Benwahoud brings experience in insurance, care-path organization, and relationships with healthcare institutions. Inken Dosse brings long experience supporting patients and families on the ground.",
+          "The founding team combines hands-on experience in care-path organization and relationships with healthcare institutions, long practice in coverage advisory, and on-the-ground support for patients and families.",
           "Today, WaMa Med puts that method into practice through a single point of coordination, structured decisions, and steady follow-through across every stage of care.",
         ],
         experience:
-          "Insurance, healthcare, family support, and care-path coordination",
+          "Coverage advisory, healthcare, family support, and care-path coordination",
       },
       credentials: [
         {
-          title: "Insurance & healthcare",
+          title: "Advisory & healthcare",
           desc: "More than a decade of operational experience",
         },
         {
@@ -1191,7 +1191,7 @@ const dictionaries = {
       metadata: {
         title: "Services — Medical Coordination | WaMa Med",
         description:
-          "Medical analysis, specialist orientation, check-ups, appointment coordination, logistics, insurance support, post-consultation follow-up, and medical evacuation.",
+          "Medical analysis, specialist orientation, check-ups, appointment coordination, logistics, coverage advisory, post-consultation follow-up, and medical evacuation.",
       },
       hero: {
         eyebrow: "Our Services",
@@ -1207,7 +1207,7 @@ const dictionaries = {
           number: "01",
           title: "Medical file review",
           desc:
-            "A structured case review designed to produce a clear, prioritized, and actionable orientation plan.",
+            "We study your file in detail to point you toward the right specialists and clarify your next steps.",
           details: [
             "Complete review of the existing file",
             "Identification of the required specialists",
@@ -1265,7 +1265,7 @@ const dictionaries = {
         },
         {
           number: "06",
-          title: "Insurance and medical evacuation",
+          title: "Coverage advisory and medical evacuation",
           desc:
             "Structured organization for coverage support, insurer exchanges, and medical transfers when needed.",
           details: [
