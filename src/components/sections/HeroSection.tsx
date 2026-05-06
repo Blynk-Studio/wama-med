@@ -10,10 +10,7 @@ export function HeroSection() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const { locale, dictionary } = useLocaleDictionary();
   const content = dictionary.home.hero;
-  const headlineLines =
-    locale === 'fr'
-      ? ['WaMa Med,', 'votre coordination', 'médicale de confiance']
-      : ['WaMa Med,', 'medical coordination', 'for patients and families'];
+  const headlineLines = content.headlineLines;
 
   useEffect(() => {
     // Only split + animate the headline — word-level for natural wrapping.

@@ -3,21 +3,21 @@ import Image from "next/image";
 const AUDIENCES = [
   {
     title: "Familles marocaines",
-    desc: "Un proche vient de recevoir un diagnostic complexe. Plusieurs spécialistes, plusieurs établissements, des rendez-vous qui ne se parlent pas. WaMa Med prend la main.",
+    desc: "Un proche vient de recevoir un diagnostic complexe. Plusieurs spécialistes, plusieurs établissements, des rendez-vous qui n'avancent pas dans le même sens. WaMa Med reprend le fil.",
     image: "/images/wama-accompagnement.jpg",
     alt: "Famille marocaine accompagnée par un coordinateur médical",
     cta: "Pour les résidents",
   },
   {
     title: "Diaspora marocaine",
-    desc: "Vous êtes à Paris, Bruxelles ou Amsterdam. Votre parent à Casablanca a besoin d'un suivi spécialisé. Nous sommes vos yeux et vos mains sur place.",
+    desc: "Vous vivez à Paris, à Bruxelles ou à Amsterdam. Votre parent à Casablanca a besoin d'un suivi spécialisé. Nous sommes votre relais, sur place.",
     image: "/images/wama-diaspora-famille.jpg",
     alt: "Famille de la diaspora en communication avec WaMa Med",
     cta: "Pour la diaspora",
   },
   {
     title: "Patients internationaux",
-    desc: "Le Maroc offre des soins de qualité à une fraction du coût européen. WaMa Med coordonne tout — du vol à la sortie — pour les patients d'Afrique subsaharienne et d'Europe.",
+    desc: "Le Maroc offre des soins de haute qualité à un coût bien inférieur à celui pratiqué en Europe. WaMa Med coordonne tout — du vol à la sortie — pour les patients d'Afrique subsaharienne et d'Europe.",
     image: "/images/wama-patient-international.jpg",
     alt: "Patient international accueilli par l'équipe WaMa Med",
     cta: "Pour les patients étrangers",
@@ -34,16 +34,16 @@ export function AudienceSection() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         {/* Left-aligned header — subordinate section, no centering */}
         <div className="mb-12">
-          <p className="eyebrow text-brass mb-3">Qui nous accompagnons</p>
+          <p className="eyebrow text-brass mb-3">Celles et ceux que nous accompagnons</p>
           <span className="brass-rule mb-5 block" />
           <h2
             className="section-display text-ink max-w-lg"
             id="audience-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
-            Vous n&apos;êtes pas seuls
+            Vous n&apos;avez pas à
             <br />
-            <span style={{ color: "var(--color-teal)" }}>face au système.</span>
+            <span style={{ color: "var(--color-teal)" }}>tout porter seuls.</span>
           </h2>
         </div>
 

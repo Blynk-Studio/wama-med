@@ -6,7 +6,7 @@ import { useLocaleDictionary } from "@/components/ui/LocaleProvider";
 type FormState = "idle" | "sending" | "success" | "error";
 
 export function ContactForm() {
-  const { dictionary } = useLocaleDictionary();
+  const { locale, dictionary } = useLocaleDictionary();
   const content = dictionary.shared.contactForm;
   const [state, setState] = useState<FormState>("idle");
   const [form, setForm] = useState({
@@ -36,7 +36,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, locale }),
       });
 
       if (res.ok) {

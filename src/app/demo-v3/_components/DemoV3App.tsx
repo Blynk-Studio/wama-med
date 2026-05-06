@@ -76,16 +76,16 @@ const NAV_ITEMS: Array<{
   label: string;
   icon: React.ComponentType<{ className?: string }>;
 }> = [
-  { view: "dashboard", label: "Tableau de Bord", icon: LayoutDashboard },
+  { view: "dashboard", label: "Tableau de bord", icon: LayoutDashboard },
   { view: "patients", label: "Patients", icon: Users },
   { view: "medecins", label: "Médecins", icon: Stethoscope },
   { view: "partenaires", label: "Partenaires", icon: Handshake },
   { view: "documents", label: "Documents", icon: FolderOpen },
-  { view: "templates", label: "Templates", icon: Mail },
+  { view: "templates", label: "Modèles", icon: Mail },
   { view: "calendrier", label: "Calendrier", icon: CalendarDays },
   { view: "alertes", label: "Alertes", icon: Bell },
-  { view: "emails", label: "Emails Patients", icon: Inbox },
-  { view: "financier", label: "Financier", icon: CircleDollarSign },
+  { view: "emails", label: "Emails des patients", icon: Inbox },
+  { view: "financier", label: "Finances", icon: CircleDollarSign },
   { view: "rapports", label: "Rapports", icon: FileText },
   { view: "comptabilite", label: "Comptabilité", icon: Calculator },
 ];
@@ -98,9 +98,9 @@ const PARTNER_LABELS: Record<PartnerCategory, string> = {
 };
 
 const FINANCE_TAB_LABELS: Record<FinanceTab, string> = {
-  commissions: "Commissions Partenaires",
-  factures: "Factures Patients",
-  services: "Catalogue Services",
+  commissions: "Commissions des partenaires",
+  factures: "Factures des patients",
+  services: "Catalogue des services",
   parametres: "Paramètres",
 };
 
@@ -543,7 +543,7 @@ function PatientModal({
   return (
     <ModalFrame
       title={patient ? "Modifier le patient" : "Nouveau patient"}
-      subtitle="Version 3 alignée sur la structure du dossier client."
+      subtitle="Coordonnées et informations cliniques du patient."
       onClose={onClose}
       onSubmit={() => onSave(draft)}
     >
@@ -704,7 +704,7 @@ function MedecinModal({
   return (
     <ModalFrame
       title={medecin ? "Modifier le médecin" : "Nouveau médecin"}
-      subtitle="Base médecins synchronisée sur les champs du dossier client."
+      subtitle="Coordonnées du médecin et domaine de spécialité."
       onClose={onClose}
       onSubmit={() => onSave(draft)}
     >
@@ -862,7 +862,7 @@ function PartnerModal({
   return (
     <ModalFrame
       title={partner ? `Modifier ${PARTNER_LABELS[category]}` : `Nouveau ${PARTNER_LABELS[category]}`}
-      subtitle="Interface unifiée pour les quatre catégories partenaires."
+      subtitle="Une fiche unique pour les cliniques, les hébergements, les chauffeurs et les assurances."
       onClose={onClose}
       onSubmit={() => onSave(category, draft)}
     >
@@ -1011,7 +1011,7 @@ function DocumentModal({
   return (
     <ModalFrame
       title={documentItem ? "Modifier le document" : "Nouveau document"}
-      subtitle="Module documents médicalement centralisé."
+      subtitle="Document médical rattaché à un dossier patient."
       onClose={onClose}
       onSubmit={() => onSave(draft)}
     >
@@ -1109,7 +1109,7 @@ function EmailModal({
   return (
     <ModalFrame
       title={email ? "Modifier l'email" : "Enregistrer un email patient"}
-      subtitle="Nouveau flux client inspiré du module emails du dossier source."
+      subtitle="Suivi des échanges par email avec les patients."
       onClose={onClose}
       onSubmit={() => onSave(draft)}
     >
@@ -1189,7 +1189,7 @@ function CommissionModal({
   return (
     <ModalFrame
       title={commission ? "Modifier la commission" : "Nouvelle commission"}
-      subtitle="Suivi financier inspiré du module 10 du dossier client."
+      subtitle="Suivi des commissions versées aux partenaires."
       onClose={onClose}
       onSubmit={() =>
         onSave({
@@ -1296,7 +1296,7 @@ function FactureModal({
   return (
     <ModalFrame
       title={facture ? "Modifier la facture" : "Nouvelle facture"}
-      subtitle="Facturation services patients, inspirée du module financier client."
+      subtitle="Facturation des services rendus aux patients."
       onClose={onClose}
       onSubmit={() =>
         onSave({
@@ -1388,7 +1388,7 @@ function AccountingModal({
   return (
     <ModalFrame
       title={entry ? "Modifier l'écriture" : "Nouvelle écriture"}
-      subtitle="Écriture double simple, inspirée du module comptabilité MAD."
+      subtitle="Écriture comptable en partie double, en MAD."
       onClose={onClose}
       onSubmit={() =>
         onSave({
