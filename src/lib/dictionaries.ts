@@ -241,27 +241,9 @@ const dictionaries = {
         cta: "Voir tous nos services →",
         services: [
           {
-            title: "Coordination chirurgicale",
+            title: "Bilans de santé et check-ups",
             desc:
-              "Un parcours préparé avec précision pour les interventions et les prises en charge spécialisées les plus exigeantes.",
-            href: "/services",
-          },
-          {
-            title: "Coordination multilingue",
-            desc:
-              "Des échanges fluides en français, en anglais et en arabe ; interprétariat sur demande pour d'autres langues.",
-            href: "/services",
-          },
-          {
-            title: "Logistique complète",
-            desc:
-              "Déplacements, hébergement, calendrier médical et documents s'alignent autour de votre prise en charge.",
-            href: "/services",
-          },
-          {
-            title: "Suivi post-opératoire",
-            desc:
-              "Une continuité de soins claire, de l'intervention à la récupération, jusqu'au retour à la maison.",
+              "Des bilans préventifs, de dépistage ou de contrôle organisés avec les bons rendez-vous, au bon rythme.",
             href: "/services",
           },
           {
@@ -271,15 +253,33 @@ const dictionaries = {
             href: "/services",
           },
           {
-            title: "Bilans de santé et check-ups",
+            title: "Conseil en prises en charge",
             desc:
-              "Une organisation claire pour la prévention, les bilans programmés et les parcours de dépistage.",
+              "Un appui clair dans vos échanges avec les assureurs, les entreprises et les organismes de couverture.",
             href: "/services",
           },
           {
-            title: "Conseil en prises en charge",
+            title: "Organisation du séjour médical",
             desc:
-              "Un appui administratif dans vos échanges avec les assureurs, les entreprises et les organismes de couverture.",
+              "Transport, hébergement, calendrier médical et documents sont préparés autour de votre parcours de soins.",
+            href: "/services",
+          },
+          {
+            title: "Accompagnement multilingue",
+            desc:
+              "Des échanges facilités en français, en anglais et en arabe ; interprétariat possible selon la situation.",
+            href: "/services",
+          },
+          {
+            title: "Parcours chirurgical",
+            desc:
+              "Une préparation rigoureuse pour les interventions et les prises en charge spécialisées les plus exigeantes.",
+            href: "/services",
+          },
+          {
+            title: "Suivi post-opératoire",
+            desc:
+              "Un suivi lisible après l'intervention, de la récupération jusqu'au retour à la maison.",
             href: "/services",
           },
         ],
