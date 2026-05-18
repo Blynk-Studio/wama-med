@@ -4,7 +4,7 @@ const dictionaries = {
   fr: {
     skipToContent: "Aller au contenu principal",
     schemaDescription:
-      "Coordination médicale, basée à Casablanca, pour des parcours de soins fluides — au Maroc comme à l'international.",
+      "Accompagnement médical basé à Casablanca pour des parcours de soins clairs, au Maroc comme à l'international.",
     header: {
       homeAria: "WaMa Med — Accueil",
       desktopNavAria: "Navigation principale",
@@ -22,12 +22,12 @@ const dictionaries = {
     },
     footer: {
       brandDescription:
-        "Coordination médicale internationale. Une équipe basée à Casablanca, au service de parcours de soins clairs, exigeants et continus.",
+        "Une équipe basée à Casablanca, au service de parcours de soins clairs, exigeants et continus.",
       servicesTitle: "Services",
       navigationTitle: "Navigation",
       contactTitle: "Contact",
       serviceLinks: [
-        { href: "/services", label: "Coordination de parcours" },
+        { href: "/services", label: "Parcours de soins" },
         { href: "/services", label: "Bilans et prévention" },
         { href: "/services", label: "Conseil en prises en charge" },
         { href: "/services", label: "Accompagnement des familles à distance" },
@@ -50,7 +50,7 @@ const dictionaries = {
       tabAria: "Mode de contact",
       tabs: { voice: "Voix", chat: "Chat" },
       greeting:
-        "Bonjour. Je suis l'assistant WaMa Med — en quoi puis-je vous être utile aujourd'hui pour votre coordination médicale ?",
+        "Bonjour. Je suis l'assistant WaMa Med — en quoi puis-je vous être utile aujourd'hui ?",
       unavailable:
         "La connexion est indisponible pour le moment. Écrivez-nous à contact@wamamed.com.",
       responseError:
@@ -58,7 +58,7 @@ const dictionaries = {
       sendError:
         "Un incident technique est survenu. Écrivez-nous à contact@wamamed.com.",
       emptyChat:
-        "Posez votre question sur la coordination médicale — nous vous répondons.",
+        "Posez votre question — nous vous répondons.",
       linkLabel: "Ouvrir le lien →",
       inputPlaceholder: "Votre question...",
       sendAria: "Envoyer",
@@ -104,7 +104,7 @@ const dictionaries = {
         titleStart: "Vous méritez",
         titleHighlight: "un accompagnement à la hauteur.",
         body:
-          "Partagez-nous votre situation. Nous revenons vers vous rapidement avec une étape suivante claire, une première analyse structurée de votre dossier et une coordination construite autour du patient.",
+          "Partagez-nous votre situation. Nous revenons vers vous rapidement avec une première lecture du dossier et une étape suivante claire.",
         primary: "Confier votre dossier",
         secondary: "Nous écrire par email",
         availability: "Contact professionnel : contact@wamamed.com",
@@ -145,22 +145,22 @@ const dictionaries = {
         sending: "Envoi en cours...",
         submit: "Confier mon dossier",
         footer:
-          "Réponse rapide · Confidentialité préservée · Coordination humaine",
+          "Réponse rapide · Confidentialité préservée · Accompagnement humain",
       },
     },
     home: {
       metadata: {
-        title: "WaMa Med — Coordination médicale nationale et internationale",
+        title: "WaMa Med — Parcours de soins au Maroc et à l'international",
         description:
-          "WaMa Med orchestre vos parcours de soins, au Maroc comme à l'international, avec une coordination claire, humaine et rigoureuse — de la première analyse au suivi.",
+          "WaMa Med aide les patients et les familles à organiser leurs parcours de soins, au Maroc comme à l'international, avec méthode, clarté et présence humaine.",
       },
       hero: {
-        ariaLabel: "WaMa Med — Coordination médicale internationale",
-        eyebrow: "WaMa Med · Coordination médicale",
-        headline: "WaMa Med — la coordination médicale qui vous accompagne",
-        headlineLines: ["WaMa Med —", "la coordination médicale", "qui vous accompagne"],
+        ariaLabel: "WaMa Med — Accompagnement médical international",
+        eyebrow: "WaMa Med · Parcours de soins",
+        headline: "WaMa Med, votre accompagnement médical de confiance",
+        headlineLines: ["WaMa Med,", "votre accompagnement médical", "de confiance"],
         supportingLine:
-          "Que vous soyez en parcours de soins, que vous accompagniez un proche ou que vous prépariez un bilan de santé, nous orchestrons chaque étape — médicale, logistique et humaine.",
+          "Vous êtes malade, vous accompagnez un proche ou vous préparez un check-up : nous organisons les bonnes étapes médicales, logistiques et humaines.",
         cta: "Confier votre dossier",
       },
       trustStrip: {
@@ -171,67 +171,61 @@ const dictionaries = {
           { label: "Disponibilité 24h/24" },
         ],
       },
-      scrollJourney: {
-        ariaLabel: "Notre approche",
+      carePathway: {
+        ariaLabel: "Les étapes du parcours",
+        eyebrow: "Comment ça se passe",
+        title: "Un parcours lisible, étape par étape.",
+        intro:
+          "Tout est visible dès le départ : nous partons de votre besoin, nous clarifions les priorités, puis nous organisons les rendez-vous, le séjour et le suivi.",
         cta: "Confier votre dossier →",
-        acts: [
+        steps: [
           {
-            id: 1,
-            label: "L'orientation",
-            bg: "#1A2E40",
-            headline:
-              "Chaque parcours commence par une compréhension précise de votre situation.",
-            subtext:
-              "Vos priorités cliniques, votre calendrier et votre contexte sont posés clairement dès le premier échange.",
-            textColor: "#F5F0E8",
+            number: "01",
+            title: "Comprendre votre situation",
+            desc:
+              "Vous nous transmettez votre demande et les documents utiles. Nous identifions le contexte, l'urgence, les contraintes et les priorités.",
           },
           {
-            id: 2,
-            label: "Le réseau",
-            bg: "#1A3E48",
-            headline: "Les bons spécialistes. Les bons établissements. Au bon moment.",
-            subtext: "Un réseau de partenaires sélectionnés selon votre besoin médical et le rythme du parcours.",
-            textColor: "#F5F0E8",
+            number: "02",
+            title: "Préparer l'orientation médicale",
+            desc:
+              "Votre dossier est relu avec méthode pour cibler les bons spécialistes, les établissements adaptés et l'ordre logique des étapes.",
           },
           {
-            id: 3,
-            label: "La coordination",
-            bg: "#173540",
-            headline: "Un parcours fluide, du premier échange jusqu'au retour.",
-            steps: ["Analyse", "Orientation", "Rendez-vous", "Séjour", "Suivi"],
-            textColor: "#F5F0E8",
+            number: "03",
+            title: "Organiser les rendez-vous",
+            desc:
+              "Nous planifions les consultations, les examens et les échanges nécessaires pour éviter les allers-retours inutiles.",
           },
           {
-            id: 4,
-            label: "Nos engagements",
-            bg: "#1A2E40",
-            headline: "Ce qui vous accompagne à chaque étape",
-            commitments: [
-              {
-                title: "Méthode clinique",
-                desc:
-                  "Chaque dossier suit une séquence claire, avec des décisions documentées et un cap qui ne se perd pas.",
-              },
-              {
-                title: "Communication continue",
-                desc:
-                  "Un interlocuteur unique fait le lien entre la famille, les médecins et les établissements.",
-              },
-              {
-                title: "Confidentialité internationale",
-                desc:
-                  "Vos informations médicales sont traitées au niveau d'exigence requis pour un parcours transfrontalier.",
-              },
-            ],
-            textColor: "#F5F0E8",
+            number: "04",
+            title: "Accompagner le séjour",
+            desc:
+              "Transport, hébergement, documents, traduction et présence sur place ou à distance sont préparés autour du calendrier médical.",
           },
           {
-            id: 5,
-            label: "Le départ",
-            bg: "#1A2E40",
-            headline: "Prêt à démarrer un parcours plus clair ?",
-            subtext: "Nous sommes là pour vous accompagner.",
-            textColor: "#C9A84C",
+            number: "05",
+            title: "Assurer le suivi",
+            desc:
+              "Après la consultation ou l'intervention, nous aidons à rassembler les résultats, préparer le retour et garder un dossier clair.",
+          },
+        ],
+        supportTitle: "Ce que vous gardez à chaque étape",
+        supportItems: [
+          {
+            title: "Un interlocuteur unique",
+            desc:
+              "La famille, les médecins et les établissements disposent d'un point de contact clair.",
+          },
+          {
+            title: "Un réseau fiable",
+            desc:
+              "Les spécialistes et partenaires sont sélectionnés selon le besoin médical réel.",
+          },
+          {
+            title: "Un cadre confidentiel",
+            desc:
+              "Les informations de santé sont traitées avec discrétion et exigence.",
           },
         ],
       },
@@ -288,15 +282,15 @@ const dictionaries = {
         alt: "L'équipe fondatrice de WaMa Med",
         badge: "Notre histoire",
         intro:
-          "Une structure de coordination pensée pour les patients, leurs proches et leurs familles, lorsqu'ils ont besoin d'un repère fiable.",
+          "Une structure pensée pour les patients, les proches et les familles qui ont besoin d'un repère fiable.",
         eyebrow: "La promesse",
         heading:
-          "Pensé pour rendre chaque parcours plus lisible, plus humain et mieux coordonné.",
+          "Rendre chaque parcours plus lisible, plus humain et mieux organisé.",
         quote:
-          "\"Une bonne coordination apporte de la clarté avant même le premier rendez-vous.\"",
+          "\"Un bon accompagnement apporte de la clarté avant même le premier rendez-vous.\"",
         cite: "— WaMa Med",
         body:
-          "WaMa Med est né d'expériences personnelles : la maladie d'un proche, des rendez-vous éparpillés, des décisions à prendre vite et bien. Cette histoire a donné naissance à une méthode simple : écouter la personne, clarifier les priorités médicales, et coordonner chaque étape avec attention.",
+          "WaMa Med est né d'expériences personnelles : la maladie d'un proche, des rendez-vous éparpillés, des décisions à prendre vite et bien. Cette histoire a donné naissance à une méthode simple : écouter la personne, clarifier les priorités médicales et organiser chaque étape avec attention.",
         cta: "Découvrir notre histoire",
       },
       processPreview: {
@@ -314,11 +308,11 @@ const dictionaries = {
             number: "02",
             title: "Analyse médicale",
             desc:
-              "Un médecin coordinateur établit un plan d'orientation personnalisé, immédiatement exploitable.",
+              "Un médecin référent relit les éléments clés et prépare une orientation claire.",
           },
           {
             number: "03",
-            title: "Coordination complète",
+            title: "Organisation du parcours",
             desc:
               "Rendez-vous, échanges entre spécialistes, logistique et suivi avancent dans le même sens, autour d'un même plan.",
           },
@@ -326,14 +320,14 @@ const dictionaries = {
             number: "04",
             title: "Accompagnement post-consultation",
             desc:
-              "Résultats, suites de soins et documentation continuent d'être coordonnés jusqu'à la fin du parcours.",
+              "Résultats, suites de soins et documentation restent suivis jusqu'à la fin du parcours.",
           },
         ],
         cta: "Découvrir notre protocole complet",
       },
       testimonials: {
         eyebrow: "Nos engagements",
-        title: "Un cadre de coordination",
+        title: "Un cadre d'accompagnement",
         titleHighlight: " sur lequel s'appuyer.",
         principles: [
           {
@@ -351,7 +345,7 @@ const dictionaries = {
           {
             title: "Conformité internationale",
             desc:
-              "Un traitement des dossiers aligné sur les exigences de confidentialité et de coordination des parcours internationaux.",
+              "Un traitement des dossiers aligné sur les exigences de confidentialité des parcours internationaux.",
             icon: "03",
           },
         ],
@@ -388,15 +382,15 @@ const dictionaries = {
         sending: "Envoi en cours...",
         submit: "Confier mon dossier",
         footer:
-          "Réponse rapide · Confidentialité préservée · Coordination humaine",
+          "Réponse rapide · Confidentialité préservée · Accompagnement humain",
       },
     },
     about: {
       metadata: {
         title:
-          "À propos — WaMa Med | Coordination médicale internationale",
+          "À propos — WaMa Med | Accompagnement médical international",
         description:
-          "L'histoire de WaMa Med : une entreprise pensée pour apporter clarté, continuité et coordination experte à chaque parcours médical, au Maroc comme à l'international.",
+          "L'histoire de WaMa Med : une entreprise pensée pour apporter clarté, continuité et présence humaine à chaque parcours médical, au Maroc comme à l'international.",
       },
       hero: {
         eyebrow: "Notre histoire",
@@ -409,15 +403,15 @@ const dictionaries = {
         eyebrow: "Les fondateurs",
         storyEyebrow: "Une histoire personnelle",
         quote:
-          "Une bonne coordination se mesure à la sérénité qu'elle installe autour du patient.",
+          "Un bon accompagnement se mesure à la sérénité qu'il installe autour du patient.",
         cite: "WaMa Med",
         paragraphs: [
-          "WaMa Med est né de deux histoires personnelles, l'une comme l'autre marquées par la maladie d'un proche. Elles ont mis au jour le même besoin : une coordination claire, humaine et fiable, lorsque les décisions médicales deviennent complexes.",
+          "WaMa Med est né de deux histoires personnelles, l'une comme l'autre marquées par la maladie d'un proche. Elles ont mis au jour le même besoin : un accompagnement clair, humain et fiable lorsque les décisions médicales deviennent complexes.",
           "L'équipe fondatrice combine plusieurs expertises : organisation de parcours et relation directe avec les établissements de santé, conseil en prises en charge, accompagnement de terrain auprès des patients et des familles.",
           "Aujourd'hui, WaMa Med met cette méthode au service des patients et de leurs proches : un interlocuteur unique, des décisions structurées et un suivi continu à chaque étape.",
         ],
         experience:
-          "Conseil en prises en charge, accompagnement des familles et coordination de parcours",
+          "Conseil en prises en charge, accompagnement des familles et organisation de parcours",
       },
       credentials: [
         {
@@ -436,12 +430,12 @@ const dictionaries = {
       mission: {
         eyebrow: "Notre mission",
         title:
-          "Rendre la coordination médicale lisible, humaine et résolument professionnelle.",
+          "Rendre les parcours médicaux plus lisibles, plus humains et plus professionnels.",
         paragraphs: [
           "WaMa Med relie les spécialistes, les établissements, la logistique et les familles dans un même cadre de travail. Cette cohérence permet au patient d'avancer avec visibilité et confiance.",
-          "Basée à Casablanca, notre équipe coordonne les parcours locaux comme internationaux avec la même exigence : clarté, réactivité et continuité, à chaque étape.",
+          "Basée à Casablanca, notre équipe accompagne les parcours locaux comme internationaux avec la même exigence : clarté, réactivité et continuité, à chaque étape.",
         ],
-        alt: "Coordination médicale structurée par WaMa Med",
+        alt: "Accompagnement médical structuré par WaMa Med",
       },
       values: {
         eyebrow: "Nos valeurs",
@@ -450,7 +444,7 @@ const dictionaries = {
           {
             title: "Un interlocuteur unique",
             desc:
-              "Un coordinateur dédié porte le dossier de bout en bout — pour garantir la cohérence, la fluidité et une responsabilité claire.",
+              "Une personne dédiée suit le dossier de bout en bout pour garantir la cohérence, la fluidité et une responsabilité claire.",
           },
           {
             title: "Confidentialité absolue",
@@ -465,41 +459,53 @@ const dictionaries = {
           {
             title: "Portée internationale",
             desc:
-              "Chaque coordination s'adapte à votre localisation, à votre calendrier et à la réalité d'un parcours de soins transfrontalier.",
+              "Chaque accompagnement s'adapte à votre localisation, à votre calendrier et à la réalité d'un parcours de soins transfrontalier.",
           },
         ],
       },
     },
     servicesPage: {
       metadata: {
-        title: "Nos services — Coordination médicale | WaMa Med",
+        title: "Nos services — Parcours de soins | WaMa Med",
         description:
-          "Analyse médicale, orientation spécialisée, bilans de santé, coordination des rendez-vous, logistique, conseil en prises en charge, accompagnement post-consultation et évacuation sanitaire.",
+          "Bilans de santé, analyse du dossier, orientation spécialisée, prise de rendez-vous, logistique, conseil en prises en charge, parcours chirurgical et suivi.",
       },
       hero: {
         eyebrow: "Nos services",
-        titleStart: "Une coordination complète.",
+        titleStart: "Un parcours clair.",
         titleHighlight: "Une même trajectoire.",
         body:
-          "De la première analyse au suivi post-consultation, WaMa Med aligne chaque étape du parcours avec méthode, rythme et attention personnalisée.",
+          "De la première demande au suivi, WaMa Med organise les étapes utiles avec méthode, rythme et attention personnalisée.",
       },
       servicesAria: "Aperçu des services",
       detailsAria: "Services en détail",
       services: [
         {
           number: "01",
-          title: "Analyse du dossier médical",
+          title: "Bilans de santé et check-ups",
           desc:
-            "Nous étudions votre dossier en détail pour vous orienter vers les bons spécialistes et clarifier les étapes à venir.",
+            "Nous organisons les bilans préventifs, les contrôles et les parcours de dépistage avec les bons rendez-vous, au bon rythme.",
           details: [
-            "Lecture complète du dossier existant",
-            "Identification des spécialistes nécessaires",
-            "Plan d'orientation personnalisé",
-            "Premier retour rapide et exploitable",
+            "Bilans préventifs et check-ups programmés",
+            "Examens de dépistage ou de contrôle",
+            "Calendrier médical clair",
+            "Résultats rassemblés dans un dossier lisible",
           ],
         },
         {
           number: "02",
+          title: "Analyse du dossier médical",
+          desc:
+            "Nous étudions votre dossier pour clarifier les priorités médicales et préparer les étapes à venir.",
+          details: [
+            "Lecture des documents existants",
+            "Identification des points à éclaircir",
+            "Première orientation exploitable",
+            "Priorités classées par ordre logique",
+          ],
+        },
+        {
+          number: "03",
           title: "Orientation spécialisée",
           desc:
             "Nous vous orientons vers les spécialistes et les établissements les plus pertinents pour votre situation clinique.",
@@ -511,22 +517,22 @@ const dictionaries = {
           ],
         },
         {
-          number: "03",
-          title: "Coordination des rendez-vous",
+          number: "04",
+          title: "Conseil en prises en charge",
           desc:
-            "WaMa Med synchronise les rendez-vous, les échanges entre praticiens et le partage d'informations autour d'un même plan de prise en charge.",
+            "Nous vous aidons à structurer les échanges avec les assureurs, les entreprises et les organismes de couverture.",
           details: [
-            "Coordination entre les spécialistes",
-            "Partage sécurisé des résultats",
-            "Gestion des délais et des priorités",
-            "Rappels et confirmations",
+            "Lecture des demandes de prise en charge",
+            "Préparation des éléments administratifs",
+            "Liaison avec les organismes concernés",
+            "Suivi des réponses et documents utiles",
           ],
         },
         {
-          number: "04",
+          number: "05",
           title: "Logistique médicale",
           desc:
-            "Déplacements, hébergement, accompagnement linguistique et documents s'organisent autour du parcours de soins.",
+            "Déplacements, hébergement, accompagnement linguistique et documents s'organisent autour du calendrier médical.",
           details: [
             "Transport local : clinique, laboratoire, hôtel, rendez-vous",
             "Hébergement du patient et des accompagnants",
@@ -535,27 +541,27 @@ const dictionaries = {
           ],
         },
         {
-          number: "05",
-          title: "Accompagnement dans la durée",
+          number: "06",
+          title: "Parcours chirurgical",
           desc:
-            "Votre coordinateur suit le parcours sur le temps long — de la préparation à la sortie, puis au suivi.",
+            "Les interventions et prises en charge spécialisées sont préparées avec précision, de l'avis médical aux dates clés.",
           details: [
-            "Présence à chaque consultation",
-            "Suivi post-opératoire",
-            "Communication régulière avec la famille",
-            "Dossier de sortie complet",
+            "Avis spécialisé et faisabilité",
+            "Planning pré-opératoire",
+            "Lien avec la clinique et les praticiens",
+            "Préparation des documents nécessaires",
           ],
         },
         {
-          number: "06",
-          title: "Conseil en prises en charge et évacuation sanitaire",
+          number: "07",
+          title: "Suivi post-opératoire",
           desc:
-            "Une organisation structurée pour les prises en charge, les échanges avec les assureurs et les transferts médicaux lorsqu'ils sont nécessaires.",
+            "Après l'intervention ou la consultation, nous aidons à garder une continuité claire jusqu'au retour.",
           details: [
-            "Coordination d'urgence 24h/24",
-            "Transport médicalisé sur le territoire national",
-            "Évacuations internationales",
-            "Liaison avec les assureurs et les organismes de couverture",
+            "Suivi post-consultation et post-opératoire",
+            "Résultats et comptes-rendus rassemblés",
+            "Dossier de sortie complet",
+            "Liaison avec votre médecin traitant",
           ],
         },
       ],
@@ -563,7 +569,7 @@ const dictionaries = {
         {
           title: "Analyse du dossier médical",
           desc:
-            "Votre situation est étudiée en profondeur par un médecin coordinateur, qui définit les priorités, les expertises à mobiliser et la trajectoire la plus pertinente.",
+            "Votre situation est étudiée avec méthode pour définir les priorités, les expertises à mobiliser et la trajectoire la plus pertinente.",
           details: [
             "Lecture complète du dossier existant",
             "Identification des spécialistes nécessaires",
@@ -571,7 +577,7 @@ const dictionaries = {
             "Premier retour rapide et exploitable",
           ],
           image: "/images/wama-coordination-medecin.jpg",
-          alt: "Médecin coordinateur WaMa Med analysant un dossier médical",
+          alt: "Médecin référent WaMa Med analysant un dossier médical",
         },
         {
           title: "Orientation spécialisée",
@@ -584,7 +590,7 @@ const dictionaries = {
             "Prise de rendez-vous prioritaire",
           ],
           image: "/images/wama-orientation-specialisee.jpg",
-          alt: "Coordination et orientation médicale spécialisée — WaMa Med",
+          alt: "Orientation médicale spécialisée — WaMa Med",
         },
         {
           title: "Logistique médicale",
@@ -603,16 +609,16 @@ const dictionaries = {
     },
     approach: {
       metadata: {
-        title: "Notre approche — Protocole de coordination | WaMa Med",
+        title: "Notre approche — Parcours en 4 étapes | WaMa Med",
         description:
-          "Le protocole de coordination médicale WaMa Med : de la première analyse de votre dossier au suivi post-consultation, structuré en 4 étapes.",
+          "L'approche WaMa Med : de la première analyse de votre dossier au suivi post-consultation, structurée en 4 étapes.",
       },
       hero: {
         eyebrow: "Notre approche",
         titleStart: "Un protocole structuré,",
         titleHighlight: "en 4 étapes.",
         body:
-          "Chaque étape apporte de la visibilité, un responsable clairement identifié et une coordination continue autour de votre dossier.",
+          "Chaque étape apporte de la visibilité, un interlocuteur clairement identifié et une suite logique autour de votre dossier.",
       },
       stepsAria: "Étapes du processus",
       faq: {
@@ -640,13 +646,13 @@ const dictionaries = {
         },
         {
           number: "02",
-          title: "Analyse médicale par votre coordinateur",
+          title: "Analyse médicale par votre référent",
           duration: "Structuré",
           durationLabel: "Plan d'orientation",
           desc:
-            "Un médecin coordinateur étudie votre dossier en profondeur et établit un plan d'orientation personnalisé : quels spécialistes consulter en priorité, dans quel établissement, dans quel ordre.",
+            "Un médecin référent étudie votre dossier en profondeur et établit un plan d'orientation personnalisé : quels spécialistes consulter en priorité, dans quel établissement, dans quel ordre.",
           details: [
-            "Lecture par un médecin coordinateur qualifié",
+            "Lecture par un médecin référent qualifié",
             "Identification des spécialistes nécessaires",
             "Sélection des établissements les mieux adaptés",
             "Plan d'action clair et hiérarchisé",
@@ -656,11 +662,11 @@ const dictionaries = {
         },
         {
           number: "03",
-          title: "Coordination complète — tout avance dans le même sens",
+          title: "Organisation du parcours — tout avance dans le même sens",
           duration: "Continu",
           durationLabel: "Accompagnement",
           desc:
-            "WaMa Med prend en charge toute la coordination opérationnelle : prise de rendez-vous, communication entre spécialistes, partage des résultats, transport local et hébergement si nécessaire.",
+            "WaMa Med prend en charge l'organisation opérationnelle : prise de rendez-vous, communication entre spécialistes, partage des résultats, transport local et hébergement si nécessaire.",
           details: [
             "Rendez-vous pris en votre nom",
             "Communication directe entre les spécialistes",
@@ -676,10 +682,10 @@ const dictionaries = {
           duration: "Sortie + suivi",
           durationLabel: "Clôture du dossier",
           desc:
-            "Notre mission ne s'arrête pas à la consultation. Suivi post-opératoire, coordination du retour à domicile ou du rapatriement, dossier de sortie complet pour votre médecin référent.",
+            "Notre mission ne s'arrête pas à la consultation. Suivi post-opératoire, retour à domicile ou rapatriement, dossier de sortie complet pour votre médecin référent.",
           details: [
             "Suivi post-consultation et post-opératoire",
-            "Coordination du retour à la maison ou du rapatriement",
+            "Organisation du retour à la maison ou du rapatriement",
             "Dossier de sortie complet",
             "Liaison avec votre médecin traitant",
           ],
@@ -694,7 +700,7 @@ const dictionaries = {
         },
         {
           q: "WaMa Med est-il un cabinet médical ?",
-          a: "Non. WaMa Med est un service de coordination médicale : nous organisons, nous orientons, nous accompagnons, mais nous ne prodiguons pas de soins. Votre traitement reste entre les mains des spécialistes que nous coordonnons.",
+          a: "Non. WaMa Med organise, oriente et accompagne les parcours de soins, mais ne prodigue pas de soins. Votre traitement reste entre les mains des spécialistes qui vous prennent en charge.",
         },
         {
           q: "Puis-je faire appel à WaMa Med pour un proche au Maroc alors que je vis à l'étranger ?",
@@ -706,7 +712,7 @@ const dictionaries = {
         },
         {
           q: "Combien de temps dure une prise en charge typique ?",
-          a: "Cela dépend de la situation. Une consultation isolée peut souvent être coordonnée en quelques jours. Un parcours pluridisciplinaire plus complexe peut s'étendre sur plusieurs semaines. Nous vous donnons une estimation dès la première analyse.",
+          a: "Cela dépend de la situation. Une consultation isolée peut souvent être organisée en quelques jours. Un parcours pluridisciplinaire plus complexe peut s'étendre sur plusieurs semaines. Nous vous donnons une estimation dès la première analyse.",
         },
       ],
     },
@@ -714,7 +720,7 @@ const dictionaries = {
       metadata: {
         title: "Contact — Confier votre dossier médical | WaMa Med",
         description:
-          "Confiez-nous votre dossier médical. Réponse rapide et coordination humaine pour des parcours de soins, au Maroc comme à l'international.",
+          "Confiez-nous votre dossier médical. Réponse rapide et accompagnement humain pour des parcours de soins, au Maroc comme à l'international.",
       },
       hero: {
         badge: "Contact professionnel · Réponse rapide",
@@ -904,67 +910,61 @@ const dictionaries = {
           { label: "24/7 availability" },
         ],
       },
-      scrollJourney: {
-        ariaLabel: "Our approach",
+      carePathway: {
+        ariaLabel: "Care journey steps",
+        eyebrow: "How it works",
+        title: "A clear pathway, step by step.",
+        intro:
+          "Everything is visible from the start: we begin with your need, clarify priorities, then organize appointments, the stay, and follow-up.",
         cta: "Submit your case →",
-        acts: [
+        steps: [
           {
-            id: 1,
-            label: "Orientation",
-            bg: "#1A2E40",
-            headline:
-              "Every care journey starts with a clear reading of your situation.",
-            subtext:
-              "Clinical priorities, timeline, and family context are structured from the very beginning.",
-            textColor: "#F5F0E8",
+            number: "01",
+            title: "Understand your situation",
+            desc:
+              "You share your request and useful documents. We identify the context, urgency, constraints, and priorities.",
           },
           {
-            id: 2,
-            label: "Network",
-            bg: "#1A3E48",
-            headline: "The right specialists. The right institutions. At the right moment.",
-            subtext: "A qualified network selected around your medical need and pace of care.",
-            textColor: "#F5F0E8",
+            number: "02",
+            title: "Prepare medical orientation",
+            desc:
+              "Your file is reviewed methodically to target the right specialists, suitable institutions, and the logical order of steps.",
           },
           {
-            id: 3,
-            label: "Coordination",
-            bg: "#173540",
-            headline: "A seamless pathway from first contact to return.",
-            steps: ["Review", "Orientation", "Appointments", "Stay", "Follow-up"],
-            textColor: "#F5F0E8",
+            number: "03",
+            title: "Organize appointments",
+            desc:
+              "We schedule consultations, exams, and the necessary medical exchanges to avoid unnecessary back-and-forth.",
           },
           {
-            id: 4,
-            label: "Standards",
-            bg: "#1A2E40",
-            headline: "What stays with you at every stage",
-            commitments: [
-              {
-                title: "Clinical method",
-                desc:
-                  "Every case follows a documented sequence with a clear direction and accountable decisions.",
-              },
-              {
-                title: "Continuous communication",
-                desc:
-                  "One point of contact keeps patients, families, physicians, and facilities aligned.",
-              },
-              {
-                title: "International confidentiality",
-                desc:
-                  "Your medical information is handled to the level expected for cross-border care coordination.",
-              },
-            ],
-            textColor: "#F5F0E8",
+            number: "04",
+            title: "Support the stay",
+            desc:
+              "Transport, accommodation, documents, translation, and on-site or remote support are prepared around the medical schedule.",
           },
           {
-            id: 5,
-            label: "Start",
-            bg: "#1A2E40",
-            headline: "Ready to begin with more clarity?",
-            subtext: "We are ready to guide the next step.",
-            textColor: "#C9A84C",
+            number: "05",
+            title: "Keep follow-up clear",
+            desc:
+              "After the consultation or intervention, we help gather results, prepare the return, and keep the file organized.",
+          },
+        ],
+        supportTitle: "What remains with you at every stage",
+        supportItems: [
+          {
+            title: "One point of contact",
+            desc:
+              "Family, physicians, and institutions have one clear contact throughout the case.",
+          },
+          {
+            title: "A reliable network",
+            desc:
+              "Specialists and partners are selected around the real medical need.",
+          },
+          {
+            title: "A confidential framework",
+            desc:
+              "Health information is handled with discretion and care.",
           },
         ],
       },

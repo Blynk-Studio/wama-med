@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { TrustStrip } from "@/components/sections/TrustStrip";
-import { ScrollJourney } from "@/components/sections/ScrollJourney";
+import { CarePathway } from "@/components/sections/CarePathway";
 import { ServicesOverview } from "@/components/sections/ServicesOverview";
 import { FounderSection } from "@/components/sections/FounderSection";
 import { ProcessPreview } from "@/components/sections/ProcessPreview";
@@ -9,7 +9,6 @@ import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { ClosingCTA } from "@/components/sections/ClosingCTA";
 import { AISection } from "@/components/sections/AISection";
-import { HomepageBootGuard } from "@/components/ui/HomepageBootGuard";
 import { getDictionary } from "@/lib/dictionaries";
 import { localeOpenGraph, normalizeLocale } from "@/lib/i18n";
 
@@ -45,10 +44,9 @@ export default async function HomePage({
 
   return (
     <>
-      <HomepageBootGuard />
       <HeroSection />
       <TrustStrip pillars={dictionary.home.trustStrip.pillars} />
-      <ScrollJourney />
+      <CarePathway locale={locale} content={dictionary.home.carePathway} />
       <ServicesOverview />
       <FounderSection locale={locale} content={dictionary.home.founderSection} />
       <ProcessPreview locale={locale} content={dictionary.home.processPreview} />

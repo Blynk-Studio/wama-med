@@ -225,6 +225,33 @@ body {
   text-transform: uppercase;
 }
 
+@media (max-width: 900px) {
+  .public-site .care-pathway-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .public-site .care-pathway-intro {
+    position: static !important;
+  }
+
+  .public-site .care-pathway-support {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .public-site .care-pathway-layout li {
+    grid-template-columns: 44px minmax(0, 1fr) !important;
+    gap: 14px !important;
+    padding: 18px !important;
+  }
+
+  .public-site .care-pathway-layout li > span {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
 /* ─────────────────────────────────────────────────────────
    Custom Scrollbar
    ───────────────────────────────────────────────────────── */
@@ -238,17 +265,7 @@ body {
    ───────────────────────────────────────────────────────── */
 
 /* ─────────────────────────────────────────────────────────
-   Custom Cursor (fine pointer devices only)
-   ───────────────────────────────────────────────────────── */
-@media (pointer: fine) {
-  body { cursor: none; }
-  a, button, [role="button"], input, textarea, select { cursor: none; }
-}
-
-/* ─────────────────────────────────────────────────────────
    Focus Rings — WCAG 2.4.7 (keyboard focus visible)
-   Custom cursor hides the default cursor, so explicit focus
-   indicators are required for keyboard navigation.
    ───────────────────────────────────────────────────────── */
 :focus-visible {
   outline: 2px solid var(--color-brass);
@@ -262,79 +279,6 @@ body {
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-stopped { overflow: hidden; }
-
-/* ─────────────────────────────────────────────────────────
-   Homepage Boot Guard
-   Locks the localized homepages until the scroll journey is armed.
-   ───────────────────────────────────────────────────────── */
-html.wama-home-boot-lock,
-html.wama-home-boot-lock body {
-  overflow: hidden !important;
-  overscroll-behavior: none;
-}
-
-html.wama-home-boot-lock body {
-  touch-action: none;
-}
-
-.wama-home-boot {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(circle at center, rgba(184, 144, 58, 0.14), transparent 34%),
-    #FAFAF8;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  touch-action: none;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
-}
-
-html.wama-home-boot-lock .wama-home-boot {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-html.wama-home-boot-ready .wama-home-boot {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.wama-home-boot__mark {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 76px;
-  height: 76px;
-  color: var(--color-teal);
-}
-
-.wama-home-boot__monogram {
-  font-family: var(--font-display);
-  font-size: 2.25rem;
-  line-height: 1;
-  color: var(--color-teal);
-}
-
-.wama-home-boot__ring {
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(23, 59, 99, 0.18);
-  border-top-color: var(--color-brass);
-  border-radius: 9999px;
-  animation: wamaBootSpin 1s linear infinite;
-}
-
-@keyframes wamaBootSpin {
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 /* ─────────────────────────────────────────────────────────
    Eyebrow Labels — 0.75rem (12px) minimum for WCAG legibility
@@ -395,10 +339,6 @@ html.wama-home-boot-ready .wama-home-boot {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .wama-home-boot__ring {
-    animation: none;
   }
 }
 

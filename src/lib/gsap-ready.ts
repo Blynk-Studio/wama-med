@@ -2,7 +2,7 @@
 // gsap-ready — global GSAP initialization signal
 //
 // WHY THIS EXISTS:
-//   Multiple components (ServicesOverview, ScrollJourney, HeroSection, etc.)
+//   Multiple components (ServicesOverview, HeroSection, etc.)
 //   each create their own GSAP ScrollTriggers via async imports. AnimationProvider
 //   calls ScrollTrigger.refresh() at 100ms after init. If a component's async
 //   import resolves AFTER that refresh, its ScrollTrigger positions are calculated
