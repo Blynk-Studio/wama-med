@@ -29,7 +29,7 @@ const dictionaries = {
       serviceLinks: [
         { href: "/services", label: "Parcours de soins" },
         { href: "/services", label: "Bilans et prévention" },
-        { href: "/services", label: "Conseil en prises en charge" },
+        { href: "/services", label: "Conseil en prise en charge" },
         { href: "/services", label: "Accompagnement des familles à distance" },
       ],
       navLinks: [
@@ -210,22 +210,22 @@ const dictionaries = {
               "Après la consultation ou l'intervention, nous aidons à rassembler les résultats, préparer le retour et garder un dossier clair.",
           },
         ],
-        supportTitle: "Ce que vous gardez à chaque étape",
+        supportTitle: "Ce qui fait la différence WaMa Med",
         supportItems: [
           {
-            title: "Un interlocuteur unique",
+            title: "Une coordination centralisée",
             desc:
-              "La famille, les médecins et les établissements disposent d'un point de contact clair.",
+              "Toutes les étapes du parcours sont organisées autour d'un interlocuteur unique pour plus de clarté et de fluidité.",
           },
           {
-            title: "Un réseau fiable",
+            title: "Un réseau médical sélectionné",
             desc:
-              "Les spécialistes et partenaires sont sélectionnés selon le besoin médical réel.",
+              "Nous collaborons avec des spécialistes et établissements choisis pour leur expertise, leur sérieux et leur adéquation avec chaque dossier.",
           },
           {
-            title: "Un cadre confidentiel",
+            title: "Une approche discrète et sécurisée",
             desc:
-              "Les informations de santé sont traitées avec discrétion et exigence.",
+              "La confidentialité, la précision des échanges et la qualité du suivi restent au centre de chaque accompagnement.",
           },
         ],
       },
@@ -243,37 +243,31 @@ const dictionaries = {
           {
             title: "Réseau de cliniques partenaires",
             desc:
-              "Des établissements choisis pour la qualité médicale, l'organisation et la fiabilité des équipes.",
+              "Un accès à des établissements sélectionnés pour leur excellence médicale, leur expertise spécialisée et la qualité de leur prise en charge.",
             href: "/services",
           },
           {
-            title: "Conseil en prises en charge",
+            title: "Conseil en prise en charge",
             desc:
-              "Un appui clair dans vos échanges avec les assureurs, les entreprises et les organismes de couverture.",
+              "Un accompagnement clair et stratégique dans vos échanges avec les assurances, entreprises et organismes de couverture médicale.",
             href: "/services",
           },
           {
             title: "Organisation du séjour médical",
             desc:
-              "Transport, hébergement, calendrier médical et documents sont préparés autour de votre parcours de soins.",
+              "Transport, hébergement, rendez-vous, coordination médicale et documents : chaque étape est préparée avec rigueur pour un parcours fluide et sécurisé.",
             href: "/services",
           },
           {
             title: "Accompagnement multilingue",
             desc:
-              "Des échanges facilités en français, en anglais et en arabe ; interprétariat possible selon la situation.",
+              "Des échanges facilités en français, anglais et arabe, avec un accompagnement humain attentif à chaque étape du parcours.",
             href: "/services",
           },
           {
             title: "Parcours chirurgical",
             desc:
-              "Une préparation rigoureuse pour les interventions et les prises en charge spécialisées les plus exigeantes.",
-            href: "/services",
-          },
-          {
-            title: "Suivi post-opératoire",
-            desc:
-              "Un suivi lisible après l'intervention, de la récupération jusqu'au retour à la maison.",
+              "Une préparation rigoureuse pour les interventions spécialisées, avec coordination médicale complète avant, pendant et après l'intervention.",
             href: "/services",
           },
         ],
@@ -407,11 +401,11 @@ const dictionaries = {
         cite: "WaMa Med",
         paragraphs: [
           "WaMa Med est né de deux histoires personnelles, l'une comme l'autre marquées par la maladie d'un proche. Elles ont mis au jour le même besoin : un accompagnement clair, humain et fiable lorsque les décisions médicales deviennent complexes.",
-          "L'équipe fondatrice combine plusieurs expertises : organisation de parcours et relation directe avec les établissements de santé, conseil en prises en charge, accompagnement de terrain auprès des patients et des familles.",
+          "L'équipe fondatrice combine plusieurs expertises : organisation de parcours et relation directe avec les établissements de santé, conseil en prise en charge, accompagnement de terrain auprès des patients et des familles.",
           "Aujourd'hui, WaMa Med met cette méthode au service des patients et de leurs proches : un interlocuteur unique, des décisions structurées et un suivi continu à chaque étape.",
         ],
         experience:
-          "Conseil en prises en charge, accompagnement des familles et organisation de parcours",
+          "Conseil en prise en charge, accompagnement des familles et organisation de parcours",
       },
       credentials: [
         {
@@ -468,7 +462,7 @@ const dictionaries = {
       metadata: {
         title: "Nos services — Parcours de soins | WaMa Med",
         description:
-          "Bilans de santé, analyse du dossier, orientation spécialisée, prise de rendez-vous, logistique, conseil en prises en charge, parcours chirurgical et suivi.",
+          "Bilans de santé, analyse du dossier, réseau de cliniques partenaires, organisation du séjour médical, accompagnement multilingue, conseil en prise en charge, parcours chirurgical et suivi.",
       },
       hero: {
         eyebrow: "Nos services",
@@ -506,21 +500,21 @@ const dictionaries = {
         },
         {
           number: "03",
-          title: "Orientation spécialisée",
+          title: "Réseau de cliniques partenaires",
           desc:
-            "Nous vous orientons vers les spécialistes et les établissements les plus pertinents pour votre situation clinique.",
+            "Un accès à des établissements sélectionnés pour leur excellence médicale, leur expertise spécialisée et la qualité de leur prise en charge.",
           details: [
-            "Réseau de spécialistes vérifiés",
-            "Sélection adaptée à votre pathologie",
+            "Spécialistes et établissements sélectionnés",
+            "Expertise adaptée à chaque dossier",
             "Établissements de référence à Casablanca, au Maroc et à l'international",
-            "Prise de rendez-vous prioritaire",
+            "Orientation selon le besoin médical réel",
           ],
         },
         {
           number: "04",
-          title: "Conseil en prises en charge",
+          title: "Conseil en prise en charge",
           desc:
-            "Nous vous aidons à structurer les échanges avec les assureurs, les entreprises et les organismes de couverture.",
+            "Un accompagnement clair et stratégique dans vos échanges avec les assurances, entreprises et organismes de couverture médicale.",
           details: [
             "Lecture des demandes de prise en charge",
             "Préparation des éléments administratifs",
@@ -530,30 +524,42 @@ const dictionaries = {
         },
         {
           number: "05",
-          title: "Logistique médicale",
+          title: "Organisation du séjour médical",
           desc:
-            "Déplacements, hébergement, accompagnement linguistique et documents s'organisent autour du calendrier médical.",
+            "Transport, hébergement, rendez-vous, coordination médicale et documents : chaque étape est préparée avec rigueur pour un parcours fluide et sécurisé.",
           details: [
             "Transport local : clinique, laboratoire, hôtel, rendez-vous",
             "Hébergement du patient et des accompagnants",
-            "Traduction et interprétariat médical",
-            "Documents médicaux pour le retour à la maison",
+            "Coordination médicale autour du calendrier",
+            "Documents préparés pour chaque étape",
           ],
         },
         {
           number: "06",
-          title: "Parcours chirurgical",
+          title: "Accompagnement multilingue",
           desc:
-            "Les interventions et prises en charge spécialisées sont préparées avec précision, de l'avis médical aux dates clés.",
+            "Des échanges facilités en français, anglais et arabe, avec un accompagnement humain attentif à chaque étape du parcours.",
           details: [
-            "Avis spécialisé et faisabilité",
-            "Planning pré-opératoire",
-            "Lien avec la clinique et les praticiens",
-            "Préparation des documents nécessaires",
+            "Échanges facilités en français, anglais et arabe",
+            "Interprétariat possible selon la situation",
+            "Aide à la compréhension des documents",
+            "Présence humaine attentive à chaque étape",
           ],
         },
         {
           number: "07",
+          title: "Parcours chirurgical",
+          desc:
+            "Une préparation rigoureuse pour les interventions spécialisées, avec coordination médicale complète avant, pendant et après l'intervention.",
+          details: [
+            "Avis spécialisé et faisabilité",
+            "Planning pré-opératoire",
+            "Lien avec la clinique et les praticiens",
+            "Suivi avant, pendant et après l'intervention",
+          ],
+        },
+        {
+          number: "08",
           title: "Suivi post-opératoire",
           desc:
             "Après l'intervention ou la consultation, nous aidons à garder une continuité claire jusqu'au retour.",
