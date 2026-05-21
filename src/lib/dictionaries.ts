@@ -157,10 +157,10 @@ const dictionaries = {
       hero: {
         ariaLabel: "WaMa Med — Accompagnement médical international",
         eyebrow: "WaMa Med · Parcours de soins",
-        headline: "WaMa Med, votre accompagnement médical de confiance",
-        headlineLines: ["WaMa Med,", "votre accompagnement médical", "de confiance"],
+        headline: "WAMA MED, votre parcours médical simplifié.",
+        headlineLines: ["WAMA MED,", "votre parcours médical", "simplifié."],
         supportingLine:
-          "Vous êtes malade, vous accompagnez un proche ou vous préparez un check-up : nous organisons les bonnes étapes médicales, logistiques et humaines.",
+          "Vous cherchez un spécialiste, un deuxième avis ou un accompagnement médical à l'étranger ? WAMA MED vous aide à avancer avec clarté, confiance et sérénité.",
         cta: "Confier votre dossier",
       },
       trustStrip: {
@@ -174,40 +174,40 @@ const dictionaries = {
       carePathway: {
         ariaLabel: "Les étapes du parcours",
         eyebrow: "Comment ça se passe",
-        title: "Un parcours lisible, étape par étape.",
+        title: "Un parcours médical clair, structuré et maîtrisé.",
         intro:
-          "Tout est visible dès le départ : nous partons de votre besoin, nous clarifions les priorités, puis nous organisons les rendez-vous, le séjour et le suivi.",
+          "Chez WAMA MED, chaque étape est pensée pour vous faire avancer avec sérénité, efficacité et confiance. Nous analysons votre situation, identifions les bonnes priorités médicales et coordonnons les actions essentielles autour de votre dossier.",
         cta: "Confier votre dossier →",
         steps: [
           {
             number: "01",
             title: "Comprendre votre situation",
             desc:
-              "Vous nous transmettez votre demande et les documents utiles. Nous identifions le contexte, l'urgence, les contraintes et les priorités.",
+              "Nous analysons votre demande, vos documents médicaux et vos priorités afin de construire une orientation claire et cohérente.",
           },
           {
             number: "02",
-            title: "Préparer l'orientation médicale",
+            title: "Définir la meilleure orientation médicale",
             desc:
-              "Votre dossier est relu avec méthode pour cibler les bons spécialistes, les établissements adaptés et l'ordre logique des étapes.",
+              "Votre dossier est étudié avec méthode pour identifier les spécialistes, centres et examens les plus pertinents.",
           },
           {
             number: "03",
-            title: "Organiser les rendez-vous",
+            title: "Coordonner les rendez-vous",
             desc:
-              "Nous planifions les consultations, les examens et les échanges nécessaires pour éviter les allers-retours inutiles.",
+              "Consultations, examens et échanges médicaux sont organisés de manière fluide pour éviter les pertes de temps et simplifier votre parcours.",
           },
           {
             number: "04",
-            title: "Accompagner le séjour",
+            title: "Organiser le séjour médical",
             desc:
-              "Transport, hébergement, documents, traduction et présence sur place ou à distance sont préparés autour du calendrier médical.",
+              "Transport, hébergement, traduction, documents et accompagnement sont préparés autour du calendrier de soins.",
           },
           {
             number: "05",
             title: "Assurer le suivi",
             desc:
-              "Après la consultation ou l'intervention, nous aidons à rassembler les résultats, préparer le retour et garder un dossier clair.",
+              "Nous restons présents après les consultations ou traitements afin de faciliter la continuité du parcours médical.",
           },
         ],
         supportTitle: "Ce qui fait la différence WaMa Med",
